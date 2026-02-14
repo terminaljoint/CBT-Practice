@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AEEE CBT Practice</title>
+
+<script>
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+body{margin:0;font-family:Arial;background:#eef2f7;}
+.header{background:#0b3d91;color:#fff;padding:10px;display:flex;justify-content:space-between;}
+.container{display:flex;height:calc(100vh - 80px);}
+.left{width:70%;padding:20px;}
+.right{width:30%;background:#fff;border-left:2px solid #ddd;padding:10px;}
+.option{display:block;margin:8px 0;padding:10px;border:1px solid #ccc;border-radius:6px;background:#fff;}
+.palette button{width:36px;height:36px;margin:4px;border:none;border-radius:4px;background:#ccc;cursor:pointer;font-weight:bold;}
+.notVisited{background:#ccc;}
+.answered{background:#2ecc71;color:#fff;}
+.review{background:#f39c12;color:#fff;}
+.reviewAnswered{background:#8e44ad;color:#fff;}
+.current{outline:3px solid #0b3d91;}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<b>AEEE CBT Practice</b>
+<div>
+<select id="paperSelect"></select>
+<button onclick="loadPaper()">Load Paper</button>
+</div>
+</div>
+
+<div class="container">
+
+<div class="left">
+<div id="tabs"></div>
+<h3 id="qno"></h3>
+<div id="question"></div>
+<div id="options"></div>
+
+<button onclick="prevQ()">Prev</button>
+<button onclick="nextQ()">Next</button>
+<button onclick="submitExam()">Submit</button>
+</div>
+
+<div class="right">
+<h4>Palette</h4>
+<div id="palette"></div>
+</div>
+
+</div>
+
+<script>
+
+let exam=null;
+let currentSection="";
+let index=0;
+let sectionIndexMemory={};
+
+/* ===== LOAD PAPER LIST ===== */
+
+fetch("papers.json")
+.then(r=>r.json())
+.then(data=>{
+ let sel=document.getElementById("paperSelect");
+ data.papers.forEach((p,i)=>{
+  let opt=document.createElement("option");
+  opt.value=p.file;
+  opt.textContent=p.name;
+  sel.appendChild(opt);
+ });
+});
+
+/* ===== LOAD SELECTED PAPER ===== */
+
+function loadPaper(){
+
+ let file=document.getElementById("paperSelect").value;
+
+ fetch(file)
+ .then(r=>r.json())
+ .then(data=>{
+
+  exam=data;
+
+  Object.keys(exam).forEach(sec=>{
+   exam[sec]=exam[sec].map(q=>({
+    ...q,answer:null,review:false,visited:false
+   }));
+  });
+
+  currentSection=Object.keys(exam)[0];
+  index=0;
+
+  buildTabs();
+  render();
+ });
+}
+
+/* ===== TABS ===== */
+
+function buildTabs(){
+ let html="";
+ Object.keys(exam).forEach(sec=>{
+  html+=`<button onclick="switchSection('${sec}')">${sec}</button>`;
+ });
+ tabs.innerHTML=html;
+}
+
+function switchSection(sec){
+ sectionIndexMemory[currentSection]=index;
+ currentSection=sec;
+ index=sectionIndexMemory[sec]??0;
+ render();
+}
+
+/* ===== RENDER ===== */
+
+function render(){
+
+ const q=exam[currentSection][index];
+ q.visited=true;
+
+ qno.innerText=currentSection+" Q"+(index+1);
+ question.innerHTML=q.q;
+
+ let optHTML="";
+ q.options.forEach((op,i)=>{
+  optHTML+=`
+  <label class="option">
+  <input type="radio" name="opt"
+  ${q.answer===i?"checked":""}
+  onchange="selectOption(${i})">
+  ${op}
+  </label>`;
+ });
+
+ options.innerHTML=optHTML;
+
+ updatePalette();
+ MathJax.typesetPromise([question]);
+}
+
+function selectOption(i){
+ exam[currentSection][index].answer=i;
+ updatePalette();
+}
+
+function nextQ(){ if(index<exam[currentSection].length-1) index++; render(); }
+function prevQ(){ if(index>0) index--; render(); }
+function gotoQ(i){ index=i; render(); }
+
+function updatePalette(){
+ let html="";
+ exam[currentSection].forEach((q,i)=>{
+  let cls="notVisited";
+  if(q.answer!==null) cls="answered";
+  if(i===index) cls+=" current";
+  html+=`<button class="${cls}" onclick="gotoQ(${i})">${i+1}</button>`;
+ });
+ palette.innerHTML=html;
+}
+
+/* ===== SUBMIT ===== */
+
+function submitExam(){
+ localStorage.setItem("exam_result",JSON.stringify(exam));
+ window.location.href="score.html";
+}
+
+</script>
+</body>
+</html>
