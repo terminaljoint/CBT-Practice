@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT Examination Interface</title>
+    <title>Professional CBT Interface</title>
 
     <script>
         window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
@@ -14,79 +14,60 @@
         :root {
             --primary: #0b3d91; --success: #2ecc71; --danger: #e74c3c;
             --warning: #f39c12; --review: #8e44ad; --bg: #eef2f7;
-            --header-h: 50px; --footer-h: 65px; --sidebar-w: 320px;
+            --header-h: 55px; --footer-h: 65px; --sidebar-w: 320px;
         }
 
         body { 
-            margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; 
+            margin: 0; font-family: 'Segoe UI', sans-serif; 
             background: var(--bg); user-select: none; overflow: hidden;
             height: 100vh; display: flex; flex-direction: column;
         }
 
         /* ===== START SCREEN ===== */
         .startScreen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .startCard { background: #fff; padding: 35px; border-radius: 4px; width: 420px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); text-align: center; border-top: 5px solid var(--primary); }
+        .startCard { background: #fff; padding: 30px; border-radius: 4px; width: 450px; box-shadow: 0 5px 25px rgba(0,0,0,0.15); border-top: 6px solid var(--primary); }
 
-        /* ===== HEADER ===== */
-        .header { 
-            height: var(--header-h); background: var(--primary); color: #fff; 
-            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
-        }
-        .timer-box { font-family: monospace; font-size: 1.4em; font-weight: bold; background: #fff; color: #d9534f; padding: 2px 10px; border-radius: 3px; border: 1px solid #ccc; }
+        /* ===== HEADER & TIMER ===== */
+        .header { height: var(--header-h); background: var(--primary); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .timer-box { font-family: monospace; font-size: 1.5em; font-weight: bold; background: #fff; color: #333; padding: 2px 12px; border-radius: 3px; border: 1px solid #ccc; transition: 0.3s; }
+        .timer-low { color: var(--danger) !important; animation: blink 1s infinite; border-color: var(--danger); }
+        @keyframes blink { 50% { opacity: 0.5; } }
 
         /* ===== MAIN CONTAINER ===== */
         .main-container { display: flex; flex: 1; overflow: hidden; }
-
-        /* Left Side: Question Content */
-        .content-area { 
-            flex: 1; display: flex; flex-direction: column; background: #fff; 
-            border-right: 1px solid #ccc; overflow: hidden;
-        }
+        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #ccc; overflow: hidden; }
         .section-tabs { background: #f1f1f1; padding: 8px 15px; border-bottom: 1px solid #ddd; }
         .q-scroll-view { flex: 1; overflow-y: auto; padding: 25px; }
 
-        /* Right Side: Sidebar */
+        /* ===== SIDEBAR & DASHBOARD ===== */
         .sidebar { width: var(--sidebar-w); display: flex; flex-direction: column; background: #fff; }
-        .user-info { padding: 15px; display: flex; align-items: center; border-bottom: 1px solid #ddd; background: #f9f9f9; }
-        .user-info img { width: 60px; height: 70px; background: #eee; border: 1px solid #ccc; margin-right: 15px; }
+        .dashboard { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #f9f9f9; border-bottom: 1px solid #ddd; }
+        .stat-item { font-size: 12px; padding: 6px; border-radius: 3px; color: #fff; font-weight: bold; display: flex; justify-content: space-between; }
 
-        /* ===== QUESTION ELEMENTS ===== */
-        .q-meta { font-weight: bold; padding-bottom: 10px; margin-bottom: 15px; border-bottom: 1px solid #eee; color: var(--primary); }
-        .q-text { font-size: 1.1em; line-height: 1.6; margin-bottom: 25px; }
-        
-        /* SVG FIX: This forces diagrams to stay within bounds */
-        .diagram { text-align: center; margin: 15px 0; max-width: 100%; overflow: hidden; }
-        .diagram svg { max-height: 250px; width: auto !important; max-width: 100%; }
-
-        .option { 
-            display: flex; align-items: center; padding: 12px 18px; margin-bottom: 12px;
-            border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: 0.1s;
-        }
-        .option:hover { background: #f5f8ff; border-color: var(--primary); }
-        .option input { margin-right: 15px; width: 18px; height: 18px; }
-
-        /* ===== NTA STYLE PALETTE ===== */
+        /* ===== PALETTE ===== */
         .palette-container { flex: 1; overflow-y: auto; padding: 15px; }
         .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .palette-grid button { 
-            height: 40px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; position: relative;
-        }
+        .palette-grid button { height: 40px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; position: relative; font-size: 14px; }
 
-        /* Shape and Colors for Professional Feel */
-        .notVisited { background: #fff; color: #000; border-radius: 3px; }
-        .notAnswered { background: #e74c3c; color: #fff; border-radius: 0 0 15px 15px; }
-        .answered { background: #2ecc71; color: #fff; border-radius: 15px 15px 0 0; }
-        .review { background: #8e44ad; color: #fff; border-radius: 50%; }
-        .reviewAnswered { background: #8e44ad; color: #fff; border-radius: 50%; }
-        .reviewAnswered::after { content: "✓"; position: absolute; bottom: 0; right: 0; background: #2ecc71; font-size: 10px; border-radius: 50%; padding: 2px; }
-        .current { border: 2px solid #000 !important; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+        .notVisited { background: #fff; color: #000; }
+        .notAnswered { background: var(--danger); color: #fff; border-radius: 0 0 15px 15px; }
+        .answered { background: var(--success); color: #fff; border-radius: 15px 15px 0 0; }
+        .review { background: var(--review); color: #fff; border-radius: 50%; }
+        .reviewAnswered { background: var(--review); color: #fff; border-radius: 50%; }
+        .reviewAnswered::after { content: "✓"; position: absolute; bottom: 0; right: 0; background: var(--success); font-size: 10px; border-radius: 50%; padding: 2px; }
+        .current { border: 2.5px solid #000 !important; }
 
-        /* ===== FOOTER ===== */
-        .footer { 
-            height: var(--footer-h); background: #eee; border-top: 1px solid #bbb;
-            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
-        }
-        .btn { padding: 10px 22px; border-radius: 3px; border: 1px solid #aaa; cursor: pointer; font-weight: bold; font-size: 13px; }
+        /* ===== MODALS ===== */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 2000; }
+        .summary-card { background: #fff; padding: 25px; border-radius: 5px; width: 500px; max-width: 90%; }
+        .summary-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .summary-table th, .summary-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+
+        .option { display: flex; align-items: center; padding: 12px 18px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
+        .option:hover { background: #f5f8ff; border-color: var(--primary); }
+
+        .footer { height: var(--footer-h); background: #eee; border-top: 1px solid #bbb; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .btn { padding: 10px 22px; border-radius: 3px; border: 1px solid #aaa; cursor: pointer; font-weight: bold; }
         .btn-blue { background: #286090; color: #fff; border: none; }
         .btn-green { background: #449d44; color: #fff; border: none; }
     </style>
@@ -95,15 +76,36 @@
 
 <div id="startScreen" class="startScreen">
     <div class="startCard">
-        <h2 style="margin-top:0;">CBT-Exam Portal</h2>
-        <p>Select the question paper to load:</p>
+        <h2 style="color:var(--primary); text-align:center;">Candidate Portal</h2>
         <select id="paperSelect" style="width:100%; padding:10px; margin-bottom:20px;"></select>
-        <button class="btn btn-blue" style="width:100%" onclick="startExam()">Submit and Start</button>
+        <div id="paperDetailsBox" style="background:#fcfcfc; border:1px solid #ddd; padding:15px; border-radius:4px;">
+            <table style="width:100%; font-size:14px;">
+                <tr><td>Time:</td><td id="det-time">--</td></tr>
+                <tr><td>Questions:</td><td id="det-ques">--</td></tr>
+            </table>
+        </div>
+        <button class="btn btn-blue" style="width:100%; margin-top:20px;" onclick="startExam()">Start Test</button>
+    </div>
+</div>
+
+<div id="summaryModal" class="modal-overlay">
+    <div class="summary-card">
+        <h3>Exam Summary</h3>
+        <table class="summary-table" id="summaryTable">
+            <thead>
+                <tr><th>Section</th><th>Ans</th><th>Marked</th><th>Left</th></tr>
+            </thead>
+            <tbody id="summaryBody"></tbody>
+        </table>
+        <div style="margin-top:20px; display:flex; justify-content: flex-end; gap:10px;">
+            <button class="btn" onclick="toggleSummary(false)">Back to Test</button>
+            <button class="btn btn-green" onclick="confirmSubmit()">Confirm Submit</button>
+        </div>
     </div>
 </div>
 
 <div class="header">
-    <div id="activePaperName">EXAMINATION SYSTEM</div>
+    <div id="activePaperName">CBT SYSTEM</div>
     <div class="timer-box" id="time">00:00:00</div>
 </div>
 
@@ -111,23 +113,24 @@
     <div class="content-area">
         <div class="section-tabs" id="tabs"></div>
         <div class="q-scroll-view">
-            <div id="q-meta" class="q-meta">Question No. 1</div>
-            <div id="question" class="q-text"></div>
-            <div id="options"></div>
+            <div id="q-meta" style="font-weight:bold; color:var(--primary); border-bottom:1px solid #eee; margin-bottom:15px; padding-bottom:5px;"></div>
+            <div id="question" style="font-size:1.15em; line-height:1.6;"></div>
+            <div id="options" style="margin-top:25px;"></div>
         </div>
     </div>
 
     <div class="sidebar">
-        <div class="user-info">
-            <div style="width:60px; height:70px; background:#ddd; margin-right:15px; border:1px solid #ccc;"></div>
-            <div><small>Candidate Name:</small><br><b>DEMO USER</b></div>
+        <div class="dashboard">
+            <div class="stat-item" style="background:var(--success)">Ans: <span id="st-ans">0</span></div>
+            <div class="stat-item" style="background:var(--danger)">Skip: <span id="st-skip">0</span></div>
+            <div class="stat-item" style="background:var(--review)">Mark: <span id="st-mark">0</span></div>
+            <div class="stat-item" style="background:#888">Left: <span id="st-left">0</span></div>
         </div>
         <div class="palette-container">
-            <b style="font-size: 13px;">Question Palette</b><hr>
             <div id="palette" class="palette-grid"></div>
         </div>
-        <div style="padding:15px; border-top:1px solid #ddd; background:#f9f9f9;">
-            <button class="btn btn-blue" style="width:100%" onclick="submitExam()">Submit Test</button>
+        <div style="padding:15px; border-top:1px solid #ddd;">
+            <button class="btn btn-blue" style="width:100%" onclick="showFinalSummary()">Submit Test</button>
         </div>
     </div>
 </div>
@@ -144,57 +147,49 @@
 </div>
 
 <script>
-    const PAPER_LIST = ["paper-1.json", "tough-jee.json"];
+    const PAPER_LIST = ["paper-1.json", "AEEE FE-1.json","JEE FE-1.json"];
     let examData, sections, currentSection, index = 0, totalTime = 0, started = false;
 
     const paperSelect = document.getElementById("paperSelect");
     paperSelect.innerHTML = PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
+    paperSelect.onchange = loadPaperPreview;
+    loadPaperPreview();
+
+    function loadPaperPreview() {
+        fetch(paperSelect.value).then(r => r.json()).then(data => {
+            let qCount = 0;
+            Object.keys(data.sections).forEach(s => qCount += data.sections[s].length);
+            document.getElementById("det-time").innerText = data.duration + " Min";
+            document.getElementById("det-ques").innerText = qCount;
+        });
+    }
 
     function startExam() {
-        fetch(paperSelect.value)
-            .then(r => r.json())
-            .then(data => {
-                examData = data;
-                sections = data.sections;
-                totalTime = (data.duration || 60) * 60;
-                Object.keys(sections).forEach(sec => {
-                    sections[sec] = sections[sec].map(q => ({
-                        ...q, answer: null, review: false, visited: false
-                    }));
-                });
-                currentSection = Object.keys(sections)[0];
-                document.getElementById("startScreen").style.display = "none";
-                document.getElementById("activePaperName").innerText = paperSelect.value;
-                started = true;
-                buildTabs();
-                render();
-                startTimer();
-            }).catch(err => alert("Error loading file: " + err));
+        fetch(paperSelect.value).then(r => r.json()).then(data => {
+            examData = data; sections = data.sections; totalTime = (data.duration || 60) * 60;
+            Object.keys(sections).forEach(sec => {
+                sections[sec] = sections[sec].map(q => ({...q, answer: null, review: false, visited: false}));
+            });
+            currentSection = Object.keys(sections)[0];
+            document.getElementById("startScreen").style.display = "none";
+            started = true; buildTabs(); render(); startTimer();
+        });
     }
 
     function buildTabs() {
-        const tabs = document.getElementById("tabs");
-        tabs.innerHTML = Object.keys(sections).map(sec => {
-            const activeStyle = sec === currentSection ? 'background:var(--primary);color:#fff;' : '';
-            return `<button class="btn" style="margin-right:5px;${activeStyle}" onclick="switchSection('${sec}')">${sec}</button>`;
+        document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => {
+            const active = sec === currentSection ? 'background:var(--primary);color:#fff;' : '';
+            return `<button class="btn" style="margin-right:8px;${active}" onclick="switchSection('${sec}')">${sec}</button>`;
         }).join("");
     }
 
-    function switchSection(sec) {
-        currentSection = sec;
-        index = 0;
-        buildTabs();
-        render();
-    }
+    function switchSection(sec) { currentSection = sec; index = 0; buildTabs(); render(); }
 
     function render() {
         const q = sections[currentSection][index];
         q.visited = true;
-        document.getElementById("q-meta").innerText = "Question No. " + (index + 1);
-        
-        let html = q.q || "";
-        if (q.svg) html += `<div class="diagram">${q.svg}</div>`;
-        document.getElementById("question").innerHTML = html;
+        document.getElementById("q-meta").innerText = `${currentSection} - Question ${index + 1}`;
+        document.getElementById("question").innerHTML = q.q + (q.svg ? `<div style="text-align:center;margin:15px 0;">${q.svg}</div>` : "");
 
         const optCont = document.getElementById("options");
         if (q.options) {
@@ -204,53 +199,62 @@
                     ${op}
                 </label>`).join("");
         } else {
-            optCont.innerHTML = `<input type="number" step="any" class="btn" style="width:220px; text-align:left;" placeholder="Enter Answer" value="${q.answer ?? ''}" oninput="setNumerical(this.value)">`;
+            optCont.innerHTML = `<input type="number" class="btn" style="width:200px;text-align:left;" placeholder="Answer" value="${q.answer ?? ''}" oninput="setNumerical(this.value)">`;
         }
         updatePalette();
         if (window.MathJax) MathJax.typesetPromise();
     }
 
     function selectOption(i) { sections[currentSection][index].answer = i; updatePalette(); }
-    function setNumerical(v) { sections[currentSection][index].answer = v === "" ? null : parseFloat(v); updatePalette(); }
-    function clearResponse() { 
-        sections[currentSection][index].answer = null; 
-        sections[currentSection][index].review = false; 
-        render(); 
-    }
-    function markReviewNext() { 
-        sections[currentSection][index].review = true; 
-        nextQ(); 
-    }
+    function setNumerical(v) { sections[currentSection][index].answer = v==="" ? null : parseFloat(v); updatePalette(); }
+    function clearResponse() { sections[currentSection][index].answer = null; sections[currentSection][index].review = false; render(); }
+    function markReviewNext() { sections[currentSection][index].review = true; nextQ(); }
     function nextQ() { if (index < sections[currentSection].length - 1) { index++; render(); } }
     function prevQ() { if (index > 0) { index--; render(); } }
     function gotoQ(i) { index = i; render(); }
 
     function updatePalette() {
-        const pal = document.getElementById("palette");
-        pal.innerHTML = sections[currentSection].map((q, i) => {
-            let cls = "notVisited";
-            if (q.visited) cls = "notAnswered";
-            if (q.answer !== null) cls = "answered";
-            if (q.review) cls = (q.answer !== null) ? "reviewAnswered" : "review";
-            if (i === index) cls += " current";
-            return `<button class="${cls}" onclick="gotoQ(${i})">${i + 1}</button>`;
+        let stats = { ans: 0, skip: 0, mark: 0, left: 0 };
+        document.getElementById("palette").innerHTML = sections[currentSection].map((q, i) => {
+            let cls = "notVisited"; stats.left++;
+            if (q.visited) { cls = "notAnswered"; stats.left--; stats.skip++; }
+            if (q.answer !== null) { cls = "answered"; stats.skip--; stats.ans++; }
+            if (q.review) { cls = q.answer !== null ? "reviewAnswered" : "review"; stats.mark++; if(q.answer===null) stats.skip--; }
+            return `<button class="${cls} ${i===index?'current':''}" onclick="gotoQ(${i})">${i + 1}</button>`;
         }).join("");
+        document.getElementById("st-ans").innerText = stats.ans;
+        document.getElementById("st-skip").innerText = stats.skip;
+        document.getElementById("st-mark").innerText = stats.mark;
+        document.getElementById("st-left").innerText = stats.left;
     }
 
     function startTimer() {
-        const tDisplay = document.getElementById("time");
-        setInterval(() => {
-            if (!started || totalTime <= 0) return;
+        const timerBox = document.getElementById("time");
+        const interval = setInterval(() => {
+            if (!started) return;
             totalTime--;
-            let h = Math.floor(totalTime / 3600);
-            let m = Math.floor((totalTime % 3600) / 60);
-            let s = totalTime % 60;
-            tDisplay.innerText = [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
+            if (totalTime < 300) timerBox.classList.add("timer-low");
+            if (totalTime <= 0) { clearInterval(interval); confirmSubmit(); }
+            let h = Math.floor(totalTime / 3600), m = Math.floor((totalTime % 3600) / 60), s = totalTime % 60;
+            timerBox.innerText = [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
         }, 1000);
     }
 
-    function submitExam() {
-        if (!confirm("Are you sure you want to submit?")) return;
+    function toggleSummary(show) { document.getElementById("summaryModal").style.display = show ? "flex" : "none"; }
+
+    function showFinalSummary() {
+        let html = "";
+        Object.keys(sections).forEach(sec => {
+            let ans = sections[sec].filter(q => q.answer !== null).length;
+            let mark = sections[sec].filter(q => q.review).length;
+            let left = sections[sec].length - ans;
+            html += `<tr><td>${sec}</td><td>${ans}</td><td>${mark}</td><td>${left}</td></tr>`;
+        });
+        document.getElementById("summaryBody").innerHTML = html;
+        toggleSummary(true);
+    }
+
+    function confirmSubmit() {
         localStorage.setItem("exam_result", JSON.stringify(examData));
         location.href = "score.html";
     }
