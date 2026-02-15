@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CBT-Practice</title>
-<!--paper add panna 216-->
+
 <!-- ===== LATEX ===== -->
 <script>
 window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
@@ -30,30 +30,49 @@ justify-content:space-between;
 align-items:center;
 }
 
+/* ===== RIBBON ===== */
+
+.ribbon{
+background:#fff;
+padding:8px 14px;
+border-bottom:2px solid #ddd;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.block{
+padding:6px 10px;
+border-radius:4px;
+font-size:13px;
+color:#fff;
+}
+
+.bGrey{background:#ccc;color:#000;}
+.bRed{background:#e74c3c;}
+.bGreen{background:#2ecc71;}
+.bOrange{background:#f39c12;}
+.bPurple{background:#8e44ad;}
+
 /* ===== LAYOUT ===== */
 
-.container{
-display:flex;
-height:calc(100vh - 70px);
-}
-
-.left{
-width:72%;
-padding:20px;
-overflow:auto;
-}
-
+.container{display:flex;height:calc(100vh - 110px);}
+.left{width:72%;padding:20px;overflow:auto;}
 .right{
 width:28%;
 background:#fff;
 border-left:2px solid #ddd;
 padding:12px;
+height:100vh;
 overflow:auto;
 }
 
 .qheader{
+position:sticky;
+top:0;
+background:#eef2f7;
+padding:8px 0;
 font-weight:bold;
-margin-bottom:12px;
 }
 
 /* ===== OPTIONS ===== */
@@ -70,7 +89,7 @@ cursor:pointer;
 
 .option:hover{background:#eaf1ff;}
 
-/* ===== NUMERICAL INPUT ===== */
+/* ===== NUMERICAL ===== */
 
 .numInput{
 width:220px;
@@ -80,40 +99,44 @@ border:1px solid #ccc;
 border-radius:6px;
 }
 
+/* ===== TABS ===== */
+
+.tabs button{
+margin-right:6px;margin-bottom:8px;
+padding:6px 12px;
+cursor:pointer;border:none;border-radius:4px;background:#ddd;
+}
+.tabActive{background:#0b3d91;color:#fff;}
+
+/* ===== NAV BAR ===== */
+
+.cbtNav{position:relative;width:100%;height:60px;margin-top:20px;}
+.navLeft{position:absolute;left:0;}
+.navCenter{position:absolute;left:50%;transform:translateX(-50%);}
+.navLeft button,.navCenter button{margin-right:10px;padding:6px 12px;}
+
 /* ===== PALETTE ===== */
 
-.palette{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:6px;
-}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
 
 .palette button{
-width:40px;
-height:40px;
-border:none;
-border-radius:4px;
-font-weight:bold;
-cursor:pointer;
+width:40px;height:40px;border:none;border-radius:4px;
+cursor:pointer;font-weight:bold;
 }
 
 .notVisited{background:#ccc;}
+.notAnswered{background:#e74c3c;color:#fff;}
 .answered{background:#2ecc71;color:#fff;}
+.review{background:#f39c12;color:#fff;}
+.reviewAnswered{background:#8e44ad;color:#fff;}
 .current{box-shadow:0 0 0 3px #0b3d91 inset;}
 
 .submitBtn{
-background:#0b3d91;
-color:#fff;
-padding:8px 18px;
-border:none;
-border-radius:4px;
-cursor:pointer;
-font-weight:bold;
-width:100%;
-margin-top:10px;
+background:#0b3d91;color:#fff;padding:8px 18px;
+border:none;border-radius:4px;cursor:pointer;font-weight:bold;width:100%;margin-top:10px;
 }
 
-/* ===== DIAGRAM FIX ===== */
+/* ===== DIAGRAM FIX (NO ZOOM) ===== */
 
 .diagram{
 max-width:420px;
@@ -123,36 +146,11 @@ background:#fff;
 border:1px solid #ddd;
 border-radius:6px;
 text-align:center;
-cursor:zoom-in;
 }
 
 .diagram svg{
 width:100%;
 height:auto;
-}
-
-/* ===== ZOOM MODAL ===== */
-
-.zoomModal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:1000;
-}
-
-.zoomContent{
-background:#fff;
-padding:10px;
-border-radius:6px;
-max-width:90%;
-max-height:90%;
-overflow:auto;
 }
 
 </style>
@@ -161,32 +159,42 @@ overflow:auto;
 <body>
 
 <div class="header">
-
 <div><b>CBT-Practice</b></div>
-
 <div>
 Paper:
 <select id="paperSelect"></select>
+<button onclick="document.documentElement.requestFullscreen()">Fullscreen</button>
 &nbsp;&nbsp;
 Time Left:
 <b><span id="time">00:00</span></b>
 </div>
-
 </div>
+
+<div class="ribbon" id="stats"></div>
 
 <div class="container">
 
 <div class="left">
 
+<div class="tabs" id="tabs"></div>
 <div class="qheader" id="qno"></div>
 
 <div id="question"></div>
 <div id="options"></div>
 
-<br>
+<div class="cbtNav">
 
+<div class="navLeft">
+<button onclick="clearResponse()">Clear Response</button>
+<button onclick="markReviewNext()">Mark for Review & Next</button>
+</div>
+
+<div class="navCenter">
 <button onclick="prevQ()">Previous</button>
 <button onclick="nextQ()">Save & Next</button>
+</div>
+
+</div>
 
 </div>
 
@@ -203,24 +211,18 @@ Time Left:
 
 </div>
 
-<!-- ===== ZOOM MODAL ===== -->
-
-<div id="zoomModal" class="zoomModal" onclick="closeZoom()">
-<div class="zoomContent" id="zoomContent"></div>
-</div>
-
 <script>
 
-/* ===== PAPER SYSTEM (WORKING MULTI-PAPER) ===== */
+/* ===== PAPER SYSTEM ===== */
 
 const PAPER_LIST=[
 "paper-1.json",
 "AEEE FE-1.json",
-"JEE FE-1.json"
+"tough-jee.json"
 ];
 
 const params=new URLSearchParams(location.search);
-let selectedPaper=params.get("paper") || PAPER_LIST[0];
+let selectedPaper=params.get("paper")||PAPER_LIST[0];
 
 paperSelect.innerHTML=PAPER_LIST.map(p=>
 `<option value="${p}" ${p===selectedPaper?"selected":""}>${p}</option>`
@@ -230,15 +232,17 @@ paperSelect.onchange=()=>{
 location.href="index.html?paper="+paperSelect.value;
 };
 
-/* ===== GLOBALS ===== */
+/* ===== GLOBAL ===== */
 
-let examData,sections,currentSection,index=0,totalTime=0;
-
-/* ===== LOAD PAPER ===== */
+let examData,sections;
+let currentSection,index=0;
+let sectionIndexMemory={};
+let totalTime=0;
+let timerStarted=false;
 
 fetch(selectedPaper)
 .then(r=>r.json())
-.then(initExam);
+.then(data=>initExam(data));
 
 function initExam(data){
 
@@ -247,21 +251,47 @@ sections=data.sections;
 totalTime=data.duration*60;
 
 Object.keys(sections).forEach(sec=>{
-sections[sec]=sections[sec].map(q=>({
-...q,
-answer:null,
-visited:false
-}));
+sections[sec]=sections[sec].map(q=>({...q,answer:null,review:false,visited:false}));
 });
 
 currentSection=Object.keys(sections)[0];
+
+buildTabs();
 render();
 startTimer();
+}
+
+/* ===== TABS ===== */
+
+function buildTabs(){
+tabs.innerHTML=Object.keys(sections).map(sec=>{
+let total=sections[sec].length;
+let answered=sections[sec].filter(q=>q.answer!==null).length;
+return `<button id="tab_${sec}" onclick="switchSection('${sec}')">${sec} (${answered}/${total})</button>`;
+}).join("");
+updateActiveTab();
+}
+
+function updateActiveTab(){
+Object.keys(sections).forEach(sec=>{
+document.getElementById("tab_"+sec).classList.remove("tabActive");
+});
+document.getElementById("tab_"+currentSection).classList.add("tabActive");
+}
+
+function switchSection(sec){
+sectionIndexMemory[currentSection]=index;
+currentSection=sec;
+index=sectionIndexMemory[sec]??0;
+updateActiveTab();
+render();
 }
 
 /* ===== RENDER ===== */
 
 function render(){
+
+document.querySelector(".left").scrollTop=0;
 
 const q=sections[currentSection][index];
 q.visited=true;
@@ -271,17 +301,14 @@ qno.innerText=currentSection+" - Question "+(index+1);
 let html=q.q||"";
 
 if(q.svg){
-html+=`<div class="diagram" onclick='openZoom(${JSON.stringify(q.svg)})'>
-${q.svg}
-</div>`;
+html+=`<div class="diagram">${q.svg}</div>`;
 }
 
 question.innerHTML=html;
 
-/* MCQ or Numerical auto detect */
+/* AUTO DETECT NUMERICAL */
 
 if(q.options){
-
 options.innerHTML=q.options.map((op,i)=>`
 <label class="option">
 <input type="radio" name="opt"
@@ -289,105 +316,111 @@ ${q.answer===i?"checked":""}
 onchange="selectOption(${i})">
 ${op}
 </label>`).join("");
-
 }else{
-
 options.innerHTML=`
 <input type="number"
 class="numInput"
 value="${q.answer??''}"
 oninput="setNumerical(this.value)">
 `;
-
 }
 
 updatePalette();
+updateStats();
+buildTabs();
 
-MathJax.typesetPromise();
+MathJax.typesetPromise([
+document.getElementById("question"),
+document.getElementById("options")
+]);
 }
 
 /* ===== ANSWERS ===== */
 
 function selectOption(i){
 sections[currentSection][index].answer=i;
-updatePalette();
+sections[currentSection][index].review=false;
+updatePalette();updateStats();
 }
 
 function setNumerical(val){
-sections[currentSection][index].answer=
-(val===""?null:parseFloat(val));
-updatePalette();
+if(val==="") sections[currentSection][index].answer=null;
+else sections[currentSection][index].answer=parseFloat(val);
+updatePalette();updateStats();
 }
 
-/* ===== NAVIGATION ===== */
-
-function nextQ(){
-if(index<sections[currentSection].length-1){
-index++;
+function clearResponse(){
+sections[currentSection][index].answer=null;
 render();
 }
+
+function markReviewNext(){
+sections[currentSection][index].review=true;
+nextQ();
 }
 
-function prevQ(){
-if(index>0){
-index--;
-render();
-}
-}
+/* ===== NAV ===== */
+
+function nextQ(){ if(index<sections[currentSection].length-1){index++;render();}}
+function prevQ(){ if(index>0){index--;render();}}
+function gotoQ(i){index=i;render();}
 
 /* ===== PALETTE ===== */
 
 function updatePalette(){
 palette.innerHTML=sections[currentSection].map((q,i)=>{
 let cls="notVisited";
-if(q.answer!==null) cls="answered";
+if(q.visited && q.answer===null && !q.review) cls="notAnswered";
+if(q.answer!==null && !q.review) cls="answered";
+if(q.review && q.answer===null) cls="review";
+if(q.review && q.answer!==null) cls="reviewAnswered";
 if(i===index) cls+=" current";
 return `<button class="${cls}" onclick="gotoQ(${i})">${i+1}</button>`;
 }).join("");
 }
 
-function gotoQ(i){
-index=i;
-render();
+/* ===== STATS ===== */
+
+function updateStats(){
+
+let nv=0,na=0,ans=0,rev=0,ra=0;
+
+sections[currentSection].forEach(q=>{
+if(!q.visited)nv++;
+if(q.visited && q.answer===null && !q.review)na++;
+if(q.answer!==null&&!q.review)ans++;
+if(q.review&&q.answer===null)rev++;
+if(q.review&&q.answer!==null)ra++;
+});
+
+stats.innerHTML=
+`<div class="block bGrey">Not Visited ${nv}</div>
+<div class="block bRed">Not Answered ${na}</div>
+<div class="block bGreen">Answered ${ans}</div>
+<div class="block bOrange">Review ${rev}</div>
+<div class="block bPurple">Review+Answered ${ra}</div>`;
 }
 
 /* ===== TIMER ===== */
 
 function startTimer(){
+if(timerStarted)return;
+timerStarted=true;
 
 setInterval(()=>{
 totalTime--;
-
+if(totalTime<=0){submitExam(true);return;}
 let m=Math.floor(totalTime/60);
 let s=totalTime%60;
-
-time.innerText=
-String(m).padStart(2,'0')+":"+
-String(s).padStart(2,'0');
-
-if(totalTime<=0) submitExam();
-
+time.innerText=String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
 },1000);
-
 }
 
 /* ===== SUBMIT ===== */
 
-function submitExam(){
+function submitExam(auto=false){
 localStorage.setItem("exam_result",JSON.stringify(examData));
 location.href="score.html";
-}
-
-/* ===== ZOOM FUNCTIONS ===== */
-
-function openZoom(svg){
-zoomContent.innerHTML=svg;
-zoomModal.style.display="flex";
-}
-
-function closeZoom(){
-zoomModal.style.display="none";
-zoomContent.innerHTML="";
 }
 
 </script>
