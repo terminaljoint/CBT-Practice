@@ -3,41 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <title>CBT-Practice</title>
-<!--paper add panna 114-->
+<!--paper add panna 216-->
+<!-- ===== LATEX ===== -->
 <script>
 window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef2f7;user-select:none;}
-.header{background:#0b3d91;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;}
-.ribbon{background:#fff;padding:8px 14px;border-bottom:2px solid #ddd;display:flex;gap:10px;flex-wrap:wrap;}
 
-.container{display:flex;height:calc(100vh - 110px);}
-.left{width:72%;padding:20px;overflow:auto;}
-.right{width:28%;background:#fff;border-left:2px solid #ddd;padding:12px;}
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#eef2f7;
+user-select:none;
+}
 
-.qheader{font-weight:bold;margin-bottom:10px;}
+/* ===== HEADER ===== */
 
-.option{display:block;margin:10px 0;padding:12px;border:1px solid #ccc;border-radius:6px;background:#fff;cursor:pointer;}
+.header{
+background:#0b3d91;
+color:#fff;
+padding:10px 16px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* ===== LAYOUT ===== */
+
+.container{
+display:flex;
+height:calc(100vh - 70px);
+}
+
+.left{
+width:72%;
+padding:20px;
+overflow:auto;
+}
+
+.right{
+width:28%;
+background:#fff;
+border-left:2px solid #ddd;
+padding:12px;
+overflow:auto;
+}
+
+.qheader{
+font-weight:bold;
+margin-bottom:12px;
+}
+
+/* ===== OPTIONS ===== */
+
+.option{
+display:block;
+margin:10px 0;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+background:#fff;
+cursor:pointer;
+}
+
 .option:hover{background:#eaf1ff;}
 
-.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-.palette button{width:40px;height:40px;border:none;border-radius:4px;font-weight:bold;cursor:pointer;}
+/* ===== NUMERICAL INPUT ===== */
+
+.numInput{
+width:220px;
+padding:10px;
+font-size:16px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+/* ===== PALETTE ===== */
+
+.palette{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:6px;
+}
+
+.palette button{
+width:40px;
+height:40px;
+border:none;
+border-radius:4px;
+font-weight:bold;
+cursor:pointer;
+}
 
 .notVisited{background:#ccc;}
-.notAnswered{background:#e74c3c;color:#fff;}
 .answered{background:#2ecc71;color:#fff;}
-.review{background:#f39c12;color:#fff;}
-.reviewAnswered{background:#8e44ad;color:#fff;}
 .current{box-shadow:0 0 0 3px #0b3d91 inset;}
 
-.submitBtn{background:#0b3d91;color:#fff;padding:8px 18px;border:none;border-radius:4px;font-weight:bold;width:100%;margin-top:10px;}
-
-.numInput{width:220px;padding:10px;font-size:16px;border:1px solid #ccc;border-radius:6px;}
+.submitBtn{
+background:#0b3d91;
+color:#fff;
+padding:8px 18px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+font-weight:bold;
+width:100%;
+margin-top:10px;
+}
 
 /* ===== DIAGRAM FIX ===== */
+
 .diagram{
 max-width:420px;
 margin:12px auto;
@@ -48,18 +125,27 @@ border-radius:6px;
 text-align:center;
 cursor:zoom-in;
 }
-.diagram svg{width:100%;height:auto;}
+
+.diagram svg{
+width:100%;
+height:auto;
+}
 
 /* ===== ZOOM MODAL ===== */
+
 .zoomModal{
 position:fixed;
-top:0;left:0;width:100%;height:100%;
+top:0;
+left:0;
+width:100%;
+height:100%;
 background:rgba(0,0,0,0.8);
 display:none;
 align-items:center;
 justify-content:center;
 z-index:1000;
 }
+
 .zoomContent{
 background:#fff;
 padding:10px;
@@ -68,13 +154,16 @@ max-width:90%;
 max-height:90%;
 overflow:auto;
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="header">
+
 <div><b>CBT-Practice</b></div>
+
 <div>
 Paper:
 <select id="paperSelect"></select>
@@ -82,28 +171,39 @@ Paper:
 Time Left:
 <b><span id="time">00:00</span></b>
 </div>
-</div>
 
-<div class="ribbon" id="stats"></div>
+</div>
 
 <div class="container">
 
 <div class="left">
+
 <div class="qheader" id="qno"></div>
+
 <div id="question"></div>
 <div id="options"></div>
 
+<br>
+
 <button onclick="prevQ()">Previous</button>
 <button onclick="nextQ()">Save & Next</button>
+
 </div>
 
 <div class="right">
-<b>Question Palette</b><hr>
+
+<b>Question Palette</b>
+<hr>
+
 <div id="palette" class="palette"></div>
+
 <button class="submitBtn" onclick="submitExam()">Submit Test</button>
+
 </div>
 
 </div>
+
+<!-- ===== ZOOM MODAL ===== -->
 
 <div id="zoomModal" class="zoomModal" onclick="closeZoom()">
 <div class="zoomContent" id="zoomContent"></div>
@@ -111,26 +211,55 @@ Time Left:
 
 <script>
 
-const PAPER_LIST=["paper-1.json","AEEE FE-1.json","JEE FE-1.json"];
-paperSelect.innerHTML=PAPER_LIST.map(p=>`<option>${p}</option>`).join("");
+/* ===== PAPER SYSTEM (WORKING MULTI-PAPER) ===== */
+
+const PAPER_LIST=[
+"paper-1.json",
+"AEEE FE-1.json",
+"JEE FE-1.json"
+];
+
+const params=new URLSearchParams(location.search);
+let selectedPaper=params.get("paper") || PAPER_LIST[0];
+
+paperSelect.innerHTML=PAPER_LIST.map(p=>
+`<option value="${p}" ${p===selectedPaper?"selected":""}>${p}</option>`
+).join("");
+
+paperSelect.onchange=()=>{
+location.href="index.html?paper="+paperSelect.value;
+};
+
+/* ===== GLOBALS ===== */
 
 let examData,sections,currentSection,index=0,totalTime=0;
 
-fetch(PAPER_LIST[0]).then(r=>r.json()).then(initExam);
+/* ===== LOAD PAPER ===== */
+
+fetch(selectedPaper)
+.then(r=>r.json())
+.then(initExam);
 
 function initExam(data){
+
 examData=data;
 sections=data.sections;
 totalTime=data.duration*60;
 
 Object.keys(sections).forEach(sec=>{
-sections[sec]=sections[sec].map(q=>({...q,answer:null,review:false,visited:false}));
+sections[sec]=sections[sec].map(q=>({
+...q,
+answer:null,
+visited:false
+}));
 });
 
 currentSection=Object.keys(sections)[0];
 render();
 startTimer();
 }
+
+/* ===== RENDER ===== */
 
 function render(){
 
@@ -142,20 +271,34 @@ qno.innerText=currentSection+" - Question "+(index+1);
 let html=q.q||"";
 
 if(q.svg){
-html+=`<div class="diagram" onclick='openZoom(${JSON.stringify(q.svg)})'>${q.svg}</div>`;
+html+=`<div class="diagram" onclick='openZoom(${JSON.stringify(q.svg)})'>
+${q.svg}
+</div>`;
 }
 
 question.innerHTML=html;
 
+/* MCQ or Numerical auto detect */
+
 if(q.options){
+
 options.innerHTML=q.options.map((op,i)=>`
 <label class="option">
-<input type="radio" name="opt" ${q.answer===i?"checked":""}
-onchange="selectOption(${i})">${op}
+<input type="radio" name="opt"
+${q.answer===i?"checked":""}
+onchange="selectOption(${i})">
+${op}
 </label>`).join("");
+
 }else{
-options.innerHTML=`<input type="number" class="numInput"
-value="${q.answer??''}" oninput="setNumerical(this.value)">`;
+
+options.innerHTML=`
+<input type="number"
+class="numInput"
+value="${q.answer??''}"
+oninput="setNumerical(this.value)">
+`;
+
 }
 
 updatePalette();
@@ -163,18 +306,36 @@ updatePalette();
 MathJax.typesetPromise();
 }
 
+/* ===== ANSWERS ===== */
+
 function selectOption(i){
 sections[currentSection][index].answer=i;
 updatePalette();
 }
 
 function setNumerical(val){
-sections[currentSection][index].answer=val===""?null:parseFloat(val);
+sections[currentSection][index].answer=
+(val===""?null:parseFloat(val));
 updatePalette();
 }
 
-function nextQ(){if(index<sections[currentSection].length-1){index++;render();}}
-function prevQ(){if(index>0){index--;render();}}
+/* ===== NAVIGATION ===== */
+
+function nextQ(){
+if(index<sections[currentSection].length-1){
+index++;
+render();
+}
+}
+
+function prevQ(){
+if(index>0){
+index--;
+render();
+}
+}
+
+/* ===== PALETTE ===== */
 
 function updatePalette(){
 palette.innerHTML=sections[currentSection].map((q,i)=>{
@@ -185,27 +346,45 @@ return `<button class="${cls}" onclick="gotoQ(${i})">${i+1}</button>`;
 }).join("");
 }
 
-function gotoQ(i){index=i;render();}
+function gotoQ(i){
+index=i;
+render();
+}
+
+/* ===== TIMER ===== */
+
+function startTimer(){
+
+setInterval(()=>{
+totalTime--;
+
+let m=Math.floor(totalTime/60);
+let s=totalTime%60;
+
+time.innerText=
+String(m).padStart(2,'0')+":"+
+String(s).padStart(2,'0');
+
+if(totalTime<=0) submitExam();
+
+},1000);
+
+}
+
+/* ===== SUBMIT ===== */
 
 function submitExam(){
 localStorage.setItem("exam_result",JSON.stringify(examData));
 location.href="score.html";
 }
 
-function startTimer(){
-setInterval(()=>{
-totalTime--;
-let m=Math.floor(totalTime/60);
-let s=totalTime%60;
-time.innerText=String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
-},1000);
-}
+/* ===== ZOOM FUNCTIONS ===== */
 
-/* ===== ZOOM ===== */
 function openZoom(svg){
 zoomContent.innerHTML=svg;
 zoomModal.style.display="flex";
 }
+
 function closeZoom(){
 zoomModal.style.display="none";
 zoomContent.innerHTML="";
