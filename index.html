@@ -18,56 +18,6 @@ background:#eef2f7;
 user-select:none;
 }
 
-.header{
-background:#0b3d91;
-color:#fff;
-padding:10px 16px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.container{display:flex;height:calc(100vh - 110px);}
-.left{width:72%;padding:20px;overflow:auto;}
-.right{width:28%;background:#fff;border-left:2px solid #ddd;padding:12px;height:100vh;overflow:auto;}
-
-.qheader{font-weight:bold;margin-bottom:10px;}
-
-.option{
-display:block;margin:10px 0;padding:12px;
-border:1px solid #ccc;border-radius:6px;background:#fff;
-cursor:pointer;
-}
-
-.option:hover{background:#eaf1ff;}
-
-.numInput{
-width:220px;padding:10px;font-size:16px;
-border:1px solid #ccc;border-radius:6px;
-}
-
-.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-
-.palette button{
-width:40px;height:40px;border:none;border-radius:4px;font-weight:bold;
-}
-
-.notVisited{background:#ccc;}
-.answered{background:#2ecc71;color:#fff;}
-.current{box-shadow:0 0 0 3px #0b3d91 inset;}
-
-.submitBtn{
-background:#0b3d91;color:#fff;padding:8px 18px;
-border:none;border-radius:4px;font-weight:bold;width:100%;margin-top:10px;
-}
-
-.diagram{
-max-width:420px;margin:12px auto;padding:8px;background:#fff;
-border:1px solid #ddd;border-radius:6px;text-align:center;
-}
-
-.diagram svg{width:100%;height:auto;}
-
 /* ===== START SCREEN ===== */
 
 .startScreen{
@@ -89,108 +39,215 @@ box-shadow:0 0 10px rgba(0,0,0,0.15);
 text-align:center;
 }
 
+/* ===== HEADER ===== */
+
+.header{
+background:#0b3d91;
+color:#fff;
+padding:10px 16px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* ===== LAYOUT ===== */
+
+.container{display:flex;height:calc(100vh - 110px);}
+.left{width:72%;padding:20px;overflow:auto;}
+.right{width:28%;background:#fff;border-left:2px solid #ddd;padding:12px;height:100vh;overflow:auto;}
+
+.qheader{font-weight:bold;margin-bottom:10px;}
+
+/* ===== OPTIONS ===== */
+
+.option{
+display:block;margin:10px 0;padding:12px;
+border:1px solid #ccc;border-radius:6px;background:#fff;
+cursor:pointer;
+}
+
+.option:hover{background:#eaf1ff;}
+
+.numInput{
+width:220px;padding:10px;font-size:16px;
+border:1px solid #ccc;border-radius:6px;
+}
+
+/* ===== TABS ===== */
+
+.tabs button{
+margin-right:6px;margin-bottom:8px;
+padding:6px 12px;border:none;border-radius:4px;background:#ddd;
+cursor:pointer;
+}
+
+.tabActive{background:#0b3d91;color:#fff;}
+
+/* ===== NAV ===== */
+
+.cbtNav{position:relative;width:100%;height:60px;margin-top:20px;}
+.navLeft{position:absolute;left:0;}
+.navCenter{position:absolute;left:50%;transform:translateX(-50%);}
+
+.navLeft button,.navCenter button{margin-right:10px;padding:6px 12px;}
+
+/* ===== PALETTE ===== */
+
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+
+.palette button{
+width:40px;height:40px;border:none;border-radius:4px;font-weight:bold;
+}
+
+.notVisited{background:#ccc;}
+.notAnswered{background:#e74c3c;color:#fff;}
+.answered{background:#2ecc71;color:#fff;}
+.review{background:#f39c12;color:#fff;}
+.reviewAnswered{background:#8e44ad;color:#fff;}
+.current{box-shadow:0 0 0 3px #0b3d91 inset;}
+
+.submitBtn{
+background:#0b3d91;color:#fff;padding:8px 18px;
+border:none;border-radius:4px;font-weight:bold;width:100%;margin-top:10px;
+}
+
+/* ===== DIAGRAM SIZE FIX ===== */
+
+.diagram{
+max-width:420px;
+margin:12px auto;
+padding:8px;
+background:#fff;
+border:1px solid #ddd;
+border-radius:6px;
+text-align:center;
+}
+
+.diagram svg{width:100%;height:auto;}
+
 </style>
 </head>
 
 <body>
 
-<!-- ===== START CONFIRM SCREEN ===== -->
+<!-- ===== START SCREEN ===== -->
 
 <div id="startScreen" class="startScreen">
 <div class="startCard">
-<h3 id="paperTitle">Loading...</h3>
-<div id="paperInfo"></div>
+
+<h3>Select Paper</h3>
+
+<select id="paperSelect"></select>
+
+<br><br>
+
+<div id="paperInfo">Choose a paper to see details.</div>
+
 <br>
+
 <button onclick="startExam()">Start Test</button>
+
 </div>
 </div>
 
 <div class="header">
 <div><b>CBT-Practice</b></div>
-<div>
-Paper:
-<select id="paperSelect"></select>
-Time Left:
-<b><span id="time">00:00</span></b>
-</div>
+<div>Time Left: <b><span id="time">00:00</span></b></div>
 </div>
 
 <div class="container">
 
 <div class="left">
+
+<div class="tabs" id="tabs"></div>
 <div class="qheader" id="qno"></div>
+
 <div id="question"></div>
 <div id="options"></div>
+
+<div class="cbtNav">
+<div class="navLeft">
+<button onclick="clearResponse()">Clear Response</button>
+<button onclick="markReviewNext()">Mark for Review & Next</button>
+</div>
+<div class="navCenter">
 <button onclick="prevQ()">Previous</button>
 <button onclick="nextQ()">Save & Next</button>
 </div>
+</div>
+
+</div>
 
 <div class="right">
+
 <b>Question Palette</b><hr>
 <div id="palette" class="palette"></div>
+
 <button class="submitBtn" onclick="submitExam()">Submit Test</button>
+
 </div>
 
 </div>
 
 <script>
 
-/* ===== PAPER SYSTEM ===== */
+/* ===== PAPER LIST ===== */
 
 const PAPER_LIST=["paper-1.json","AEEE FE-1.json","tough-jee.json"];
 
-const params=new URLSearchParams(location.search);
-let selectedPaper=params.get("paper")||PAPER_LIST[0];
+paperSelect.innerHTML=PAPER_LIST.map(p=>`<option>${p}</option>`).join("");
 
-paperSelect.innerHTML=PAPER_LIST.map(p=>
-`<option value="${p}" ${p===selectedPaper?"selected":""}>${p}</option>`
-).join("");
+let examData,sections,currentSection,index=0,totalTime=0,started=false;
 
-paperSelect.onchange=()=>{
-location.href="index.html?paper="+paperSelect.value;
-};
+/* ===== LOAD PAPER DETAILS BEFORE START ===== */
 
-let examData,sections,currentSection,index=0,totalTime=0;
-let started=false;
+paperSelect.onchange=loadPaperInfo;
+loadPaperInfo();
 
-/* ===== LOAD PAPER ===== */
+function loadPaperInfo(){
 
-fetch(selectedPaper)
+fetch(paperSelect.value)
 .then(r=>r.json())
 .then(data=>{
-if(!data.sections){
-alert("Invalid Paper Format");
-return;
-}
-examData=data;
-sections=data.sections;
 
-let totalQ=Object.values(sections).reduce((a,b)=>a+b.length,0);
+let totalQ=Object.values(data.sections).reduce((a,b)=>a+b.length,0);
 
-paperTitle.innerText=selectedPaper;
 paperInfo.innerHTML=`
 Duration: ${data.duration} minutes<br>
 Questions: ${totalQ}<br>
 Marking: +${data.marking.correct} / ${data.marking.wrong}
 `;
+
 });
+}
 
 /* ===== START EXAM ===== */
 
 function startExam(){
 
-started=true;
-startScreen.style.display="none";
+fetch(paperSelect.value)
+.then(r=>r.json())
+.then(data=>{
 
-totalTime=examData.duration*60;
+examData=data;
+sections=data.sections;
+totalTime=data.duration*60;
 
 Object.keys(sections).forEach(sec=>{
-sections[sec]=sections[sec].map(q=>({...q,answer:null,visited:false}));
+sections[sec]=sections[sec].map(q=>({...q,answer:null,review:false,visited:false}));
 });
 
 currentSection=Object.keys(sections)[0];
+
+startScreen.style.display="none";
+started=true;
+
+buildTabs();
 render();
 startTimer();
+
+});
+
 }
 
 /* ===== PREVENT EXIT ===== */
@@ -198,6 +255,29 @@ startTimer();
 window.onbeforeunload=function(){
 if(started) return "Progress may be lost.";
 };
+
+/* ===== TABS ===== */
+
+function buildTabs(){
+tabs.innerHTML=Object.keys(sections).map(sec=>{
+return `<button id="tab_${sec}" onclick="switchSection('${sec}')">${sec}</button>`;
+}).join("");
+updateActiveTab();
+}
+
+function updateActiveTab(){
+Object.keys(sections).forEach(sec=>{
+document.getElementById("tab_"+sec).classList.remove("tabActive");
+});
+document.getElementById("tab_"+currentSection).classList.add("tabActive");
+}
+
+function switchSection(sec){
+currentSection=sec;
+index=0;
+updateActiveTab();
+render();
+}
 
 /* ===== RENDER ===== */
 
@@ -219,7 +299,7 @@ options.innerHTML=q.options.map((op,i)=>`
 onchange="selectOption(${i})">
 ${op}</label>`).join("");
 }else{
-options.innerHTML=`<input class="numInput" type="number"
+options.innerHTML=`<input type="number" class="numInput"
 value="${q.answer??''}" oninput="setNumerical(this.value)">`;
 }
 
@@ -239,6 +319,9 @@ updatePalette();
 
 function nextQ(){if(index<sections[currentSection].length-1){index++;render();}}
 function prevQ(){if(index>0){index--;render();}}
+function gotoQ(i){index=i;render();}
+
+/* ===== PALETTE ===== */
 
 function updatePalette(){
 palette.innerHTML=sections[currentSection].map((q,i)=>{
@@ -248,8 +331,6 @@ if(i===index) cls+=" current";
 return `<button class="${cls}" onclick="gotoQ(${i})">${i+1}</button>`;
 }).join("");
 }
-
-function gotoQ(i){index=i;render();}
 
 /* ===== TIMER ===== */
 
@@ -267,7 +348,7 @@ submitExam(true);
 },1000);
 }
 
-/* ===== CONFIRM SUBMIT ===== */
+/* ===== SUBMIT CONFIRM ===== */
 
 function submitExam(auto=false){
 
