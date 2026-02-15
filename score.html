@@ -6,11 +6,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
-        .stat-val { font-size: 1.5rem; font-weight: bold; color: #004ba0; }
-        .incorrect { color: #c62828; } .correct { color: #2e7d32; }
-        .q-row { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .stat-val { font-size: 1.8rem; font-weight: bold; color: #004ba0; }
+        .incorrect { color: #d32f2f; background: #ffebee; }
+        .correct { color: #2e7d32; background: #e8f5e9; }
+        .unattempted { color: #757575; background: #f5f5f5; }
+        .q-row { border-left: 5px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 4px; }
+        .q-row.correct { border-left-color: #2e7d32; }
+        .q-row.incorrect { border-left-color: #d32f2f; }
+        .sol-box { margin-top: 10px; font-size: 0.9rem; font-style: italic; color: #555; border-top: 1px dashed #ccc; padding-top: 5px; }
+        svg { width: 150px; display: block; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -19,22 +25,14 @@
         <div class="grid" id="mainStats"></div>
     </div>
 
-    <div class="card" style="max-width: 500px; margin: auto;">
-        <canvas id="radarChart"></canvas>
+    <div style="display:flex; gap:20px">
+        <div class="card" style="flex:1"><canvas id="radarChart"></canvas></div>
+        <div class="card" style="flex:2" id="review"><h2>Question Review</h2></div>
     </div>
-
-    
-
-    <div class="card" id="auditLog">
-        <h3>Security Log</h3>
-        <p id="violationCount" style="color:red;"></p>
-    </div>
-
-    <div class="card" id="review"></div>
 
 <script>
     const res = JSON.parse(localStorage.getItem("result"));
-    if(!res) { document.body.innerHTML = "No Session Found"; }
+    if(!res) { document.body.innerHTML = "<h1>No Session Found</h1>"; }
 
     let tScore = 0, tCorr = 0, tAtt = 0, tQ = 0;
     const labels = [], scores = [];
@@ -42,21 +40,44 @@
     Object.keys(res.sections).forEach(s => {
         let sScore = 0;
         const div = document.createElement('div');
-        div.innerHTML = `<h3>${s}</h3>`;
+        div.innerHTML = `<h3>Section: ${s}</h3>`;
         
-        res.sections[s].forEach(q => {
+        res.sections[s].forEach((q, idx) => {
             tQ++;
-            const isMcq = q.options !== undefined;
-            const isCorr = isMcq ? (parseInt(q.user) === q.correct) : (parseFloat(q.user) === parseFloat(q.answer));
-            
+            let isCorr = false;
+            let statusClass = 'unattempted';
+
             if(q.user !== null) {
                 tAtt++;
-                if(isCorr) { sScore += 4; tCorr++; } else { sScore -= 1; }
+                // Type Checking: MCQ (correct index) vs Numeric (answer value)
+                if(q.options) {
+                    isCorr = (parseInt(q.user) === q.correct);
+                } else {
+                    isCorr = (parseFloat(q.user) === parseFloat(q.answer));
+                }
+
+                if(isCorr) { 
+                    sScore += res.marking.correct; 
+                    tCorr++; 
+                    statusClass = 'correct';
+                } else { 
+                    // Assume negative marking only for MCQs as per standard NTA
+                    sScore += q.options ? res.marking.wrong : 0; 
+                    statusClass = 'incorrect';
+                }
             }
             
             const row = document.createElement('div');
-            row.className = 'q-row';
-            row.innerHTML = `<span class="${isCorr?'correct':'incorrect'}">${isCorr?'✔':'✘'}</span> ${q.q}`;
+            row.className = `q-row ${statusClass}`;
+            row.innerHTML = `
+                <strong>Q${idx+1}:</strong> ${q.q}
+                ${q.svg || ''}
+                <div style="margin:5px 0">
+                    Your: <b>${q.user === null ? 'Skipped' : (q.options ? q.options[q.user] : q.user)}</b> | 
+                    Correct: <b>${q.options ? q.options[q.correct] : q.answer}</b>
+                </div>
+                <div class="sol-box"><b>Solution:</b> ${q.solution || 'Direct answer.'}</div>
+            `;
             div.appendChild(row);
         });
         
@@ -77,8 +98,9 @@
         type: 'radar',
         data: {
             labels: labels,
-            datasets: [{ label: 'Performance', data: scores, backgroundColor: 'rgba(0,75,160,0.2)' }]
-        }
+            datasets: [{ label: 'Sectional Score', data: scores, backgroundColor: 'rgba(0,75,160,0.2)', borderColor: '#004ba0' }]
+        },
+        options: { scales: { r: { beginAtZero: true } } }
     });
 </script>
 </body>
