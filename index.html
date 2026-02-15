@@ -9,7 +9,7 @@
         window.MathJax = {
             tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
             options: { ignoreHtmlClass: 'tex2jax_ignore', processHtmlClass: 'tex2jax_process' },
-            startup: { typeset: false } // Manual trigger for performance
+            startup: { typeset: false } 
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -25,7 +25,7 @@
         .inst-right { width: 350px; padding: 20px; background: #f9f9f9; display: flex; flex-direction: column; align-items: center; }
         .profile-pic { width: 120px; height: 150px; background: #ddd; border: 1px solid #999; margin-bottom: 10px; }
         
-        /* Real CBT UI Elements */
+        /* CBT UI */
         .header { background: #fff; border-bottom: 2px solid var(--primary); padding: 5px 20px; display: flex; justify-content: space-between; align-items: center; display: none; }
         .main { display: flex; flex: 1; overflow: hidden; display: none; }
         .left-panel { flex: 1; display: flex; flex-direction: column; background: #fff; }
@@ -39,7 +39,6 @@
         .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 15px; overflow-y: auto; }
         .palette-grid button { height: 40px; border: 1px solid #999; background: #fff; cursor: pointer; position: relative; }
         
-        /* Status Classes */
         .ans { background: var(--success) !important; color: white; border-radius: 15px 15px 0 0; }
         .not-ans { background: var(--danger) !important; color: white; border-radius: 0 0 15px 15px; }
         .rev { background: var(--review) !important; color: white; border-radius: 50%; }
@@ -63,7 +62,7 @@
         <div class="inst-left">
             <h3>Please read the instructions carefully</h3>
             <p>1. Total duration of examination is 180 minutes.</p>
-            <p>2. The clock will be set at the server. The countdown timer in the top right corner of screen will display the remaining time.</p>
+            <p>2. The clock will be set at the server. The countdown timer in the top right corner displays remaining time.</p>
             <p>3. <b>Status Legend:</b></p>
             <div style="display: flex; gap: 10px; margin: 10px 0;">
                 <div style="background: white; border: 1px solid #999; width: 30px; height: 30px; text-align: center;">1</div> Not Visited
@@ -75,7 +74,7 @@
             </div>
         </div>
         <div class="inst-right">
-            <div class="profile-pic">PHOTO</div>
+            <div class="profile-pic" style="display:flex; align-items:center; justify-content:center;">PHOTO</div>
             <strong>TEST CANDIDATE</strong>
             <div style="margin-top: 30px; width: 100%;">
                 <label>Select Question Paper:</label>
@@ -131,14 +130,20 @@ let examData = null, sections = null, curSec = '', curIdx = 0, lastPos = {}, tim
 const $ = id => document.getElementById(id);
 
 window.onload = () => {
+    // Note: Ensure these JSON files exist in your directory
     const list = ["paper-1.json", "JEE FE-1.json", "AEEE FE-1.json"];
     $('paperSelect').innerHTML = `<option disabled selected>-- Select Paper --</option>` + 
         list.map(p => `<option value="${p}">${p}</option>`).join('');
     
     $('paperSelect').onchange = async (e) => {
-        examData = await fetch(e.target.value).then(r => r.json());
-        const m = examData.marking;
-        $('markingScheme').innerHTML = `<h4>Marking Scheme:</h4>Correct: +${m.correct} | Incorrect: ${m.wrong}`;
+        try {
+            const response = await fetch(e.target.value);
+            examData = await response.json();
+            const m = examData.marking;
+            $('markingScheme').innerHTML = `<h4>Marking Scheme:</h4>Correct: +${m.correct} | Incorrect: ${m.wrong}`;
+        } catch (err) {
+            alert("Error loading paper. Check if JSON file exists.");
+        }
     };
 
     $('startBtn').onclick = () => {
@@ -154,7 +159,7 @@ function initExam() {
     timeLeft = (examData.duration || 180) * 60;
     
     Object.keys(sections).forEach(s => {
-        sections[s] = sections[s].map(q => ({...q, user: null, state: 0})); // state: 0:none, 1:ans, 2:notans, 3:rev, 4:revans
+        sections[s] = sections[s].map(q => ({...q, user: null, state: 0})); 
         lastPos[s] = 0;
     });
 
@@ -178,12 +183,13 @@ function switchSec(s) {
     lastPos[curSec] = curIdx;
     curSec = s;
     curIdx = lastPos[s];
-    renderTabs(); renderQ();
+    renderTabs(); 
+    renderQ();
 }
 
-async function renderQ() {
+function renderQ() {
     const q = sections[curSec][curIdx];
-    if(q.state === 0) q.state = 2; // Not answered once visited
+    if(q.state === 0) q.state = 2; // Mark as "Visited/Not Answered"
 
     let html = `<strong>Question ${curIdx + 1}</strong><div style="margin: 15px 0;">${q.q}</div>`;
     if(q.svg) html += `<div style="margin: 20px 0; background: #fff; padding: 10px; border: 1px solid #eee; display: inline-block;">${q.svg}</div>`;
@@ -192,15 +198,20 @@ async function renderQ() {
     if(q.options) {
         html += q.options.map((o, i) => `
             <label style="display: block; padding: 10px; border: 1px solid #ddd; margin-bottom: 8px; cursor: pointer;">
-                <input type="radio" name="ans" ${q.user===i?'checked':''} onchange="updateAns(${i})"> ${o}
+                <input type="radio" name="ans" ${parseInt(q.user)===i?'checked':''} onchange="updateAns(${i})"> ${o}
             </label>`).join('');
     } else {
-        html += `<input type="number" step="any" value="${q.user||''}" oninput="updateAns(this.value)" style="padding: 10px; width: 200px;">`;
+        html += `<input type="number" step="any" value="${q.user!==null?q.user:''}" oninput="updateAns(this.value)" style="padding: 10px; width: 200px;">`;
     }
     html += `</div>`;
     
     $('qArea').innerHTML = html;
-    MathJax.typesetPromise();
+    
+    // Trigger MathJax re-render for LaTeX in questions
+    if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+    }
+    
     renderPalette();
 }
 
@@ -226,8 +237,10 @@ function act(type) {
     if(type === 'mark') q.state = (q.user !== null) ? 4 : 3;
     if(type === 'save') q.state = (q.user !== null) ? 1 : 2;
     
-    if(curIdx < sections[curSec].length - 1) curIdx++;
-    renderTabs(); renderQ();
+    if(curIdx < sections[curSec].length - 1) {
+        curIdx++;
+        renderQ();
+    }
 }
 
 function startTimer() {
@@ -251,8 +264,8 @@ function showSummary() {
 }
 
 function finalSubmit() {
-    Object.keys(sections).forEach(s => sections[s].forEach(q => q.answer = q.user));
-    localStorage.setItem("exam_result", JSON.stringify(examData));
+    // Match the key name used in the analysis file: "result"
+    localStorage.setItem("result", JSON.stringify(examData));
     location.href = "score.html";
 }
 </script>
