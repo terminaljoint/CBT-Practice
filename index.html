@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CBT-Practice</title>
-<!-- ===== QP add panna 257 ===== -->
+<!-- ===== paper add panna 187 ===== -->
 <!-- ===== LATEX SUPPORT ===== -->
 <script>
 window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
@@ -21,7 +21,7 @@ background:#eef2f7;
 user-select:none;
 }
 
-svg{max-width:100%;height:auto;} /* SVG diagrams */
+svg{max-width:100%;height:auto;}
 
 /* ===== HEADER ===== */
 
@@ -60,17 +60,8 @@ color:#fff;
 
 /* ===== LAYOUT ===== */
 
-.container{
-display:flex;
-height:calc(100vh - 110px);
-}
-
-.left{
-width:72%;
-padding:20px;
-overflow:auto;
-}
-
+.container{display:flex;height:calc(100vh - 110px);}
+.left{width:72%;padding:20px;overflow:auto;}
 .right{
 width:28%;
 background:#fff;
@@ -82,15 +73,7 @@ height:100vh;
 overflow:auto;
 }
 
-/* ===== QUESTION HEADER ===== */
-
-.qheader{
-position:sticky;
-top:0;
-background:#eef2f7;
-padding:8px 0;
-font-weight:bold;
-}
+.qheader{position:sticky;top:0;background:#eef2f7;padding:8px 0;font-weight:bold;}
 
 /* ===== OPTIONS ===== */
 
@@ -105,69 +88,29 @@ cursor:pointer;
 transition:0.2s;
 }
 
-.option:hover{
-background:#eaf1ff;
-}
+.option:hover{background:#eaf1ff;}
 
 /* ===== SECTION TABS ===== */
 
 .tabs button{
-margin-right:6px;
-margin-bottom:8px;
-padding:6px 12px;
-cursor:pointer;
-border:none;
-border-radius:4px;
-background:#ddd;
+margin-right:6px;margin-bottom:8px;padding:6px 12px;
+cursor:pointer;border:none;border-radius:4px;background:#ddd;
 }
-
-.tabActive{
-background:#0b3d91;
-color:#fff;
-}
+.tabActive{background:#0b3d91;color:#fff;}
 
 /* ===== NAV BAR ===== */
 
-.cbtNav{
-position:relative;
-width:100%;
-height:60px;
-margin-top:20px;
-}
-
-.navLeft{
-position:absolute;
-left:0;
-}
-
-.navCenter{
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-}
-
-.navLeft button,
-.navCenter button{
-margin-right:10px;
-padding:6px 12px;
-}
+.cbtNav{position:relative;width:100%;height:60px;margin-top:20px;}
+.navLeft{position:absolute;left:0;}
+.navCenter{position:absolute;left:50%;transform:translateX(-50%);}
+.navLeft button,.navCenter button{margin-right:10px;padding:6px 12px;}
 
 /* ===== PALETTE ===== */
 
-.palette{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:6px;
-}
-
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
 .palette button{
-width:40px;
-height:40px;
-border:none;
-border-radius:4px;
-cursor:pointer;
-font-weight:bold;
-transition:0.2s;
+width:40px;height:40px;border:none;border-radius:4px;
+cursor:pointer;font-weight:bold;transition:0.2s;
 }
 
 .notVisited{background:#ccc;}
@@ -178,15 +121,8 @@ transition:0.2s;
 .current{box-shadow:0 0 0 3px #0b3d91 inset;}
 
 .submitBtn{
-background:#0b3d91;
-color:#fff;
-padding:8px 18px;
-border:none;
-border-radius:4px;
-cursor:pointer;
-font-weight:bold;
-width:100%;
-margin-top:10px;
+background:#0b3d91;color:#fff;padding:8px 18px;
+border:none;border-radius:4px;cursor:pointer;font-weight:bold;width:100%;margin-top:10px;
 }
 
 </style>
@@ -213,13 +149,10 @@ Time Left:
 <div class="left">
 
 <div class="tabs" id="tabs"></div>
-
 <div class="qheader" id="qno"></div>
 
 <div id="question"></div>
 <div id="options"></div>
-
-<!-- ===== NAVIGATION ===== -->
 
 <div class="cbtNav">
 
@@ -241,13 +174,10 @@ Time Left:
 
 <b>Question Palette</b>
 <hr>
-
 <div id="palette" class="palette"></div>
-
 <button class="submitBtn" onclick="submitExam()">Submit Test</button>
 
 </div>
-
 </div>
 
 <script>
@@ -273,8 +203,6 @@ let sectionIndexMemory={};
 let totalTime=0;
 let timerStarted=false;
 
-/* ===== LOAD PAPER ===== */
-
 fetch(selectedPaper)
 .then(r=>r.json())
 .then(data=>initExam(data));
@@ -295,8 +223,6 @@ buildTabs();
 render();
 startTimer();
 }
-
-/* ===== TABS WITH PROGRESS ===== */
 
 function buildTabs(){
 tabs.innerHTML=Object.keys(sections).map(sec=>{
@@ -322,7 +248,7 @@ updateActiveTab();
 render();
 }
 
-/* ===== RENDER QUESTION (SVG + LATEX SAFE) ===== */
+/* ===== RENDER (FIXED LATEX FOR OPTIONS) ===== */
 
 function render(){
 
@@ -347,10 +273,14 @@ updatePalette();
 updateStats();
 buildTabs();
 
-MathJax.typesetPromise([document.getElementById("question")]);
-}
+/* ===== FIX: TYPESCRIPT BOTH QUESTION + OPTIONS ===== */
 
-/* ===== ANSWER ACTIONS ===== */
+MathJax.typesetPromise([
+document.getElementById("question"),
+document.getElementById("options")
+]);
+
+}
 
 function selectOption(i){
 sections[currentSection][index].answer=i;
@@ -368,36 +298,24 @@ sections[currentSection][index].review=true;
 nextQ();
 }
 
-/* ===== NAVIGATION ===== */
-
 function nextQ(){ if(index<sections[currentSection].length-1){index++;render();}}
 function prevQ(){ if(index>0){index--;render();}}
 function gotoQ(i){index=i;render();}
 
-/* ===== PALETTE COLOR LOGIC ===== */
-
 function updatePalette(){
 palette.innerHTML=sections[currentSection].map((q,i)=>{
-
 let cls="notVisited";
-
 if(q.visited && q.answer===null && !q.review) cls="notAnswered";
 if(q.answer!==null && !q.review) cls="answered";
 if(q.review && q.answer===null) cls="review";
 if(q.review && q.answer!==null) cls="reviewAnswered";
-
 if(i===index) cls+=" current";
-
 return `<button class="${cls}" onclick="gotoQ(${i})">${i+1}</button>`;
 }).join("");
 }
 
-/* ===== STATS RIBBON ===== */
-
 function updateStats(){
-
 let nv=0,na=0,ans=0,rev=0,ra=0;
-
 sections[currentSection].forEach(q=>{
 if(!q.visited)nv++;
 if(q.visited && q.answer===null && !q.review)na++;
@@ -405,7 +323,6 @@ if(q.answer!==null&&!q.review)ans++;
 if(q.review&&q.answer===null)rev++;
 if(q.review&&q.answer!==null)ra++;
 });
-
 stats.innerHTML=
 `<div class="block bGrey">Not Visited ${nv}</div>
 <div class="block bRed">Not Answered ${na}</div>
@@ -414,48 +331,19 @@ stats.innerHTML=
 <div class="block bPurple">Review+Answered ${ra}</div>`;
 }
 
-/* ===== TIMER ===== */
-
 function startTimer(){
-
-if(timerStarted) return;
+if(timerStarted)return;
 timerStarted=true;
-
 setInterval(()=>{
-
 totalTime--;
-
-if(totalTime<=0){
-submitExam(true);
-return;
-}
-
+if(totalTime<=0){submitExam(true);return;}
 let m=Math.floor(totalTime/60);
 let s=totalTime%60;
-
-time.innerText=
-String(m).padStart(2,'0')+":"+
-String(s).padStart(2,'0');
-
+time.innerText=String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
 },1000);
 }
 
-/* ===== SUBMIT WARNING ===== */
-
 function submitExam(auto=false){
-
-let unanswered=0;
-
-Object.values(sections).forEach(arr=>{
-arr.forEach(q=>{
-if(q.answer===null)unanswered++;
-});
-});
-
-if(!auto){
-if(!confirm("You still have "+unanswered+" unanswered questions.\nSubmit anyway?")) return;
-}
-
 localStorage.setItem("exam_result",JSON.stringify(examData));
 location.href="score.html";
 }
