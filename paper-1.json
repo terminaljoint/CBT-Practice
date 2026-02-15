@@ -1,0 +1,33 @@
+{
+  "duration": 150,
+  "marking": { "correct": 3, "wrong": -1 },
+
+  "sections": {
+    "Physics":[
+      {
+        "q":"Velocity equation is $v=u+at$. Unit of $a$?",
+        "options":["m","m/s","m/s^2","kg"],
+        "correct":2,
+        "solution":"Acceleration unit is m/s^2."
+      }
+    ],
+
+    "Chemistry":[
+      {
+        "q":"Avogadro number is?",
+        "options":["6.022e23","3.14","9.8","1.6e-19"],
+        "correct":0,
+        "solution":"Avogadro constant = 6.022×10^23."
+      }
+    ],
+
+    "Maths":[
+      {
+        "q":"Slope of line $y=2x+1$ ?",
+        "options":["1","2","3","0"],
+        "correct":1,
+        "solution":"Slope is coefficient of x."
+      }
+    ]
+  }
+}
