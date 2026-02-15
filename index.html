@@ -3,393 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Secure CBT Portal</title>
-
+    <title>Enterprise CBT - Optimized</title>
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
-            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            options: { skipHtmlTags: ['script', 'style', 'textarea'] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
     <style>
         :root {
-            --primary: #1a73e8; /* Modern Google Blue */
-            --primary-dark: #1557b0;
-            --success: #1e8e3e;
-            --danger: #d93025;
-            --warning: #f9ab00;
-            --review: #a142f4;
-            --bg: #f8f9fa;
-            --text-main: #202124;
-            --header-h: 64px;
-            --footer-h: 70px;
-            --sidebar-w: 320px;
+            --primary: #337ab7; --success: #5cb85c; --danger: #d9534f;
+            --warning: #f0ad4e; --review: #8e44ad; --bg: #f5f5f5;
         }
-
-        body { 
-            margin: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background: var(--bg); color: var(--text-main);
-            user-select: none; overflow: hidden; height: 100vh; display: flex; flex-direction: column;
-        }
-
-        /* --- START SCREEN OPTIMIZATION --- */
-        .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; display: flex; flex-direction: column; }
-        .inst-header { 
-            background: #fff; color: var(--text-main); padding: 0 30px; height: var(--header-h);
-            display: flex; align-items: center; font-size: 1.25em; font-weight: 600; 
-            border-bottom: 1px solid #dadce0; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .inst-main { display: grid; grid-template-columns: 1fr 380px; flex: 1; overflow: hidden; }
-        .inst-scroll { padding: 40px 60px; overflow-y: auto; line-height: 1.7; color: #3c4043; }
-        .inst-sidebar { background: #f8f9fa; border-left: 1px solid #dadce0; padding: 40px 30px; display: flex; flex-direction: column; align-items: center; }
+        body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); user-select: none; overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
         
-        .profile-card { 
-            background: #fff; width: 100%; border-radius: 12px; border: 1px solid #dadce0; 
-            padding: 24px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
-        }
-        .profile-img { 
-            width: 100px; height: 100px; background: #e8eaed; margin: 0 auto 16px; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            color: #5f6368; font-size: 0.8em; border: 3px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .legend-box { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; 
-            padding: 20px; background: #f1f3f4; border-radius: 8px;
-        }
-        .legend-item { display: flex; align-items: center; gap: 12px; font-size: 0.9em; font-weight: 500; }
-        .dot { width: 28px; height: 28px; border: 1px solid #bdc1c6; background: #fff; }
-
-        /* --- EXAM INTERFACE OPTIMIZATION --- */
-        #proctorBlocker { 
-            position: fixed; inset: 0; background: rgba(32, 33, 36, 0.98); 
-            color: white; z-index: 9999; display: none; flex-direction: column; 
-            align-items: center; justify-content: center; text-align: center; backdrop-filter: blur(8px);
-        }
-        .header { 
-            height: var(--header-h); background: #fff; display: none; 
-            justify-content: space-between; align-items: center; padding: 0 24px; 
-            border-bottom: 1px solid #dadce0; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .timer-box { 
-            font-size: 1.2em; font-weight: 700; color: #fff; background: #3c4043; 
-            padding: 8px 20px; border-radius: 6px; letter-spacing: 1px;
-        }
+        /* Layout Components */
+        .flex-col { display: flex; flex-direction: column; }
+        .flex-row { display: flex; }
+        .hidden { display: none !important; }
         
-        .section-tabs { background: #fff; display: flex; border-bottom: 1px solid #dadce0; padding: 0 10px; gap: 4px; }
-        .tab-btn { 
-            padding: 12px 24px; border: none; cursor: pointer; font-weight: 600; 
-            background: transparent; color: #5f6368; border-bottom: 3px solid transparent;
-            transition: all 0.2s; min-width: 140px;
-        }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(26, 115, 232, 0.05); }
-        .tab-count { font-size: 0.75em; opacity: 0.8; margin-top: 2px; }
-
-        .q-scroll-view { flex: 1; overflow-y: auto; padding: 40px; background: #fff; }
-        .sidebar { width: var(--sidebar-w); border-left: 1px solid #dadce0; background: #fff; }
-        .palette-container { padding: 20px; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-        .palette-grid button { 
-            height: 42px; border: 1px solid #dadce0; cursor: pointer; font-size: 14px; 
-            font-weight: 600; transition: 0.2s; border-radius: 4px;
-        }
+        /* UI Elements */
+        .header { height: 60px; background: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); }
+        .timer-box { font-size: 1.3rem; font-weight: bold; color: #fff; background: var(--primary); padding: 6px 15px; border-radius: 4px; }
         
-        /* JEE Shapes (Refined) */
-        .notAnswered { background: var(--danger) !important; color: #fff; border-radius: 0 0 18px 18px; border: none !important; }
-        .answered { background: var(--success) !important; color: #fff; border-radius: 18px 18px 0 0; border: none !important; }
-        .review { background: var(--review) !important; color: #fff; border-radius: 50%; border: none !important; }
-        .reviewAnswered { background: var(--review) !important; color: #fff; border-radius: 50%; position: relative; border: none !important; }
-        .reviewAnswered::after { content: ""; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--success); border-radius: 50%; border: 2px solid white; }
-        .current { box-shadow: 0 0 0 2px #fff, 0 0 0 5px var(--primary); }
+        /* Start Screen */
+        .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; }
+        .inst-header { background: #222; color: #fff; padding: 15px 30px; font-weight: bold; border-bottom: 4px solid var(--primary); }
+        .inst-main { display: grid; grid-template-columns: 1fr 350px; height: calc(100vh - 55px); }
+        .inst-sidebar { background: #f1f4f7; border-left: 1px solid #ddd; padding: 25px; align-items: center; }
+        .profile-card { background: #fff; width: 100%; border-radius: 8px; padding: 20px; text-align: center; border: 1px solid #ddd; box-shadow: 0 2px 5px #0001; }
+        
+        /* Exam Interface */
+        .section-tabs { background: #e5e5e5; display: flex; overflow-x: auto; border-bottom: 1px solid #ccc; }
+        .tab-btn { padding: 10px 20px; border: none; cursor: pointer; font-weight: bold; background: #e5e5e5; border-right: 1px solid #ccc; min-width: 120px; transition: 0.2s; }
+        .tab-btn.active { background: var(--primary); color: #fff; }
+        .tab-count { font-size: 0.7rem; font-weight: normal; display: block; }
+        
+        .q-view { flex: 1; overflow-y: auto; padding: 30px; background: #fff; }
+        .sidebar { width: 300px; background: #fff; border-left: 1px solid #ccc; }
+        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 15px; }
+        .palette-grid button { height: 40px; border: 1px solid #ccc; cursor: pointer; background: #fff; font-size: 0.8rem; transition: 0.2s; }
+        
+        /* JEE Question Status Styles */
+        .notAnswered { background: var(--danger) !important; color: #fff; border-radius: 0 0 15px 15px; }
+        .answered { background: var(--success) !important; color: #fff; border-radius: 15px 15px 0 0; }
+        .review { background: var(--review) !important; color: #fff; border-radius: 50%; }
+        .reviewAnswered { background: var(--review) !important; color: #fff; border-radius: 50%; position: relative; }
+        .reviewAnswered::after { content: ""; position: absolute; bottom: 2px; right: 2px; width: 8px; height: 8px; background: var(--success); border-radius: 50%; border: 1px solid #fff; }
+        .current { outline: 3px solid #000; outline-offset: -3px; }
 
-        .footer { 
-            height: var(--footer-h); background: #fff; border-top: 1px solid #dadce0; 
-            display: flex; justify-content: space-between; align-items: center; padding: 0 30px; 
-        }
-        .btn { 
-            padding: 10px 24px; border-radius: 6px; border: 1px solid #dadce0; 
-            cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s;
-        }
-        .btn-primary { background: var(--primary); color: white; border: none; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-ready { 
-            background: var(--success); color: #fff; padding: 16px; border: none; 
-            font-size: 1.1em; width: 100%; border-radius: 8px; cursor: not-allowed; opacity: 0.4; font-weight: 700;
-        }
-        .btn-ready.active { opacity: 1; cursor: pointer; box-shadow: 0 4px 12px rgba(30, 142, 62, 0.3); }
+        .footer { height: 60px; background: #fff; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .btn { padding: 10px 20px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; font-weight: 600; }
+        .btn-ready { background: var(--success); color: #fff; padding: 15px; border: none; width: 100%; border-radius: 4px; cursor: not-allowed; opacity: 0.5; margin-top: 15px; }
+        .btn-ready.active { opacity: 1; cursor: pointer; }
 
-        /* Summary Modal (Cleaned up) */
-        #summaryModal { position: fixed; inset: 0; background: rgba(32, 33, 36, 0.6); z-index: 10000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-        .summary-card { background: #fff; width: 680px; padding: 32px; border-radius: 12px; box-shadow: 0 24px 48px rgba(0,0,0,0.2); }
-        .marking-table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 8px; overflow: hidden; }
-        .marking-table th { background: #f1f3f4; font-weight: 600; color: #5f6368; font-size: 0.9em; }
-        .marking-table td, .marking-table th { padding: 14px; border: 1px solid #e8eaed; text-align: center; }
+        /* Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; display: flex; align-items: center; justify-content: center; }
+        .modal-card { background: #fff; width: 90%; max-width: 700px; padding: 30px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
     </style>
 </head>
 
-<body oncontextmenu="return false;">
+<body>
 
-<div id="proctorBlocker">
-    <div style="font-size: 4em; margin-bottom: 20px;">🛡️</div>
-    <h1>SECURITY ALERT</h1>
-    <p id="proctorMsg" style="margin-bottom: 30px; font-size: 1.1em; opacity: 0.9;">Violation Detected</p>
-    <button class="btn btn-primary" style="padding: 15px 40px;" onclick="resumeFullScreen()">Resume Examination</button>
+<div id="summaryModal" class="modal-overlay hidden">
+    <div class="modal-card">
+        <h2>Exam Summary</h2>
+        <div id="summaryContent"></div>
+        <div class="flex-row" style="justify-content: flex-end; gap: 15px; margin-top: 20px;">
+            <button class="btn" onclick="toggleModal('summaryModal', false)">Review Questions</button>
+            <button class="btn" style="background:var(--success); color:#fff;" onclick="finalSubmit()">Confirm Submit</button>
+        </div>
+    </div>
 </div>
 
-<div id="startScreen" class="startScreen">
-    <div class="inst-header">Online Assessment Portal</div>
+<div id="startScreen" class="startScreen flex-col">
+    <div class="inst-header">CBT Examination Portal</div>
     <div class="inst-main">
-        <div class="inst-scroll" id="dynamicInstructions">
-            <h2 style="margin-top: 0; color: var(--text-main);">Instructions</h2>
-            <p>Please select a question paper to load the specific examination rules and duration.</p>
-            <div class="legend-box">
-                <div class="legend-item"><span class="dot" style="background:#fff; border-radius:4px;"></span> Not Visited</div>
-                <div class="legend-item"><span class="dot" style="background:var(--danger); border-radius:0 0 10px 10px;"></span> Not Answered</div>
-                <div class="legend-item"><span class="dot" style="background:var(--success); border-radius:10px 10px 0 0;"></span> Answered</div>
-                <div class="legend-item"><span class="dot" style="background:var(--review); border-radius:50%;"></span> Review</div>
+        <div class="inst-scroll" style="padding: 30px 50px; overflow-y: auto;">
+            <div id="dynamicInstructions">
+                <h3>General Instructions</h3>
+                <p>Please select a question paper to view instructions.</p>
             </div>
         </div>
-
-        <div class="inst-sidebar">
+        <div class="inst-sidebar flex-col">
             <div class="profile-card">
-                <div class="profile-img">USER</div>
-                <div style="font-weight: 600; font-size: 1.1em;">CANDIDATE_01</div>
-                <div style="color: #5f6368; font-size: 0.85em; margin-top: 4px;">Reg No: 2026-X88</div>
+                <div style="width:100px;height:120px;background:#eee;margin:0 auto 10px;">PHOTO</div>
+                <strong>CANDIDATE_01</strong>
             </div>
-            <div style="width:100%; margin-top:30px;">
-                <label style="font-size: 0.9em; font-weight: 600; color: #5f6368;">AVAILABLE PAPERS</label>
-                <select id="paperSelect" style="width:100%; padding:14px; margin-top:8px; border:1px solid #dadce0; border-radius:8px;" onchange="loadPaperMetadata(this.value)"></select>
-                <div style="margin: 24px 0;">
-                    <label style="display:flex; gap:12px; cursor:pointer; font-size:0.9em; line-height: 1.4;">
-                        <input type="checkbox" id="declareCheck" style="width: 18px; height: 18px;" onchange="document.getElementById('readyBtn').className = this.checked ? 'btn-ready active' : 'btn-ready'">
-                        <span>I confirm that I have read all instructions and will abide by the code of conduct.</span>
-                    </label>
-                </div>
-                <button id="readyBtn" class="btn-ready" onclick="startExam()">START TEST</button>
+            <div style="width:100%; margin-top:20px;">
+                <label>Select Paper:</label>
+                <select id="paperSelect" style="width:100%; padding:10px; margin-top:5px;"></select>
+                <label style="display:flex; gap:10px; margin-top:20px; cursor:pointer; font-size:0.9rem;">
+                    <input type="checkbox" id="declareCheck"> I have read the instructions.
+                </label>
+                <button id="readyBtn" class="btn-ready">START EXAM</button>
             </div>
         </div>
     </div>
 </div>
 
-<div id="summaryModal">
-    <div class="summary-card">
-        <h2 style="margin-top:0; color: var(--text-main);">Examination Summary</h2>
-        <p style="color: #5f6368; font-size: 0.9em;">Please review your attempt status across all sections before final submission.</p>
-        <table class="marking-table" id="summaryTableBody"></table>
-        <div style="display:flex; justify-content: flex-end; gap: 12px; margin-top:30px;">
-            <button class="btn" style="background: #f1f3f4; border: none;" onclick="document.getElementById('summaryModal').style.display='none'">Go Back</button>
-            <button class="btn btn-primary" onclick="confirmFinalSubmit()">Confirm and Submit</button>
-        </div>
-    </div>
-</div>
+<header class="header hidden" id="examHeader">
+    <div id="paperTitle" style="font-weight:bold; color:var(--primary);">EXAM</div>
+    <div class="timer-box" id="timeDisplay">00:00:00</div>
+</header>
 
-<div class="header" id="examHeader">
-    <div style="font-weight:700; color:var(--text-main); font-size:1.1em;" id="activePaperName">CBT</div>
-    <div class="timer-box" id="time">00:00</div>
-</div>
-
-<div class="main-container" id="examMain">
-    <div class="content-area">
-        <div class="section-tabs" id="tabs"></div>
-        <div class="q-scroll-view" id="questionBox">
-            <div id="q-meta" style="font-weight:700; color:var(--primary); margin-bottom:20px; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;"></div>
-            <div id="question" style="font-size: 1.2em; color: #202124;"></div>
-            <div id="options" style="margin-top:32px;"></div>
-        </div>
-        <div class="footer">
-            <div>
-                <button class="btn" style="background: #fdf4ff; color: var(--review); border-color: #f3e8ff;" onclick="markReviewNext()">Mark for Review</button>
-                <button class="btn" style="margin-left:12px; color: #5f6368;" onclick="clearResponse()">Clear Response</button>
+<main class="flex-row hidden" id="examMain" style="flex: 1; overflow: hidden;">
+    <section class="flex-col" style="flex: 1; border-right: 1px solid #ccc;">
+        <nav class="section-tabs" id="tabContainer"></nav>
+        <article class="q-view" id="questionArea">
+            <div id="qMeta" style="font-weight:bold; color:var(--primary); margin-bottom:1rem;"></div>
+            <div id="qText" style="font-size: 1.1rem;"></div>
+            <div id="qOptions" style="margin-top: 2rem;"></div>
+        </article>
+        <footer class="footer">
+            <div class="flex-row" style="gap: 10px;">
+                <button class="btn" style="background:var(--warning); color:#fff; border:none;" onclick="handleAction('review')">Mark Review & Next</button>
+                <button class="btn" onclick="handleAction('clear')">Clear Response</button>
             </div>
-            <button class="btn btn-primary" style="padding: 12px 40px; font-size: 15px;" onclick="saveAndNext()">Save & Next</button>
+            <button class="btn" style="background:var(--primary); color:#fff; padding: 10px 40px;" onclick="handleAction('save')">Save & Next</button>
+        </footer>
+    </section>
+    <aside class="sidebar flex-col">
+        <div class="palette-grid" id="paletteContainer" style="flex:1; overflow-y:auto;"></div>
+        <div style="padding:15px; background:#f5f5f5; border-top:1px solid #ddd;">
+            <button class="btn" style="background:var(--success); color:#fff; width:100%;" onclick="showSummary()">SUBMIT EXAM</button>
         </div>
-    </div>
-    <div class="sidebar">
-        <div class="palette-container">
-            <h4 style="margin-top: 0; font-size: 0.9em; color: #5f6368; border-bottom: 1px solid #f1f3f4; padding-bottom: 12px;">QUESTION PALETTE</h4>
-            <div id="palette" class="palette-grid"></div>
-        </div>
-        <div style="padding:24px; border-top:1px solid #dadce0;">
-            <button class="btn btn-primary" style="width:100%; padding:14px;" onclick="showSummaryPopup()">FINAL SUBMISSION</button>
-        </div>
-    </div>
-</div>
+    </aside>
+</main>
 
 <script>
-    // CORE LOGIC REMAINS UNTOUCHED
-    const PAPER_LIST = ["paper-1.json", "AEEE FE-1.json","JEE FE-1.json"];
-    let examData, sections, currentSection, index = 0, totalTime = 0, started = false;
-    let lastIndices = {}; 
-
-    window.onload = () => {
-        const ps = document.getElementById("paperSelect");
-        ps.innerHTML = `<option value="" disabled selected>-- Choose Paper --</option>` + 
-                       PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
+    // --- State Management ---
+    let exam = {
+        data: null,
+        sections: null,
+        currentSec: '',
+        idx: 0,
+        lastIdx: {},
+        timeLeft: 0,
+        timerId: null
     };
 
-    function loadPaperMetadata(fileName) {
-        fetch(fileName).then(r => r.json()).then(data => {
-            examData = data;
-            let qTotal = 0;
-            Object.keys(data.sections).forEach(s => qTotal += data.sections[s].length);
-            const m = data.marking || {correct: 4, wrong: -1};
-            document.getElementById("dynamicInstructions").innerHTML = `
-                <h2 style="margin-top:0;">Configuration: ${fileName.replace('.json','')}</h2>
-                <div style="display: flex; gap: 20px; margin: 20px 0;">
-                    <div style="flex: 1; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                        <div style="font-size: 0.8em; color: #5f6368;">DURATION</div>
-                        <div style="font-weight: 700; font-size: 1.2em;">${data.duration} Minutes</div>
-                    </div>
-                    <div style="flex: 1; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                        <div style="font-size: 0.8em; color: #5f6368;">TOTAL QUESTIONS</div>
-                        <div style="font-weight: 700; font-size: 1.2em;">${qTotal}</div>
-                    </div>
-                </div>
-                <div style="display: flex; gap: 20px; margin-bottom: 30px;">
-                    <div style="flex: 1; padding: 15px; background: #e6f4ea; border-radius: 8px; color: #1e8e3e;">
-                        <div style="font-size: 0.8em;">CORRECT MARK</div>
-                        <div style="font-weight: 700;">+${m.correct}</div>
-                    </div>
-                    <div style="flex: 1; padding: 15px; background: #fce8e6; border-radius: 8px; color: #d93025;">
-                        <div style="font-size: 0.8em;">NEGATIVE MARK</div>
-                        <div style="font-weight: 700;">${m.wrong}</div>
-                    </div>
-                </div>
-                <p>Ensure you remain in full-screen. Any tab switching or exiting full-screen will be flagged as a violation.</p>`;
-        });
+    const $ = id => document.getElementById(id);
+
+    // --- Initialization ---
+    window.onload = () => {
+        const papers = ["paper-1.json", "AEEE FE-1.json", "JEE FE-1.json"];
+        $('paperSelect').innerHTML = `<option disabled selected>-- Choose Paper --</option>` + 
+            papers.map(p => `<option value="${p}">${p}</option>`).join('');
+            
+        $('paperSelect').onchange = e => loadMetadata(e.target.value);
+        $('declareCheck').onchange = e => $('readyBtn').classList.toggle('active', e.target.checked);
+        $('readyBtn').onclick = () => exam.data && $('declareCheck').checked && startExam();
+    };
+
+    async function loadMetadata(file) {
+        exam.data = await fetch(file).then(r => r.json());
+        const m = exam.data.marking || {correct: 4, wrong: -1};
+        let qCount = Object.values(exam.data.sections).reduce((a, b) => a + b.length, 0);
+        
+        $('dynamicInstructions').innerHTML = `
+            <h3>${file.replace('.json','')} Instructions</h3>
+            <table>
+                <tr><th>Duration</th><th>Questions</th><th>Correct</th><th>Negative</th></tr>
+                <tr><td>${exam.data.duration}m</td><td>${qCount}</td><td>+${m.correct}</td><td>${m.wrong}</td></tr>
+            </table>
+            <p>1. Questions are presented subject-wise.<br>2. Switching between subjects is allowed.</p>
+        `;
     }
 
+    // --- Core Logic ---
     function startExam() {
-        if(!examData || !document.getElementById("declareCheck").checked) return;
+        exam.sections = exam.data.sections;
+        exam.timeLeft = (exam.data.duration || 180) * 60;
+        
+        Object.keys(exam.sections).forEach(s => {
+            exam.sections[s] = exam.sections[s].map(q => ({...q, userAnswer: null, review: false, visited: false}));
+            exam.lastIdx[s] = 0;
+        });
+
+        exam.currentSec = Object.keys(exam.sections)[0];
         document.documentElement.requestFullscreen().catch(() => {});
-        initExamUI();
+        
+        $('startScreen').classList.add('hidden');
+        $('examHeader').classList.remove('hidden');
+        $('examMain').classList.remove('hidden');
+        $('paperTitle').innerText = $('paperSelect').value;
+
+        renderUI();
+        startTimer();
     }
 
-    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && started) pauseExam("Full-screen exited!"); });
-    document.addEventListener('visibilitychange', () => { if (document.hidden && started) pauseExam("Multiple Window / Tab Switching Detected"); });
-
-    function pauseExam(msg) {
-        document.getElementById("proctorMsg").innerText = msg;
-        document.getElementById("proctorBlocker").style.display = "flex";
-    }
-    function resumeFullScreen() { document.documentElement.requestFullscreen().then(() => document.getElementById("proctorBlocker").style.display = "none"); }
-
-    function initExamUI() {
-        sections = examData.sections;
-        totalTime = (examData.duration || 180) * 60; 
-        Object.keys(sections).forEach(sec => {
-            sections[sec] = sections[sec].map(q => ({...q, userAnswer: null, review: false, visited: false}));
-            lastIndices[sec] = 0;
-        });
-        currentSection = Object.keys(sections)[0];
-        index = 0;
-        document.getElementById("startScreen").style.display = "none";
-        document.getElementById("examHeader").style.display = "flex";
-        document.getElementById("examMain").style.display = "flex";
-        document.getElementById("activePaperName").innerText = document.getElementById("paperSelect").value.replace('.json','');
-        started = true;
-        buildTabs(); render(); startTimer();
-    }
-
-    function buildTabs() {
-        document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => {
-            const total = sections[sec].length;
-            const answered = sections[sec].filter(q => q.userAnswer !== null).length;
-            return `
-            <button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">
-                <span>${sec}</span>
-                <span class="tab-count">(${answered}/${total})</span>
-            </button>`;
-        }).join("");
-    }
-
-    function switchSection(sec) {
-        lastIndices[currentSection] = index;
-        currentSection = sec;
-        index = lastIndices[sec];
-        buildTabs(); render();
-    }
-
-    async function render() {
-        const q = sections[currentSection][index]; 
+    function renderUI() {
+        const sec = exam.sections[exam.currentSec];
+        const q = sec[exam.idx];
         q.visited = true;
-        document.getElementById("q-meta").innerText = `${currentSection} • QUESTION ${index + 1}`;
-        document.getElementById("question").innerHTML = q.q + (q.svg ? `<div style="text-align:center;margin:32px 0;">${q.svg}</div>` : "");
 
-        const optCont = document.getElementById("options");
-        if (q.options) {
-            optCont.innerHTML = q.options.map((op, i) => `
-                <label style="display:flex; align-items: center; padding:16px 20px; border:1px solid #dadce0; margin-bottom:12px; cursor:pointer; border-radius:8px; transition: 0.2s;">
-                    <input type="radio" name="qopt" style="margin-right: 15px; width: 18px; height: 18px;" ${q.userAnswer === i ? "checked" : ""} onchange="setAnswer(${i})">
-                    ${op}
-                </label>`).join("");
-        } else {
-            optCont.innerHTML = `<div style="padding: 10px 0;">Numerical Answer:</div><input type="number" step="any" class="btn" style="width:240px; text-align:left; font-size: 1.1em; padding: 12px; border: 2px solid var(--primary);" value="${q.userAnswer ?? ''}" oninput="setAnswer(parseFloat(this.value))">`;
+        // Tabs
+        $('tabContainer').innerHTML = Object.keys(exam.sections).map(s => `
+            <button class="tab-btn ${s === exam.currentSec ? 'active' : ''}" onclick="changeSection('${s}')">
+                ${s} <span class="tab-count">(${exam.sections[s].filter(x=>x.userAnswer!==null).length}/${exam.sections[s].length})</span>
+            </button>`).join('');
+
+        // Question
+        $('qMeta').innerText = `${exam.currentSec} - Question ${exam.idx + 1}`;
+        $('qText').innerHTML = q.q + (q.svg ? `<div style="text-align:center;margin:10px 0;">${q.svg}</div>` : "");
+        
+        // Options
+        $('qOptions').innerHTML = q.options ? q.options.map((opt, i) => `
+            <label style="display:block; padding:12px; border:1px solid #ddd; margin-bottom:10px; cursor:pointer; border-radius:5px;">
+                <input type="radio" name="opt" ${q.userAnswer === i ? 'checked' : ''} onclick="updateAnswer(${i})"> ${opt}
+            </label>`).join('') : `<input type="number" class="btn" style="width:200px" value="${q.userAnswer||''}" oninput="updateAnswer(this.value)">`;
+
+        // Palette
+        $('paletteContainer').innerHTML = sec.map((item, i) => {
+            let cls = !item.visited ? '' : (item.userAnswer !== null ? 'answered' : 'notAnswered');
+            if (item.review) cls = item.userAnswer !== null ? 'reviewAnswered' : 'review';
+            return `<button class="${cls} ${i === exam.idx ? 'current' : ''}" onclick="jumpTo(${i})">${i+1}</button>`;
+        }).join('');
+
+        if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    // --- Interaction Handlers ---
+    window.changeSection = s => {
+        exam.lastIdx[exam.currentSec] = exam.idx;
+        exam.currentSec = s;
+        exam.idx = exam.lastIdx[s];
+        renderUI();
+    };
+
+    window.updateAnswer = val => {
+        exam.sections[exam.currentSec][exam.idx].userAnswer = val;
+        renderUI();
+    };
+
+    window.jumpTo = i => { exam.idx = i; renderUI(); };
+
+    window.handleAction = type => {
+        const q = exam.sections[exam.currentSec][exam.idx];
+        if (type === 'clear') q.userAnswer = null;
+        if (type === 'review') q.review = true;
+        if (type === 'save') q.review = false;
+
+        if (exam.idx < exam.sections[exam.currentSec].length - 1) {
+            exam.idx++;
         }
-        if (window.MathJax) await MathJax.typesetPromise([document.getElementById("questionBox")]);
-        updatePalette();
-    }
+        renderUI();
+    };
 
-    function setAnswer(val) {
-        sections[currentSection][index].userAnswer = val;
-        updatePalette(); buildTabs();
-    }
-
-    function updatePalette() {
-        document.getElementById("palette").innerHTML = sections[currentSection].map((q, i) => {
-            let cls = "";
-            if (q.visited) cls = "notAnswered";
-            if (q.userAnswer !== null) cls = "answered";
-            if (q.review) cls = q.userAnswer !== null ? "reviewAnswered" : "review";
-            return `<button class="${cls} ${i===index?'current':''}" onclick="index=${i};render();">${i + 1}</button>`;
-        }).join("");
-    }
-
-    function saveAndNext() { 
-        sections[currentSection][index].review = false; 
-        if (index < sections[currentSection].length - 1) { index++; render(); } 
-        else { buildTabs(); updatePalette(); }
-    }
-    
-    function markReviewNext() { 
-        sections[currentSection][index].review = true; 
-        if (index < sections[currentSection].length - 1) { index++; render(); } else render(); 
-    }
-    
-    function clearResponse() { sections[currentSection][index].userAnswer = null; render(); buildTabs(); }
-
+    // --- Timer & Submission ---
     function startTimer() {
-        setInterval(() => {
-            if (!started || document.getElementById("proctorBlocker").style.display === "flex") return;
-            totalTime--;
-            if (totalTime <= 0) confirmFinalSubmit();
-            let m = Math.floor(totalTime / 60);
-            let s = totalTime % 60;
-            document.getElementById("time").innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-        }, 1000);
+        const update = () => {
+            exam.timeLeft--;
+            if (exam.timeLeft <= 0) finalSubmit();
+            let h = Math.floor(exam.timeLeft / 3600), m = Math.floor((exam.timeLeft % 3600) / 60), s = exam.timeLeft % 60;
+            $('timeDisplay').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        };
+        setInterval(update, 1000);
     }
 
-    function showSummaryPopup() {
-        let html = `<tr><th>Section</th><th>Answered</th><th>Review</th><th>Not Answered</th><th>Not Visited</th></tr>`;
-        Object.keys(sections).forEach(sec => {
-            let s = sections[sec];
-            let ans = s.filter(q => q.userAnswer !== null).length;
-            let rev = s.filter(q => q.review).length;
-            let nVisited = s.filter(q => !q.visited).length;
-            let nAns = s.length - ans - nVisited;
-            html += `<tr><td><b>${sec}</b></td><td>${ans}</td><td>${rev}</td><td>${nAns}</td><td>${nVisited}</td></tr>`;
-        });
-        document.getElementById("summaryTableBody").innerHTML = html;
-        document.getElementById("summaryModal").style.display = "flex";
-    }
+    window.toggleModal = (id, show) => $(id).classList.toggle('hidden', !show);
 
-    function confirmFinalSubmit() {
-        Object.keys(sections).forEach(sec => sections[sec].forEach(q => q.answer = q.userAnswer));
-        localStorage.setItem("exam_result", JSON.stringify(examData));
+    window.showSummary = () => {
+        let rows = Object.keys(exam.sections).map(s => {
+            const data = exam.sections[s];
+            return `<tr><td>${s}</td><td>${data.filter(x=>x.userAnswer!==null).length}</td><td>${data.filter(x=>x.review).length}</td><td>${data.filter(x=>!x.visited).length}</td></tr>`;
+        }).join('');
+        
+        $('summaryContent').innerHTML = `<table><tr><th>Section</th><th>Answered</th><th>Review</th><th>Not Visited</th></tr>${rows}</table>`;
+        toggleModal('summaryModal', true);
+    };
+
+    window.finalSubmit = () => {
+        Object.keys(exam.sections).forEach(s => exam.sections[s].forEach(q => q.answer = q.userAnswer));
+        localStorage.setItem("exam_result", JSON.stringify(exam.data));
         location.href = "score.html";
-    }
+    };
+
+    // Security
+    document.addEventListener('visibilitychange', () => document.hidden && alert("Violation: Tab Switch Detected!"));
 </script>
 </body>
 </html>
