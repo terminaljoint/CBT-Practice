@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA CBT Portal 2026</title>
+    <title>NTA CBT Portal - 2026</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script>
         window.MathJax = {
@@ -13,102 +13,175 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        :root { --primary: #337ab7; --header-bg: #fff; --footer-bg: #f5f5f5; --success: #5cb85c; --danger: #d9534f; --review: #8e44ad; }
-        body { margin: 0; font-family: 'Segoe UI', Arial; overflow: hidden; height: 100vh; display: flex; flex-direction: column; background: #eee; }
-        .inst-page { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; }
-        .inst-header { background: var(--primary); color: white; padding: 10px 20px; font-weight: bold; }
-        .inst-container { display: flex; height: calc(100vh - 45px); }
-        .inst-left { flex: 1; padding: 20px 40px; border-right: 1px solid #ddd; overflow-y: auto; }
-        .inst-right { width: 350px; padding: 20px; background: #f9f9f9; display: flex; flex-direction: column; align-items: center; }
-        .header { background: #fff; border-bottom: 2px solid var(--primary); padding: 5px 20px; display: none; justify-content: space-between; align-items: center; }
-        .main { display: none; flex: 1; overflow: hidden; }
-        .left-panel { flex: 1; display: flex; flex-direction: column; background: #fff; }
-        .right-panel { width: 300px; background: #f1f4f7; border-left: 1px solid #ccc; display: flex; flex-direction: column; }
-        .section-bar { background: #e5e5e5; display: flex; gap: 2px; }
-        .sec-btn { padding: 10px 20px; border: none; cursor: pointer; font-weight: bold; background: #d1d1d1; }
-        .sec-btn.active { background: var(--primary); color: #fff; }
-        .q-area { flex: 1; padding: 25px; overflow-y: auto; border-top: 1px solid #ccc; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 15px; }
-        .palette-grid button { height: 35px; border: 1px solid #999; background: #fff; cursor: pointer; }
-        .ans { background: var(--success) !important; color: white; border-radius: 10px 10px 0 0; }
-        .not-ans { background: var(--danger) !important; color: white; border-radius: 0 0 10px 10px; }
-        .rev { background: var(--review) !important; color: white; border-radius: 50%; }
-        .active-q { outline: 2px solid #000; }
-        .footer { background: var(--footer-bg); border-top: 1px solid #ccc; padding: 10px 20px; display: flex; justify-content: space-between; }
-        .btn { padding: 8px 20px; border: 1px solid #ccc; cursor: pointer; font-weight: 600; }
-        #summaryOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; }
-        .summary-box { background: #fff; width: 500px; padding: 20px; border-radius: 5px; }
-        svg { max-width: 300px; height: auto; border: 1px solid #eee; margin: 10px 0; background: white; }
+        :root { 
+            --primary: #337ab7; 
+            --success: #5cb85c; 
+            --danger: #d9534f; 
+            --review: #8e44ad;
+            --answered-review: #2c3e50;
+            --gray-light: #f5f5f5;
+        }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; height: 100vh; background: #eee; }
+        
+        /* AUTHENTIC INSTRUCTION UI */
+        .inst-page { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; display: flex; flex-direction: column; }
+        .inst-header { background: #fff; padding: 10px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
+        .inst-content { display: flex; flex: 1; }
+        .inst-left { flex: 1; padding: 25px 50px; border-right: 1px solid #ddd; overflow-y: auto; font-size: 14px; line-height: 1.6; }
+        .inst-right { width: 350px; background: #f9f9f9; padding: 20px; text-align: center; }
+        
+        .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+        .box { width: 35px; height: 35px; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        /* EXAM INTERFACE */
+        .exam-header { background: #fff; border-bottom: 2px solid var(--primary); padding: 5px 20px; display: none; justify-content: space-between; align-items: center; }
+        .main-container { display: none; flex: 1; overflow: hidden; height: calc(100vh - 110px); }
+        .left-panel { flex: 1; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #ccc; }
+        .right-panel { width: 320px; background: #f1f4f7; display: flex; flex-direction: column; }
+        
+        .section-tabs { background: #e5e5e5; display: flex; border-bottom: 1px solid #ccc; }
+        .sec-btn { padding: 12px 25px; border: none; cursor: pointer; font-weight: 600; background: #d1d1d1; border-right: 1px solid #bbb; transition: 0.2s; }
+        .sec-btn.active { background: var(--primary); color: white; }
+        
+        .question-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .option-label { display: block; padding: 12px; border: 1px solid #ddd; margin-bottom: 10px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .option-label:hover { background: #f0f7ff; border-color: var(--primary); }
+        .option-label input { margin-right: 10px; }
+
+        /* PALETTE COLORS */
+        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 15px; }
+        .palette-btn { height: 40px; border: 1px solid #999; background: #fff; cursor: pointer; font-weight: bold; font-size: 14px; clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 100%, 0% 100%); }
+        .palette-btn.ans { background: var(--success); color: #fff; border: none; border-radius: 5px 5px 0 0; clip-path: none; }
+        .palette-btn.not-ans { background: var(--danger); color: #fff; border: none; border-radius: 0 0 5px 5px; clip-path: none; }
+        .palette-btn.rev { background: var(--review); color: #fff; border: none; border-radius: 50%; clip-path: none; }
+        .palette-btn.rev-ans { background: var(--review); color: #fff; border: none; border-radius: 50%; position: relative; clip-path: none; }
+        .palette-btn.rev-ans::after { content: "✓"; position: absolute; bottom: 0; right: 2px; color: #00ff00; font-size: 12px; }
+        .palette-btn.active-q { outline: 3px solid #000; outline-offset: 1px; }
+
+        .footer { background: var(--gray-light); border-top: 1px solid #ccc; padding: 12px 20px; display: flex; justify-content: space-between; height: 60px; box-sizing: border-box; }
+        .btn-group { display: flex; gap: 10px; }
+        .btn { padding: 8px 20px; font-weight: bold; border-radius: 2px; cursor: pointer; border: 1px solid #ccc; }
+        
+        svg { max-width: 400px; max-height: 250px; background: white; border: 1px solid #eee; margin: 15px 0; border-radius: 4px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        /* SUMMARY OVERLAY */
+        #summaryOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .summary-box { background: #fff; width: 600px; padding: 30px; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .summary-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .summary-table th, .summary-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
     </style>
 </head>
 <body class="tex2jax_ignore">
 
 <div id="instPage" class="inst-page">
-    <div class="inst-header">Entrance Exam 2026</div>
-    <div class="inst-container">
+    <div class="inst-header">
+        <img src="https://nta.ac.in/img/nta_logo.png" alt="NTA" height="40">
+        <div style="text-align: right">
+            <span style="font-size: 12px">Time Left:</span>
+            <div id="start-timer" style="font-weight: bold; font-size: 18px">180:00</div>
+        </div>
+    </div>
+    <div class="inst-content">
         <div class="inst-left">
-            <h3>Instructions</h3>
-            <p>• Total Questions: 45 (15 Physics, 15 Chemistry, 15 Maths)</p>
-            <p>• Marking: +4 for Correct, -1 for Incorrect, 0 for Numerical Incorrect.</p>
-            <div id="markingScheme" style="margin-top:20px; padding:15px; background:#eef7ff; border:1px solid var(--primary)">
-                Select a paper to begin.
+            <h2 style="color: var(--primary); border-bottom: 1px solid #ddd; padding-bottom: 10px;">General Instructions</h2>
+            <p>1. The total duration of the examination is 180 minutes.</p>
+            <p>2. The clock will be set at the server. The countdown timer in the top right corner of screen will display the remaining time available for you to complete the examination.</p>
+            <p>3. <b>The Questions Palette displayed on the right side of screen will show the status of each question using one of the following symbols:</b></p>
+            
+            <div class="legend-item"><div class="box">1</div> You have not visited the question yet.</div>
+            <div class="legend-item"><div class="box" style="background:var(--danger); color:white; border-radius:0 0 10px 10px; border:none">2</div> You have not answered the question.</div>
+            <div class="legend-item"><div class="box" style="background:var(--success); color:white; border-radius:10px 10px 0 0; border:none">3</div> You have answered the question.</div>
+            <div class="legend-item"><div class="box" style="background:var(--review); color:white; border-radius:50%; border:none">4</div> You have NOT answered the question, but have marked the question for review.</div>
+            <div class="legend-item"><div class="box" style="background:var(--review); color:white; border-radius:50%; border:none; position:relative">5<span style="position:absolute; bottom:0; right:2px; color:#0f0">✓</span></div> The question(s) "Answered and Marked for Review" will be considered for evaluation.</div>
+
+            <div id="markingDisplay" style="margin-top:20px; padding:15px; background:#f0f7ff; border:1px solid var(--primary)">
+                <strong>Marking Scheme:</strong> Select a paper to view details.
             </div>
         </div>
         <div class="inst-right">
-            <div style="width:120px; height:150px; background:#ddd; border:1px solid #999; margin-bottom:10px"></div>
+            <div style="width:120px; height:140px; background:#eee; border:1px solid #ccc; margin:0 auto 10px; display:flex; align-items:center; justify-content:center">CANDIDATE PHOTO</div>
             <strong>TEST CANDIDATE</strong>
-            <select id="paperSelect" style="width:100%; padding:10px; margin:20px 0; border:2px solid var(--primary)"></select>
-            <label><input type="checkbox" id="confirm"> I am ready.</label>
-            <button id="startBtn" class="btn" style="width:100%; margin-top:20px; background:var(--success); color:white; border:none; padding:15px">BEGIN TEST</button>
+            <div style="margin-top: 30px; text-align: left">
+                <label style="font-size: 13px; font-weight: bold;">Choose your Question Paper:</label>
+                <select id="paperSelect" style="width: 100%; padding: 10px; margin: 5px 0 20px; border: 1px solid #ccc;"></select>
+                
+                <hr>
+                <label style="font-size: 13px; cursor: pointer;">
+                    <input type="checkbox" id="confirmCheck"> I have read and understood the instructions. All computer hardware allotted to me are in proper working condition.
+                </label>
+                <button id="startBtn" class="btn" style="width: 100%; margin-top: 20px; background: var(--success); color: white; border: none; padding: 15px; font-size: 16px;">I AM READY TO BEGIN</button>
+            </div>
         </div>
     </div>
 </div>
 
-<header class="header" id="header">
-    <div id="paperTitle">EXAM</div>
-    <div id="timer" style="background:var(--primary); color:white; padding:5px 15px; font-weight:bold">00:00:00</div>
+<header class="exam-header" id="header">
+    <div style="font-weight: bold; color: var(--primary); font-size: 18px;">JEE MAINS - 2026 MOCK</div>
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <div id="timer" style="background: #333; color: #fff; padding: 8px 15px; font-family: monospace; font-size: 20px; border-radius: 4px;">180:00</div>
+        <div style="text-align: right; line-height: 1.2;">
+            <small>Candidate Name:</small><br><strong>Test Candidate</strong>
+        </div>
+    </div>
 </header>
 
-<main class="main" id="main">
+<main class="main-container" id="main">
     <div class="left-panel">
-        <div class="section-bar" id="secBar"></div>
-        <div class="q-area tex2jax_process" id="qArea"></div>
+        <div class="section-tabs" id="secBar"></div>
+        <div class="question-content tex2jax_process" id="qArea"></div>
         <div class="footer">
-            <button class="btn" style="background:var(--review); color:white" onclick="act('mark')">Review & Next</button>
-            <button class="btn" onclick="act('clear')">Clear</button>
-            <button class="btn" style="background:var(--primary); color:white" onclick="act('save')">Save & Next</button>
+            <div class="btn-group">
+                <button class="btn" style="background: #fff;" onclick="act('mark')">Mark for Review & Next</button>
+                <button class="btn" style="background: #fff;" onclick="act('clear')">Clear Response</button>
+            </div>
+            <button class="btn" style="background: var(--primary); color: white; border: none; padding: 0 40px;" onclick="act('save')">Save & Next</button>
         </div>
     </div>
     <div class="right-panel">
+        <div style="background: #fff; padding: 15px; border-bottom: 1px solid #ccc; font-size: 13px;">
+            <strong>Question Palette</strong>
+        </div>
         <div class="palette-grid" id="palette"></div>
-        <button class="btn" style="margin:auto 20px 20px; background:var(--success); color:white" onclick="showSummary()">Submit</button>
+        <div style="margin-top: auto; padding: 15px; background: #fff; border-top: 1px solid #ccc;">
+            <button class="btn" style="width: 100%; background: var(--success); color: white; border: none; padding: 12px;" onclick="showSummary()">SUBMIT</button>
+        </div>
     </div>
 </main>
 
 <div id="summaryOverlay">
     <div class="summary-box">
-        <h3>Exam Summary</h3>
-        <div id="summaryTable"></div>
-        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px">
-            <button class="btn" onclick="$('summaryOverlay').style.display='none'">Back</button>
-            <button class="btn" style="background:var(--success); color:white" onclick="finalSubmit()">Final Submit</button>
+        <h2 style="margin-top: 0; color: var(--primary);">Exam Summary</h2>
+        <p>Please review your attempt status before final submission.</p>
+        <div id="summaryTableContainer"></div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px;">
+            <button class="btn" onclick="document.getElementById('summaryOverlay').style.display='none'">Resume Test</button>
+            <button class="btn" style="background: var(--success); color: white; border: none;" onclick="finalSubmit()">Final Submit</button>
         </div>
     </div>
 </div>
 
 <script>
-let examData = null, sections = null, curSec = '', curIdx = 0, timeLeft = 0;
+let examData = null, sections = null, curSec = '', curIdx = 0, timeLeft = 0, itv = null;
 const $ = id => document.getElementById(id);
 
+// Tab switching security
+window.onblur = () => { if(examData) console.warn("Security Warning: Tab switch detected!"); };
+
 window.onload = () => {
-    const list = ["paper-1.json"]; // Add your JSON filenames here
-    $('paperSelect').innerHTML = `<option disabled selected>Select Paper</option>` + list.map(p => `<option value="${p}">${p}</option>`).join('');
+    // You should have a file named paper-1.json in the same folder
+    const list = ["paper-1.json"];
+    $('paperSelect').innerHTML = `<option disabled selected>-- Select --</option>` + list.map(p => `<option value="${p}">${p}</option>`).join('');
+    
     $('paperSelect').onchange = async (e) => {
-        examData = await fetch(e.target.value).then(r => r.json());
-        $('markingScheme').innerHTML = `Marking: +${examData.marking.correct} / ${examData.marking.wrong}`;
+        try {
+            const r = await fetch(e.target.value);
+            examData = await r.json();
+            $('markingDisplay').innerHTML = `<strong>Marking Scheme:</strong> Correct: <span style="color:green">+${examData.marking.correct}</span> | Incorrect: <span style="color:red">${examData.marking.wrong}</span>`;
+        } catch (err) { alert("Error loading JSON file."); }
     };
+
     $('startBtn').onclick = () => {
-        if (!examData || !$('confirm').checked) return alert("Confirm selection!");
+        if (!examData || !$('confirmCheck').checked) return alert("Please select a paper and agree to instructions!");
         initExam();
     };
 };
@@ -117,67 +190,121 @@ function initExam() {
     sections = examData.sections;
     curSec = Object.keys(sections)[0];
     timeLeft = examData.duration * 60;
-    Object.keys(sections).forEach(s => sections[s] = sections[s].map(q => ({...q, user: null, state: 0})));
+    
+    // Initialize question states
+    Object.keys(sections).forEach(s => {
+        sections[s] = sections[s].map(q => ({...q, user: null, state: 0})); 
+    });
+
     $('instPage').style.display = 'none';
-    $('header').style.display = 'flex'; $('main').style.display = 'flex';
-    renderTabs(); renderQ(); startTimer();
+    $('header').style.display = 'flex';
+    $('main').style.display = 'flex';
+    
+    renderTabs();
+    renderQ();
+    startTimer();
 }
 
 function renderTabs() {
-    $('secBar').innerHTML = Object.keys(sections).map(s => 
-        `<button class="sec-btn ${s===curSec?'active':''}" onclick="curSec='${s}';curIdx=0;renderTabs();renderQ()">${s}</button>`
-    ).join('');
+    $('secBar').innerHTML = Object.keys(sections).map(s => {
+        const attempted = sections[s].filter(q => q.user !== null).length;
+        return `<button class="sec-btn ${s===curSec?'active':''}" onclick="switchSec('${s}')">${s} (${attempted})</button>`;
+    }).join('');
+}
+
+function switchSec(s) {
+    curSec = s;
+    curIdx = 0;
+    renderTabs();
+    renderQ();
 }
 
 function renderQ() {
     const q = sections[curSec][curIdx];
-    if(q.state === 0) q.state = 2;
-    let html = `<strong>Question ${curIdx + 1}</strong><p>${q.q}</p>${q.svg || ''}<div style="margin-top:20px">`;
+    if(q.state === 0) q.state = 2; // Marked as Not Answered (visited)
+
+    let html = `<div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:20px;">
+                    <span style="font-weight:bold; color:var(--primary)">Question No. ${curIdx + 1}</span>
+                    <span style="font-size:12px; color:#666">Type: ${q.options ? 'MCQ' : 'Numerical'}</span>
+                </div>
+                <div style="font-size:16px; margin-bottom:20px">${q.q}</div>`;
+    
+    if(q.svg) html += q.svg;
+
+    html += `<div style="margin-top: 25px;">`;
     if(q.options) {
         html += q.options.map((o, i) => `
-            <label style="display:block; padding:10px; border:1px solid #ddd; margin-bottom:5px; cursor:pointer">
-                <input type="radio" name="ans" ${parseInt(q.user)===i?'checked':''} onchange="sections['${curSec}'][${curIdx}].user=${i};renderTabs()"> ${o}
+            <label class="option-label">
+                <input type="radio" name="ans" ${parseInt(q.user)===i?'checked':''} onchange="updateAns(${i})"> ${o}
             </label>`).join('');
     } else {
-        html += `<input type="number" step="any" value="${q.user||''}" oninput="sections['${curSec}'][${curIdx}].user=this.value;renderTabs()" placeholder="Enter Value" style="padding:10px; width:200px">`;
+        html += `<div style="background:#f9f9f9; padding:20px; border:1px solid #ddd">
+                    <p style="margin-top:0">Enter your answer:</p>
+                    <input type="number" step="any" value="${q.user||''}" oninput="updateAns(this.value)" style="padding:12px; width:200px; border:1px solid var(--primary);">
+                 </div>`;
     }
-    $('qArea').innerHTML = html + `</div>`;
-    MathJax.typesetPromise();
+    html += `</div>`;
+    
+    $('qArea').innerHTML = html;
+    if(window.MathJax) MathJax.typesetPromise();
     renderPalette();
+}
+
+function updateAns(val) {
+    sections[curSec][curIdx].user = val;
+    renderTabs();
 }
 
 function renderPalette() {
     $('palette').innerHTML = sections[curSec].map((q, i) => {
-        let cls = q.user !== null ? 'ans' : (q.state === 2 ? 'not-ans' : '');
-        if(q.state >= 3) cls = q.user !== null ? 'rev-ans' : 'rev';
-        return `<button class="${cls} ${i===curIdx?'active-q':''}" onclick="curIdx=${i};renderQ()">${i+1}</button>`;
+        let cls = 'palette-btn';
+        if(q.user !== null && (q.state === 1 || q.state === 2)) cls += ' ans';
+        else if(q.state === 2) cls += ' not-ans';
+        else if(q.state === 3) cls += ' rev';
+        else if(q.state === 4) cls += ' rev-ans';
+        
+        if(i === curIdx) cls += ' active-q';
+        return `<button class="${cls}" onclick="curIdx=${i};renderQ()">${i+1}</button>`;
     }).join('');
 }
 
 function act(type) {
     const q = sections[curSec][curIdx];
-    if(type === 'clear') q.user = null;
-    if(type === 'mark') q.state = 3;
-    if(type === 'save') q.state = 1;
-    if(curIdx < sections[curSec].length - 1) curIdx++;
-    renderQ();
+    if(type === 'clear') { q.user = null; q.state = 2; }
+    if(type === 'mark') q.state = (q.user !== null) ? 4 : 3;
+    if(type === 'save') q.state = (q.user !== null) ? 1 : 2;
+    
+    if(curIdx < sections[curSec].length - 1) {
+        curIdx++;
+        renderQ();
+    } else {
+        alert("End of section. Please switch sections or submit.");
+    }
 }
 
 function startTimer() {
-    setInterval(() => {
+    itv = setInterval(() => {
         timeLeft--;
-        const h = Math.floor(timeLeft/3600), m = Math.floor((timeLeft%3600)/60), s = timeLeft%60;
-        $('timer').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-        if(timeLeft <= 0) finalSubmit();
+        const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+        $('timer').innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        if(timeLeft <= 0) { clearInterval(itv); finalSubmit(); }
     }, 1000);
 }
 
 function showSummary() {
-    let h = `<table border="1" style="width:100%; border-collapse:collapse"><tr><th>Sec</th><th>Ans</th><th>Left</th></tr>`;
+    let h = `<table class="summary-table">
+                <tr><th>Section</th><th>Answered</th><th>Not Answered</th><th>Marked for Review</th><th>Not Visited</th></tr>`;
     Object.keys(sections).forEach(s => {
-        h += `<tr><td>${s}</td><td>${sections[s].filter(q=>q.user!==null).length}</td><td>${sections[s].filter(q=>q.user===null).length}</td></tr>`;
+        const sec = sections[s];
+        h += `<tr>
+                <td>${s}</td>
+                <td style="color:green; font-weight:bold">${sec.filter(q=>q.state===1 || q.state===4).length}</td>
+                <td style="color:red">${sec.filter(q=>q.state===2).length}</td>
+                <td style="color:purple">${sec.filter(q=>q.state===3).length}</td>
+                <td>${sec.filter(q=>q.state===0).length}</td>
+              </tr>`;
     });
-    $('summaryTable').innerHTML = h + `</table>`;
+    $('summaryTableContainer').innerHTML = h + `</table>`;
     $('summaryOverlay').style.display = 'flex';
 }
 
