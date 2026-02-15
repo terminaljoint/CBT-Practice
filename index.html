@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Enterprise Secure CBT Portal | TerminalJoint</title>
 
     <script>
@@ -15,152 +15,159 @@
 
     <style>
         :root {
-            --primary: #337ab7; --success: #5cb85c; --danger: #d9534f;
-            --warning: #f0ad4e; --review: #8e44ad; --bg: #f5f5f5;
-            --header-h: 60px; --footer-h: 65px; --sidebar-w: 320px;
+            --primary: #337ab7; --success: #28a745; --danger: #dc3545;
+            --warning: #f0ad4e; --review: #8e44ad; --bg: #f8f9fa;
+            --header-h: 60px; --footer-h: 70px; --sidebar-w: 320px;
         }
 
         body { 
-            margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); 
-            user-select: none; overflow: hidden; height: 100vh; display: flex; flex-direction: column;
+            margin: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            background: var(--bg); user-select: none; height: 100vh; 
+            display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* SECURITY BLOCKER */
+        /* SECURITY & OVERLAYS */
         #proctorBlocker { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
             color: white; z-index: 9999; display: none; 
-            flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;
         }
 
-        /* START SCREEN */
-        .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; display: flex; flex-direction: column; }
-        .inst-header { background: var(--primary); color: #fff; padding: 15px 30px; font-size: 1.2em; font-weight: bold; }
-        .inst-container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; padding: 0 20px; }
-        .inst-content { background: #fff; border: 1px solid #ddd; padding: 25px; height: 55vh; overflow-y: auto; font-size: 14px; line-height: 1.6; }
+        /* START SCREEN - RESPONSIVE */
+        .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; }
+        .inst-header { background: var(--primary); color: #fff; padding: 15px 20px; font-size: 1.1em; font-weight: bold; position: sticky; top: 0; }
+        .inst-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
         
-        .marking-table { width: 100%; border-collapse: collapse; margin: 15px 0; background: #fff; }
-        .marking-table td, .marking-table th { padding: 12px; border: 1px solid #ccc; text-align: center; }
+        @media (min-width: 992px) {
+            .inst-container { grid-template-columns: 1fr 300px; }
+        }
 
-        /* HEADER & TABS */
-        .header { height: var(--header-h); background: #fff; display: none; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); }
-        .timer-box { font-size: 1.4em; font-weight: bold; color: #fff; background: #222; padding: 6px 20px; border-radius: 4px; font-family: 'Courier New', monospace; }
+        .inst-content { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; }
+        .marking-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85em; }
+        .marking-table td, .marking-table th { padding: 10px; border: 1px solid #eee; text-align: center; }
+
+        /* HEADER */
+        .header { 
+            height: var(--header-h); background: #fff; display: none; 
+            justify-content: space-between; align-items: center; 
+            padding: 0 15px; border-bottom: 2px solid var(--primary); 
+        }
+        .timer-box { font-size: 1.2em; font-weight: bold; color: #fff; background: #222; padding: 5px 15px; border-radius: 4px; font-family: monospace; }
+
+        /* MAIN LAYOUT */
+        .main-container { display: none; flex: 1; overflow: hidden; flex-direction: column; }
         
-        .main-container { display: none; flex: 1; overflow: hidden; }
-        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #ccc; }
+        @media (min-width: 992px) {
+            .main-container { flex-direction: row; }
+        }
+
+        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; }
         
-        .section-tabs { background: #e5e5e5; display: flex; border-bottom: 1px solid #ccc; overflow-x: auto; }
+        /* TABS - HORIZONTAL SCROLL ON MOBILE */
+        .section-tabs { 
+            background: #eee; display: flex; overflow-x: auto; 
+            scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        }
         .tab-btn { 
-            padding: 10px 25px; border: none; cursor: pointer; font-weight: bold; 
-            background: #e5e5e5; border-right: 1px solid #ccc; white-space: nowrap;
-            display: flex; flex-direction: column; align-items: center; transition: 0.2s;
+            padding: 12px 20px; border: none; cursor: pointer; font-weight: bold; 
+            background: #eee; border-right: 1px solid #ddd; white-space: nowrap;
+            min-width: 120px; transition: 0.2s;
         }
-        .tab-btn.active { background: var(--primary); color: #fff; }
-        .tab-count { font-size: 0.8em; font-weight: normal; margin-top: 3px; }
+        .tab-btn.active { background: #fff; color: var(--primary); border-top: 3px solid var(--primary); }
 
         /* QUESTION AREA */
-        .q-scroll-view { flex: 1; overflow-y: auto; padding: 30px; box-sizing: border-box; }
-        .option-label { display: block; padding: 15px; border: 1px solid #ddd; margin-bottom: 12px; cursor: pointer; border-radius: 6px; transition: 0.2s; }
-        .option-label:hover { background: #f9f9f9; border-color: var(--primary); }
-        
-        /* PALETTE */
-        .sidebar { width: var(--sidebar-w); display: flex; flex-direction: column; background: #fff; }
-        .palette-container { flex: 1; overflow-y: auto; padding: 15px; background: #fcfcfc; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .palette-grid button { height: 45px; border: 1px solid #ccc; cursor: pointer; font-size: 14px; font-weight: bold; background: #fff; position: relative; }
-        
-        /* PALETTE STATES (Optimized CBT Logic) */
-        .notVisited { background: #fff; color: #444; }
-        .notAnswered { background: var(--danger) !important; color: #fff; border-radius: 0 0 15px 15px; }
-        .answered { background: var(--success) !important; color: #fff; border-radius: 15px 15px 0 0; }
-        .review { background: var(--review) !important; color: #fff; border-radius: 50%; }
-        .reviewAnswered { background: var(--review) !important; color: #fff; border-radius: 50%; }
-        /* Answered & Marked for Review Checkmark */
-        .reviewAnswered::after { 
-            content: "✓"; position: absolute; bottom: -2px; right: 2px; 
-            color: #00ff00; font-size: 14px; font-weight: 900; -webkit-text-stroke: 1px white;
+        .q-scroll-view { flex: 1; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .option-label { 
+            display: flex; align-items: center; padding: 15px; border: 1px solid #eee; 
+            margin-bottom: 10px; cursor: pointer; border-radius: 8px; transition: 0.2s; 
         }
-        .current { border: 3px solid #000 !important; }
+        .option-label:hover { background: #f0f7ff; }
+        .option-label input { width: 20px; height: 20px; margin-right: 15px; flex-shrink: 0; }
 
-        /* FOOTER */
-        .footer { height: var(--footer-h); background: #f9f9f9; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .btn { padding: 10px 20px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; font-weight: 600; transition: 0.2s; }
-        .btn-ready { background: var(--primary); color: #fff; padding: 15px 60px; opacity: 0.4; cursor: not-allowed; border: none; font-size: 1.2em; border-radius: 5px; }
-        .btn-ready.active { opacity: 1; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-        #summaryModal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; align-items: center; justify-content: center; }
-        .summary-card { background: #fff; width: 700px; padding: 30px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        /* SIDEBAR / PALETTE */
+        .sidebar { 
+            width: 100%; background: #fff; border-top: 1px solid #ccc; 
+            display: flex; flex-direction: column; max-height: 40vh;
+        }
         
-        svg { max-width: 100%; height: auto; border: 1px solid #eee; padding: 10px; background: white; margin-top: 15px; }
+        @media (min-width: 992px) {
+            .sidebar { width: var(--sidebar-w); border-top: none; border-left: 1px solid #ccc; max-height: none; }
+        }
+
+        .palette-container { flex: 1; overflow-y: auto; padding: 15px; }
+        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); gap: 8px; }
+        .palette-grid button { 
+            aspect-ratio: 1/1; border: 1px solid #ccc; cursor: pointer; 
+            font-size: 14px; font-weight: bold; background: #fff; border-radius: 4px;
+        }
+
+        /* PALETTE COLORS */
+        .answered { background: var(--success) !important; color: #fff; border-radius: 12px 12px 0 0 !important; }
+        .notAnswered { background: var(--danger) !important; color: #fff; border-radius: 0 0 12px 12px !important; }
+        .review { background: var(--review) !important; color: #fff; border-radius: 50% !important; }
+        .reviewAnswered { background: var(--review) !important; color: #fff; border-radius: 50% !important; position: relative; }
+        .reviewAnswered::after { content: "✓"; position: absolute; top: -5px; right: -2px; color: #00ff00; -webkit-text-stroke: 1px #fff; }
+        .current { border: 3px solid #000 !important; transform: scale(1.1); }
+
+        /* FOOTER ACTIONS */
+        .footer { 
+            height: auto; min-height: var(--footer-h); background: #f1f3f4; 
+            display: flex; flex-wrap: wrap; gap: 10px; align-items: center; 
+            justify-content: space-between; padding: 10px 15px; 
+        }
+        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn { padding: 10px 15px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; font-weight: 600; font-size: 0.9em; }
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        
+        /* MODAL */
+        #summaryModal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 15px; }
+        .summary-card { background: #fff; width: 100%; max-width: 600px; padding: 20px; border-radius: 12px; }
+
+        svg { max-width: 100%; height: auto; display: block; margin: 10px auto; }
     </style>
 </head>
 
 <body oncontextmenu="return false;">
 
 <div id="proctorBlocker">
-    <h1 style="font-size: 3em; margin: 0;">PROCTORING LOCK</h1>
-    <p id="proctorMsg" style="font-size: 1.5em; margin: 20px 0;">FULL-SCREEN EXIT DETECTED</p>
-    <button class="btn" style="background:var(--success); color:#fff; padding:18px 50px; border:none; font-size:1.2em;" onclick="resumeFullScreen()">RESUME EXAM</button>
+    <h2>SECURITY ALERT</h2>
+    <p id="proctorMsg">Violation Detected</p>
+    <button class="btn btn-primary" onclick="resumeFullScreen()">Resume Secure Session</button>
 </div>
 
 <div id="startScreen" class="startScreen">
-    <div class="inst-header">Examination Portal | TerminalJoint</div>
+    <div class="inst-header">TerminalJoint | Secure Examination Portal</div>
     <div class="inst-container">
         <div class="left-col">
             <div class="inst-content" id="dynamicInstructions">
-                <h3 style="margin-top:0;">General Instructions:</h3>
-                <p>1. Select a practice paper from the dropdown to view specific marking schemes.</p>
-                <p>2. The test is strictly proctored. Exiting full-screen or switching tabs will trigger security alerts.</p>
-                <p>3. Use the Palette on the right to navigate between questions.</p>
-                <p>4. <b>Status Indicators:</b></p>
-                <ul style="list-style: none; padding: 0;">
-                    <li><span style="color:var(--success)">■</span> <b>Green:</b> Answered & Saved</li>
-                    <li><span style="color:var(--danger)">■</span> <b>Red:</b> Visited but not Answered</li>
-                    <li><span style="color:var(--review)">●</span> <b>Purple:</b> Marked for Review</li>
-                    <li><span style="color:var(--review)">●✓</span> <b>Purple + Check:</b> Answered & Marked for Review (Evaluated)</li>
-                </ul>
+                <h3>Instructions:</h3>
+                <p>Please select a paper from the menu below to begin. Ensure you have a stable internet connection.</p>
             </div>
             
-            <div style="padding:20px; background:#f0f4f8; border:2px solid var(--primary); border-radius: 8px; margin-top:20px;">
-                <label style="font-weight: bold; color: var(--primary);">SELECT PRACTICE PAPER:</label>
-                <select id="paperSelect" style="width:100%; padding:15px; margin-top:10px; font-size:1em; border-radius:5px; border:1px solid #ccc;" onchange="loadPaperMetadata(this.value)"></select>
+            <div style="margin-top:20px;">
+                <label style="font-weight:bold;">Select Question Paper:</label>
+                <select id="paperSelect" style="width:100%; padding:12px; margin:10px 0; border-radius:6px;" onchange="loadPaperMetadata(this.value)"></select>
             </div>
 
-            <div style="padding:30px 0;">
-                <label style="display:flex; gap:15px; cursor:pointer; align-items: center;">
-                    <input type="checkbox" id="declareCheck" style="width:20px; height:20px;" onchange="toggleReadyBtn(this.checked)">
-                    <span style="font-size: 1.1em;">I have read all instructions and I am ready to start the secure session.</span>
+            <div style="margin-top:20px;">
+                <label style="display:flex; gap:12px; cursor:pointer;">
+                    <input type="checkbox" id="declareCheck" style="width:20px;" onchange="toggleReadyBtn(this.checked)">
+                    <span>I understand that this exam is monitored and I am ready to start.</span>
                 </label>
-                <div style="text-align:center; margin-top:35px;">
-                    <button id="readyBtn" class="btn-ready" onclick="startExam()">BEGIN EXAMINATION</button>
-                </div>
+                <button id="readyBtn" class="btn btn-primary" style="width:100%; margin-top:20px; padding:15px; opacity:0.5; cursor:not-allowed;" onclick="startExam()">BEGIN EXAM</button>
             </div>
         </div>
         <div class="right-col">
-            <div style="border:1px solid #ddd; padding:25px; text-align:center; background:#f9f9f9; border-radius: 8px;">
-                <div style="width:140px; height:160px; background:#e0e0e0; margin: 0 auto 20px; display:flex; align-items:center; justify-content:center; color:#777; border: 1px solid #ccc;">CANDIDATE<br>PHOTO</div>
-                <b style="font-size: 1.2em;">PRACTICE_USER_01</b>
-                <p style="color: #666; font-size: 0.9em;">TerminalJoint ID: TJ-2026-X</p>
+            <div style="border:1px solid #ddd; padding:20px; text-align:center; border-radius:8px; background:#fafafa;">
+                <div style="width:100px; height:120px; background:#eee; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; color:#999;">PHOTO</div>
+                <b>PRACTICE_USER</b>
             </div>
-        </div>
-    </div>
-</div>
-
-<div id="summaryModal">
-    <div class="summary-card">
-        <h2 style="margin-top:0; color:var(--primary);">Final Summary</h2>
-        <table class="marking-table" id="summaryTableBody"></table>
-        <div style="display:flex; justify-content: flex-end; gap: 15px; margin-top:30px;">
-            <button class="btn" onclick="document.getElementById('summaryModal').style.display='none'">BACK TO TEST</button>
-            <button class="btn" style="background:var(--success); color:#fff; border:none; padding:12px 30px;" onclick="confirmSubmit()">FINAL SUBMIT</button>
         </div>
     </div>
 </div>
 
 <header class="header" id="examHeader">
-    <div style="display:flex; align-items:center; gap:15px;">
-        <div style="background:var(--primary); color:#fff; padding:5px 12px; border-radius:3px; font-weight:bold;">PAPER</div>
-        <div style="font-weight:bold; color:var(--primary); font-size:1.2em;" id="activePaperName">CBT_PRACTICE</div>
-    </div>
+    <div id="activePaperName" style="font-weight:bold; color:var(--primary);">CBT Portal</div>
     <div class="timer-box" id="timeDisplay">00:00</div>
 </header>
 
@@ -168,32 +175,48 @@
     <div class="content-area">
         <div class="section-tabs" id="tabs"></div>
         <div class="q-scroll-view" id="questionBox">
-            <div id="q-meta" style="font-weight:bold; color:var(--primary); margin-bottom:15px; font-size:1.2em; border-bottom:1px solid #eee; padding-bottom:10px;"></div>
-            <div id="question" style="font-size:1.2em; line-height:1.7;"></div>
-            <div id="options" style="margin-top:30px;"></div>
+            <div id="q-meta" style="font-size:0.9em; font-weight:bold; color:#777; margin-bottom:10px;"></div>
+            <div id="question" style="font-size:1.1em; line-height:1.6;">Select a question to begin.</div>
+            <div id="options" style="margin-top:20px;"></div>
         </div>
         <div class="footer">
-            <div>
-                <button class="btn" style="background:var(--warning); color:#fff; border:none;" onclick="handleAction('review')">MARK FOR REVIEW & NEXT</button>
-                <button class="btn" style="margin-left:15px;" onclick="handleAction('clear')">CLEAR RESPONSE</button>
+            <div class="btn-group">
+                <button class="btn" style="background:var(--warning); color:white; border:none;" onclick="handleAction('review')">Review & Next</button>
+                <button class="btn" onclick="handleAction('clear')">Clear</button>
             </div>
-            <button class="btn" style="background:var(--primary); color:#fff; border:none; padding:12px 45px; font-size:1.1em;" onclick="handleAction('save')">SAVE & NEXT</button>
+            <button class="btn btn-primary" style="padding:10px 30px;" onclick="handleAction('save')">Save & Next</button>
         </div>
     </div>
+
     <div class="sidebar">
-        <div style="padding:15px; background:var(--primary); color:white; font-weight:bold; font-size:0.9em;">QUESTION PALETTE</div>
-        <div class="palette-container"><div id="palette" class="palette-grid"></div></div>
-        <div style="padding:20px; background:#fff; border-top:1px solid #ddd;">
-            <button class="btn" style="background:var(--success); color:#fff; width:100%; border:none; padding:15px; font-size:1.1em;" onclick="showSummary()">SUBMIT EXAMINATION</button>
+        <div style="padding:10px; background:#f1f3f4; font-size:0.8em; font-weight:bold; border-bottom:1px solid #ddd; display:flex; justify-content:space-between;">
+            <span>QUESTION PALETTE</span>
+            <span id="palette-status">0/0</span>
+        </div>
+        <div class="palette-container">
+            <div id="palette" class="palette-grid"></div>
+        </div>
+        <div style="padding:10px;">
+            <button class="btn" style="width:100%; background:var(--success); color:white; border:none;" onclick="showSummary()">Submit Exam</button>
+        </div>
+    </div>
+</div>
+
+<div id="summaryModal">
+    <div class="summary-card">
+        <h3 style="margin-top:0;">Exam Summary</h3>
+        <div id="summaryTableBody" style="overflow-x:auto;"></div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+            <button class="btn" onclick="document.getElementById('summaryModal').style.display='none'">Resume</button>
+            <button class="btn btn-primary" style="background:var(--success);" onclick="confirmSubmit()">Final Submit</button>
         </div>
     </div>
 </div>
 
 <script>
     const PAPER_LIST = ["paper-1.json", "AEEE FE-1.json", "JEE FE-1.json"];
-    let examData, sections, currentSection, index = 0, timeLeft = 0, started = false;
-    let violations = 0;
-    let lastIndices = {}; 
+    let examData, sections, currentSection, index = 0, timeLeft = 0, started = false, violations = 0;
+    let lastIndices = {};
 
     window.onload = () => {
         const ps = document.getElementById("paperSelect");
@@ -203,26 +226,25 @@
 
     function toggleReadyBtn(checked) {
         const btn = document.getElementById('readyBtn');
-        btn.className = checked ? 'btn-ready active' : 'btn-ready';
+        btn.style.opacity = checked ? "1" : "0.5";
+        btn.style.cursor = checked ? "pointer" : "not-allowed";
     }
 
     function loadPaperMetadata(fileName) {
         fetch(fileName).then(r => r.json()).then(data => {
             examData = data;
-            let qTotal = 0;
-            Object.keys(data.sections).forEach(s => qTotal += data.sections[s].length);
             const m = data.marking || {correct: 4, wrong: -1};
+            let qCount = 0;
+            Object.values(data.sections).forEach(s => qCount += s.length);
             
             document.getElementById("dynamicInstructions").innerHTML = `
-                <h3 style="color:var(--primary); margin-top:0;">Exam Configuration Loaded:</h3>
+                <h3>${fileName}</h3>
                 <table class="marking-table">
-                    <tr style="background:#f4f4f4;"><th>Duration</th><th>Total Questions</th><th>Correct</th><th>Incorrect</th></tr>
-                    <tr><td>${data.duration} Minutes</td><td>${qTotal} Items</td><td>+${m.correct}</td><td>${m.wrong}</td></tr>
+                    <tr><th>Time</th><th>Questions</th><th>Positive</th><th>Negative</th></tr>
+                    <tr><td>${data.duration}m</td><td>${qCount}</td><td>+${m.correct}</td><td>${m.wrong}</td></tr>
                 </table>
-                <div style="margin-top:20px; background:#fff9c4; padding:15px; border-radius:5px; font-size:0.9em;">
-                    <strong>Subject Breakdown:</strong><br>
-                    ${Object.keys(data.sections).map(s => `${s}: ${data.sections[s].length} Qs`).join(' | ')}
-                </div>`;
+                <p><strong>Sections:</strong> ${Object.keys(data.sections).join(", ")}</p>
+            `;
         });
     }
 
@@ -232,62 +254,43 @@
         initExamUI();
     }
 
-    // Proctoring Logic
-    document.addEventListener('fullscreenchange', () => { 
-        if (!document.fullscreenElement && started) {
-            violations++;
-            pauseExam(`Violation #${violations}: Full-screen exit.`); 
-        }
-    });
-
-    document.addEventListener('visibilitychange', () => { 
-        if (document.hidden && started) { 
-            violations++; 
-            pauseExam(`Violation #${violations}: Tab switch.`); 
-        } 
-    });
+    // Security Handlers
+    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && started) { violations++; pauseExam(`Fullscreen Exit (#${violations})`); } });
+    document.addEventListener('visibilitychange', () => { if (document.hidden && started) { violations++; pauseExam(`Tab Switch (#${violations})`); } });
 
     function pauseExam(msg) {
         document.getElementById("proctorMsg").innerText = msg;
         document.getElementById("proctorBlocker").style.display = "flex";
     }
 
-    function resumeFullScreen() { 
+    function resumeFullScreen() {
         document.documentElement.requestFullscreen().then(() => {
             document.getElementById("proctorBlocker").style.display = "none";
-        }); 
+        });
     }
 
     function initExamUI() {
         sections = examData.sections;
-        timeLeft = (examData.duration || 180) * 60; 
-        
+        timeLeft = (examData.duration || 180) * 60;
         Object.keys(sections).forEach(sec => {
-            sections[sec] = sections[sec].map(q => ({...q, userAnswer: null, state: 0})); // 0:unvisited, 1:answered, 2:visited-not-ans, 3:review, 4:ans-review
+            sections[sec] = sections[sec].map(q => ({...q, userAnswer: null, state: 0}));
             lastIndices[sec] = 0;
         });
-
         currentSection = Object.keys(sections)[0];
-        index = 0;
-        
         document.getElementById("startScreen").style.display = "none";
         document.getElementById("examHeader").style.display = "flex";
         document.getElementById("examMain").style.display = "flex";
-        document.getElementById("activePaperName").innerText = document.getElementById("paperSelect").value.split('.')[0];
-        
         started = true;
-        renderTabs(); 
-        renderQ(); 
+        renderTabs();
+        renderQ();
         startTimer();
     }
 
     function renderTabs() {
         document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => {
-            const answered = sections[sec].filter(q => q.userAnswer !== null).length;
-            return `
-            <button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">
-                <span>${sec.toUpperCase()}</span>
-                <span class="tab-count">(${answered}/${sections[sec].length})</span>
+            const ans = sections[sec].filter(q => q.userAnswer !== null).length;
+            return `<button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">
+                ${sec} <small>(${ans}/${sections[sec].length})</small>
             </button>`;
         }).join("");
     }
@@ -295,46 +298,44 @@
     function switchSection(sec) {
         lastIndices[currentSection] = index;
         currentSection = sec;
-        index = lastIndices[sec];
+        index = lastIndices[sec] || 0;
         renderTabs();
         renderQ();
     }
 
     async function renderQ() {
-        const q = sections[currentSection][index]; 
-        if(q.state === 0) q.state = 2; // Mark as visited
+        const q = sections[currentSection][index];
+        if(q.state === 0) q.state = 2; // Mark visited
         
-        document.getElementById("q-meta").innerText = `${currentSection.toUpperCase()} - QUESTION ${index + 1}`;
-        document.getElementById("question").innerHTML = q.q + (q.svg ? `<div>${q.svg}</div>` : "");
+        document.getElementById("q-meta").innerText = `${currentSection} | Question ${index + 1}`;
+        document.getElementById("question").innerHTML = q.q + (q.svg || "");
 
         const optCont = document.getElementById("options");
         if (q.options) {
             optCont.innerHTML = q.options.map((op, i) => `
                 <label class="option-label">
                     <input type="radio" name="qopt" ${q.userAnswer === i ? "checked" : ""} onchange="setAnswer(${i})">
-                    <span style="margin-left:10px;">${op}</span>
+                    <span>${op}</span>
                 </label>`).join("");
         } else {
-            optCont.innerHTML = `
-                <div style="background:#f4f4f4; padding:20px; border-radius:8px;">
-                    <p>Enter Numerical Value:</p>
-                    <input type="number" step="any" class="btn" style="width:250px; text-align:left; padding:12px; font-size:1.1em; border:2px solid var(--primary);" 
-                           value="${q.userAnswer ?? ''}" oninput="setAnswer(this.value === '' ? null : this.value)">
-                </div>`;
+            optCont.innerHTML = `<input type="number" class="btn" style="width:100%; box-sizing:border-box; padding:15px;" placeholder="Type numeric answer..." value="${q.userAnswer ?? ''}" oninput="setAnswer(this.value)">`;
         }
-
         updatePalette();
         if (window.MathJax) await MathJax.typesetPromise([document.getElementById("questionBox")]);
     }
 
     function setAnswer(val) {
-        sections[currentSection][index].userAnswer = val;
+        sections[currentSection][index].userAnswer = val === "" ? null : val;
         renderTabs();
     }
 
     function updatePalette() {
+        const total = sections[currentSection].length;
+        const ans = sections[currentSection].filter(q => q.userAnswer !== null).length;
+        document.getElementById("palette-status").innerText = `${ans}/${total} Answered`;
+
         document.getElementById("palette").innerHTML = sections[currentSection].map((q, i) => {
-            let cls = "notVisited";
+            let cls = "";
             if(q.state === 1) cls = "answered";
             else if(q.state === 2) cls = "notAnswered";
             else if(q.state === 3) cls = "review";
@@ -352,9 +353,8 @@
     }
 
     function moveNext() {
-        if (index < sections[currentSection].length - 1) {
-            index++;
-        } else {
+        if (index < sections[currentSection].length - 1) index++;
+        else {
             const keys = Object.keys(sections);
             const nextIdx = keys.indexOf(currentSection) + 1;
             if(nextIdx < keys.length) switchSection(keys[nextIdx]);
@@ -366,38 +366,27 @@
             if (!started || document.getElementById("proctorBlocker").style.display === "flex") return;
             timeLeft--;
             if (timeLeft <= 0) confirmSubmit();
-            let m = Math.floor(timeLeft / 60);
-            let s = timeLeft % 60;
+            let m = Math.floor(timeLeft / 60), s = timeLeft % 60;
             document.getElementById("timeDisplay").innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }, 1000);
     }
 
     function showSummary() {
-        let html = `<tr style="background:#f4f4f4;"><th>Section</th><th>Answered</th><th>Review</th><th>Not Visited</th></tr>`;
+        let html = `<table class="marking-table"><tr><th>Section</th><th>Ans</th><th>Review</th></tr>`;
         Object.keys(sections).forEach(sec => {
-            let s = sections[sec];
-            html += `<tr>
-                <td style="font-weight:bold;">${sec}</td>
-                <td>${s.filter(q=>q.userAnswer!==null).length}</td>
-                <td>${s.filter(q=>q.state === 3 || q.state === 4).length}</td>
-                <td>${s.filter(q=>q.state === 0).length}</td>
-            </tr>`;
+            const s = sections[sec];
+            html += `<tr><td>${sec}</td><td>${s.filter(q=>q.userAnswer!==null).length}</td><td>${s.filter(q=>q.state >= 3).length}</td></tr>`;
         });
-        document.getElementById("summaryTableBody").innerHTML = html;
+        document.getElementById("summaryTableBody").innerHTML = html + `</table>`;
         document.getElementById("summaryModal").style.display = "flex";
     }
 
     function confirmSubmit() {
-        const finalData = {
-            metadata: {
-                paperName: document.getElementById("activePaperName").innerText,
-                violations: violations,
-                timeTaken: (examData.duration * 60) - timeLeft
-            },
+        localStorage.setItem("exam_result", JSON.stringify({
+            metadata: { paperName: examData.paperName || "CBT Exam", violations, timeTaken: (examData.duration*60)-timeLeft },
             marking: examData.marking,
-            sections: sections
-        };
-        localStorage.setItem("exam_result", JSON.stringify(finalData));
+            sections
+        }));
         location.href = "score.html";
     }
 </script>
