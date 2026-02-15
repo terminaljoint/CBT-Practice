@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detailed Performance Report | TerminalJoint</title>
+    <title>Performance Report | TerminalJoint</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         window.MathJax = {
@@ -12,64 +13,135 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        :root { --primary: #337ab7; --success: #5cb85c; --danger: #d9534f; --dark: #2c3e50; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; color: #333; }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .card { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 25px; }
-        
-        .header-flex { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 15px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
-        .stat-card { background: #f8fafc; padding: 20px; text-align: center; border-radius: 6px; border: 1px solid #e2e8f0; }
-        .stat-val { display: block; font-size: 1.8em; font-weight: bold; color: var(--primary); }
-        
-        /* Question Key Styles */
-        .q-item { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px; position: relative; overflow: hidden; }
-        .q-item.correct { border-left: 8px solid var(--success); background: #f6ffed; }
-        .q-item.wrong { border-left: 8px solid var(--danger); background: #fff1f0; }
-        .q-item.skipped { border-left: 8px solid #ccc; background: #fafafa; }
-        
-        .badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-size: 0.8em; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
-        .badge-success { background: var(--success); color: white; }
-        .badge-danger { background: var(--danger); color: white; }
-        .badge-gray { background: #999; color: white; }
 
-        .solution-box { margin-top: 15px; padding: 15px; background: white; border: 1px dashed #ccc; border-radius: 5px; font-size: 0.95em; }
-        svg { max-width: 100%; height: auto; margin: 10px 0; background: white; padding: 5px; border: 1px solid #eee; }
+    <style>
+        :root {
+            --primary: #337ab7; --success: #28a745; --danger: #dc3545;
+            --warning: #ffc107; --review: #8e44ad; --dark: #2c3e50; --bg: #f4f7f6;
+        }
+
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            margin: 0; background: var(--bg); color: #333; line-height: 1.5;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
+
+        /* HEADER SECTION */
+        .header-card {
+            background: #fff; padding: 20px; border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 5px solid var(--primary);
+        }
+        .header-info h1 { margin: 0; font-size: 1.5rem; color: var(--dark); }
+        .header-info p { margin: 5px 0 0; color: #666; font-size: 0.9rem; }
+
+        /* SCORE GRID (Responsive) */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;
+        }
+        @media (min-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .stat-card {
+            background: #fff; padding: 15px; border-radius: 10px; text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03); border: 1px solid #eee;
+        }
+        .stat-card span { display: block; font-size: 1.6rem; font-weight: 800; color: var(--primary); }
+        .stat-card label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #777; font-weight: bold; }
+
+        /* MAIN CONTENT LAYOUT */
+        .main-layout { display: flex; flex-direction: column; gap: 20px; }
+        @media (min-width: 992px) {
+            .main-layout { display: grid; grid-template-columns: 350px 1fr; align-items: start; }
+        }
+
+        /* SIDEBAR / ANALYTICS */
+        .sidebar { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .card h3 { margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+
+        /* ANSWER KEY ITEMS */
+        .key-container { display: flex; flex-direction: column; gap: 15px; }
+        .section-divider { 
+            background: var(--dark); color: white; padding: 8px 15px; 
+            border-radius: 6px; font-weight: bold; margin-top: 10px;
+        }
+        .q-item { 
+            background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; 
+            padding: 15px; position: relative; overflow: hidden;
+        }
+        .q-item.correct { border-left: 6px solid var(--success); }
+        .q-item.wrong { border-left: 6px solid var(--danger); }
+        .q-item.review { border-left: 6px solid var(--review); }
+        .q-item.skipped { border-left: 6px solid #ccc; }
+
+        .status-badge {
+            display: inline-block; padding: 3px 10px; border-radius: 4px; 
+            font-size: 0.7rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase;
+        }
+        .badge-success { background: #e6f4ea; color: var(--success); }
+        .badge-danger { background: #fce8e8; color: var(--danger); }
+        .badge-gray { background: #f1f3f4; color: #666; }
+
+        .q-text { font-weight: 500; margin-bottom: 15px; font-size: 1rem; }
+        .ans-row { 
+            display: grid; grid-template-columns: 1fr; gap: 10px; 
+            margin-top: 10px; font-size: 0.9rem;
+        }
+        @media (min-width: 600px) { .ans-row { grid-template-columns: 1fr 1fr; } }
+
+        .ans-box { padding: 10px; border-radius: 6px; background: #f8f9fa; border: 1px solid #eee; }
+        .ans-box b { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
+
+        .explanation { 
+            margin-top: 12px; padding: 12px; background: #fffdf0; 
+            border-radius: 6px; font-size: 0.85rem; border: 1px dashed #d1d1d1;
+        }
+
+        .no-print { display: block; }
+        @media print { .no-print { display: none; } body { background: #fff; } }
         
-        @media print { .no-print { display: none; } }
+        button.print-btn {
+            background: var(--dark); color: white; border: none; padding: 10px 18px;
+            border-radius: 6px; cursor: pointer; font-weight: bold;
+        }
     </style>
 </head>
-<body class="tex2jax_ignore">
+<body>
 
 <div class="container">
-    <div class="card header-flex">
-        <div>
-            <h1 style="margin:0;">Performance Analysis</h1>
-            <p id="paperNameDisplay" style="color:#666; margin:5px 0 0;"></p>
+    <div class="header-card">
+        <div class="header-info">
+            <h1 id="paperTitle">Result Analysis</h1>
+            <p id="examMeta">TerminalJoint CBT Performance Report</p>
         </div>
-        <button class="no-print" onclick="window.print()" style="padding:10px 20px; cursor:pointer; background:var(--dark); color:white; border:none; border-radius:4px;">Print Report</button>
+        <button class="print-btn no-print" onclick="window.print()">Print PDF</button>
     </div>
 
-    <div class="stats-grid" id="overallStats"></div>
+    <div class="stats-grid" id="statsContainer">
+        <div class="stat-card"><span>-</span><label>Score</label></div>
+        <div class="stat-card"><span>-</span><label>Accuracy</label></div>
+        <div class="stat-card"><span>-</span><label>Correct</label></div>
+        <div class="stat-card"><span>-</span><label>Incorrect</label></div>
+    </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 25px; margin-top: 25px;">
-        <div class="no-print">
+    <div class="main-layout">
+        <div class="sidebar no-print">
             <div class="card">
                 <h3>Score Distribution</h3>
-                <canvas id="scoreChart"></canvas>
+                <canvas id="sectionChart"></canvas>
             </div>
-            <div class="card" id="violationCard" style="display:none; border: 1px solid var(--danger);">
-                <h3 style="color:var(--danger);">Security Log</h3>
-                <p id="violationMsg"></p>
+            <div class="card" id="securityCard" style="display:none; border-left: 5px solid var(--danger);">
+                <h3 style="color:var(--danger)">Security Alerts</h3>
+                <p id="violationMsg" style="font-size:0.85rem;"></p>
             </div>
         </div>
 
-        <div class="tex2jax_process">
-            <div class="card">
-                <h3>Detailed Answer Key</h3>
-                <div id="fullAnswerKey"></div>
-            </div>
+        <div class="key-container">
+            <div id="keyContent"></div>
         </div>
     </div>
 </div>
@@ -78,124 +150,97 @@
     const data = JSON.parse(localStorage.getItem("exam_result"));
 
     if (!data) {
-        document.body.innerHTML = "<div class='container'><h1>No Result Found</h1><p>Please complete the exam first.</p></div>";
+        document.body.innerHTML = `<div style="text-align:center; padding:50px;"><h2>No Data Found</h2><a href="index.html">Back to Exam</a></div>`;
     } else {
-        renderScorePage();
+        renderReport();
     }
 
-    function renderScorePage() {
-        document.getElementById('paperNameDisplay').innerText = data.metadata.paperName;
+    function renderReport() {
+        document.getElementById('paperTitle').innerText = data.metadata.paperName;
+        const sections = data.sections;
+        const marking = data.marking || { correct: 4, wrong: -1 };
         
-        let totalScore = 0, correctCount = 0, wrongCount = 0, skippedCount = 0, totalQ = 0;
-        const sectionLabels = [], sectionScores = [];
+        let totalScore = 0, correct = 0, wrong = 0, skipped = 0, totalQ = 0;
+        const labels = [], scores = [];
 
-        // Handle Violations
-        if (data.metadata.violations > 0) {
-            const vCard = document.getElementById('violationCard');
-            vCard.style.display = 'block';
-            document.getElementById('violationMsg').innerHTML = `Candidate detected exiting fullscreen or switching tabs <b>${data.metadata.violations} times</b>. Result may be subject to review.`;
-        }
+        const keyContent = document.getElementById('keyContent');
 
-        const keyContainer = document.getElementById('fullAnswerKey');
-
-        Object.keys(data.sections).forEach(secName => {
+        Object.keys(sections).forEach(secName => {
             let secScore = 0;
-            const sectionHeader = document.createElement('h4');
-            sectionHeader.style = "background:var(--dark); color:white; padding:10px; margin-top:30px;";
-            sectionHeader.innerText = secName.toUpperCase();
-            keyContainer.appendChild(sectionHeader);
+            keyContent.innerHTML += `<div class="section-divider">${secName.toUpperCase()}</div>`;
 
-            data.sections[secName].forEach((q, i) => {
+            sections[secName].forEach((q, i) => {
                 totalQ++;
-                let statusCls = 'skipped';
-                let statusText = 'Not Attempted';
-                let qScore = 0;
-
+                let status = 'skipped', scoreChange = 0;
+                
                 if (q.userAnswer !== null) {
                     const isCorrect = (q.options) 
                         ? (parseInt(q.userAnswer) === q.correct)
                         : (Math.abs(parseFloat(q.userAnswer) - parseFloat(q.answer)) < 0.01);
 
                     if (isCorrect) {
-                        qScore = data.marking.correct;
-                        correctCount++;
-                        statusCls = 'correct';
-                        statusText = 'Correct';
+                        status = 'correct'; scoreChange = marking.correct; correct++;
                     } else {
-                        // Numeric questions usually have no negative marking
-                        qScore = q.options ? data.marking.wrong : 0;
-                        wrongCount++;
-                        statusCls = 'wrong';
-                        statusText = 'Incorrect';
+                        status = 'wrong'; scoreChange = q.options ? marking.wrong : 0; wrong++;
                     }
                 } else {
-                    skippedCount++;
+                    skipped++;
                 }
 
-                secScore += qScore;
+                secScore += scoreChange;
 
-                // Create Question UI
-                const qDiv = document.createElement('div');
-                qDiv.className = `q-item ${statusCls}`;
-                qDiv.innerHTML = `
-                    <span class="badge ${statusCls === 'correct' ? 'badge-success' : (statusCls === 'wrong' ? 'badge-danger' : 'badge-gray')}">
-                        ${statusText} (${qScore > 0 ? '+' : ''}${qScore})
-                    </span>
-                    <div style="font-weight:bold; margin-bottom:10px;">Question ${i+1}:</div>
-                    <div>${q.q}</div>
-                    ${q.svg || ''}
-                    <div style="margin-top:15px; font-size:0.95em;">
-                        <div style="color:${q.userAnswer === null ? '#666' : 'inherit'}">
-                            <b>Your Answer:</b> ${q.userAnswer === null ? 'None' : (q.options ? q.options[q.userAnswer] : q.userAnswer)}
+                keyContent.innerHTML += `
+                    <div class="q-item ${status}">
+                        <span class="status-badge ${status==='correct'?'badge-success':(status==='wrong'?'badge-danger':'badge-gray')}">
+                            ${status} (${scoreChange > 0 ? '+' : ''}${scoreChange})
+                        </span>
+                        <div class="q-text">${i+1}. ${q.q}</div>
+                        ${q.svg || ''}
+                        <div class="ans-row">
+                            <div class="ans-box"><b>Your Answer</b> ${q.userAnswer !== null ? (q.options ? q.options[q.userAnswer] : q.userAnswer) : 'N/A'}</div>
+                            <div class="ans-box" style="border-color:var(--success)"><b>Correct Key</b> ${q.options ? q.options[q.correct] : q.answer}</div>
                         </div>
-                        <div style="color:var(--success); font-weight:bold; margin-top:5px;">
-                            <b>Correct Key:</b> ${q.options ? q.options[q.correct] : q.answer}
-                        </div>
-                    </div>
-                    <div class="solution-box">
-                        <b style="color:var(--primary)">Explanation:</b><br>
-                        ${q.solution || 'Detailed solution not provided for this question.'}
+                        ${q.solution ? `<div class="explanation"><b>Solution:</b><br>${q.solution}</div>` : ''}
                     </div>
                 `;
-                keyContainer.appendChild(qDiv);
             });
-
             totalScore += secScore;
-            sectionLabels.push(secName);
-            sectionScores.push(secScore);
+            labels.push(secName);
+            scores.push(secScore);
         });
 
-        // Overall Stats UI
-        document.getElementById('overallStats').innerHTML = `
-            <div class="stat-card"><span class="stat-val">${totalScore}</span>Final Score</div>
-            <div class="stat-card"><span class="stat-val" style="color:var(--success)">${correctCount}</span>Correct</div>
-            <div class="stat-card"><span class="stat-val" style="color:var(--danger)">${wrongCount}</span>Incorrect</div>
-            <div class="stat-card"><span class="stat-val" style="color:#666">${skippedCount}</span>Skipped</div>
-            <div class="stat-card"><span class="stat-val">${Math.round((totalScore/(totalQ*data.marking.correct))*100)}%</span>Percentage</div>
+        // Update Stats
+        const accuracy = totalQ > 0 ? Math.round((correct / (correct + wrong)) * 100) || 0 : 0;
+        document.getElementById('statsContainer').innerHTML = `
+            <div class="stat-card"><span>${totalScore}</span><label>Total Score</label></div>
+            <div class="stat-card"><span>${accuracy}%</span><label>Accuracy</label></div>
+            <div class="stat-card" style="border-bottom: 3px solid var(--success)"><span>${correct}</span><label>Correct</label></div>
+            <div class="stat-card" style="border-bottom: 3px solid var(--danger)"><span>${wrong}</span><label>Incorrect</label></div>
         `;
 
-        // Charting
-        new Chart(document.getElementById('scoreChart'), {
+        // Security
+        if(data.metadata.violations > 0) {
+            document.getElementById('securityCard').style.display = 'block';
+            document.getElementById('violationMsg').innerText = `Proctoring system detected ${data.metadata.violations} tab switches or full-screen exits during the session.`;
+        }
+
+        // Chart
+        new Chart(document.getElementById('sectionChart'), {
             type: 'bar',
             data: {
-                labels: sectionLabels,
+                labels: labels,
                 datasets: [{
-                    label: 'Marks Obtained',
-                    data: sectionScores,
-                    backgroundColor: 'rgba(51, 122, 183, 0.6)',
-                    borderColor: 'rgba(51, 122, 183, 1)',
-                    borderWidth: 1
+                    label: 'Marks',
+                    data: scores,
+                    backgroundColor: 'rgba(51, 122, 183, 0.7)',
+                    borderRadius: 5
                 }]
             },
-            options: { scales: { y: { beginAtZero: true } } }
+            options: { responsive: true, plugins: { legend: { display: false } } }
         });
 
-        // Final MathJax Render
-        if (window.MathJax && MathJax.typesetPromise) {
-            MathJax.typesetPromise();
-        }
+        if (window.MathJax) MathJax.typeset();
     }
 </script>
-
 </body>
 </html>
