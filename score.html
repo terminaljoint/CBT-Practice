@@ -2,204 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detailed Performance Analysis</title>
+    <title>Exam Audit & Analysis</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        :root {
-            --primary: #004ba0; --success: #2e7d32; --danger: #c62828; 
-            --warning: #ed6c02; --bg: #f8f9fa;
-        }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 1000px; margin: auto; }
-        
-        /* Summary Cards */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; border-bottom: 4px solid var(--primary); }
-        .stat-card h3 { margin: 0; font-size: 0.9rem; color: #666; text-transform: uppercase; }
-        .stat-card p { margin: 10px 0 0; font-size: 1.8rem; font-weight: bold; color: var(--primary); }
-
-        /* Chart Section */
-        .analysis-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-        .chart-box { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); min-height: 350px; }
-        
-        /* Table Section */
-        .table-box { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow-x: auto; margin-bottom: 30px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; background: #f1f3f5; padding: 12px; }
-        td { padding: 12px; border-top: 1px solid #eee; }
-
-        /* Solutions */
-        .solution-list { display: flex; flex-direction: column; gap: 15px; }
-        .q-card { background: white; padding: 20px; border-radius: 8px; border-left: 6px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .q-card.correct { border-left-color: var(--success); }
-        .q-card.wrong { border-left-color: var(--danger); }
-        .q-card svg { max-width: 100%; height: auto; margin: 15px 0; display: block; }
-        .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
-        .badge-correct { background: #e8f5e9; color: var(--success); }
-        .badge-wrong { background: #ffebee; color: var(--danger); }
-
-        @media (max-width: 768px) { .analysis-row { grid-template-columns: 1fr; } }
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+        .stat-val { font-size: 1.5rem; font-weight: bold; color: #004ba0; }
+        .incorrect { color: #c62828; } .correct { color: #2e7d32; }
+        .q-row { border-bottom: 1px solid #eee; padding: 10px 0; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1 style="text-align:center;">Exam Performance Report</h1>
-
-    <div class="stats-grid" id="topStats">
-        </div>
-
-    <div class="analysis-row">
-        <div class="chart-box">
-            <h3 style="margin-top:0;">Subject-wise Score</h3>
-            <canvas id="scoreChart"></canvas>
-        </div>
-        <div class="chart-box">
-            <h3 style="margin-top:0;">Accuracy Analysis</h3>
-            <canvas id="accuracyChart"></canvas>
-        </div>
+    <div class="card">
+        <h1>Performance Analysis</h1>
+        <div class="grid" id="mainStats"></div>
     </div>
+
+    <div class="card" style="max-width: 500px; margin: auto;">
+        <canvas id="radarChart"></canvas>
+    </div>
+
     
 
-    <div class="table-box">
-        <h3>Subject Breakdown</h3>
-        <table id="subjectTable">
-            <thead>
-                <tr>
-                    <th>Subject</th>
-                    <th>Questions</th>
-                    <th>Attempted</th>
-                    <th>Correct</th>
-                    <th>Accuracy</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <div class="card" id="auditLog">
+        <h3>Security Log</h3>
+        <p id="violationCount" style="color:red;"></p>
     </div>
 
-    <h2>Question Review & Solutions</h2>
-    <div class="solution-list" id="solutionContainer"></div>
-</div>
+    <div class="card" id="review"></div>
 
 <script>
-    const examData = JSON.parse(localStorage.getItem("exam_result"));
-    if (!examData) {
-        document.body.innerHTML = "<h1>No results found. Please take the exam first.</h1>";
-    }
+    const res = JSON.parse(localStorage.getItem("result"));
+    if(!res) { document.body.innerHTML = "No Session Found"; }
 
-    const marking = examData.marking || { correct: 4, wrong: -1 };
-    let globalStats = { totalScore: 0, totalAttempted: 0, totalCorrect: 0, totalQuestions: 0 };
-    const subjectData = [];
+    let tScore = 0, tCorr = 0, tAtt = 0, tQ = 0;
+    const labels = [], scores = [];
 
-    // Analyze Data
-    Object.keys(examData.sections).forEach(secName => {
-        let secStats = { name: secName, total: 0, attempted: 0, correct: 0, score: 0 };
-        const questions = examData.sections[secName];
-
-        questions.forEach(q => {
-            secStats.total++;
-            globalStats.totalQuestions++;
+    Object.keys(res.sections).forEach(s => {
+        let sScore = 0;
+        const div = document.createElement('div');
+        div.innerHTML = `<h3>${s}</h3>`;
+        
+        res.sections[s].forEach(q => {
+            tQ++;
             const isMcq = q.options !== undefined;
-            const userAns = q.ans;
-            const isAttempted = userAns !== null && userAns !== undefined && userAns !== "";
-
-            if (isAttempted) {
-                secStats.attempted++;
-                globalStats.totalAttempted++;
-                
-                const isCorrect = isMcq ? (parseInt(userAns) === q.correct) : (parseFloat(userAns) === parseFloat(q.answer));
-                
-                if (isCorrect) {
-                    secStats.correct++;
-                    globalStats.totalCorrect++;
-                    secStats.score += marking.correct;
-                } else {
-                    secStats.score += marking.wrong;
-                }
+            const isCorr = isMcq ? (parseInt(q.user) === q.correct) : (parseFloat(q.user) === parseFloat(q.answer));
+            
+            if(q.user !== null) {
+                tAtt++;
+                if(isCorr) { sScore += 4; tCorr++; } else { sScore -= 1; }
             }
-
-            // Create Solution Card
-            renderSolutionCard(q, secName, isAttempted, isMcq);
+            
+            const row = document.createElement('div');
+            row.className = 'q-row';
+            row.innerHTML = `<span class="${isCorr?'correct':'incorrect'}">${isCorr?'✔':'✘'}</span> ${q.q}`;
+            div.appendChild(row);
         });
-
-        globalStats.totalScore += secStats.score;
-        subjectData.push(secStats);
+        
+        tScore += sScore;
+        labels.push(s);
+        scores.push(sScore);
+        document.getElementById('review').appendChild(div);
     });
 
-    // Populate UI
-    document.getElementById('topStats').innerHTML = `
-        <div class="stat-card"><h3>Total Score</h3><p>${globalStats.totalScore}</p></div>
-        <div class="stat-card"><h3>Accuracy</h3><p>${globalStats.totalAttempted ? Math.round((globalStats.totalCorrect/globalStats.totalAttempted)*100) : 0}%</p></div>
-        <div class="stat-card"><h3>Correct</h3><p>${globalStats.totalCorrect} / ${globalStats.totalAttempted}</p></div>
+    document.getElementById('mainStats').innerHTML = `
+        <div><div class="stat-val">${tScore}</div>Score</div>
+        <div><div class="stat-val">${Math.round(tCorr/tAtt*100)||0}%</div>Accuracy</div>
+        <div><div class="stat-val">${tAtt}/${tQ}</div>Attempted</div>
+        <div><div class="stat-val">${tCorr}</div>Correct</div>
     `;
 
-    const tableBody = document.querySelector('#subjectTable tbody');
-    subjectData.forEach(s => {
-        const accuracy = s.attempted ? Math.round((s.correct / s.attempted) * 100) : 0;
-        tableBody.innerHTML += `
-            <tr>
-                <td><strong>${s.name}</strong></td>
-                <td>${s.total}</td>
-                <td>${s.attempted}</td>
-                <td>${s.correct}</td>
-                <td>${accuracy}%</td>
-                <td><strong>${s.score}</strong></td>
-            </tr>
-        `;
-    });
-
-    // Charts
-    new Chart(document.getElementById('scoreChart'), {
-        type: 'bar',
-        data: {
-            labels: subjectData.map(s => s.name),
-            datasets: [{ label: 'Score', data: subjectData.map(s => s.score), backgroundColor: '#004ba0' }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-    });
-
-    new Chart(document.getElementById('accuracyChart'), {
+    new Chart(document.getElementById('radarChart'), {
         type: 'radar',
         data: {
-            labels: subjectData.map(s => s.name),
-            datasets: [{
-                label: 'Accuracy %',
-                data: subjectData.map(s => s.attempted ? (s.correct/s.attempted)*100 : 0),
-                borderColor: '#2e7d32',
-                backgroundColor: 'rgba(46, 125, 50, 0.2)'
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
+            labels: labels,
+            datasets: [{ label: 'Performance', data: scores, backgroundColor: 'rgba(0,75,160,0.2)' }]
+        }
     });
-
-    function renderSolutionCard(q, sec, attempted, isMcq) {
-        const isCorrect = attempted && (isMcq ? (parseInt(q.ans) === q.correct) : (parseFloat(q.ans) === parseFloat(q.answer)));
-        const card = document.createElement('div');
-        card.className = `q-card ${attempted ? (isCorrect ? 'correct' : 'wrong') : ''}`;
-        
-        let statusBadge = attempted ? (isCorrect ? '<span class="badge badge-correct">Correct</span>' : '<span class="badge badge-wrong">Incorrect</span>') : '<span class="badge">Skipped</span>';
-        
-        const userAnsText = isMcq ? (q.ans !== null ? q.options[q.ans] : 'N/A') : (q.ans || 'N/A');
-        const correctAnsText = isMcq ? q.options[q.correct] : q.answer;
-
-        card.innerHTML = `
-            ${statusBadge}
-            <div><strong>[${sec}]</strong> ${q.q}</div>
-            ${q.svg || ''}
-            <div style="margin-top:10px; font-size:0.9rem;">
-                <div style="color:${isCorrect?'var(--success)':'var(--danger)'}"><b>Your Answer:</b> ${userAnsText}</div>
-                <div style="color:var(--success)"><b>Correct Answer:</b> ${correctAnsText}</div>
-            </div>
-            <div style="background:#f1f3f5; padding:10px; margin-top:10px; border-radius:4px; font-size:0.85rem;">
-                <b>Solution:</b> ${q.solution || 'No explanation provided.'}
-            </div>
-        `;
-        document.getElementById('solutionContainer').appendChild(card);
-    }
 </script>
-
 </body>
 </html>
