@@ -5,80 +5,169 @@
 <title>CBT-Practice Result</title>
 
 <style>
-body{font-family:Arial;background:#eef2f7;padding:20px;}
-.header{background:#0b3d91;color:#fff;padding:12px;margin-bottom:15px;}
-.card{background:#fff;padding:15px;border-radius:8px;}
-.correct{color:#2ecc71;font-weight:bold;}
-.wrong{color:#e74c3c;font-weight:bold;}
-table{width:100%;border-collapse:collapse;}
-th,td{border:1px solid #ddd;padding:8px;}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#eef2f7;
+padding:20px;
+margin:0;
+}
+
+.header{
+background:#0b3d91;
+color:#fff;
+padding:12px;
+margin-bottom:15px;
+}
+
+.card{
+background:#fff;
+padding:15px;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+.correct{
+color:#2ecc71;
+font-weight:bold;
+}
+
+.wrong{
+color:#e74c3c;
+font-weight:bold;
+}
+
+.questionBox{
+border:1px solid #ddd;
+padding:12px;
+margin-bottom:12px;
+border-radius:6px;
+background:#fff;
+}
+
+.option{
+padding:6px 10px;
+margin:4px 0;
+border-radius:4px;
+}
+
+.optCorrect{
+background:#2ecc71;
+color:#fff;
+}
+
+.optWrong{
+background:#e74c3c;
+color:#fff;
+}
+
+.optUser{
+outline:2px solid #0b3d91;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="header"><h2>CBT-Practice Result</h2></div>
-
-<div class="card">
-
-<div id="summary"></div>
-
-<table>
-<thead>
-<tr>
-<th>Section</th>
-<th>Q.No</th>
-<th>Your</th>
-<th>Correct</th>
-<th>Status</th>
-<th>Solution</th>
-</tr>
-</thead>
-
-<tbody id="table"></tbody>
-
-</table>
-
+<div class="header">
+<h2>CBT-Practice Result & Full Review</h2>
 </div>
+
+<div class="card" id="summary"></div>
+
+<div id="questionsReview"></div>
 
 <script>
 
-let data=JSON.parse(localStorage.getItem("exam_result"));
+let data = JSON.parse(localStorage.getItem("exam_result"));
+
+if(!data){
+document.body.innerHTML="<h3>No result found.</h3>";
+}
+
+/* ===== SCORE CALCULATION ===== */
 
 let score=0,attempted=0,correct=0,wrong=0;
 let M=data.marking;
-let html="";
+let reviewHTML="";
 
-Object.keys(data.sections).forEach(sec=>{
+Object.keys(data.sections).forEach(section=>{
 
-data.sections[sec].forEach((q,i)=>{
+data.sections[section].forEach((q,i)=>{
 
-let your="-",status="Not Attempted",cls="";
+let userAns=q.answer;
+let correctAns=q.correct;
 
-if(q.answer!==null){
+let status="Not Attempted";
+let cls="";
+
+if(userAns!==null){
 attempted++;
-your=String.fromCharCode(65+q.answer);
 
-if(q.answer===q.correct){
-score+=M.correct;correct++;status="Correct";cls="correct";
+if(userAns===correctAns){
+score+=M.correct;
+correct++;
+status="Correct";
+cls="correct";
 }else{
-score+=M.wrong;wrong++;status="Wrong";cls="wrong";
+score+=M.wrong;
+wrong++;
+status="Wrong";
+cls="wrong";
 }
 }
 
-html+=`
-<tr>
-<td>${sec}</td>
-<td>${i+1}</td>
-<td>${your}</td>
-<td>${String.fromCharCode(65+q.correct)}</td>
-<td class="${cls}">${status}</td>
-<td>${q.solution}</td>
-</tr>`;
-});
+/* ===== OPTIONS RENDER ===== */
+
+let optionsHTML="";
+
+q.options.forEach((op,idx)=>{
+
+let optClass="option";
+
+if(idx===correctAns) optClass+=" optCorrect";
+if(userAns===idx && userAns!==correctAns) optClass+=" optWrong";
+if(userAns===idx) optClass+=" optUser";
+
+optionsHTML+=`
+<div class="${optClass}">
+${String.fromCharCode(65+idx)}. ${op}
+</div>`;
 });
 
-table.innerHTML=html;
+/* ===== QUESTION BLOCK ===== */
+
+reviewHTML+=`
+<div class="questionBox">
+
+<b>${section} - Question ${i+1}</b>
+<br><br>
+
+<div>${q.q}</div>
+
+<br>
+
+${optionsHTML}
+
+<br>
+
+<div class="${cls}">
+Status: ${status}
+</div>
+
+<div>
+<b>Solution:</b> ${q.solution}
+</div>
+
+</div>
+`;
+
+});
+
+});
+
+/* ===== SUMMARY ===== */
 
 summary.innerHTML=
 `<b>Total Score:</b> ${score}<br>
@@ -86,6 +175,8 @@ summary.innerHTML=
 <b>Correct:</b> ${correct}<br>
 <b>Wrong:</b> ${wrong}<br>
 <b>Accuracy:</b> ${(correct/attempted*100||0).toFixed(2)}%`;
+
+questionsReview.innerHTML=reviewHTML;
 
 </script>
 </body>
