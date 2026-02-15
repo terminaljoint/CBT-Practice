@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBT-Practice | Exam Interface</title>
+    <title>Professional CBT Interface</title>
 
     <script>
         window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
@@ -12,129 +12,114 @@
 
     <style>
         :root {
-            --primary: #0b3d91;
-            --success: #2ecc71;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-            --review: #8e44ad;
-            --bg: #eef2f7;
+            --primary: #0b3d91; --success: #2ecc71; --danger: #e74c3c;
+            --warning: #f39c12; --review: #8e44ad; --bg: #f4f7f9;
         }
 
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); user-select: none; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); user-select: none; overflow: hidden; }
 
         /* ===== START SCREEN ===== */
-        .startScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 999; }
-        .startCard { background: #fff; padding: 30px; border-radius: 12px; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
-        select { width: 100%; padding: 10px; margin: 15px 0; border-radius: 5px; border: 1px solid #ccc; }
+        .startScreen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .startCard { background: #fff; padding: 40px; border-radius: 12px; width: 450px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; }
 
         /* ===== HEADER ===== */
-        .header { background: var(--primary); color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header { background: var(--primary); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; height: 50px; }
+        .timer-box { font-family: monospace; font-size: 1.4em; background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 4px; }
 
-        /* ===== LAYOUT ===== */
-        .container { display: flex; height: calc(100vh - 60px); }
-        .left { width: 75%; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; }
-        .right { width: 25%; background: #fff; border-left: 1px solid #ddd; padding: 20px; display: flex; flex-direction: column; }
+        /* ===== MAIN LAYOUT ===== */
+        .main-container { display: flex; height: calc(100vh - 120px); }
+        .content-area { width: 75%; padding: 30px; overflow-y: auto; background: #fff; margin: 10px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .sidebar { width: 25%; padding: 15px; display: flex; flex-direction: column; background: #fff; border-left: 1px solid #ddd; }
 
-        .qheader { font-weight: bold; font-size: 1.1em; margin-bottom: 15px; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 5px; }
+        /* ===== DASHBOARD STATS ===== */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; font-size: 13px; }
+        .stat-item { padding: 8px; border-radius: 4px; color: #fff; display: flex; justify-content: space-between; }
 
-        /* ===== OPTIONS ===== */
-        .option { display: block; margin: 12px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; cursor: pointer; transition: 0.2s; }
-        .option:hover { background: #f0f4ff; border-color: var(--primary); }
-        .numInput { width: 200px; padding: 12px; font-size: 16px; border: 2px solid #ddd; border-radius: 6px; outline: none; }
-        .numInput:focus { border-color: var(--primary); }
+        /* ===== QUESTION STYLING ===== */
+        .q-text { font-size: 1.15em; line-height: 1.6; margin-bottom: 25px; }
+        .option { display: block; margin: 12px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .option:hover { border-color: var(--primary); background: #f0f5ff; }
+        .option input { margin-right: 12px; transform: scale(1.2); }
 
-        /* ===== TABS ===== */
-        .tabs button { margin-right: 8px; margin-bottom: 15px; padding: 8px 16px; border: none; border-radius: 4px; background: #ddd; cursor: pointer; font-weight: 600; }
-        .tabActive { background: var(--primary) !important; color: #fff; }
-
-        /* ===== NAV BUTTONS ===== */
-        .cbtNav { margin-top: auto; padding-top: 20px; display: flex; justify-content: space-between; }
-        .cbtNav button { padding: 10px 20px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; font-weight: bold; }
-        .btn-next { background: var(--success); color: white; border: none !important; }
-        .btn-review { background: var(--warning); color: white; border: none !important; }
-
-        /* ===== PALETTE & LEGEND ===== */
-        .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px; }
-        .leg-item { display: flex; align-items: center; gap: 5px; }
-        .dot { width: 12px; height: 12px; border-radius: 2px; }
-
-        .palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); gap: 8px; overflow-y: auto; }
-        .palette button { width: 45px; height: 40px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 14px; }
-
-        /* Status Classes */
-        .notVisited { background: #eee; color: #333; }
+        /* ===== PALETTE ===== */
+        .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; overflow-y: auto; padding-right: 5px; }
+        .palette button { height: 40px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        
+        /* Status Colors */
+        .notVisited { background: #eee; color: #444; }
         .notAnswered { background: var(--danger); color: #fff; }
         .answered { background: var(--success); color: #fff; }
         .review { background: var(--warning); color: #fff; }
         .reviewAnswered { background: var(--review); color: #fff; position: relative; }
-        .reviewAnswered::after { content: "✓"; position: absolute; top: -2px; right: 2px; font-size: 10px; }
-        .current { outline: 3px solid #333; outline-offset: -3px; }
+        .reviewAnswered::after { content: "✓"; position: absolute; top: 0; right: 2px; font-size: 10px; }
+        .current { outline: 3px solid #333; transform: scale(1.05); }
 
-        .submitBtn { background: var(--primary); color: #fff; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        /* ===== FOOTER NAV ===== */
+        .footer-nav { height: 60px; background: #fff; border-top: 1px solid #ddd; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        .btn { padding: 10px 20px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; font-weight: 600; }
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-success { background: var(--success); color: white; border: none; }
 
-        .diagram { max-width: 100%; margin: 20px 0; text-align: center; }
-        .diagram svg { max-height: 300px; }
+        .diagram { text-align: center; margin: 20px 0; border: 1px solid #eee; padding: 10px; border-radius: 8px; }
     </style>
 </head>
-
-<body>
+<body oncontextmenu="return false;">
 
 <div id="startScreen" class="startScreen">
     <div class="startCard">
-        <h2>CBT Assessment</h2>
-        <p>Select your paper to begin</p>
+        <h2 style="color:var(--primary)">CBT Examination Portal</h2>
         <select id="paperSelect"></select>
-        <div id="paperInfo" style="font-size: 0.9em; color: #666; margin-bottom: 20px;"></div>
-        <button onclick="startExam()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; cursor:pointer;">Start Examination</button>
+        <div id="paperInfo" style="margin: 20px 0; text-align: left; background: #f9f9f9; padding: 15px; border-radius: 8px;"></div>
+        <button class="btn btn-primary" style="width:100%" onclick="startExam()">Confirm & Begin Test</button>
     </div>
 </div>
 
 <div class="header">
-    <div><strong>EXAM MODE</strong></div>
-    <div>Time Left: <span id="time" style="font-family: monospace; font-size: 1.2em;">00:00:00</span></div>
+    <div><b>Exam:</b> <span id="activePaperName">...</span></div>
+    <div class="timer-box" id="time">00:00:00</div>
+    <div><button onclick="toggleFullScreen()" style="cursor:pointer; background:none; border:1px solid #fff; color:#fff; border-radius:3px; padding:2px 8px;">⛶ Fullscreen</button></div>
 </div>
 
-<div class="container">
-    <div class="left">
-        <div class="tabs" id="tabs"></div>
-        <div class="qheader" id="qno"></div>
-        <div id="question" style="font-size: 1.1em; line-height: 1.5;"></div>
+<div class="main-container">
+    <div class="content-area">
+        <div id="tabs" style="margin-bottom: 20px;"></div>
+        <div id="q-meta" style="font-weight: bold; color: var(--primary); margin-bottom: 10px;"></div>
+        <div id="question" class="q-text"></div>
         <div id="options"></div>
-
-        <div class="cbtNav">
-            <div>
-                <button onclick="clearResponse()">Clear Response</button>
-                <button class="btn-review" onclick="markReviewNext()">Mark for Review & Next</button>
-            </div>
-            <div>
-                <button onclick="prevQ()">Previous</button>
-                <button class="btn-next" onclick="nextQ()">Save & Next</button>
-            </div>
-        </div>
     </div>
 
-    <div class="right">
-        <b>Question Palette</b>
-        <div class="legend">
-            <div class="leg-item"><span class="dot" style="background:#eee"></span> Not Visited</div>
-            <div class="leg-item"><span class="dot" style="background:var(--danger)"></span> Not Answered</div>
-            <div class="leg-item"><span class="dot" style="background:var(--success)"></span> Answered</div>
-            <div class="leg-item"><span class="dot" style="background:var(--warning)"></span> Review</div>
-            <div class="leg-item" style="grid-column: span 2;"><span class="dot" style="background:var(--review)"></span> Answered & Marked for Review</div>
+    <div class="sidebar">
+        <div class="stats-grid">
+            <div class="stat-item" style="background:var(--success)"><span>Answered</span><span id="count-ans">0</span></div>
+            <div class="stat-item" style="background:var(--danger)"><span>Not Answered</span><span id="count-nans">0</span></div>
+            <div class="stat-item" style="background:var(--warning)"><span>Marked</span><span id="count-rev">0</span></div>
+            <div class="stat-item" style="background:#eee; color:#333"><span>Not Visited</span><span id="count-nvis">0</span></div>
         </div>
-        <hr>
+        <hr style="width:100%; border:0; border-top:1px solid #eee">
+        <b style="margin: 10px 0;">Question Palette</b>
         <div id="palette" class="palette"></div>
-        <button class="submitBtn" onclick="submitExam()">Submit Test</button>
+        <button class="btn btn-primary" style="margin-top:auto;" onclick="submitExam()">Final Submit</button>
+    </div>
+</div>
+
+<div class="footer-nav">
+    <div>
+        <button class="btn" onclick="clearResponse()">Clear Response</button>
+        <button class="btn" style="background:var(--warning); color:white; border:none;" onclick="markReviewNext()">Mark for Review & Next</button>
+    </div>
+    <div>
+        <button class="btn" onclick="prevQ()">Previous</button>
+        <button class="btn btn-success" onclick="nextQ()">Save & Next</button>
     </div>
 </div>
 
 <script>
-const PAPER_LIST = ["paper-1.json", "AEEE FE-1.json", "tough-jee.json"];
-const paperSelect = document.getElementById("paperSelect");
-paperSelect.innerHTML = PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
-
+const PAPER_LIST = ["paper-1.json", "AEEE FE-1.json", "JEE FE-1.json"];
 let examData, sections, currentSection, index = 0, totalTime = 0, started = false;
 
+// Initial Load
+const paperSelect = document.getElementById("paperSelect");
+paperSelect.innerHTML = PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
 paperSelect.onchange = loadPaperInfo;
 loadPaperInfo();
 
@@ -142,10 +127,11 @@ function loadPaperInfo() {
     fetch(paperSelect.value).then(r => r.json()).then(data => {
         let totalQ = Object.values(data.sections).reduce((a, b) => a + b.length, 0);
         document.getElementById("paperInfo").innerHTML = `
-            <b>Duration:</b> ${data.duration} mins | <b>Questions:</b> ${totalQ}<br>
-            <b>Marking:</b> +${data.marking.correct} / ${data.marking.wrong}
+            <b>Duration:</b> ${data.duration} Minutes<br>
+            <b>Total Questions:</b> ${totalQ}<br>
+            <b>Marking Scheme:</b> Correct (+${data.marking.correct}), Wrong (${data.marking.wrong})
         `;
-    }).catch(e => document.getElementById("paperInfo").innerText = "Error loading paper details.");
+    });
 }
 
 function startExam() {
@@ -161,8 +147,10 @@ function startExam() {
         });
 
         currentSection = Object.keys(sections)[0];
+        document.getElementById("activePaperName").innerText = paperSelect.value;
         document.getElementById("startScreen").style.display = "none";
         started = true;
+        
         buildTabs();
         render();
         startTimer();
@@ -171,28 +159,22 @@ function startExam() {
 
 function buildTabs() {
     document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => 
-        `<button id="tab_${sec}" onclick="switchSection('${sec}')">${sec}</button>`
+        `<button class="btn ${sec===currentSection?'btn-primary':''}" style="margin-right:5px" onclick="switchSection('${sec}')">${sec}</button>`
     ).join("");
-    updateActiveTab();
-}
-
-function updateActiveTab() {
-    Object.keys(sections).forEach(sec => document.getElementById("tab_" + sec).classList.remove("tabActive"));
-    document.getElementById("tab_" + currentSection).classList.add("tabActive");
 }
 
 function switchSection(sec) {
     currentSection = sec;
     index = 0;
-    updateActiveTab();
+    buildTabs();
     render();
 }
 
 function render() {
     const q = sections[currentSection][index];
-    if(!q.visited) q.visited = true;
+    q.visited = true;
 
-    document.getElementById("qno").innerText = `${currentSection} - Question ${index + 1}`;
+    document.getElementById("q-meta").innerText = `${currentSection} - Question ${index + 1}`;
     
     let html = q.q || "";
     if (q.svg) html += `<div class="diagram">${q.svg}</div>`;
@@ -206,23 +188,15 @@ function render() {
                 ${op}
             </label>`).join("");
     } else {
-        optCont.innerHTML = `<div style="margin:20px 0;">Enter Answer: <br><br>
-            <input type="number" step="any" class="numInput" value="${q.answer ?? ''}" oninput="setNumerical(this.value)"></div>`;
+        optCont.innerHTML = `<input type="number" step="any" class="btn" style="width:200px; padding:15px;" placeholder="Type Answer..." value="${q.answer ?? ''}" oninput="setNumerical(this.value)">`;
     }
 
     updatePalette();
     MathJax.typesetPromise();
 }
 
-function selectOption(i) {
-    sections[currentSection][index].answer = i;
-    updatePalette();
-}
-
-function setNumerical(v) {
-    sections[currentSection][index].answer = v === "" ? null : parseFloat(v);
-    updatePalette();
-}
+function selectOption(i) { sections[currentSection][index].answer = i; updatePalette(); }
+function setNumerical(v) { sections[currentSection][index].answer = v === "" ? null : parseFloat(v); updatePalette(); }
 
 function clearResponse() {
     sections[currentSection][index].answer = null;
@@ -235,60 +209,47 @@ function markReviewNext() {
     nextQ();
 }
 
-function nextQ() {
-    if (index < sections[currentSection].length - 1) {
-        index++;
-        render();
-    }
-}
-
-function prevQ() {
-    if (index > 0) {
-        index--;
-        render();
-    }
-}
-
-function gotoQ(i) {
-    index = i;
-    render();
-}
+function nextQ() { if (index < sections[currentSection].length - 1) { index++; render(); } }
+function prevQ() { if (index > 0) { index--; render(); } }
+function gotoQ(i) { index = i; render(); }
 
 function updatePalette() {
+    let stats = { ans: 0, nvis: 0, nans: 0, rev: 0 };
+    
     document.getElementById("palette").innerHTML = sections[currentSection].map((q, i) => {
         let cls = "notVisited";
-        if (q.visited) cls = "notAnswered";
-        if (q.answer !== null) cls = "answered";
-        
-        // Review Logic
-        if (q.review) {
-            cls = (q.answer !== null) ? "reviewAnswered" : "review";
-        }
+        if (q.visited) { cls = "notAnswered"; stats.nans++; } else { stats.nvis++; }
+        if (q.answer !== null) { cls = "answered"; stats.ans++; stats.nans--; }
+        if (q.review) { cls = (q.answer !== null) ? "reviewAnswered" : "review"; stats.rev++; }
         
         if (i === index) cls += " current";
         return `<button class="${cls}" onclick="gotoQ(${i})">${i + 1}</button>`;
     }).join("");
+
+    document.getElementById("count-ans").innerText = stats.ans;
+    document.getElementById("count-nans").innerText = Math.max(0, stats.nans);
+    document.getElementById("count-rev").innerText = stats.rev;
+    document.getElementById("count-nvis").innerText = stats.nvis;
+
+    // Save progress to Session Storage
+    sessionStorage.setItem("exam_autosave", JSON.stringify({currentSection, index, sections, totalTime}));
 }
 
 function startTimer() {
-    const timerInt = setInterval(() => {
+    setInterval(() => {
         if (!started) return;
         totalTime--;
-        let h = Math.floor(totalTime / 3600);
-        let m = Math.floor((totalTime % 3600) / 60);
-        let s = totalTime % 60;
-        document.getElementById("time").innerText = 
-            `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-
-        if (totalTime <= 0) {
-            clearInterval(timerInt);
-            alert("Time Up!");
-            submitExam(true);
-        }
+        let h = Math.floor(totalTime / 3600), m = Math.floor((totalTime % 3600) / 60), s = totalTime % 60;
+        document.getElementById("time").innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        if (totalTime <= 0) submitExam(true);
     }, 1000);
 }
 
-// Keyboard Support
+function toggleFullScreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else if (document.exitFullscreen) document.exitFullscreen();
+}
+
 document.addEventListener('keydown', (e) => {
     if (!started) return;
     if (e.key === "ArrowRight") nextQ();
@@ -296,19 +257,12 @@ document.addEventListener('keydown', (e) => {
 });
 
 function submitExam(auto = false) {
-    let unanswered = 0;
-    Object.values(sections).forEach(arr => {
-        arr.forEach(q => { if (q.answer === null) unanswered++; });
-    });
-
-    if (!auto && !confirm(`You have ${unanswered} unanswered questions. Submit test?`)) return;
-
+    if (!auto && !confirm("Are you sure you want to end the test?")) return;
     localStorage.setItem("exam_result", JSON.stringify(examData));
     location.href = "score.html";
 }
 
-window.onbeforeunload = function() { if(started) return "Progress will be lost!"; };
+window.onbeforeunload = () => { if(started) return "Progress will be lost!"; };
 </script>
-
 </body>
 </html>
