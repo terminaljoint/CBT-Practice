@@ -11,20 +11,12 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
 
 <style>
 
-
-/*===########################################paper add panna line 240##################################### ===*/
-
-
-/* ===== GLOBAL ===== */
-
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
 background:#eef2f7;
-user-select:none; /* real CBT behaviour */
+user-select:none;
 }
-
-/* ===== HEADER ===== */
 
 .header{
 background:#0b3d91;
@@ -41,8 +33,6 @@ padding:10px 14px;
 border-bottom:2px solid #ddd;
 font-size:14px;
 }
-
-/* ===== LAYOUT ===== */
 
 .container{
 display:flex;
@@ -63,8 +53,6 @@ padding:12px;
 overflow:auto;
 }
 
-/* ===== FLOATING HEADER ===== */
-
 .qheader{
 position:sticky;
 top:0;
@@ -72,8 +60,6 @@ background:#eef2f7;
 padding:8px 0;
 font-weight:bold;
 }
-
-/* ===== OPTIONS ===== */
 
 .option{
 display:block;
@@ -84,8 +70,6 @@ border-radius:6px;
 background:#fff;
 cursor:pointer;
 }
-
-/* ===== SECTION TABS ===== */
 
 .tabs button{
 margin-right:6px;
@@ -102,7 +86,7 @@ background:#0b3d91;
 color:#fff;
 }
 
-/* ===== HARD-CODED CBT NAV BAR ===== */
+/* ===== HARD NAV BAR ===== */
 
 .cbtNav{
 position:relative;
@@ -130,7 +114,7 @@ margin-right:10px;
 padding:6px 12px;
 }
 
-/* ===== PALETTE ===== */
+/* ===== PALETTE COLORS (REAL CBT) ===== */
 
 .palette{
 display:grid;
@@ -148,9 +132,10 @@ font-weight:bold;
 }
 
 .notVisited{background:#ccc;}
-.answered{background:#2ecc71;color:#fff;}
-.review{background:#f39c12;color:#fff;}
-.reviewAnswered{background:#8e44ad;color:#fff;}
+.notAnswered{background:#e74c3c;color:#fff;}   /* RED */
+.answered{background:#2ecc71;color:#fff;}      /* GREEN */
+.review{background:#f39c12;color:#fff;}        /* ORANGE */
+.reviewAnswered{background:#8e44ad;color:#fff;}/* PURPLE */
 .current{outline:3px solid #0b3d91;}
 
 .submitBtn{
@@ -199,8 +184,6 @@ Time Left:
 <div id="question"></div>
 <div id="options"></div>
 
-<!-- ===== HARD-CODED NAV BAR ===== -->
-
 <div class="cbtNav">
 
 <div class="navLeft">
@@ -230,6 +213,7 @@ Time Left:
 
 <div class="legend">
 <div><span style="background:#ccc;padding:4px 8px;"> </span> Not Visited</div>
+<div><span style="background:#e74c3c;color:#fff;padding:4px 8px;"> </span> Not Answered</div>
 <div><span style="background:#2ecc71;color:#fff;padding:4px 8px;"> </span> Answered</div>
 <div><span style="background:#f39c12;color:#fff;padding:4px 8px;"> </span> Review</div>
 <div><span style="background:#8e44ad;color:#fff;padding:4px 8px;"> </span> Review + Answered</div>
@@ -241,12 +225,7 @@ Time Left:
 
 <script>
 
-/* ===== PAPER LIST ===== */
-
-const PAPER_LIST=[
-"paper-1.json",
-"AEEE FE-1.json"
-];
+const PAPER_LIST=["paper-1.json","paper-2.json","paper-3.json"];
 
 const params=new URLSearchParams(location.search);
 let selectedPaper=params.get("paper")||PAPER_LIST[0];
@@ -354,23 +333,31 @@ function nextQ(){ if(index<sections[currentSection].length-1){index++;render();}
 function prevQ(){ if(index>0){index--;render();}}
 function gotoQ(i){index=i;render();}
 
+/* ===== UPDATED CBT COLOR LOGIC ===== */
+
 function updatePalette(){
 palette.innerHTML=sections[currentSection].map((q,i)=>{
+
 let cls="notVisited";
-if(q.answer!==null&&q.review)cls="reviewAnswered";
-else if(q.review)cls="review";
-else if(q.answer!==null)cls="answered";
-if(i===index)cls+=" current";
+
+if(q.visited && q.answer===null && !q.review) cls="notAnswered";
+if(q.answer!==null && !q.review) cls="answered";
+if(q.review && q.answer===null) cls="review";
+if(q.review && q.answer!==null) cls="reviewAnswered";
+
+if(i===index) cls+=" current";
+
 return `<button class="${cls}" onclick="gotoQ(${i})">${i+1}</button>`;
 }).join("");
 }
 
 function updateStats(){
 
-let nv=0,ans=0,rev=0,ra=0;
+let nv=0,na=0,ans=0,rev=0,ra=0;
 
 sections[currentSection].forEach(q=>{
 if(!q.visited)nv++;
+if(q.visited && q.answer===null && !q.review)na++;
 if(q.answer!==null&&!q.review)ans++;
 if(q.review&&q.answer===null)rev++;
 if(q.review&&q.answer!==null)ra++;
@@ -378,6 +365,7 @@ if(q.review&&q.answer!==null)ra++;
 
 stats.innerHTML=
 `Not Visited: <b>${nv}</b> |
+Not Answered: <b>${na}</b> |
 Answered: <b>${ans}</b> |
 Review: <b>${rev}</b> |
 Review+Answered: <b>${ra}</b>`;
