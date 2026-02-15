@@ -1,0 +1,118 @@
+{
+  "duration":180,
+  "marking":{"correct":4,"wrong":-1},
+
+  "sections":{
+
+"Physics":[
+
+{
+"q":"The velocity-time graph of a particle is shown. Identify correct displacement from t=0 to 6s.",
+"svg":"<svg viewBox='0 0 300 200'><line x1='30' y1='170' x2='280' y2='170' stroke='black'/><line x1='30' y1='170' x2='30' y2='20' stroke='black'/><polyline points='30,170 80,60 130,60 200,140 260,80' fill='none' stroke='blue' stroke-width='3'/><text x='260' y='185'>t</text><text x='10' y='20'>v</text></svg>",
+"options":["Positive","Zero","Negative","Cannot be determined"],
+"correct":0,
+"solution":"Net area above axis positive."
+},
+
+{
+"q":"A block slides down rough incline shown. If coefficient varies linearly with distance, acceleration at midpoint?",
+"svg":"<svg viewBox='0 0 300 200'><polygon points='40,160 260,160 260,60' fill='none' stroke='black'/><rect x='150' y='120' width='30' height='20' fill='grey'/></svg>",
+"options":["g(sinθ-μ/2 cosθ)","gsinθ","0","gcosθ"],
+"correct":0,
+"solution":"Average friction at midpoint."
+},
+
+{"q":"Two identical capacitors shown. Equivalent capacitance?","svg":"<svg viewBox='0 0 200 120'><line x1='20' y1='60' x2='60' y2='60' stroke='black'/><rect x='60' y='40' width='10' height='40' fill='black'/><rect x='80' y='40' width='10' height='40' fill='black'/><line x1='90' y1='60' x2='130' y2='60' stroke='black'/><rect x='130' y='40' width='10' height='40' fill='black'/><rect x='150' y='40' width='10' height='40' fill='black'/><line x1='160' y1='60' x2='180' y2='60' stroke='black'/></svg>",
+"options":["C/2","2C","C","3C/2"],
+"correct":0,
+"solution":"Series combination."
+},
+
+{"q":"Magnetic field into page, particle path shown. Nature of charge?","svg":"<svg viewBox='0 0 200 200'><circle cx='100' cy='100' r='60' fill='none' stroke='black'/><text x='95' y='20'>×××</text></svg>",
+"options":["Positive","Negative","Neutral","Depends"],
+"correct":1,
+"solution":"Clockwise motion in B into page ⇒ negative."},
+
+{"q":"Which region shows maximum acceleration magnitude?","svg":"<svg viewBox='0 0 260 180'><polyline points='20,150 80,40 140,150 220,80' fill='none' stroke='blue' stroke-width='3'/></svg>",
+"options":["Steepest slope","Flat region","End point","All equal"],
+"correct":0,
+"solution":"dv/dt largest where slope max."},
+
+{"q":"Photon of wavelength λ hits metal. If λ halved, stopping potential becomes?","options":["Doubles","Quadruples","Same","Half"],"correct":0,"solution":"Energy doubles."},
+
+{"q":"Electric field lines diverging outward indicate?","options":["Positive charge","Negative charge","Dipole","Zero field"],"correct":0,"solution":"Field outward."},
+
+{"q":"At resonance current phase relative to voltage?","options":["0°","90°","180°","45°"],"correct":0,"solution":"Purely resistive."},
+
+{"q":"A ring rolling without slipping. Ratio KE_rot : KE_trans ?","options":["1:1","1:2","2:1","1:3"],"correct":0,"solution":"Ring I=MR²."},
+
+{"q":"Standing wave shown. Number of nodes?","svg":"<svg viewBox='0 0 260 120'><path d='M10 60 Q60 10 110 60 T210 60' stroke='blue' fill='none' stroke-width='3'/></svg>","options":["3","2","4","1"],"correct":0,"solution":"Two internal + ends."},
+
+{"q":"Numerical: Area under v–t triangle with base 6 and height 12.","answer":36,"solution":"1/2bh."},
+{"q":"Numerical: Escape velocity if g=10,R=5 (sqrt approx).","answer":10,"solution":"v=√(2gR)."},
+{"q":"Numerical: Capacitor energy if C=4,V=3.","answer":18,"solution":"1/2CV²."},
+{"q":"Numerical: Angular momentum if r=2,p=5 perpendicular.","answer":10,"solution":"L=rp."},
+{"q":"Numerical: Wave speed if f=40 λ=0.5.","answer":20,"solution":"v=fλ."}
+],
+
+"Chemistry":[
+
+{"q":"MO diagram shown corresponds to which species?","svg":"<svg viewBox='0 0 200 200'><line x1='80' y1='20' x2='80' y2='180' stroke='black'/><line x1='120' y1='20' x2='120' y2='180' stroke='black'/><line x1='60' y1='40' x2='140' y2='40' stroke='blue'/></svg>","options":["O2","O2+","N2","F2"],"correct":1,"solution":"One electron removed."},
+
+{"q":"Potential energy vs distance curve implies bond strength highest at?","svg":"<svg viewBox='0 0 260 150'><path d='M10 80 Q100 10 200 80' stroke='blue' fill='none' stroke-width='3'/></svg>","options":["Minimum point","Origin","Right side","Left extreme"],"correct":0,"solution":"Potential minimum."},
+
+{"q":"Entropy increases most in process shown?","svg":"<svg viewBox='0 0 200 120'><rect x='20' y='20' width='60' height='60' stroke='black' fill='none'/><rect x='120' y='40' width='40' height='40' stroke='black' fill='none'/></svg>","options":["Expansion","Compression","Cooling","Reaction"],"correct":0,"solution":"Volume increase."},
+
+{"q":"Which has maximum dipole moment?","options":["NH3","BF3","CO2","CCl4"],"correct":0,"solution":"Pyramidal."},
+
+{"q":"Rate doubles when temperature increases slightly. Likely activation energy?","options":["High","Zero","Negative","Undefined"],"correct":0,"solution":"Arrhenius."},
+
+{"q":"Hybridisation of central atom in IF5?","options":["sp3d2","sp3d","sp2","sp3"],"correct":0,"solution":"Square pyramidal."},
+
+{"q":"Which oxide most basic?","options":["Cs2O","SO3","CO2","P2O5"],"correct":0,"solution":"Alkali oxide."},
+
+{"q":"Which polymer shown?","svg":"<svg viewBox='0 0 260 80'><text x='10' y='50'>-CH2-CH2-CH2-</text></svg>","options":["Polyethylene","PVC","Nylon","Teflon"],"correct":0,"solution":"Ethene units."},
+
+{"q":"Catalyst effect on ΔG?","options":["No change","Increase","Decrease","Reverse sign"],"correct":0,"solution":"Thermo unchanged."},
+
+{"q":"Bond angle largest?","options":["CO2","H2O","NH3","CH4"],"correct":0,"solution":"Linear."},
+
+{"q":"Numerical: Moles in 11.2L STP.","answer":0.5,"solution":"22.4 rule."},
+{"q":"Numerical: pH if [H+]=1e-6.","answer":6,"solution":"-log."},
+{"q":"Numerical: Oxidation state S in SO4^2-.","answer":6,"solution":"Balance."},
+{"q":"Numerical: Mass of 0.1 mol H2O.","answer":1.8,"solution":"18×0.1."},
+{"q":"Numerical: Molecules in 0.5 mol.","answer":3.011e23,"solution":"NA/2."}
+],
+
+"Maths":[
+
+{"q":"Region shown bounded by curve represents which integral sign?","svg":"<svg viewBox='0 0 260 160'><line x1='20' y1='140' x2='240' y2='140' stroke='black'/><path d='M20 140 Q120 20 240 140' fill='rgba(0,0,255,0.2)' stroke='blue'/></svg>","options":["Positive","Negative","Zero","Undefined"],"correct":0,"solution":"Area above axis."},
+
+{"q":"Tangent slope at steepest point equals?","svg":"<svg viewBox='0 0 260 160'><path d='M10 140 Q120 20 240 140' stroke='blue' fill='none'/></svg>","options":["Max derivative","Min derivative","Zero","Constant"],"correct":0,"solution":"Slope concept."},
+
+{"q":"Vector triangle shown. Resultant magnitude?","svg":"<svg viewBox='0 0 200 150'><line x1='20' y1='120' x2='120' y2='120' stroke='black'/><line x1='120' y1='120' x2='80' y2='40' stroke='black'/></svg>","options":["|a+b|","|a-b|","0","a²+b²"],"correct":0,"solution":"Head-to-tail."},
+
+{"q":"Matrix transformation rotates by?","svg":"<svg viewBox='0 0 200 160'><polygon points='60,120 100,60 140,120' fill='none' stroke='blue'/></svg>","options":["Angle θ","Scale","Reflection","Shear"],"correct":0,"solution":"Rotation matrix."},
+
+{"q":"Circle shown tangent to axis implies radius?","svg":"<svg viewBox='0 0 200 160'><circle cx='100' cy='80' r='40' fill='none' stroke='black'/><line x1='0' y1='120' x2='200' y2='120' stroke='black'/></svg>","options":["Equal to centre distance","Half","Double","Zero"],"correct":0,"solution":"Distance to tangent."},
+
+{"q":"Derivative of $x^x$ equals?","options":["x^x(1+lnx)","x^x","lnx","x"],"correct":0,"solution":"Log differentiation."},
+
+{"q":"Limit $x→0 (1+x)^{1/x}$ ?","options":["e","1","0","∞"],"correct":0,"solution":"Standard limit."},
+
+{"q":"Angle between vectors if dot=0?","options":["90°","0°","60°","180°"],"correct":0,"solution":"Orthogonal."},
+
+{"q":"Area under curve equals?","options":["Integral","Derivative","Slope","Vector"],"correct":0,"solution":"Definition."},
+
+{"q":"Probability sum rule equals?","options":["1","0","2","n"],"correct":0,"solution":"Total probability."},
+
+{"q":"Numerical: |(3,4,12)|.","answer":13,"solution":"√169."},
+{"q":"Numerical: ∫0→1 3x² dx.","answer":1,"solution":"x³."},
+{"q":"Numerical: det[[4,1],[0,5]].","answer":20,"solution":"4×5."},
+{"q":"Numerical: Distance (0,0),(8,15).","answer":17,"solution":"8-15-17."},
+{"q":"Numerical: If tanθ=√3, θ acute.","answer":60,"solution":"Trig value."}
+
+]
+
+}
+}
