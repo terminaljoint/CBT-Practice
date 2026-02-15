@@ -4,17 +4,12 @@
 <meta charset="UTF-8">
 <title>CBT-Practice Result</title>
 
-<!-- ===== LATEX SUPPORT ===== -->
 <script>
-window.MathJax={
- tex:{inlineMath:[['$','$'],['\\(','\\)']]}
-};
+window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
-
-/* ===== GLOBAL ===== */
 
 body{
 margin:0;
@@ -23,7 +18,7 @@ background:#eef2f7;
 padding:20px;
 }
 
-svg{max-width:100%;height:auto;} /* SVG diagram scaling */
+svg{max-width:100%;height:auto;}
 
 .header{
 background:#0b3d91;
@@ -35,8 +30,6 @@ top:0;
 z-index:5;
 }
 
-/* ===== SUMMARY CARD ===== */
-
 .summary{
 background:#fff;
 padding:14px;
@@ -45,15 +38,11 @@ margin-bottom:20px;
 box-shadow:0 0 6px rgba(0,0,0,0.1);
 }
 
-/* ===== SECTION TITLE ===== */
-
 .sectionTitle{
 margin-top:25px;
 font-weight:bold;
 font-size:18px;
 }
-
-/* ===== QUESTION BOX ===== */
 
 .questionBox{
 border:1px solid #ddd;
@@ -63,33 +52,27 @@ border-radius:6px;
 background:#fff;
 }
 
-/* ===== OPTIONS ===== */
-
 .option{
 padding:8px 10px;
 margin:6px 0;
 border-radius:4px;
 }
 
-.optCorrect{
-background:#2ecc71;
-color:#fff;
-}
-
-.optWrong{
-background:#e74c3c;
-color:#fff;
-}
-
-.optUser{
-outline:2px solid #0b3d91;
-}
-
-/* ===== STATUS COLORS ===== */
+.optCorrect{background:#2ecc71;color:#fff;}
+.optWrong{background:#e74c3c;color:#fff;}
+.optUser{outline:2px solid #0b3d91;}
 
 .statusCorrect{color:#2ecc71;font-weight:bold;}
 .statusWrong{color:#e74c3c;font-weight:bold;}
 .statusNA{color:#555;font-weight:bold;}
+
+.diagram{
+margin-top:10px;
+padding:8px;
+border:1px solid #ddd;
+background:#fff;
+border-radius:6px;
+}
 
 </style>
 </head>
@@ -101,12 +84,9 @@ outline:2px solid #0b3d91;
 </div>
 
 <div class="summary" id="summary"></div>
-
 <div id="reviewContainer"></div>
 
 <script>
-
-/* ===== LOAD RESULT DATA ===== */
 
 let data = JSON.parse(localStorage.getItem("exam_result"));
 
@@ -114,7 +94,7 @@ if(!data){
 document.body.innerHTML="<h3>No submitted result found.</h3>";
 }
 
-/* ===== SCORE CALCULATION ===== */
+/* ===== SCORE CALC ===== */
 
 let totalScore=0;
 let attempted=0;
@@ -125,7 +105,7 @@ let reviewHTML="";
 
 const M=data.marking || {correct:1,wrong:0};
 
-/* ===== LOOP SECTIONS ===== */
+/* ===== LOOP ===== */
 
 Object.keys(data.sections).forEach(section=>{
 
@@ -134,16 +114,31 @@ reviewHTML+=`<div class="sectionTitle">${section}</div>`;
 data.sections[section].forEach((q,i)=>{
 
 let userAns=q.answer;
-let correctAns=q.correct;
 
 let statusText="Not Attempted";
 let statusClass="statusNA";
+
+/* ===== QUESTION HTML (SVG SUPPORT) ===== */
+
+let qHTML=q.q || "";
+
+if(q.svg){
+qHTML+=`<div class="diagram">${q.svg}</div>`;
+}
+
+/* ===== DETECT TYPE ===== */
+
+let isMCQ = Array.isArray(q.options);
+
+/* ===== SCORING ===== */
 
 if(userAns!==null){
 
 attempted++;
 
-if(userAns===correctAns){
+if(isMCQ){
+
+if(userAns===q.correct){
 totalScore+=M.correct;
 correct++;
 statusText="Correct";
@@ -155,36 +150,71 @@ statusText="Wrong";
 statusClass="statusWrong";
 }
 
+}else{
+
+/* NUMERICAL CHECK */
+
+let tol=q.tolerance ?? 0.01;
+let ansVal=q.answer;
+
+if(Math.abs(userAns-ansVal)<=tol){
+totalScore+=M.correct;
+correct++;
+statusText="Correct";
+statusClass="statusCorrect";
+}else{
+wrong++;
+statusText="Wrong";
+statusClass="statusWrong";
 }
 
-/* ===== OPTIONS RENDER ===== */
+}
+
+}
+
+/* ===== OPTIONS / NUMERICAL DISPLAY ===== */
 
 let optionsHTML="";
+
+if(isMCQ){
 
 q.options.forEach((op,idx)=>{
 
 let cls="option";
 
-if(idx===correctAns) cls+=" optCorrect";
-if(userAns===idx && userAns!==correctAns) cls+=" optWrong";
+if(idx===q.correct) cls+=" optCorrect";
+if(userAns===idx && userAns!==q.correct) cls+=" optWrong";
 if(userAns===idx) cls+=" optUser";
 
 optionsHTML+=`
 <div class="${cls}">
 ${String.fromCharCode(65+idx)}. ${op}
 </div>`;
+
 });
 
-/* ===== QUESTION BLOCK ===== */
+}else{
+
+optionsHTML+=`
+<div class="option">
+<b>Your Answer:</b> ${userAns ?? "—"}
+</div>
+<div class="option optCorrect">
+<b>Correct Answer:</b> ${q.answer}
+</div>
+`;
+
+}
+
+/* ===== BUILD BLOCK ===== */
 
 reviewHTML+=`
-
 <div class="questionBox">
 
 <b>${section} - Question ${i+1}</b>
 <br><br>
 
-<div>${q.q}</div>
+<div>${qHTML}</div>
 
 <br>
 
@@ -218,7 +248,7 @@ summary.innerHTML=
 
 reviewContainer.innerHTML=reviewHTML;
 
-/* ===== IMPORTANT: RENDER LATEX + SVG ===== */
+/* ===== LATEX + SVG RENDER ===== */
 
 MathJax.typesetPromise();
 
