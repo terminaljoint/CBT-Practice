@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise CBT Interface</title>
+    <title>Enterprise CBT - Selection Portal</title>
 
     <script>
         window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
@@ -12,124 +12,149 @@
 
     <style>
         :root {
-            --primary: #0b3d91; --success: #2ecc71; --danger: #e74c3c;
-            --warning: #f39c12; --review: #8e44ad; --bg: #eef2f7;
-            --header-h: 55px; --footer-h: 65px; --sidebar-w: 320px;
+            --primary: #337ab7; --success: #5cb85c; --danger: #d9534f;
+            --warning: #f0ad4e; --review: #8e44ad; --bg: #f5f5f5;
+            --header-h: 60px; --footer-h: 60px; --sidebar-w: 300px;
         }
 
         body { 
-            margin: 0; font-family: 'Segoe UI', sans-serif; 
+            margin: 0; font-family: 'Arial', sans-serif; 
             background: var(--bg); user-select: none; overflow: hidden;
             height: 100vh; display: flex; flex-direction: column;
         }
 
-        /* ===== START SCREEN ===== */
-        .startScreen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .startCard { background: #fff; padding: 30px; border-radius: 4px; width: 450px; box-shadow: 0 5px 25px rgba(0,0,0,0.15); border-top: 6px solid var(--primary); }
-
-        /* ===== HEADER ===== */
-        .header { height: var(--header-h); background: var(--primary); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .timer-box { font-family: monospace; font-size: 1.5em; font-weight: bold; background: #fff; color: #333; padding: 2px 12px; border-radius: 3px; border: 1px solid #ccc; }
-
-        /* ===== MAIN CONTAINER ===== */
-        .main-container { display: flex; flex: 1; overflow: hidden; }
-        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #ccc; overflow: hidden; }
-        .section-tabs { background: #f1f1f1; padding: 8px 15px; border-bottom: 1px solid #ddd; }
-        .q-scroll-view { flex: 1; overflow-y: auto; padding: 25px; }
-
-        /* ===== SIDEBAR & SUBJECT DASHBOARD ===== */
-        .sidebar { width: var(--sidebar-w); display: flex; flex-direction: column; background: #fff; }
+        /* ===== START SCREEN IMPROVED UI ===== */
+        .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; display: flex; flex-direction: column; }
+        .inst-header { background: #337ab7; color: #fff; padding: 15px 30px; font-size: 1.2em; font-weight: bold; }
+        .inst-container { max-width: 1000px; margin: 20px auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; padding: 0 20px; }
+        .inst-content { background: #fff; border: 1px solid #ddd; padding: 25px; height: 65vh; overflow-y: auto; line-height: 1.6; font-size: 14px; }
+        .candidate-card { border: 1px solid #ddd; background: #f9f9f9; padding: 15px; text-align: center; }
+        .cand-photo { width: 120px; height: 140px; background: #ddd; margin: 0 auto 10px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #777; }
         
-        .subject-dashboard { padding: 10px; background: #f0f4f8; border-bottom: 1px solid #ddd; }
-        .sub-pill { 
-            display: flex; justify-content: space-between; font-size: 11px; 
-            background: #fff; margin-bottom: 4px; padding: 5px 10px; 
-            border-radius: 20px; border: 1px solid #d1d9e6; font-weight: bold;
-        }
+        .paper-selector-box { margin-top: 20px; padding: 15px; background: #eef2f7; border: 1px solid #337ab7; border-radius: 4px; }
+        .declaration-box { margin-top: 20px; padding: 15px; border-top: 1px solid #eee; background: #fff; }
 
-        .dashboard { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border-bottom: 1px solid #ddd; }
-        .stat-item { font-size: 12px; padding: 6px; border-radius: 3px; color: #fff; font-weight: bold; display: flex; justify-content: space-between; }
+        /* ===== MAIN EXAM INTERFACE ===== */
+        .header { height: var(--header-h); background: #fff; color: #333; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); }
+        .timer-box { font-size: 1.2em; font-weight: bold; color: #fff; background: #337ab7; padding: 5px 15px; border-radius: 4px; }
+        .main-container { display: none; flex: 1; overflow: hidden; } /* Hidden until start */
+        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #ccc; }
+        .section-tabs { background: #e5e5e5; display: flex; border-bottom: 1px solid #ccc; }
+        .tab-btn { padding: 10px 20px; border: none; cursor: pointer; font-weight: bold; background: #e5e5e5; border-right: 1px solid #ccc; }
+        .tab-btn.active { background: var(--primary); color: #fff; }
+        .q-scroll-view { flex: 1; overflow-y: auto; padding: 20px; }
 
         /* ===== PALETTE ===== */
-        .palette-container { flex: 1; overflow-y: auto; padding: 15px; }
-        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .palette-grid button { height: 40px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; position: relative; }
+        .sidebar { width: var(--sidebar-w); display: flex; flex-direction: column; background: #fff; }
+        .palette-container { flex: 1; overflow-y: auto; padding: 10px; background: #f9f9f9; }
+        .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .palette-grid button { height: 35px; width: 40px; border: 1px solid #ccc; cursor: pointer; font-size: 12px; position: relative; }
 
-        .notVisited { background: #fff; color: #000; }
-        .notAnswered { background: var(--danger); color: #fff; border-radius: 0 0 15px 15px; }
-        .answered { background: var(--success); color: #fff; border-radius: 15px 15px 0 0; }
-        .review { background: var(--review); color: #fff; border-radius: 50%; }
-        .reviewAnswered { background: var(--review); color: #fff; border-radius: 50%; }
-        .reviewAnswered::after { content: "✓"; position: absolute; bottom: 0; right: 0; background: var(--success); font-size: 10px; border-radius: 50%; padding: 2px; }
-        .current { border: 2.5px solid #000 !important; }
+        /* JEE Status Shapes */
+        .notVisited { background: #fff; color: #000; border-radius: 2px; }
+        .notAnswered { background: #d9534f; color: #fff; border-radius: 0 0 12px 12px; }
+        .answered { background: #5cb85c; color: #fff; border-radius: 12px 12px 0 0; }
+        .review { background: #8e44ad; color: #fff; border-radius: 50%; }
+        .reviewAnswered { background: #8e44ad; color: #fff; border-radius: 50%; }
+        .reviewAnswered::after { content: ""; position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; background: #5cb85c; border-radius: 50%; border: 1px solid white; }
+        .current { border: 2px solid #222 !important; font-weight: bold; }
 
-        .option { display: flex; align-items: center; padding: 12px 18px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
-        .option:hover { background: #f5f8ff; border-color: var(--primary); }
-
-        .footer { height: var(--footer-h); background: #eee; border-top: 1px solid #bbb; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .btn { padding: 10px 22px; border-radius: 3px; border: 1px solid #aaa; cursor: pointer; font-weight: bold; }
-        .btn-blue { background: #286090; color: #fff; border: none; }
-        .btn-green { background: #449d44; color: #fff; border: none; }
-        .btn-resume { background: var(--warning); color: #fff; border: none; margin-top: 10px; width: 100%; padding: 15px; }
+        /* ===== OPTIONS & FOOTER ===== */
+        .option { display: flex; align-items: center; padding: 10px; margin-bottom: 8px; border: 1px solid #eee; border-radius: 4px; cursor: pointer; }
+        .option input { margin-right: 12px; }
+        .footer { height: var(--footer-h); background: #fff; border-top: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; }
+        .btn { padding: 8px 18px; border-radius: 2px; border: 1px solid #ccc; cursor: pointer; font-weight: 500; }
+        .btn-save { background: #337ab7; color: #fff; border: none; }
+        .btn-ready { background: #286090; color: #fff; border: none; padding: 12px 30px; font-size: 16px; opacity: 0.5; cursor: not-allowed; }
+        .btn-ready.active { opacity: 1; cursor: pointer; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
 <div id="startScreen" class="startScreen">
-    <div class="startCard">
-        <h2 style="color:var(--primary); text-align:center;">Candidate Portal</h2>
-        <div id="resumeSection" style="display:none; margin-bottom: 20px; padding: 15px; background: #fff4e5; border: 1px solid #ffcc80; border-radius: 4px;">
-            <p style="margin:0; font-weight:bold; font-size: 14px;">Incomplete session detected!</p>
-            <button class="btn-resume" onclick="resumeExam()">Resume Saved Progress</button>
-            <p style="font-size: 11px; text-align: center; margin-top: 5px;">Or select a new paper below to start over.</p>
+    <div class="inst-header">General Instructions</div>
+    <div class="inst-container">
+        <div class="left-col">
+            <div class="inst-content">
+                <h4>Please read the instructions carefully:</h4>
+                <ol>
+                    <li>Total duration of the examination is <b>180 minutes</b>.</li>
+                    <li>The clock will be set at the server. The countdown timer in the top right corner of screen will display the remaining time available for you to complete the examination.</li>
+                    <li>The Question Palette displayed on the right side of screen will show the status of each question using one of the following symbols:
+                        <ul>
+                            <li><b>White (Square):</b> You have not visited the question yet.</li>
+                            <li><b>Red (Trapezoid):</b> You have not answered the question.</li>
+                            <li><b>Green (Trapezoid):</b> You have answered the question.</li>
+                            <li><b>Purple (Circle):</b> You have NOT answered the question, but have marked the question for review.</li>
+                            <li><b>Purple (Circle with Green Dot):</b> The question is answered and Marked for Review.</li>
+                        </ul>
+                    </li>
+                    <li>To select your answer, click on the button of one of the options.</li>
+                    <li>To deselect your chosen answer, click on the <b>Clear Response</b> button.</li>
+                </ol>
+                <div class="paper-selector-box">
+                    <label><b>Choose your Question Paper:</b></label>
+                    <select id="paperSelect" style="width:100%; padding:10px; margin-top:10px; font-size:16px;"></select>
+                </div>
+                <div id="resumeSection" style="display:none; margin-top: 15px; padding: 15px; background: #fff3cd; border: 1px solid #ffeeba; text-align: center;">
+                    <b>Existing Session Found!</b><br>
+                    <button class="btn btn-save" style="margin-top:10px;" onclick="resumeExam()">Resume Saved Progress</button>
+                </div>
+            </div>
+            <div class="declaration-box">
+                <label style="display:flex; gap:10px; cursor:pointer;">
+                    <input type="checkbox" id="declareCheck" onchange="toggleReadyBtn()">
+                    <span>I have read and understood the instructions. All computer hardware allotted to me are in proper working condition. I agree that I will not use any prohibited material.</span>
+                </label>
+                <div style="text-align:center; margin-top:20px;">
+                    <button id="readyBtn" class="btn-ready" onclick="startExam()">I am ready to begin</button>
+                </div>
+            </div>
         </div>
-        
-        <select id="paperSelect" style="width:100%; padding:10px; margin-bottom:20px;"></select>
-        <button class="btn btn-blue" style="width:100%; padding:15px;" onclick="startExam()">Confirm & Start New Test</button>
+        <div class="right-col">
+            <div class="candidate-card">
+                <div class="cand-photo">Candidate Photo</div>
+                <div style="font-weight:bold; font-size:14px;">TEST CANDIDATE</div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="header">
-    <div id="activePaperName">CBT SYSTEM</div>
-    <div class="timer-box" id="time">00:00:00</div>
+<div class="header" id="examHeader" style="display:none;">
+    <div style="font-weight:bold;" id="activePaperName">CBT EXAMINATION</div>
+    <div class="timer-box">Time Left: <span id="time">00:00:00</span></div>
 </div>
 
-<div class="main-container">
+<div class="main-container" id="examMain">
     <div class="content-area">
         <div class="section-tabs" id="tabs"></div>
         <div class="q-scroll-view">
-            <div id="q-meta" style="font-weight:bold; color:var(--primary); border-bottom:1px solid #eee; margin-bottom:15px; padding-bottom:5px;"></div>
-            <div id="question" style="font-size:1.15em; line-height:1.6;"></div>
-            <div id="options" style="margin-top:25px;"></div>
+            <div id="q-meta" style="font-weight:bold; border-bottom:1px solid #eee; margin-bottom:15px; padding-bottom:5px;"></div>
+            <div id="question" class="question-text"></div>
+            <div id="options"></div>
+        </div>
+        <div class="footer">
+            <div>
+                <button class="btn" style="background:#f0ad4e; color:#fff; border:none;" onclick="markReviewNext()">Mark for Review & Next</button>
+                <button class="btn" onclick="clearResponse()">Clear Response</button>
+            </div>
+            <div>
+                <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
+            </div>
         </div>
     </div>
 
     <div class="sidebar">
-        <div class="subject-dashboard" id="subjectGrid"></div>
-        
-        <div class="dashboard">
-            <div class="stat-item" style="background:var(--success)">Ans: <span id="st-ans">0</span></div>
-            <div class="stat-item" style="background:var(--danger)">Skip: <span id="st-skip">0</span></div>
-            <div class="stat-item" style="background:var(--review)">Mark: <span id="st-mark">0</span></div>
-            <div class="stat-item" style="background:#888">Left: <span id="st-left">0</span></div>
+        <div style="padding:15px; border-bottom:1px solid #eee; display:flex; align-items:center; gap:10px;">
+            <div style="width:40px; height:50px; background:#ddd;"></div>
+            <div style="font-size:12px;"><b>Candidate:</b><br>Test User</div>
         </div>
         <div class="palette-container">
             <div id="palette" class="palette-grid"></div>
         </div>
-        <div style="padding:15px; border-top:1px solid #ddd;">
-            <button class="btn btn-blue" style="width:100%" onclick="finalSubmitPrompt()">Final Submit</button>
+        <div style="padding:10px; background:#f5f5f5; border-top:1px solid #ddd; text-align:center;">
+            <button class="btn" style="background:#5cb85c; color:#fff; border:none; width:100%; padding:10px;" onclick="finalSubmitPrompt()">Submit</button>
         </div>
-    </div>
-</div>
-
-<div class="footer">
-    <div>
-        <button class="btn btn-blue" onclick="markReviewNext()">Mark for Review & Next</button>
-        <button class="btn" onclick="clearResponse()">Clear Response</button>
-    </div>
-    <div>
-        <button class="btn" onclick="prevQ()">Previous</button>
-        <button class="btn btn-green" onclick="nextQ()">Save & Next</button>
     </div>
 </div>
 
@@ -140,18 +165,34 @@
     window.onload = () => {
         const paperSelect = document.getElementById("paperSelect");
         paperSelect.innerHTML = PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
-        
-        // Check for existing session
         if (localStorage.getItem("cbt_active_session")) {
             document.getElementById("resumeSection").style.display = "block";
         }
     };
 
+    function toggleReadyBtn() {
+        const check = document.getElementById("declareCheck");
+        const btn = document.getElementById("readyBtn");
+        if(check.checked) btn.classList.add('active');
+        else btn.classList.remove('active');
+    }
+
     function startExam() {
+        if(!document.getElementById("declareCheck").checked) return;
         const paper = document.getElementById("paperSelect").value;
-        fetch(paper).then(r => r.json()).then(data => {
-            initExamData(data, paper);
+        fetch(paper).then(r => r.json()).then(data => initExamData(data, paper));
+    }
+
+    function initExamData(data, paperName) {
+        examData = data;
+        sections = data.sections;
+        totalTime = (data.duration || 180) * 60;
+        Object.keys(sections).forEach(sec => {
+            sections[sec] = sections[sec].map(q => ({...q, userAnswer: null, review: false, visited: false}));
         });
+        currentSection = Object.keys(sections)[0];
+        showMainUI(paperName);
+        startTimer();
     }
 
     function resumeExam() {
@@ -161,37 +202,23 @@
         totalTime = saved.totalTime;
         currentSection = saved.currentSection;
         index = saved.index;
-        
-        document.getElementById("startScreen").style.display = "none";
-        document.getElementById("activePaperName").innerText = saved.paperName;
-        started = true;
-        buildTabs();
-        render();
+        showMainUI(saved.paperName);
         startTimer();
     }
 
-    function initExamData(data, paperName) {
-        examData = data;
-        sections = data.sections;
-        totalTime = (data.duration || 60) * 60;
-        Object.keys(sections).forEach(sec => {
-            sections[sec] = sections[sec].map(q => ({...q, answer: null, review: false, visited: false}));
-        });
-        currentSection = Object.keys(sections)[0];
-        index = 0;
-        
+    function showMainUI(paperName) {
         document.getElementById("startScreen").style.display = "none";
+        document.getElementById("examHeader").style.display = "flex";
+        document.getElementById("examMain").style.display = "flex";
         document.getElementById("activePaperName").innerText = paperName;
         started = true;
         buildTabs();
         render();
-        startTimer();
     }
 
     function buildTabs() {
         document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => {
-            const active = sec === currentSection ? 'background:var(--primary);color:#fff;' : '';
-            return `<button class="btn" style="margin-right:8px;${active}" onclick="switchSection('${sec}')">${sec}</button>`;
+            return `<button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">${sec}</button>`;
         }).join("");
     }
 
@@ -200,62 +227,43 @@
     function render() {
         const q = sections[currentSection][index];
         q.visited = true;
-        document.getElementById("q-meta").innerText = `${currentSection} - Question ${index + 1}`;
+        document.getElementById("q-meta").innerText = `${currentSection} - Question No. ${index + 1}`;
         document.getElementById("question").innerHTML = q.q + (q.svg ? `<div style="text-align:center;margin:15px 0;">${q.svg}</div>` : "");
 
         const optCont = document.getElementById("options");
         if (q.options) {
             optCont.innerHTML = q.options.map((op, i) => `
                 <label class="option">
-                    <input type="radio" name="qopt" ${q.answer === i ? "checked" : ""} onchange="selectOption(${i})">
-                    ${op}
+                    <input type="radio" name="qopt" ${q.userAnswer === i ? "checked" : ""} onchange="selectOption(${i})">
+                    <span>${op}</span>
                 </label>`).join("");
         } else {
-            optCont.innerHTML = `<input type="number" class="btn" style="width:200px;text-align:left;" placeholder="Answer" value="${q.answer ?? ''}" oninput="setNumerical(this.value)">`;
+            optCont.innerHTML = `<input type="number" class="btn" style="width:200px;text-align:left;" placeholder="Type Answer" value="${q.userAnswer ?? ''}" oninput="setNumerical(this.value)">`;
         }
         updatePalette();
-        updateSubjectDashboard();
         autoSave();
         if (window.MathJax) MathJax.typesetPromise();
     }
 
-    function selectOption(i) { sections[currentSection][index].answer = i; render(); }
-    function setNumerical(v) { sections[currentSection][index].answer = v==="" ? null : parseFloat(v); updatePalette(); updateSubjectDashboard(); autoSave(); }
-    function clearResponse() { sections[currentSection][index].answer = null; sections[currentSection][index].review = false; render(); }
-    function markReviewNext() { sections[currentSection][index].review = true; nextQ(); }
-    function nextQ() { if (index < sections[currentSection].length - 1) { index++; render(); } }
-    function prevQ() { if (index > 0) { index--; render(); } }
+    function selectOption(i) { sections[currentSection][index].userAnswer = i; }
+    function setNumerical(v) { sections[currentSection][index].userAnswer = v === "" ? null : parseFloat(v); }
+    function clearResponse() { sections[currentSection][index].userAnswer = null; sections[currentSection][index].review = false; render(); }
+    function saveAndNext() { sections[currentSection][index].review = false; if (index < sections[currentSection].length - 1) { index++; render(); } }
+    function markReviewNext() { sections[currentSection][index].review = true; if (index < sections[currentSection].length - 1) { index++; render(); } else { render(); } }
     function gotoQ(i) { index = i; render(); }
 
     function updatePalette() {
-        let stats = { ans: 0, skip: 0, mark: 0, left: 0 };
         document.getElementById("palette").innerHTML = sections[currentSection].map((q, i) => {
-            let cls = "notVisited"; stats.left++;
-            if (q.visited) { cls = "notAnswered"; stats.left--; stats.skip++; }
-            if (q.answer !== null) { cls = "answered"; stats.skip--; stats.ans++; }
-            if (q.review) { cls = q.answer !== null ? "reviewAnswered" : "review"; stats.mark++; if(q.answer===null) stats.skip--; }
+            let cls = "notVisited";
+            if (q.visited) cls = "notAnswered";
+            if (q.userAnswer !== null) cls = "answered";
+            if (q.review) cls = q.userAnswer !== null ? "reviewAnswered" : "review";
             return `<button class="${cls} ${i===index?'current':''}" onclick="gotoQ(${i})">${i + 1}</button>`;
-        }).join("");
-        document.getElementById("st-ans").innerText = stats.ans;
-        document.getElementById("st-skip").innerText = stats.skip;
-        document.getElementById("st-mark").innerText = stats.mark;
-        document.getElementById("st-left").innerText = stats.left;
-    }
-
-    function updateSubjectDashboard() {
-        const grid = document.getElementById("subjectGrid");
-        grid.innerHTML = Object.keys(sections).map(sec => {
-            const solved = sections[sec].filter(q => q.answer !== null).length;
-            const total = sections[sec].length;
-            return `<div class="sub-pill"><span>${sec}</span><span>${solved}/${total}</span></div>`;
         }).join("");
     }
 
     function autoSave() {
-        const session = {
-            examData, sections, totalTime, currentSection, index,
-            paperName: document.getElementById("activePaperName").innerText
-        };
+        const session = { examData, sections, totalTime, currentSection, index, paperName: document.getElementById("activePaperName").innerText };
         localStorage.setItem("cbt_active_session", JSON.stringify(session));
     }
 
@@ -266,15 +274,15 @@
             if (totalTime <= 0) confirmSubmit();
             let h = Math.floor(totalTime / 3600), m = Math.floor((totalTime % 3600) / 60), s = totalTime % 60;
             document.getElementById("time").innerText = [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
-            if(totalTime % 10 === 0) autoSave(); // Periodically save time
         }, 1000);
     }
 
     function finalSubmitPrompt() {
-        if(confirm("Are you sure you want to finish the exam?")) confirmSubmit();
+        if(confirm("Are you sure you want to submit the exam?")) confirmSubmit();
     }
 
     function confirmSubmit() {
+        Object.keys(sections).forEach(sec => { sections[sec].forEach(q => q.answer = q.userAnswer); });
         localStorage.removeItem("cbt_active_session");
         localStorage.setItem("exam_result", JSON.stringify(examData));
         location.href = "score.html";
