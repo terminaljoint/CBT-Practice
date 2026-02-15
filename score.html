@@ -1,165 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CBT-Practice Result</title>
+    <meta charset="UTF-8">
+    <title>Exam Result - Detailed Analytics</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f9; margin: 0; padding: 40px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #337ab7; text-align: center; margin-bottom: 30px; }
+        
+        .score-box { display: flex; justify-content: space-around; background: #337ab7; color: #fff; padding: 20px; border-radius: 6px; margin-bottom: 30px; }
+        .stat { text-align: center; }
+        .stat-val { font-size: 2em; font-weight: bold; display: block; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+        th { background: #f8f9fa; }
 
-<script>
-window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+        .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+        .q-circle { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; text-align: center; }
+        .correct { background: #dff0d8; border-color: #d6e9c6; color: #3c763d; }
+        .wrong { background: #f2dede; border-color: #ebccd1; color: #a94442; }
+        .skipped { background: #fcf8e3; border-color: #faebcc; color: #8a6d3b; }
 
-<style>
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef2f7;padding:20px;}
-
-.header{background:#0b3d91;color:#fff;padding:12px;margin-bottom:15px;}
-.summary{background:#fff;padding:14px;border-radius:8px;margin-bottom:20px;}
-
-.sectionTitle{margin-top:25px;font-weight:bold;font-size:18px;}
-
-.questionBox{
-border:1px solid #ddd;
-padding:14px;
-margin-top:12px;
-border-radius:6px;
-background:#fff;
-}
-
-.option{padding:8px 10px;margin:6px 0;border-radius:4px;}
-.optCorrect{background:#2ecc71;color:#fff;}
-.optWrong{background:#e74c3c;color:#fff;}
-.optUser{outline:2px solid #0b3d91;}
-
-.statusCorrect{color:#2ecc71;font-weight:bold;}
-.statusWrong{color:#e74c3c;font-weight:bold;}
-.statusNA{color:#555;font-weight:bold;}
-
-.diagram{
-max-width:420px;
-margin:12px auto;
-padding:8px;
-background:#fff;
-border:1px solid #ddd;
-border-radius:6px;
-text-align:center;
-}
-.diagram svg{width:100%;height:auto;}
-
-.copyBtn{
-margin-top:6px;
-padding:4px 10px;
-border:none;
-background:#0b3d91;
-color:#fff;
-border-radius:4px;
-cursor:pointer;
-font-size:12px;
-}
-</style>
+        .btn-home { display: block; width: 200px; margin: 30px auto; padding: 12px; text-align: center; background: #337ab7; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; }
+    </style>
 </head>
-
 <body>
 
-<div class="header"><h2>CBT-Practice Result & Full Review</h2></div>
-<div class="summary" id="summary"></div>
-<div id="reviewContainer"></div>
+<div class="container">
+    <h1>Performance Analysis</h1>
+
+    <div class="score-box" id="mainScore">
+        </div>
+
+    <h3>Sectional Breakdown</h3>
+    <table id="sectionTable">
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Total</th>
+                <th>Attempted</th>
+                <th>Correct</th>
+                <th>Incorrect</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody id="sectionBody"></tbody>
+    </table>
+
+    <h3>Question Review</h3>
+    <div class="review-grid" id="reviewGrid"></div>
+
+    <a href="index.html" class="btn-home">Retake Exam</a>
+</div>
 
 <script>
+    const data = JSON.parse(localStorage.getItem("exam_result"));
+    if (!data) { window.location.href = "index.html"; }
 
-let data = JSON.parse(localStorage.getItem("exam_result"));
+    const marking = data.marking || { correct: 4, wrong: -1 };
+    let totalScore = 0;
+    let totalCorrect = 0;
+    let totalAttempted = 0;
+    let totalQuestions = 0;
 
-let totalScore=0,attempted=0,correct=0,wrong=0;
-let reviewHTML="";
-const M=data.marking || {correct:1,wrong:0};
+    const sections = data.sections;
+    const sectionBody = document.getElementById("sectionBody");
+    const reviewGrid = document.getElementById("reviewGrid");
 
-Object.keys(data.sections).forEach(section=>{
+    Object.keys(sections).forEach(secName => {
+        let secCorrect = 0;
+        let secWrong = 0;
+        let secAttempted = 0;
+        let secQuestions = sections[secName].length;
 
-reviewHTML+=`<div class="sectionTitle">${section}</div>`;
+        sections[secName].forEach((q, i) => {
+            totalQuestions++;
+            const isAttempted = q.answer !== null && q.answer !== undefined;
+            const isCorrect = isAttempted && String(q.answer) === String(q.key);
 
-data.sections[section].forEach((q,i)=>{
+            // Review Grid Item
+            const qDiv = document.createElement("div");
+            qDiv.className = "q-circle " + (isAttempted ? (isCorrect ? "correct" : "wrong") : "skipped");
+            qDiv.innerHTML = `<b>Q${totalQuestions}</b><br>${isAttempted ? (isCorrect ? "Correct" : "Wrong") : "Skipped"}`;
+            reviewGrid.appendChild(qDiv);
 
-let userAns=q.answer;
-let statusText="Not Attempted";
-let statusClass="statusNA";
+            if (isAttempted) {
+                secAttempted++;
+                if (isCorrect) secCorrect++;
+                else secWrong++;
+            }
+        });
 
-let isMCQ=Array.isArray(q.options);
+        const secScore = (secCorrect * marking.correct) + (secWrong * marking.wrong);
+        totalScore += secScore;
+        totalCorrect += secCorrect;
+        totalAttempted += secAttempted;
 
-if(userAns!==null){
-attempted++;
+        sectionBody.innerHTML += `
+            <tr>
+                <td>${secName}</td>
+                <td>${secQuestions}</td>
+                <td>${secAttempted}</td>
+                <td>${secCorrect}</td>
+                <td>${secWrong}</td>
+                <td><b>${secScore}</b></td>
+            </tr>
+        `;
+    });
 
-if(isMCQ){
-if(userAns===q.correct){
-totalScore+=M.correct;correct++;
-statusText="Correct";statusClass="statusCorrect";
-}else{
-totalScore+=M.wrong;wrong++;
-statusText="Wrong";statusClass="statusWrong";
-}
-}else{
-let tol=q.tolerance??0.01;
-if(Math.abs(userAns-q.answer)<=tol){
-totalScore+=M.correct;correct++;
-statusText="Correct";statusClass="statusCorrect";
-}else{
-wrong++;statusText="Wrong";statusClass="statusWrong";
-}
-}
-}
-
-let qHTML=q.q||"";
-if(q.svg) qHTML+=`<div class="diagram">${q.svg}</div>`;
-qHTML+=`<br><button class="copyBtn" onclick="copyQ(this)">Copy Question</button>`;
-
-let optionsHTML="";
-
-if(isMCQ){
-q.options.forEach((op,idx)=>{
-let cls="option";
-if(idx===q.correct) cls+=" optCorrect";
-if(userAns===idx && userAns!==q.correct) cls+=" optWrong";
-if(userAns===idx) cls+=" optUser";
-optionsHTML+=`<div class="${cls}">${String.fromCharCode(65+idx)}. ${op}</div>`;
-});
-}else{
-optionsHTML+=`
-<div class="option"><b>Your Answer:</b> ${userAns??"—"}</div>
-<div class="option optCorrect"><b>Correct Answer:</b> ${q.answer}</div>`;
-}
-
-reviewHTML+=`
-<div class="questionBox">
-<b>${section} - Question ${i+1}</b><br><br>
-<div>${qHTML}</div><br>
-${optionsHTML}
-<br>
-<div class="${statusClass}">
-Status: ${statusText} | Marks: ${
-statusText==="Correct"? "+"+M.correct :
-statusText==="Wrong"? M.wrong : "0"}
-</div>
-<div><b>Solution:</b> ${q.solution||"—"}</div>
-</div>`;
-});
-});
-
-summary.innerHTML=
-`<b>Total Score:</b> ${totalScore}<br>
-<b>Attempted:</b> ${attempted}<br>
-<b>Correct:</b> ${correct}<br>
-<b>Wrong:</b> ${wrong}<br>
-<b>Accuracy:</b> ${(correct/attempted*100||0).toFixed(2)}%`;
-
-reviewContainer.innerHTML=reviewHTML;
-
-MathJax.typesetPromise();
-
-function copyQ(btn){
-let txt=btn.parentElement.innerText;
-navigator.clipboard.writeText(txt);
-btn.innerText="Copied!";
-setTimeout(()=>btn.innerText="Copy Question",800);
-}
-
+    document.getElementById("mainScore").innerHTML = `
+        <div class="stat"><span class="stat-val">${totalScore}</span> Total Score</div>
+        <div class="stat"><span class="stat-val">${totalCorrect} / ${totalQuestions}</span> Correct</div>
+        <div class="stat"><span class="stat-val">${Math.round((totalCorrect/totalAttempted || 0)*100)}%</span> Accuracy</div>
+    `;
 </script>
 </body>
 </html>
