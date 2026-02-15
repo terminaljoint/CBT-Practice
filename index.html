@@ -11,12 +11,16 @@ window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
 
 <style>
 
+/* ===== GLOBAL ===== */
+
 body{
 margin:0;
 font-family:Arial,Helvetica,sans-serif;
 background:#eef2f7;
 user-select:none;
 }
+
+/* ===== HEADER ===== */
 
 .header{
 background:#0b3d91;
@@ -27,12 +31,31 @@ justify-content:space-between;
 align-items:center;
 }
 
+/* ===== CBT COLORED RIBBON BLOCKS ===== */
+
 .ribbon{
 background:#fff;
-padding:10px 14px;
+padding:8px 14px;
 border-bottom:2px solid #ddd;
-font-size:14px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
 }
+
+.block{
+padding:6px 10px;
+border-radius:4px;
+font-size:13px;
+color:#fff;
+}
+
+.bGrey{background:#ccc;color:#000;}
+.bRed{background:#e74c3c;}
+.bGreen{background:#2ecc71;}
+.bOrange{background:#f39c12;}
+.bPurple{background:#8e44ad;}
+
+/* ===== LAYOUT ===== */
 
 .container{
 display:flex;
@@ -50,8 +73,13 @@ width:28%;
 background:#fff;
 border-left:2px solid #ddd;
 padding:12px;
+position:sticky; /* feature 9 */
+top:0;
+height:100vh;
 overflow:auto;
 }
+
+/* ===== FLOATING HEADER ===== */
 
 .qheader{
 position:sticky;
@@ -61,6 +89,8 @@ padding:8px 0;
 font-weight:bold;
 }
 
+/* ===== OPTIONS ===== */
+
 .option{
 display:block;
 margin:10px 0;
@@ -69,7 +99,12 @@ border:1px solid #ccc;
 border-radius:6px;
 background:#fff;
 cursor:pointer;
+transition:0.2s;
 }
+
+.option:hover{background:#eaf1ff;} /* feature 7 */
+
+/* ===== SECTION TABS WITH COUNTER ===== */
 
 .tabs button{
 margin-right:6px;
@@ -95,26 +130,15 @@ height:60px;
 margin-top:20px;
 }
 
-.navLeft{
-position:absolute;
-left:0;
-top:0;
-}
+.navLeft{position:absolute;left:0;}
+.navCenter{position:absolute;left:50%;transform:translateX(-50%);}
 
-.navCenter{
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-top:0;
-}
-
-.navLeft button,
-.navCenter button{
+.navLeft button,.navCenter button{
 margin-right:10px;
 padding:6px 12px;
 }
 
-/* ===== PALETTE COLORS (REAL CBT) ===== */
+/* ===== PALETTE ===== */
 
 .palette{
 display:grid;
@@ -129,14 +153,15 @@ border:none;
 border-radius:4px;
 cursor:pointer;
 font-weight:bold;
+transition:0.2s;
 }
 
 .notVisited{background:#ccc;}
-.notAnswered{background:#e74c3c;color:#fff;}   /* RED */
-.answered{background:#2ecc71;color:#fff;}      /* GREEN */
-.review{background:#f39c12;color:#fff;}        /* ORANGE */
-.reviewAnswered{background:#8e44ad;color:#fff;}/* PURPLE */
-.current{outline:3px solid #0b3d91;}
+.notAnswered{background:#e74c3c;color:#fff;}
+.answered{background:#2ecc71;color:#fff;}
+.review{background:#f39c12;color:#fff;}
+.reviewAnswered{background:#8e44ad;color:#fff;}
+.current{box-shadow:0 0 0 3px #0b3d91 inset;} /* feature 6 */
 
 .submitBtn{
 background:#0b3d91;
@@ -150,9 +175,8 @@ width:100%;
 margin-top:10px;
 }
 
-.legend div{
-margin:4px 0;
-font-size:13px;
+.fullBtn{
+margin-left:10px;
 }
 
 </style>
@@ -165,12 +189,14 @@ font-size:13px;
 <div>
 Paper:
 <select id="paperSelect"></select>
+<button class="fullBtn" onclick="document.documentElement.requestFullscreen()">Fullscreen</button>
 &nbsp;&nbsp;
 Time Left:
 <b><span id="time">00:00</span></b>
 </div>
 </div>
 
+<!-- ===== COLORED LEGEND BLOCKS ===== -->
 <div class="ribbon" id="stats"></div>
 
 <div class="container">
@@ -188,7 +214,7 @@ Time Left:
 
 <div class="navLeft">
 <button onclick="clearResponse()">Clear Response</button>
-<button onclick="markReview()">Mark for Review</button>
+<button onclick="markReviewNext()">Mark for Review & Next</button>
 </div>
 
 <div class="navCenter">
@@ -208,16 +234,6 @@ Time Left:
 <div id="palette" class="palette"></div>
 
 <button class="submitBtn" onclick="submitExam()">Submit Test</button>
-
-<hr>
-
-<div class="legend">
-<div><span style="background:#ccc;padding:4px 8px;"> </span> Not Visited</div>
-<div><span style="background:#e74c3c;color:#fff;padding:4px 8px;"> </span> Not Answered</div>
-<div><span style="background:#2ecc71;color:#fff;padding:4px 8px;"> </span> Answered</div>
-<div><span style="background:#f39c12;color:#fff;padding:4px 8px;"> </span> Review</div>
-<div><span style="background:#8e44ad;color:#fff;padding:4px 8px;"> </span> Review + Answered</div>
-</div>
 
 </div>
 
@@ -255,9 +271,7 @@ sections=data.sections;
 totalTime=data.duration*60;
 
 Object.keys(sections).forEach(sec=>{
-sections[sec]=sections[sec].map(q=>({
-...q,answer:null,review:false,visited:false
-}));
+sections[sec]=sections[sec].map(q=>({...q,answer:null,review:false,visited:false}));
 });
 
 currentSection=Object.keys(sections)[0];
@@ -268,9 +282,11 @@ startTimer();
 }
 
 function buildTabs(){
-tabs.innerHTML=Object.keys(sections)
-.map(sec=>`<button id="tab_${sec}" onclick="switchSection('${sec}')">${sec}</button>`)
-.join("");
+tabs.innerHTML=Object.keys(sections).map(sec=>{
+let total=sections[sec].length;
+let answered=sections[sec].filter(q=>q.answer!==null).length;
+return `<button id="tab_${sec}" onclick="switchSection('${sec}')">${sec} (${answered}/${total})</button>`;
+}).join("");
 updateActiveTab();
 }
 
@@ -309,6 +325,7 @@ ${op}
 
 updatePalette();
 updateStats();
+buildTabs();
 
 MathJax.typesetPromise([document.getElementById("question")]);
 }
@@ -324,22 +341,19 @@ sections[currentSection][index].answer=null;
 render();
 }
 
-function markReview(){
-sections[currentSection][index].review^=true;
-updatePalette();updateStats();
+function markReviewNext(){
+sections[currentSection][index].review=true;
+nextQ();
 }
 
 function nextQ(){ if(index<sections[currentSection].length-1){index++;render();}}
 function prevQ(){ if(index>0){index--;render();}}
 function gotoQ(i){index=i;render();}
 
-/* ===== UPDATED CBT COLOR LOGIC ===== */
-
 function updatePalette(){
 palette.innerHTML=sections[currentSection].map((q,i)=>{
 
 let cls="notVisited";
-
 if(q.visited && q.answer===null && !q.review) cls="notAnswered";
 if(q.answer!==null && !q.review) cls="answered";
 if(q.review && q.answer===null) cls="review";
@@ -364,11 +378,11 @@ if(q.review&&q.answer!==null)ra++;
 });
 
 stats.innerHTML=
-`Not Visited: <b>${nv}</b> |
-Not Answered: <b>${na}</b> |
-Answered: <b>${ans}</b> |
-Review: <b>${rev}</b> |
-Review+Answered: <b>${ra}</b>`;
+`<div class="block bGrey">Not Visited ${nv}</div>
+<div class="block bRed">Not Answered ${na}</div>
+<div class="block bGreen">Answered ${ans}</div>
+<div class="block bOrange">Review ${rev}</div>
+<div class="block bPurple">Review+Answered ${ra}</div>`;
 }
 
 function startTimer(){
@@ -395,10 +409,19 @@ String(s).padStart(2,'0');
 },1000);
 }
 
+/* ===== FEATURE 14 ===== */
+
 function submitExam(auto=false){
 
+let unanswered=0;
+Object.values(sections).forEach(arr=>{
+arr.forEach(q=>{
+if(q.answer===null)unanswered++;
+});
+});
+
 if(!auto){
-if(!confirm("Submit CBT-Practice Test?\nYou cannot return once submitted."))return;
+if(!confirm("You still have "+unanswered+" unanswered questions.\nSubmit anyway?")) return;
 }
 
 localStorage.setItem("exam_result",JSON.stringify(examData));
