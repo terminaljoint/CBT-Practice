@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Enterprise Secure CBT Portal | TerminalJoint</title>
+    <title>Secure CBT Portal | TerminalJoint</title>
 
     <script>
         window.MathJax = {
@@ -16,170 +16,157 @@
     <style>
         :root {
             --primary: #1a73e8; --success: #28a745; --danger: #d93025;
-            --warning: #f9ab00; --review: #8e44ad; --bg: #f1f3f4;
-            --header-h: 55px; --footer-h: 65px; --sidebar-w: 280px;
+            --warning: #f9ab00; --review: #8e44ad; --bg: #ffffff;
+            --header-h: 45px; --footer-h: 55px; --sidebar-w: 260px;
         }
 
         body { 
-            margin: 0; font-family: 'Segoe UI', Roboto, sans-serif; 
-            background: var(--bg); user-select: none; height: 100vh; 
+            margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: #fff; user-select: none; height: 100vh; 
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* INSTRUCTION PAGE ENHANCEMENTS */
-        .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; }
-        .inst-header { background: #202124; color: #fff; padding: 15px 25px; font-weight: 600; font-size: 1.2rem; }
-        .inst-body { max-width: 1200px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
+        /* INSTRUCTIONS PAGE */
+        .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; padding: 15px; }
+        .inst-card { max-width: 900px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .inst-header { background: var(--primary); color: white; padding: 15px; font-weight: bold; text-align: center; }
+        .inst-content { padding: 20px; line-height: 1.5; font-size: 0.95rem; }
         
-        @media (max-width: 850px) { .inst-body { grid-template-columns: 1fr; } }
+        .legend-flex { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; padding: 10px; background: #f8f9fa; border-radius: 5px; }
+        .l-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; }
+        .box { width: 18px; height: 18px; border: 1px solid #ccc; border-radius: 3px; }
 
-        .inst-box { border: 1px solid #dadce0; border-radius: 8px; padding: 25px; background: white; line-height: 1.6; }
-        .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
-        .legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
-        .dot { width: 24px; height: 24px; border-radius: 4px; border: 1px solid #ccc; flex-shrink: 0; }
-
-        /* HORIZONTAL LAYOUT (FORCED FOR BOTH MOBILE & DESKTOP) */
+        /* EXAM INTERFACE - PERSISTENT HORIZONTAL ROW */
         .header { 
-            height: var(--header-h); background: #fff; display: none; 
-            justify-content: space-between; align-items: center; 
-            padding: 0 15px; border-bottom: 1px solid #dadce0; 
+            height: var(--header-h); background: #202124; color: white; 
+            display: none; justify-content: space-between; align-items: center; padding: 0 15px; 
         }
-        .timer-box { font-size: 1.2rem; font-weight: 700; color: var(--danger); font-family: 'Courier New', monospace; }
-
-        .main-container { display: none; flex: 1; overflow: hidden; flex-direction: row; } /* Forced Row */
         
-        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; min-width: 0; }
-        .section-tabs { background: #f8f9fa; display: flex; overflow-x: auto; border-bottom: 1px solid #dadce0; }
-        .tab-btn { 
-            padding: 12px 15px; border: none; background: none; font-weight: 600; 
-            color: #5f6368; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;
-        }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: #e8f0fe; }
+        .main-container { display: none; flex: 1; flex-direction: row; overflow: hidden; border-top: 1px solid #ddd; }
 
-        .q-scroll-view { flex: 1; overflow-y: auto; padding: 20px; }
-        
-        /* SIDEBAR - OPTIMISED FOR HORIZONTAL MOBILE VIEW */
+        /* Sidebar - Narrowed for Mobile Horizontal */
         .sidebar { 
-            width: var(--sidebar-w); border-left: 1px solid #dadce0; 
-            background: #fff; display: flex; flex-direction: column; flex-shrink: 0;
+            width: var(--sidebar-w); border-left: 1px solid #ddd; 
+            display: flex; flex-direction: column; flex-shrink: 0; background: #fdfdfd;
         }
+
+        @media (max-width: 768px) {
+            :root { --sidebar-w: 140px; }
+            .btn { padding: 6px 10px !important; font-size: 11px !important; }
+        }
+
+        .content-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
         
-        @media (max-width: 600px) { .sidebar { width: 160px; font-size: 0.8rem; } }
+        /* Compact Tabs */
+        .section-tabs { display: flex; background: #eee; overflow-x: auto; border-bottom: 1px solid #ddd; }
+        .tab-btn { 
+            padding: 8px 12px; border: none; background: none; font-weight: bold; 
+            font-size: 12px; cursor: pointer; border-right: 1px solid #ddd;
+        }
+        .tab-btn.active { background: white; color: var(--primary); }
 
-        .palette-container { flex: 1; overflow-y: auto; padding: 10px; }
-        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(35px, 1fr)); gap: 6px; }
-        .palette-grid button { 
-            aspect-ratio: 1/1; border: 1px solid #dadce0; border-radius: 4px; 
-            font-weight: bold; background: #fff; cursor: pointer; font-size: 0.8rem;
+        /* Scrolling Question Box */
+        .q-scroll-view { flex: 1; overflow-y: auto; padding: 15px; }
+
+        /* FOOTER - Scaled for Horizontal Mobile */
+        .footer { 
+            height: var(--footer-h); border-top: 1px solid #ddd; 
+            display: flex; align-items: center; justify-content: space-between; padding: 0 10px;
+            background: #fff; flex-shrink: 0;
         }
 
-        /* PALETTE COLORS */
+        /* PALETTE BUTTONS */
+        .palette-container { flex: 1; overflow-y: auto; padding: 8px; }
+        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(32px, 1fr)); gap: 5px; }
+        .palette-grid button { 
+            aspect-ratio: 1/1; border: 1px solid #ccc; border-radius: 3px; 
+            font-size: 11px; font-weight: bold; background: #fff; cursor: pointer;
+        }
+
+        /* STATES */
         .answered { background: var(--success) !important; color: white; border: none !important; }
         .notAnswered { background: var(--danger) !important; color: white; border: none !important; }
         .review { background: var(--review) !important; color: white; border-radius: 50% !important; border: none !important; }
         
-        /* SPECIFIC REQUEST: Purple with Green Border */
+        /* Updated: Purple Background with Solid Green Border */
         .reviewAnswered { 
             background: var(--review) !important; 
-            color: white; 
+            color: white !important; 
             border-radius: 50% !important; 
             border: 3px solid var(--success) !important; 
-            position: relative;
+            box-sizing: border-box;
         }
-        .current { outline: 2px solid #000; outline-offset: 2px; }
+        .current { border: 2px solid #000 !important; transform: scale(1.1); }
 
-        /* FOOTER */
-        .footer { 
-            height: var(--footer-h); background: #fff; border-top: 1px solid #dadce0;
-            display: flex; align-items: center; justify-content: space-between; padding: 0 15px;
-        }
-        .btn { padding: 8px 16px; border-radius: 4px; font-weight: 600; cursor: pointer; border: 1px solid #dadce0; }
-        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn { padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; border: 1px solid #ccc; font-size: 13px; }
+        .btn-save { background: var(--primary); color: white; border: none; }
         
-        /* PROCTORING */
-        #proctorBlocker { 
-            position: fixed; inset: 0; background: #000; color: #fff; 
-            z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center;
-        }
+        #proctorBlocker { position: fixed; inset: 0; background: #000; color: #fff; z-index: 9999; display: none; align-items: center; justify-content: center; text-align: center; }
     </style>
 </head>
-
 <body oncontextmenu="return false;">
 
 <div id="proctorBlocker">
-    <h2>SECURITY LOCK</h2>
-    <p id="proctorMsg">Violation Detected</p>
-    <button class="btn btn-primary" onclick="resumeFullScreen()">Resume Exam</button>
+    <h2>PROCTORING ACTIVE</h2>
+    <p id="proctorMsg">Security Violation</p>
+    <button class="btn btn-save" onclick="resumeFullScreen()">Resume Exam</button>
 </div>
 
 <div id="startScreen" class="startScreen">
-    <div class="inst-header">TerminalJoint Enterprise CBT Portal</div>
-    <div class="inst-body">
-        <div class="inst-box">
-            <h3 style="margin-top:0; color:var(--primary);">General Instructions</h3>
-            <p>Please read the following instructions carefully before starting the exam:</p>
-            <div class="legend-grid">
-                <div class="legend-item"><div class="dot"></div> Not Visited</div>
-                <div class="legend-item"><div class="dot" style="background:var(--danger)"></div> Not Answered</div>
-                <div class="legend-item"><div class="dot" style="background:var(--success)"></div> Answered</div>
-                <div class="legend-item"><div class="dot" style="background:var(--review); border-radius:50%"></div> Marked for Review</div>
-                <div class="legend-item">
-                    <div class="dot" style="background:var(--review); border-radius:50%; border:3px solid var(--success)"></div> 
-                    <b>Answered & Marked (Evaluated)</b>
-                </div>
+    <div class="inst-card">
+        <div class="inst-header">Candidate Instructions</div>
+        <div class="inst-content">
+            <p>Welcome to the Secure Assessment Portal. Please note the following symbols:</p>
+            <div class="legend-flex">
+                <div class="l-item"><div class="box"></div> Unvisited</div>
+                <div class="l-item"><div class="box" style="background:var(--danger)"></div> Not Answered</div>
+                <div class="l-item"><div class="box" style="background:var(--success)"></div> Answered</div>
+                <div class="l-item"><div class="box" style="background:var(--review); border-radius:50%"></div> Review</div>
+                <div class="l-item"><div class="box" style="background:var(--review); border-radius:50%; border:2px solid var(--success)"></div> Answered & Review</div>
             </div>
-            <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
-            <p>1. Total duration is displayed in the top right corner.<br>
-               2. Use "Save & Next" to secure your answer. <br>
-               3. <b>Security:</b> Full-screen exit or tab switching will be logged as a violation.</p>
+            <p>1. Ensure your browser is in <b>Landscape/Horizontal</b> mode for the best experience.</p>
+            <p>2. Do not attempt to switch tabs or minimize the window.</p>
             
-            <div style="background:#e8f0fe; padding:15px; border-radius:6px; margin-top:20px;">
+            <div style="margin: 20px 0; padding: 15px; background: #eef3f8; border-radius: 5px;">
                 <label><b>Select Paper:</b></label>
-                <select id="paperSelect" style="width:100%; padding:10px; margin-top:10px;" onchange="loadPaperMetadata(this.value)"></select>
+                <select id="paperSelect" style="width:100%; padding:10px; margin-top:8px;" onchange="loadPaperMetadata(this.value)"></select>
             </div>
 
-            <div style="margin-top:25px;">
+            <div style="text-align: center;">
                 <input type="checkbox" id="declareCheck" onchange="toggleReadyBtn(this.checked)"> 
-                <label for="declareCheck">I have read and understood all instructions.</label>
-                <button id="readyBtn" class="btn btn-primary" style="width:100%; margin-top:20px; padding:15px; opacity:0.5; cursor:not-allowed;" onclick="startExam()">I AM READY TO BEGIN</button>
+                <label for="declareCheck">I am ready to begin the exam.</label>
+                <button id="readyBtn" class="btn btn-save" style="width:100%; margin-top:15px; opacity:0.5; cursor:not-allowed;" onclick="startExam()">START TEST</button>
             </div>
-        </div>
-        <div class="sidebar-info inst-box" style="text-align:center;">
-            <div style="width:120px; height:150px; background:#f1f3f4; margin:0 auto 15px; display:flex; align-items:center; justify-content:center; border:1px solid #ddd; color:#999;">USER PHOTO</div>
-            <div style="font-weight:bold;">PRACTICE_CANDIDATE</div>
-            <div style="font-size:0.8rem; color:#666; margin-top:5px;">System ID: TJ-2026-X</div>
         </div>
     </div>
 </div>
 
 <header class="header" id="examHeader">
-    <div style="font-weight:bold; color:var(--primary);" id="activePaperName">CBT Portal</div>
-    <div class="timer-box" id="timeDisplay">00:00</div>
+    <span id="activePaperName" style="font-size: 0.8rem;">CBT PORTAL</span>
+    <div id="timeDisplay" style="font-weight:bold; color:#ff4d4d;">00:00</div>
 </header>
 
 <div class="main-container" id="examMain">
     <div class="content-area">
         <div class="section-tabs" id="tabs"></div>
         <div class="q-scroll-view" id="questionBox">
-            <div id="q-meta" style="font-size:0.8rem; font-weight:bold; color:#70757a; margin-bottom:10px; text-transform:uppercase;"></div>
-            <div id="question" style="font-size:1.1rem; line-height:1.6;"></div>
-            <div id="options" style="margin-top:25px;"></div>
+            <div id="q-meta" style="font-size:11px; font-weight:bold; color:#666; margin-bottom:5px;"></div>
+            <div id="question" style="font-size:1rem; line-height:1.4;"></div>
+            <div id="options" style="margin-top:15px;"></div>
         </div>
         <div class="footer">
-            <div style="display:flex; gap:10px;">
-                <button class="btn" style="background:var(--warning); color:white; border:none;" onclick="handleAction('review')">Mark Review</button>
-                <button class="btn" onclick="handleAction('clear')">Clear</button>
-            </div>
-            <button class="btn btn-primary" style="padding:10px 25px;" onclick="handleAction('save')">Save & Next</button>
+            <button class="btn" onclick="handleAction('clear')">Clear</button>
+            <button class="btn" style="background:var(--warning); color:white; border:none;" onclick="handleAction('review')">Review</button>
+            <button class="btn btn-save" onclick="handleAction('save')">Save & Next</button>
         </div>
     </div>
 
     <div class="sidebar">
-        <div style="padding:12px; background:#f8f9fa; font-weight:bold; border-bottom:1px solid #dadce0;">PALETTE</div>
+        <div style="padding:8px; font-size:11px; font-weight:bold; background:#eee; border-bottom:1px solid #ddd;">QUESTIONS</div>
         <div class="palette-container">
             <div id="palette" class="palette-grid"></div>
         </div>
-        <div style="padding:10px; border-top:1px solid #dadce0;">
+        <div style="padding:8px;">
             <button class="btn" style="width:100%; background:var(--success); color:white; border:none;" onclick="showSummary()">Submit</button>
         </div>
     </div>
@@ -243,18 +230,18 @@
     async function renderQ() {
         const q = sections[currentSection][index];
         if(q.state === 0) q.state = 2;
-        document.getElementById("q-meta").innerText = `${currentSection} - Q.${index + 1}`;
+        document.getElementById("q-meta").innerText = `${currentSection} | Q.${index + 1}`;
         document.getElementById("question").innerHTML = q.q + (q.svg || "");
         
         const optCont = document.getElementById("options");
         if (q.options) {
             optCont.innerHTML = q.options.map((op, i) => `
-                <div style="margin-bottom:10px; padding:12px; border:1px solid #eee; border-radius:6px; display:flex; align-items:center; gap:10px;">
+                <div style="margin-bottom:8px; padding:10px; border:1px solid #eee; border-radius:4px; display:flex; align-items:center; gap:10px; font-size:14px;">
                     <input type="radio" name="qopt" id="o${i}" ${q.userAnswer === i ? "checked" : ""} onchange="setAnswer(${i})">
                     <label for="o${i}" style="width:100%; cursor:pointer;">${op}</label>
                 </div>`).join("");
         } else {
-            optCont.innerHTML = `<input type="number" style="width:100%; padding:15px; border:1px solid #ddd;" placeholder="Answer..." value="${q.userAnswer ?? ''}" oninput="setAnswer(this.value)">`;
+            optCont.innerHTML = `<input type="number" style="width:100%; padding:12px;" placeholder="Numeric value..." value="${q.userAnswer ?? ''}" oninput="setAnswer(this.value)">`;
         }
         updatePalette();
         if (window.MathJax) await MathJax.typesetPromise();
@@ -299,13 +286,8 @@
         }, 1000);
     }
 
-    function showSummary() { if(confirm("Submit Examination?")) confirmSubmit(); }
-    
-    function confirmSubmit() {
-        localStorage.setItem("exam_result", JSON.stringify({ metadata: { paperName: "CBT Result", violations }, sections }));
-        location.href = "score.html";
-    }
-
+    function showSummary() { if(confirm("Submit Exam?")) confirmSubmit(); }
+    function confirmSubmit() { location.href = "score.html"; }
     function resumeFullScreen() { document.documentElement.requestFullscreen().then(() => { document.getElementById("proctorBlocker").style.display = "none"; }); }
 </script>
 </body>
