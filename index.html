@@ -15,159 +15,145 @@
 
     <style>
         :root {
-            --primary: #337ab7; --success: #28a745; --danger: #dc3545;
-            --warning: #f0ad4e; --review: #8e44ad; --bg: #f8f9fa;
-            --header-h: 60px; --footer-h: 70px; --sidebar-w: 320px;
+            --primary: #1a73e8; --success: #28a745; --danger: #d93025;
+            --warning: #f9ab00; --review: #8e44ad; --bg: #f1f3f4;
+            --header-h: 55px; --footer-h: 65px; --sidebar-w: 280px;
         }
 
         body { 
-            margin: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            margin: 0; font-family: 'Segoe UI', Roboto, sans-serif; 
             background: var(--bg); user-select: none; height: 100vh; 
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* SECURITY & OVERLAYS */
-        #proctorBlocker { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
-            color: white; z-index: 9999; display: none; 
-            flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;
-        }
-
-        /* START SCREEN - RESPONSIVE */
+        /* INSTRUCTION PAGE ENHANCEMENTS */
         .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; }
-        .inst-header { background: var(--primary); color: #fff; padding: 15px 20px; font-size: 1.1em; font-weight: bold; position: sticky; top: 0; }
-        .inst-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+        .inst-header { background: #202124; color: #fff; padding: 15px 25px; font-weight: 600; font-size: 1.2rem; }
+        .inst-body { max-width: 1200px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
         
-        @media (min-width: 992px) {
-            .inst-container { grid-template-columns: 1fr 300px; }
-        }
+        @media (max-width: 850px) { .inst-body { grid-template-columns: 1fr; } }
 
-        .inst-content { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; }
-        .marking-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85em; }
-        .marking-table td, .marking-table th { padding: 10px; border: 1px solid #eee; text-align: center; }
+        .inst-box { border: 1px solid #dadce0; border-radius: 8px; padding: 25px; background: white; line-height: 1.6; }
+        .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .dot { width: 24px; height: 24px; border-radius: 4px; border: 1px solid #ccc; flex-shrink: 0; }
 
-        /* HEADER */
+        /* HORIZONTAL LAYOUT (FORCED FOR BOTH MOBILE & DESKTOP) */
         .header { 
             height: var(--header-h); background: #fff; display: none; 
             justify-content: space-between; align-items: center; 
-            padding: 0 15px; border-bottom: 2px solid var(--primary); 
+            padding: 0 15px; border-bottom: 1px solid #dadce0; 
         }
-        .timer-box { font-size: 1.2em; font-weight: bold; color: #fff; background: #222; padding: 5px 15px; border-radius: 4px; font-family: monospace; }
+        .timer-box { font-size: 1.2rem; font-weight: 700; color: var(--danger); font-family: 'Courier New', monospace; }
 
-        /* MAIN LAYOUT */
-        .main-container { display: none; flex: 1; overflow: hidden; flex-direction: column; }
+        .main-container { display: none; flex: 1; overflow: hidden; flex-direction: row; } /* Forced Row */
         
-        @media (min-width: 992px) {
-            .main-container { flex-direction: row; }
-        }
-
-        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; }
-        
-        /* TABS - HORIZONTAL SCROLL ON MOBILE */
-        .section-tabs { 
-            background: #eee; display: flex; overflow-x: auto; 
-            scrollbar-width: none; -webkit-overflow-scrolling: touch;
-        }
+        .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; min-width: 0; }
+        .section-tabs { background: #f8f9fa; display: flex; overflow-x: auto; border-bottom: 1px solid #dadce0; }
         .tab-btn { 
-            padding: 12px 20px; border: none; cursor: pointer; font-weight: bold; 
-            background: #eee; border-right: 1px solid #ddd; white-space: nowrap;
-            min-width: 120px; transition: 0.2s;
+            padding: 12px 15px; border: none; background: none; font-weight: 600; 
+            color: #5f6368; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;
         }
-        .tab-btn.active { background: #fff; color: var(--primary); border-top: 3px solid var(--primary); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: #e8f0fe; }
 
-        /* QUESTION AREA */
-        .q-scroll-view { flex: 1; overflow-y: auto; padding: 20px; box-sizing: border-box; }
-        .option-label { 
-            display: flex; align-items: center; padding: 15px; border: 1px solid #eee; 
-            margin-bottom: 10px; cursor: pointer; border-radius: 8px; transition: 0.2s; 
-        }
-        .option-label:hover { background: #f0f7ff; }
-        .option-label input { width: 20px; height: 20px; margin-right: 15px; flex-shrink: 0; }
-
-        /* SIDEBAR / PALETTE */
+        .q-scroll-view { flex: 1; overflow-y: auto; padding: 20px; }
+        
+        /* SIDEBAR - OPTIMISED FOR HORIZONTAL MOBILE VIEW */
         .sidebar { 
-            width: 100%; background: #fff; border-top: 1px solid #ccc; 
-            display: flex; flex-direction: column; max-height: 40vh;
+            width: var(--sidebar-w); border-left: 1px solid #dadce0; 
+            background: #fff; display: flex; flex-direction: column; flex-shrink: 0;
         }
         
-        @media (min-width: 992px) {
-            .sidebar { width: var(--sidebar-w); border-top: none; border-left: 1px solid #ccc; max-height: none; }
-        }
+        @media (max-width: 600px) { .sidebar { width: 160px; font-size: 0.8rem; } }
 
-        .palette-container { flex: 1; overflow-y: auto; padding: 15px; }
-        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); gap: 8px; }
+        .palette-container { flex: 1; overflow-y: auto; padding: 10px; }
+        .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(35px, 1fr)); gap: 6px; }
         .palette-grid button { 
-            aspect-ratio: 1/1; border: 1px solid #ccc; cursor: pointer; 
-            font-size: 14px; font-weight: bold; background: #fff; border-radius: 4px;
+            aspect-ratio: 1/1; border: 1px solid #dadce0; border-radius: 4px; 
+            font-weight: bold; background: #fff; cursor: pointer; font-size: 0.8rem;
         }
 
         /* PALETTE COLORS */
-        .answered { background: var(--success) !important; color: #fff; border-radius: 12px 12px 0 0 !important; }
-        .notAnswered { background: var(--danger) !important; color: #fff; border-radius: 0 0 12px 12px !important; }
-        .review { background: var(--review) !important; color: #fff; border-radius: 50% !important; }
-        .reviewAnswered { background: var(--review) !important; color: #fff; border-radius: 50% !important; position: relative; }
-        .reviewAnswered::after { content: "✓"; position: absolute; top: -5px; right: -2px; color: #00ff00; -webkit-text-stroke: 1px #fff; }
-        .current { border: 3px solid #000 !important; transform: scale(1.1); }
-
-        /* FOOTER ACTIONS */
-        .footer { 
-            height: auto; min-height: var(--footer-h); background: #f1f3f4; 
-            display: flex; flex-wrap: wrap; gap: 10px; align-items: center; 
-            justify-content: space-between; padding: 10px 15px; 
+        .answered { background: var(--success) !important; color: white; border: none !important; }
+        .notAnswered { background: var(--danger) !important; color: white; border: none !important; }
+        .review { background: var(--review) !important; color: white; border-radius: 50% !important; border: none !important; }
+        
+        /* SPECIFIC REQUEST: Purple with Green Border */
+        .reviewAnswered { 
+            background: var(--review) !important; 
+            color: white; 
+            border-radius: 50% !important; 
+            border: 3px solid var(--success) !important; 
+            position: relative;
         }
-        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
-        .btn { padding: 10px 15px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; font-weight: 600; font-size: 0.9em; }
+        .current { outline: 2px solid #000; outline-offset: 2px; }
+
+        /* FOOTER */
+        .footer { 
+            height: var(--footer-h); background: #fff; border-top: 1px solid #dadce0;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 15px;
+        }
+        .btn { padding: 8px 16px; border-radius: 4px; font-weight: 600; cursor: pointer; border: 1px solid #dadce0; }
         .btn-primary { background: var(--primary); color: white; border: none; }
         
-        /* MODAL */
-        #summaryModal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 15px; }
-        .summary-card { background: #fff; width: 100%; max-width: 600px; padding: 20px; border-radius: 12px; }
-
-        svg { max-width: 100%; height: auto; display: block; margin: 10px auto; }
+        /* PROCTORING */
+        #proctorBlocker { 
+            position: fixed; inset: 0; background: #000; color: #fff; 
+            z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
     </style>
 </head>
 
 <body oncontextmenu="return false;">
 
 <div id="proctorBlocker">
-    <h2>SECURITY ALERT</h2>
+    <h2>SECURITY LOCK</h2>
     <p id="proctorMsg">Violation Detected</p>
-    <button class="btn btn-primary" onclick="resumeFullScreen()">Resume Secure Session</button>
+    <button class="btn btn-primary" onclick="resumeFullScreen()">Resume Exam</button>
 </div>
 
 <div id="startScreen" class="startScreen">
-    <div class="inst-header">TerminalJoint | Secure Examination Portal</div>
-    <div class="inst-container">
-        <div class="left-col">
-            <div class="inst-content" id="dynamicInstructions">
-                <h3>Instructions:</h3>
-                <p>Please select a paper from the menu below to begin. Ensure you have a stable internet connection.</p>
+    <div class="inst-header">TerminalJoint Enterprise CBT Portal</div>
+    <div class="inst-body">
+        <div class="inst-box">
+            <h3 style="margin-top:0; color:var(--primary);">General Instructions</h3>
+            <p>Please read the following instructions carefully before starting the exam:</p>
+            <div class="legend-grid">
+                <div class="legend-item"><div class="dot"></div> Not Visited</div>
+                <div class="legend-item"><div class="dot" style="background:var(--danger)"></div> Not Answered</div>
+                <div class="legend-item"><div class="dot" style="background:var(--success)"></div> Answered</div>
+                <div class="legend-item"><div class="dot" style="background:var(--review); border-radius:50%"></div> Marked for Review</div>
+                <div class="legend-item">
+                    <div class="dot" style="background:var(--review); border-radius:50%; border:3px solid var(--success)"></div> 
+                    <b>Answered & Marked (Evaluated)</b>
+                </div>
             </div>
+            <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
+            <p>1. Total duration is displayed in the top right corner.<br>
+               2. Use "Save & Next" to secure your answer. <br>
+               3. <b>Security:</b> Full-screen exit or tab switching will be logged as a violation.</p>
             
-            <div style="margin-top:20px;">
-                <label style="font-weight:bold;">Select Question Paper:</label>
-                <select id="paperSelect" style="width:100%; padding:12px; margin:10px 0; border-radius:6px;" onchange="loadPaperMetadata(this.value)"></select>
+            <div style="background:#e8f0fe; padding:15px; border-radius:6px; margin-top:20px;">
+                <label><b>Select Paper:</b></label>
+                <select id="paperSelect" style="width:100%; padding:10px; margin-top:10px;" onchange="loadPaperMetadata(this.value)"></select>
             </div>
 
-            <div style="margin-top:20px;">
-                <label style="display:flex; gap:12px; cursor:pointer;">
-                    <input type="checkbox" id="declareCheck" style="width:20px;" onchange="toggleReadyBtn(this.checked)">
-                    <span>I understand that this exam is monitored and I am ready to start.</span>
-                </label>
-                <button id="readyBtn" class="btn btn-primary" style="width:100%; margin-top:20px; padding:15px; opacity:0.5; cursor:not-allowed;" onclick="startExam()">BEGIN EXAM</button>
+            <div style="margin-top:25px;">
+                <input type="checkbox" id="declareCheck" onchange="toggleReadyBtn(this.checked)"> 
+                <label for="declareCheck">I have read and understood all instructions.</label>
+                <button id="readyBtn" class="btn btn-primary" style="width:100%; margin-top:20px; padding:15px; opacity:0.5; cursor:not-allowed;" onclick="startExam()">I AM READY TO BEGIN</button>
             </div>
         </div>
-        <div class="right-col">
-            <div style="border:1px solid #ddd; padding:20px; text-align:center; border-radius:8px; background:#fafafa;">
-                <div style="width:100px; height:120px; background:#eee; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; color:#999;">PHOTO</div>
-                <b>PRACTICE_USER</b>
-            </div>
+        <div class="sidebar-info inst-box" style="text-align:center;">
+            <div style="width:120px; height:150px; background:#f1f3f4; margin:0 auto 15px; display:flex; align-items:center; justify-content:center; border:1px solid #ddd; color:#999;">USER PHOTO</div>
+            <div style="font-weight:bold;">PRACTICE_CANDIDATE</div>
+            <div style="font-size:0.8rem; color:#666; margin-top:5px;">System ID: TJ-2026-X</div>
         </div>
     </div>
 </div>
 
 <header class="header" id="examHeader">
-    <div id="activePaperName" style="font-weight:bold; color:var(--primary);">CBT Portal</div>
+    <div style="font-weight:bold; color:var(--primary);" id="activePaperName">CBT Portal</div>
     <div class="timer-box" id="timeDisplay">00:00</div>
 </header>
 
@@ -175,40 +161,26 @@
     <div class="content-area">
         <div class="section-tabs" id="tabs"></div>
         <div class="q-scroll-view" id="questionBox">
-            <div id="q-meta" style="font-size:0.9em; font-weight:bold; color:#777; margin-bottom:10px;"></div>
-            <div id="question" style="font-size:1.1em; line-height:1.6;">Select a question to begin.</div>
-            <div id="options" style="margin-top:20px;"></div>
+            <div id="q-meta" style="font-size:0.8rem; font-weight:bold; color:#70757a; margin-bottom:10px; text-transform:uppercase;"></div>
+            <div id="question" style="font-size:1.1rem; line-height:1.6;"></div>
+            <div id="options" style="margin-top:25px;"></div>
         </div>
         <div class="footer">
-            <div class="btn-group">
-                <button class="btn" style="background:var(--warning); color:white; border:none;" onclick="handleAction('review')">Review & Next</button>
+            <div style="display:flex; gap:10px;">
+                <button class="btn" style="background:var(--warning); color:white; border:none;" onclick="handleAction('review')">Mark Review</button>
                 <button class="btn" onclick="handleAction('clear')">Clear</button>
             </div>
-            <button class="btn btn-primary" style="padding:10px 30px;" onclick="handleAction('save')">Save & Next</button>
+            <button class="btn btn-primary" style="padding:10px 25px;" onclick="handleAction('save')">Save & Next</button>
         </div>
     </div>
 
     <div class="sidebar">
-        <div style="padding:10px; background:#f1f3f4; font-size:0.8em; font-weight:bold; border-bottom:1px solid #ddd; display:flex; justify-content:space-between;">
-            <span>QUESTION PALETTE</span>
-            <span id="palette-status">0/0</span>
-        </div>
+        <div style="padding:12px; background:#f8f9fa; font-weight:bold; border-bottom:1px solid #dadce0;">PALETTE</div>
         <div class="palette-container">
             <div id="palette" class="palette-grid"></div>
         </div>
-        <div style="padding:10px;">
-            <button class="btn" style="width:100%; background:var(--success); color:white; border:none;" onclick="showSummary()">Submit Exam</button>
-        </div>
-    </div>
-</div>
-
-<div id="summaryModal">
-    <div class="summary-card">
-        <h3 style="margin-top:0;">Exam Summary</h3>
-        <div id="summaryTableBody" style="overflow-x:auto;"></div>
-        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
-            <button class="btn" onclick="document.getElementById('summaryModal').style.display='none'">Resume</button>
-            <button class="btn btn-primary" style="background:var(--success);" onclick="confirmSubmit()">Final Submit</button>
+        <div style="padding:10px; border-top:1px solid #dadce0;">
+            <button class="btn" style="width:100%; background:var(--success); color:white; border:none;" onclick="showSummary()">Submit</button>
         </div>
     </div>
 </div>
@@ -220,7 +192,7 @@
 
     window.onload = () => {
         const ps = document.getElementById("paperSelect");
-        ps.innerHTML = `<option value="" disabled selected>-- Select Exam Paper --</option>` + 
+        ps.innerHTML = `<option value="" disabled selected>-- Choose Paper --</option>` + 
                        PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
     };
 
@@ -231,42 +203,13 @@
     }
 
     function loadPaperMetadata(fileName) {
-        fetch(fileName).then(r => r.json()).then(data => {
-            examData = data;
-            const m = data.marking || {correct: 4, wrong: -1};
-            let qCount = 0;
-            Object.values(data.sections).forEach(s => qCount += s.length);
-            
-            document.getElementById("dynamicInstructions").innerHTML = `
-                <h3>${fileName}</h3>
-                <table class="marking-table">
-                    <tr><th>Time</th><th>Questions</th><th>Positive</th><th>Negative</th></tr>
-                    <tr><td>${data.duration}m</td><td>${qCount}</td><td>+${m.correct}</td><td>${m.wrong}</td></tr>
-                </table>
-                <p><strong>Sections:</strong> ${Object.keys(data.sections).join(", ")}</p>
-            `;
-        });
+        fetch(fileName).then(r => r.json()).then(data => { examData = data; });
     }
 
     function startExam() {
         if(!examData || !document.getElementById("declareCheck").checked) return;
         document.documentElement.requestFullscreen().catch(() => {});
         initExamUI();
-    }
-
-    // Security Handlers
-    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && started) { violations++; pauseExam(`Fullscreen Exit (#${violations})`); } });
-    document.addEventListener('visibilitychange', () => { if (document.hidden && started) { violations++; pauseExam(`Tab Switch (#${violations})`); } });
-
-    function pauseExam(msg) {
-        document.getElementById("proctorMsg").innerText = msg;
-        document.getElementById("proctorBlocker").style.display = "flex";
-    }
-
-    function resumeFullScreen() {
-        document.documentElement.requestFullscreen().then(() => {
-            document.getElementById("proctorBlocker").style.display = "none";
-        });
     }
 
     function initExamUI() {
@@ -281,59 +224,45 @@
         document.getElementById("examHeader").style.display = "flex";
         document.getElementById("examMain").style.display = "flex";
         started = true;
-        renderTabs();
-        renderQ();
-        startTimer();
+        renderTabs(); renderQ(); startTimer();
     }
 
     function renderTabs() {
-        document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => {
-            const ans = sections[sec].filter(q => q.userAnswer !== null).length;
-            return `<button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">
-                ${sec} <small>(${ans}/${sections[sec].length})</small>
-            </button>`;
-        }).join("");
+        document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => `
+            <button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">${sec}</button>
+        `).join("");
     }
 
     function switchSection(sec) {
         lastIndices[currentSection] = index;
         currentSection = sec;
         index = lastIndices[sec] || 0;
-        renderTabs();
-        renderQ();
+        renderTabs(); renderQ();
     }
 
     async function renderQ() {
         const q = sections[currentSection][index];
-        if(q.state === 0) q.state = 2; // Mark visited
-        
-        document.getElementById("q-meta").innerText = `${currentSection} | Question ${index + 1}`;
+        if(q.state === 0) q.state = 2;
+        document.getElementById("q-meta").innerText = `${currentSection} - Q.${index + 1}`;
         document.getElementById("question").innerHTML = q.q + (q.svg || "");
-
+        
         const optCont = document.getElementById("options");
         if (q.options) {
             optCont.innerHTML = q.options.map((op, i) => `
-                <label class="option-label">
-                    <input type="radio" name="qopt" ${q.userAnswer === i ? "checked" : ""} onchange="setAnswer(${i})">
-                    <span>${op}</span>
-                </label>`).join("");
+                <div style="margin-bottom:10px; padding:12px; border:1px solid #eee; border-radius:6px; display:flex; align-items:center; gap:10px;">
+                    <input type="radio" name="qopt" id="o${i}" ${q.userAnswer === i ? "checked" : ""} onchange="setAnswer(${i})">
+                    <label for="o${i}" style="width:100%; cursor:pointer;">${op}</label>
+                </div>`).join("");
         } else {
-            optCont.innerHTML = `<input type="number" class="btn" style="width:100%; box-sizing:border-box; padding:15px;" placeholder="Type numeric answer..." value="${q.userAnswer ?? ''}" oninput="setAnswer(this.value)">`;
+            optCont.innerHTML = `<input type="number" style="width:100%; padding:15px; border:1px solid #ddd;" placeholder="Answer..." value="${q.userAnswer ?? ''}" oninput="setAnswer(this.value)">`;
         }
         updatePalette();
-        if (window.MathJax) await MathJax.typesetPromise([document.getElementById("questionBox")]);
+        if (window.MathJax) await MathJax.typesetPromise();
     }
 
-    function setAnswer(val) {
-        sections[currentSection][index].userAnswer = val === "" ? null : val;
-        renderTabs();
-    }
+    function setAnswer(val) { sections[currentSection][index].userAnswer = val === "" ? null : val; }
 
     function updatePalette() {
-        const total = sections[currentSection].length;
-        const ans = sections[currentSection].filter(q => q.userAnswer !== null).length;
-        document.getElementById("palette-status").innerText = `${ans}/${total} Answered`;
-
         document.getElementById("palette").innerHTML = sections[currentSection].map((q, i) => {
             let cls = "";
             if(q.state === 1) cls = "answered";
@@ -363,32 +292,21 @@
 
     function startTimer() {
         setInterval(() => {
-            if (!started || document.getElementById("proctorBlocker").style.display === "flex") return;
+            if (!started) return;
             timeLeft--;
-            if (timeLeft <= 0) confirmSubmit();
             let m = Math.floor(timeLeft / 60), s = timeLeft % 60;
             document.getElementById("timeDisplay").innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }, 1000);
     }
 
-    function showSummary() {
-        let html = `<table class="marking-table"><tr><th>Section</th><th>Ans</th><th>Review</th></tr>`;
-        Object.keys(sections).forEach(sec => {
-            const s = sections[sec];
-            html += `<tr><td>${sec}</td><td>${s.filter(q=>q.userAnswer!==null).length}</td><td>${s.filter(q=>q.state >= 3).length}</td></tr>`;
-        });
-        document.getElementById("summaryTableBody").innerHTML = html + `</table>`;
-        document.getElementById("summaryModal").style.display = "flex";
-    }
-
+    function showSummary() { if(confirm("Submit Examination?")) confirmSubmit(); }
+    
     function confirmSubmit() {
-        localStorage.setItem("exam_result", JSON.stringify({
-            metadata: { paperName: examData.paperName || "CBT Exam", violations, timeTaken: (examData.duration*60)-timeLeft },
-            marking: examData.marking,
-            sections
-        }));
+        localStorage.setItem("exam_result", JSON.stringify({ metadata: { paperName: "CBT Result", violations }, sections }));
         location.href = "score.html";
     }
+
+    function resumeFullScreen() { document.documentElement.requestFullscreen().then(() => { document.getElementById("proctorBlocker").style.display = "none"; }); }
 </script>
 </body>
 </html>
