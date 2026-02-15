@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional CBT Interface</title>
+    <title>Enterprise CBT Interface</title>
 
     <script>
         window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
@@ -27,11 +27,9 @@
         .startScreen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 1000; }
         .startCard { background: #fff; padding: 30px; border-radius: 4px; width: 450px; box-shadow: 0 5px 25px rgba(0,0,0,0.15); border-top: 6px solid var(--primary); }
 
-        /* ===== HEADER & TIMER ===== */
+        /* ===== HEADER ===== */
         .header { height: var(--header-h); background: var(--primary); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .timer-box { font-family: monospace; font-size: 1.5em; font-weight: bold; background: #fff; color: #333; padding: 2px 12px; border-radius: 3px; border: 1px solid #ccc; transition: 0.3s; }
-        .timer-low { color: var(--danger) !important; animation: blink 1s infinite; border-color: var(--danger); }
-        @keyframes blink { 50% { opacity: 0.5; } }
+        .timer-box { font-family: monospace; font-size: 1.5em; font-weight: bold; background: #fff; color: #333; padding: 2px 12px; border-radius: 3px; border: 1px solid #ccc; }
 
         /* ===== MAIN CONTAINER ===== */
         .main-container { display: flex; flex: 1; overflow: hidden; }
@@ -39,15 +37,23 @@
         .section-tabs { background: #f1f1f1; padding: 8px 15px; border-bottom: 1px solid #ddd; }
         .q-scroll-view { flex: 1; overflow-y: auto; padding: 25px; }
 
-        /* ===== SIDEBAR & DASHBOARD ===== */
+        /* ===== SIDEBAR & SUBJECT DASHBOARD ===== */
         .sidebar { width: var(--sidebar-w); display: flex; flex-direction: column; background: #fff; }
-        .dashboard { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #f9f9f9; border-bottom: 1px solid #ddd; }
+        
+        .subject-dashboard { padding: 10px; background: #f0f4f8; border-bottom: 1px solid #ddd; }
+        .sub-pill { 
+            display: flex; justify-content: space-between; font-size: 11px; 
+            background: #fff; margin-bottom: 4px; padding: 5px 10px; 
+            border-radius: 20px; border: 1px solid #d1d9e6; font-weight: bold;
+        }
+
+        .dashboard { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border-bottom: 1px solid #ddd; }
         .stat-item { font-size: 12px; padding: 6px; border-radius: 3px; color: #fff; font-weight: bold; display: flex; justify-content: space-between; }
 
         /* ===== PALETTE ===== */
         .palette-container { flex: 1; overflow-y: auto; padding: 15px; }
         .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .palette-grid button { height: 40px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; position: relative; font-size: 14px; }
+        .palette-grid button { height: 40px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; position: relative; }
 
         .notVisited { background: #fff; color: #000; }
         .notAnswered { background: var(--danger); color: #fff; border-radius: 0 0 15px 15px; }
@@ -57,12 +63,6 @@
         .reviewAnswered::after { content: "✓"; position: absolute; bottom: 0; right: 0; background: var(--success); font-size: 10px; border-radius: 50%; padding: 2px; }
         .current { border: 2.5px solid #000 !important; }
 
-        /* ===== MODALS ===== */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 2000; }
-        .summary-card { background: #fff; padding: 25px; border-radius: 5px; width: 500px; max-width: 90%; }
-        .summary-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .summary-table th, .summary-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-
         .option { display: flex; align-items: center; padding: 12px 18px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
         .option:hover { background: #f5f8ff; border-color: var(--primary); }
 
@@ -70,6 +70,7 @@
         .btn { padding: 10px 22px; border-radius: 3px; border: 1px solid #aaa; cursor: pointer; font-weight: bold; }
         .btn-blue { background: #286090; color: #fff; border: none; }
         .btn-green { background: #449d44; color: #fff; border: none; }
+        .btn-resume { background: var(--warning); color: #fff; border: none; margin-top: 10px; width: 100%; padding: 15px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -77,30 +78,14 @@
 <div id="startScreen" class="startScreen">
     <div class="startCard">
         <h2 style="color:var(--primary); text-align:center;">Candidate Portal</h2>
+        <div id="resumeSection" style="display:none; margin-bottom: 20px; padding: 15px; background: #fff4e5; border: 1px solid #ffcc80; border-radius: 4px;">
+            <p style="margin:0; font-weight:bold; font-size: 14px;">Incomplete session detected!</p>
+            <button class="btn-resume" onclick="resumeExam()">Resume Saved Progress</button>
+            <p style="font-size: 11px; text-align: center; margin-top: 5px;">Or select a new paper below to start over.</p>
+        </div>
+        
         <select id="paperSelect" style="width:100%; padding:10px; margin-bottom:20px;"></select>
-        <div id="paperDetailsBox" style="background:#fcfcfc; border:1px solid #ddd; padding:15px; border-radius:4px;">
-            <table style="width:100%; font-size:14px;">
-                <tr><td>Time:</td><td id="det-time">--</td></tr>
-                <tr><td>Questions:</td><td id="det-ques">--</td></tr>
-            </table>
-        </div>
-        <button class="btn btn-blue" style="width:100%; margin-top:20px;" onclick="startExam()">Start Test</button>
-    </div>
-</div>
-
-<div id="summaryModal" class="modal-overlay">
-    <div class="summary-card">
-        <h3>Exam Summary</h3>
-        <table class="summary-table" id="summaryTable">
-            <thead>
-                <tr><th>Section</th><th>Ans</th><th>Marked</th><th>Left</th></tr>
-            </thead>
-            <tbody id="summaryBody"></tbody>
-        </table>
-        <div style="margin-top:20px; display:flex; justify-content: flex-end; gap:10px;">
-            <button class="btn" onclick="toggleSummary(false)">Back to Test</button>
-            <button class="btn btn-green" onclick="confirmSubmit()">Confirm Submit</button>
-        </div>
+        <button class="btn btn-blue" style="width:100%; padding:15px;" onclick="startExam()">Confirm & Start New Test</button>
     </div>
 </div>
 
@@ -120,6 +105,8 @@
     </div>
 
     <div class="sidebar">
+        <div class="subject-dashboard" id="subjectGrid"></div>
+        
         <div class="dashboard">
             <div class="stat-item" style="background:var(--success)">Ans: <span id="st-ans">0</span></div>
             <div class="stat-item" style="background:var(--danger)">Skip: <span id="st-skip">0</span></div>
@@ -130,7 +117,7 @@
             <div id="palette" class="palette-grid"></div>
         </div>
         <div style="padding:15px; border-top:1px solid #ddd;">
-            <button class="btn btn-blue" style="width:100%" onclick="showFinalSummary()">Submit Test</button>
+            <button class="btn btn-blue" style="width:100%" onclick="finalSubmitPrompt()">Final Submit</button>
         </div>
     </div>
 </div>
@@ -150,30 +137,55 @@
     const PAPER_LIST = ["paper-1.json", "AEEE FE-1.json","JEE FE-1.json"];
     let examData, sections, currentSection, index = 0, totalTime = 0, started = false;
 
-    const paperSelect = document.getElementById("paperSelect");
-    paperSelect.innerHTML = PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
-    paperSelect.onchange = loadPaperPreview;
-    loadPaperPreview();
+    window.onload = () => {
+        const paperSelect = document.getElementById("paperSelect");
+        paperSelect.innerHTML = PAPER_LIST.map(p => `<option value="${p}">${p}</option>`).join("");
+        
+        // Check for existing session
+        if (localStorage.getItem("cbt_active_session")) {
+            document.getElementById("resumeSection").style.display = "block";
+        }
+    };
 
-    function loadPaperPreview() {
-        fetch(paperSelect.value).then(r => r.json()).then(data => {
-            let qCount = 0;
-            Object.keys(data.sections).forEach(s => qCount += data.sections[s].length);
-            document.getElementById("det-time").innerText = data.duration + " Min";
-            document.getElementById("det-ques").innerText = qCount;
+    function startExam() {
+        const paper = document.getElementById("paperSelect").value;
+        fetch(paper).then(r => r.json()).then(data => {
+            initExamData(data, paper);
         });
     }
 
-    function startExam() {
-        fetch(paperSelect.value).then(r => r.json()).then(data => {
-            examData = data; sections = data.sections; totalTime = (data.duration || 60) * 60;
-            Object.keys(sections).forEach(sec => {
-                sections[sec] = sections[sec].map(q => ({...q, answer: null, review: false, visited: false}));
-            });
-            currentSection = Object.keys(sections)[0];
-            document.getElementById("startScreen").style.display = "none";
-            started = true; buildTabs(); render(); startTimer();
+    function resumeExam() {
+        const saved = JSON.parse(localStorage.getItem("cbt_active_session"));
+        examData = saved.examData;
+        sections = saved.sections;
+        totalTime = saved.totalTime;
+        currentSection = saved.currentSection;
+        index = saved.index;
+        
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("activePaperName").innerText = saved.paperName;
+        started = true;
+        buildTabs();
+        render();
+        startTimer();
+    }
+
+    function initExamData(data, paperName) {
+        examData = data;
+        sections = data.sections;
+        totalTime = (data.duration || 60) * 60;
+        Object.keys(sections).forEach(sec => {
+            sections[sec] = sections[sec].map(q => ({...q, answer: null, review: false, visited: false}));
         });
+        currentSection = Object.keys(sections)[0];
+        index = 0;
+        
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("activePaperName").innerText = paperName;
+        started = true;
+        buildTabs();
+        render();
+        startTimer();
     }
 
     function buildTabs() {
@@ -202,11 +214,13 @@
             optCont.innerHTML = `<input type="number" class="btn" style="width:200px;text-align:left;" placeholder="Answer" value="${q.answer ?? ''}" oninput="setNumerical(this.value)">`;
         }
         updatePalette();
+        updateSubjectDashboard();
+        autoSave();
         if (window.MathJax) MathJax.typesetPromise();
     }
 
-    function selectOption(i) { sections[currentSection][index].answer = i; updatePalette(); }
-    function setNumerical(v) { sections[currentSection][index].answer = v==="" ? null : parseFloat(v); updatePalette(); }
+    function selectOption(i) { sections[currentSection][index].answer = i; render(); }
+    function setNumerical(v) { sections[currentSection][index].answer = v==="" ? null : parseFloat(v); updatePalette(); updateSubjectDashboard(); autoSave(); }
     function clearResponse() { sections[currentSection][index].answer = null; sections[currentSection][index].review = false; render(); }
     function markReviewNext() { sections[currentSection][index].review = true; nextQ(); }
     function nextQ() { if (index < sections[currentSection].length - 1) { index++; render(); } }
@@ -228,33 +242,40 @@
         document.getElementById("st-left").innerText = stats.left;
     }
 
+    function updateSubjectDashboard() {
+        const grid = document.getElementById("subjectGrid");
+        grid.innerHTML = Object.keys(sections).map(sec => {
+            const solved = sections[sec].filter(q => q.answer !== null).length;
+            const total = sections[sec].length;
+            return `<div class="sub-pill"><span>${sec}</span><span>${solved}/${total}</span></div>`;
+        }).join("");
+    }
+
+    function autoSave() {
+        const session = {
+            examData, sections, totalTime, currentSection, index,
+            paperName: document.getElementById("activePaperName").innerText
+        };
+        localStorage.setItem("cbt_active_session", JSON.stringify(session));
+    }
+
     function startTimer() {
-        const timerBox = document.getElementById("time");
-        const interval = setInterval(() => {
+        setInterval(() => {
             if (!started) return;
             totalTime--;
-            if (totalTime < 300) timerBox.classList.add("timer-low");
-            if (totalTime <= 0) { clearInterval(interval); confirmSubmit(); }
+            if (totalTime <= 0) confirmSubmit();
             let h = Math.floor(totalTime / 3600), m = Math.floor((totalTime % 3600) / 60), s = totalTime % 60;
-            timerBox.innerText = [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
+            document.getElementById("time").innerText = [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
+            if(totalTime % 10 === 0) autoSave(); // Periodically save time
         }, 1000);
     }
 
-    function toggleSummary(show) { document.getElementById("summaryModal").style.display = show ? "flex" : "none"; }
-
-    function showFinalSummary() {
-        let html = "";
-        Object.keys(sections).forEach(sec => {
-            let ans = sections[sec].filter(q => q.answer !== null).length;
-            let mark = sections[sec].filter(q => q.review).length;
-            let left = sections[sec].length - ans;
-            html += `<tr><td>${sec}</td><td>${ans}</td><td>${mark}</td><td>${left}</td></tr>`;
-        });
-        document.getElementById("summaryBody").innerHTML = html;
-        toggleSummary(true);
+    function finalSubmitPrompt() {
+        if(confirm("Are you sure you want to finish the exam?")) confirmSubmit();
     }
 
     function confirmSubmit() {
+        localStorage.removeItem("cbt_active_session");
         localStorage.setItem("exam_result", JSON.stringify(examData));
         location.href = "score.html";
     }
