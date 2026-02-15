@@ -37,7 +37,7 @@
             flex-direction: column; align-items: center; justify-content: center; text-align: center;
         }
 
-        /* Start Screen & Instructions */
+        /* Start Screen */
         .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; display: flex; flex-direction: column; }
         .inst-header { background: var(--primary); color: #fff; padding: 15px 30px; font-size: 1.2em; font-weight: bold; }
         .inst-container { max-width: 1100px; margin: 20px auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; padding: 0 20px; }
@@ -45,21 +45,31 @@
         .marking-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         .marking-table td, .marking-table th { padding: 10px; border: 1px solid #ccc; text-align: center; }
 
-        /* Exam Layout */
+        /* Exam Interface */
         .header { height: var(--header-h); background: #fff; display: none; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); }
         .timer-box { font-size: 1.3em; font-weight: bold; color: #fff; background: var(--primary); padding: 6px 15px; border-radius: 4px; min-width: 100px; text-align: center; }
         .main-container { display: none; flex: 1; overflow: hidden; }
         .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #ccc; }
-        .section-tabs { background: #e5e5e5; display: flex; border-bottom: 1px solid #ccc; }
-        .tab-btn { padding: 12px 25px; border: none; cursor: pointer; font-weight: bold; background: #e5e5e5; border-right: 1px solid #ccc; transition: 0.2s; }
+        
+        /* Section Tabs with Live Counts */
+        .section-tabs { background: #e5e5e5; display: flex; border-bottom: 1px solid #ccc; overflow-x: auto; }
+        .tab-btn { 
+            padding: 12px 20px; border: none; cursor: pointer; font-weight: bold; 
+            background: #e5e5e5; border-right: 1px solid #ccc; white-space: nowrap;
+            display: flex; flex-direction: column; align-items: center; gap: 2px;
+        }
         .tab-btn.active { background: var(--primary); color: #fff; }
+        .tab-count { font-size: 0.75em; font-weight: normal; opacity: 0.9; }
+
         .q-scroll-view { flex: 1; overflow-y: auto; padding: 30px; }
 
-        /* Palette Shapes */
+        /* Sidebar & Palette */
         .sidebar { width: var(--sidebar-w); display: flex; flex-direction: column; background: #fff; }
         .palette-container { flex: 1; overflow-y: auto; padding: 15px; background: #f9f9f9; }
         .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         .palette-grid button { height: 40px; border: 1px solid #ccc; cursor: pointer; font-size: 13px; position: relative; background: #fff; }
+        
+        /* JEE Shapes */
         .notAnswered { background: var(--danger) !important; color: #fff; border-radius: 0 0 15px 15px; }
         .answered { background: var(--success) !important; color: #fff; border-radius: 15px 15px 0 0; }
         .review { background: var(--review) !important; color: #fff; border-radius: 50%; }
@@ -74,15 +84,15 @@
 
         /* Summary Modal */
         #summaryModal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; display: none; align-items: center; justify-content: center; }
-        .summary-card { background: #fff; width: 650px; padding: 25px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .summary-card { background: #fff; width: 650px; padding: 25px; border-radius: 8px; }
     </style>
 </head>
 
 <body oncontextmenu="return false;">
 
 <div id="proctorBlocker">
-    <h1>SECURITY VIOLATION</h1>
-    <p id="proctorMsg">Action Restricted</p>
+    <h1>SECURITY ALERT</h1>
+    <p id="proctorMsg">Violation Detected</p>
     <button class="btn" style="background:var(--success); color:#fff; padding:15px 30px;" onclick="resumeFullScreen()">RESUME EXAM</button>
 </div>
 
@@ -98,9 +108,9 @@
                 <select id="paperSelect" style="width:100%; padding:12px; margin-top:10px; font-size:1em;" onchange="loadPaperMetadata(this.value)"></select>
             </div>
             <div style="padding:20px;">
-                <label style="display:flex; gap:12px; cursor:pointer; align-items: flex-start;">
-                    <input type="checkbox" id="declareCheck" style="margin-top:4px;" onchange="document.getElementById('readyBtn').className = this.checked ? 'btn-ready active' : 'btn-ready'">
-                    <span>I have read all instructions and understand that switching tabs or exiting full-screen will be recorded as a violation.</span>
+                <label style="display:flex; gap:12px; cursor:pointer;">
+                    <input type="checkbox" id="declareCheck" onchange="document.getElementById('readyBtn').className = this.checked ? 'btn-ready active' : 'btn-ready'">
+                    <span>I understand that this is a proctored exam. Switching tabs is strictly prohibited.</span>
                 </label>
                 <div style="text-align:center; margin-top:25px;">
                     <button id="readyBtn" class="btn-ready" onclick="startExam()">I AM READY TO BEGIN</button>
@@ -109,8 +119,8 @@
         </div>
         <div class="right-col">
             <div style="border:1px solid #ddd; padding:20px; text-align:center; background:#fcfcfc;">
-                <div style="width:130px; height:150px; background:#eee; margin: 0 auto 15px; border:1px solid #ddd; display:flex; align-items:center; justify-content:center; color:#999;">PHOTO</div>
-                <b style="letter-spacing:1px;">CANDIDATE</b>
+                <div style="width:130px; height:150px; background:#eee; margin: 0 auto 15px; display:flex; align-items:center; justify-content:center; color:#999;">PHOTO</div>
+                <b>TEST CANDIDATE</b>
             </div>
         </div>
     </div>
@@ -173,40 +183,25 @@
             let qTotal = 0;
             Object.keys(data.sections).forEach(s => qTotal += data.sections[s].length);
             const m = data.marking || {correct: 4, wrong: -1};
-
             document.getElementById("dynamicInstructions").innerHTML = `
                 <h4 style="color:var(--primary);">Exam Configuration</h4>
                 <table class="marking-table">
                     <tr><th>Duration</th><th>Questions</th><th>Correct</th><th>Incorrect</th></tr>
                     <tr><td>${data.duration} Mins</td><td>${qTotal}</td><td>+${m.correct}</td><td>${m.wrong}</td></tr>
                 </table>
-                <h4 style="margin-top:20px;">Proctoring Rules:</h4>
-                <ul>
-                    <li>The countdown timer starts the moment you click 'Ready'.</li>
-                    <li><b>Full-Screen</b> is mandatory throughout the test.</li>
-                    <li>Any attempt to switch tabs will be flagged as a <b>Violation</b>.</li>
-                    <li>Keyboard shortcuts (Copy/Paste) are blocked.</li>
-                </ul>
-            `;
+                <h4 style="margin-top:20px;">Instructions:</h4>
+                <ul><li>Timer shows remaining minutes.</li><li>Full-screen is mandatory.</li><li>Tab switching is a violation.</li></ul>`;
         });
     }
 
-    /* PROCTORING & SECURITY */
     function startExam() {
         if(!examData || !document.getElementById("declareCheck").checked) return;
         document.documentElement.requestFullscreen().catch(() => {});
         initExamUI();
     }
 
-    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && started) pauseExam("Security Alert: Full-screen mode exited!"); });
-    document.addEventListener('visibilitychange', () => { if (document.hidden && started) { violations++; pauseExam(`Violation Detected: Tab switched (${violations})`); } });
-    
-    // Disable keyboard shortcuts
-    window.addEventListener('keydown', (e) => {
-        if (!started) return;
-        if (e.ctrlKey && ['c','v','u','p','s','a'].includes(e.key.toLowerCase())) e.preventDefault();
-        if (e.key === 'PrintScreen') e.preventDefault();
-    });
+    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && started) pauseExam("Full-screen exited!"); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden && started) { violations++; pauseExam(`Tab Switched! (Violation #${violations})`); } });
 
     function pauseExam(msg) {
         document.getElementById("proctorMsg").innerText = msg;
@@ -214,7 +209,6 @@
     }
     function resumeFullScreen() { document.documentElement.requestFullscreen().then(() => document.getElementById("proctorBlocker").style.display = "none"); }
 
-    /* CORE EXAM LOGIC */
     function initExamUI() {
         sections = examData.sections;
         totalTime = (examData.duration || 180) * 60; 
@@ -231,34 +225,45 @@
     }
 
     function buildTabs() {
-        document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => 
-            `<button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">${sec}</button>`
-        ).join("");
+        document.getElementById("tabs").innerHTML = Object.keys(sections).map(sec => {
+            const total = sections[sec].length;
+            const answered = sections[sec].filter(q => q.userAnswer !== null).length;
+            return `
+            <button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">
+                <span>${sec}</span>
+                <span class="tab-count">Ans: ${answered}/${total}</span>
+            </button>`;
+        }).join("");
     }
-    function switchSection(sec) { currentSection = sec; index = 0; buildTabs(); render(); }
+
+    function switchSection(sec) { currentSection = sec; index = 0; render(); }
 
     async function render() {
         const q = sections[currentSection][index]; 
         q.visited = true;
-        document.getElementById("q-meta").innerText = `${currentSection} - Question ${index + 1}`;
+        document.getElementById("q-meta").innerText = `${currentSection} - Q.${index + 1}`;
         document.getElementById("question").innerHTML = q.q + (q.svg ? `<div style="text-align:center;margin:20px 0;">${q.svg}</div>` : "");
 
         const optCont = document.getElementById("options");
         if (q.options) {
             optCont.innerHTML = q.options.map((op, i) => `
-                <label style="display:block; padding:12px; border:1px solid #ddd; margin-bottom:10px; cursor:pointer; border-radius:5px; background:#fff;">
-                    <input type="radio" name="qopt" ${q.userAnswer === i ? "checked" : ""} onchange="sections['${currentSection}'][${index}].userAnswer=${i}; updatePalette();">
+                <label style="display:block; padding:12px; border:1px solid #ddd; margin-bottom:10px; cursor:pointer; border-radius:5px;">
+                    <input type="radio" name="qopt" ${q.userAnswer === i ? "checked" : ""} onchange="setAnswer(${i})">
                     ${op}
                 </label>`).join("");
         } else {
-            optCont.innerHTML = `<input type="number" step="any" placeholder="Enter Answer" class="btn" style="width:220px; text-align:left; background:#fff;" value="${q.userAnswer ?? ''}" oninput="sections['${currentSection}'][${index}].userAnswer=parseFloat(this.value); updatePalette();">`;
+            optCont.innerHTML = `<input type="number" step="any" class="btn" style="width:220px; text-align:left;" value="${q.userAnswer ?? ''}" oninput="setAnswer(parseFloat(this.value))">`;
         }
 
-        // --- LATEX RENDERING FIX ---
-        if (window.MathJax) {
-            await MathJax.typesetPromise([document.getElementById("questionBox")]);
-        }
+        if (window.MathJax) await MathJax.typesetPromise([document.getElementById("questionBox")]);
         updatePalette();
+        buildTabs(); // Refresh live counts on tabs
+    }
+
+    function setAnswer(val) {
+        sections[currentSection][index].userAnswer = val;
+        updatePalette();
+        buildTabs();
     }
 
     function updatePalette() {
@@ -281,13 +286,11 @@
     }
     function clearResponse() { sections[currentSection][index].userAnswer = null; render(); }
 
-    /* TIMER IN MINUTES:SECONDS */
     function startTimer() {
         setInterval(() => {
             if (!started || document.getElementById("proctorBlocker").style.display === "flex") return;
             totalTime--;
             if (totalTime <= 0) confirmSubmit();
-            
             let m = Math.floor(totalTime / 60);
             let s = totalTime % 60;
             document.getElementById("time").innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
