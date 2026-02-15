@@ -40,7 +40,7 @@
             box-shadow: var(--card-shadow);
         }
 
-        /* HEADER SECTION */
+        /* HEADER */
         .header {
             background: var(--primary);
             color: white;
@@ -48,7 +48,6 @@
             text-align: center;
         }
         .header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
-        .header p { margin: 5px 0 0; opacity: 0.8; font-size: 14px; }
 
         /* SCORE CARDS */
         .stats-grid {
@@ -58,15 +57,11 @@
             background: #eee;
             border-bottom: 1px solid #eee;
         }
-        .stat-item {
-            background: white;
-            padding: 20px 10px;
-            text-align: center;
-        }
+        .stat-item { background: white; padding: 20px 10px; text-align: center; }
         .stat-label { font-size: 11px; font-weight: bold; color: #7f8c8d; text-transform: uppercase; display: block; }
         .stat-value { font-size: 24px; font-weight: bold; margin-top: 5px; }
 
-        /* TABLE SECTION */
+        /* TABLE */
         .content { padding: 25px; }
         .table-wrapper { overflow-x: auto; margin-top: 20px; }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
@@ -74,31 +69,46 @@
         th, td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; }
         
         /* ALERTS */
-        .alert {
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
-            font-size: 14px;
-        }
+        .alert { padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; font-size: 14px; }
         .alert-danger { background: #fee2e2; color: #c53030; border: 1px solid #feb2b2; }
 
         /* SOLUTIONS SECTION */
         #reviewSection { display: none; margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
         .sol-card {
             border: 1px solid #e2e8f0;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 6px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border-radius: 8px;
             background: #fff;
         }
-        .sol-q { font-weight: 600; color: var(--primary); display: block; margin-bottom: 10px; }
-        .badge { padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .sol-q { font-weight: 600; color: var(--primary); display: block; margin-bottom: 15px; font-size: 15px; }
+        
+        .ans-row { margin: 8px 0; font-size: 14px; display: flex; align-items: flex-start; gap: 10px; }
+        .badge { 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-transform: uppercase;
+            min-width: 80px;
+            text-align: center;
+            display: inline-block;
+        }
         .bg-success { background: #dcfce7; color: #166534; }
         .bg-danger { background: #fee2e2; color: #991b1b; }
-        .explanation { background: #f9fafb; padding: 12px; border-radius: 4px; margin-top: 10px; font-size: 13px; border-left: 3px solid #cbd5e1; }
+        .bg-gray { background: #f1f5f9; color: #475569; }
 
-        /* BUTTONS */
+        .explanation { 
+            background: #fdfdfd; 
+            padding: 15px; 
+            border-radius: 4px; 
+            margin-top: 15px; 
+            font-size: 13.5px; 
+            border: 1px dashed #cbd5e1;
+            color: #444;
+        }
+
+        /* ACTIONS */
         .actions { padding: 20px; display: flex; gap: 10px; justify-content: center; background: #f8f9fa; flex-wrap: wrap; }
         .btn {
             padding: 12px 24px;
@@ -107,24 +117,20 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 14px;
-            transition: 0.2s;
             text-decoration: none;
         }
         .btn-primary { background: var(--primary); color: white; }
         .btn-outline { border: 2px solid #ddd; background: white; color: #555; }
         .btn-purple { background: #8e44ad; color: white; }
 
-        /* MOBILE ADJUSTMENTS */
+        /* MOBILE */
         @media (max-width: 768px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .header h1 { font-size: 20px; }
-            .content { padding: 15px; }
             .btn { width: 100%; text-align: center; }
         }
 
         @media print {
             .actions, .btn, #reviewSection { display: none !important; }
-            body { background: white; padding: 0; }
             .container { box-shadow: none; border: 1px solid #eee; }
         }
     </style>
@@ -133,13 +139,13 @@
 
 <div class="container">
     <div class="header">
-        <h1>Official Performance Report</h1>
-        <p id="paperName">CBT Portal Examination</p>
+        <h1>Performance Report</h1>
+        <p id="paperName">Examination Results</p>
     </div>
 
     <div class="stats-grid">
         <div class="stat-item">
-            <span class="stat-label">Total Score</span>
+            <span class="stat-label">Score</span>
             <div class="stat-value" id="totalScore">0</div>
         </div>
         <div class="stat-item">
@@ -158,10 +164,10 @@
 
     <div class="content">
         <div id="violationAlert" class="alert alert-danger">
-            <strong>Security Warning:</strong> <span id="violationCount">0</span> proctoring violations were recorded.
+            <strong>Security Alert:</strong> <span id="violationCount">0</span> integrity violations recorded.
         </div>
 
-        <h3>Sectional Analysis</h3>
+        <h3>Sectional Breakdown</h3>
         <div class="table-wrapper">
             <table>
                 <thead>
@@ -179,15 +185,15 @@
         </div>
 
         <div id="reviewSection">
-            <h3>Question-wise Review & Solutions</h3>
+            <h3>Answer Key & Solutions</h3>
             <div id="solutionsList"></div>
         </div>
     </div>
 
     <div class="actions">
-        <button class="btn btn-purple" onclick="toggleReview()">Review Solutions</button>
-        <button class="btn btn-outline" onclick="window.print()">Print Result</button>
-        <a href="index.html" class="btn btn-primary">Re-take Exam</a>
+        <button class="btn btn-purple" onclick="toggleReview()">Review Answer Key</button>
+        <button class="btn btn-outline" onclick="window.print()">Print Report</button>
+        <a href="index.html" class="btn btn-primary">Try Again</a>
     </div>
 </div>
 
@@ -195,11 +201,7 @@
     const data = JSON.parse(localStorage.getItem("exam_result"));
 
     function init() {
-        if (!data) {
-            alert("No data found. Redirecting...");
-            window.location.href = "index.html";
-            return;
-        }
+        if (!data) { window.location.href = "index.html"; return; }
 
         const sections = data.sections;
         const violations = data.metadata?.violations || 0;
@@ -213,17 +215,6 @@
         const tbody = document.getElementById("tableBody");
 
         Object.keys(sections).forEach(sec => {
-            let sAns = 0, sWrong = 0, sTotal = sections[sec].length;
-            
-            sections[sec].forEach(q => {
-                if (q.userAnswer !== null && q.userAnswer !== "") {
-                    sAns++;
-                    if (String(q.userAnswer) === String(q.correct)) sAnsCorrect = true, sCorrect++; 
-                    // Note: Logic simplified for performance below
-                }
-            });
-
-            // Re-calculating correctly for the table
             let correctCount = sections[sec].filter(q => q.userAnswer !== null && String(q.userAnswer) === String(q.correct)).length;
             let wrongCount = sections[sec].filter(q => q.userAnswer !== null && String(q.userAnswer) !== String(q.correct)).length;
             let secScore = (correctCount * 4) - (wrongCount * 1);
@@ -231,12 +222,12 @@
             gScore += secScore;
             gCorrect += correctCount;
             gAttempt += (correctCount + wrongCount);
-            gTotal += sTotal;
+            gTotal += sections[sec].length;
 
             tbody.innerHTML += `
                 <tr>
                     <td><strong>${sec}</strong></td>
-                    <td>${sTotal}</td>
+                    <td>${sections[sec].length}</td>
                     <td>${correctCount + wrongCount}</td>
                     <td style="color:var(--success)">${correctCount}</td>
                     <td style="color:var(--danger)">${wrongCount}</td>
@@ -252,12 +243,8 @@
 
     function toggleReview() {
         const div = document.getElementById("reviewSection");
-        if(div.style.display === "block") {
-            div.style.display = "none";
-        } else {
-            div.style.display = "block";
-            renderSolutions();
-        }
+        div.style.display = div.style.display === "block" ? "none" : "block";
+        if(div.style.display === "block") renderSolutions();
     }
 
     function renderSolutions() {
@@ -265,21 +252,37 @@
         container.innerHTML = "";
         
         Object.keys(data.sections).forEach(sec => {
-            container.innerHTML += `<h4 style="margin-top:20px; color:var(--primary)">Section: ${sec}</h4>`;
+            container.innerHTML += `<h4 style="margin: 30px 0 15px; color:var(--primary); border-bottom: 1px solid #eee;">Section: ${sec}</h4>`;
+            
             data.sections[sec].forEach((q, i) => {
                 const isCorrect = q.userAnswer !== null && String(q.userAnswer) === String(q.correct);
-                const getLabel = (idx) => idx === null ? "Skipped" : (q.options ? String.fromCharCode(65 + parseInt(idx)) : idx);
-                
+                const isSkipped = q.userAnswer === null || q.userAnswer === "";
+
+                // Helper to get full option text
+                const getOptionText = (idx) => {
+                    if (idx === null || idx === "") return "Not Answered";
+                    if (!q.options) return idx; // Numerical
+                    const letter = String.fromCharCode(65 + parseInt(idx));
+                    return `(${letter}) ${q.options[idx]}`;
+                };
+
                 container.innerHTML += `
-                    <div class="sol-card" style="border-left: 4px solid ${isCorrect ? 'var(--success)' : (q.userAnswer === null ? '#ccc' : 'var(--danger)')}">
+                    <div class="sol-card" style="border-left: 5px solid ${isCorrect ? 'var(--success)' : (isSkipped ? '#cbd5e1' : 'var(--danger)')}">
                         <span class="sol-q">Q${i+1}. ${q.q}</span>
-                        <div style="margin: 10px 0;">
-                            <span class="badge ${isCorrect ? 'bg-success' : 'bg-danger'}">Your Answer: ${getLabel(q.userAnswer)}</span>
-                            <span class="badge bg-success" style="margin-left:10px;">Correct: ${getLabel(q.correct)}</span>
+                        
+                        <div class="ans-row">
+                            <span class="badge ${isCorrect ? 'bg-success' : (isSkipped ? 'bg-gray' : 'bg-danger')}">Your Choice</span>
+                            <span>${getOptionText(q.userAnswer)}</span>
                         </div>
+
+                        <div class="ans-row">
+                            <span class="badge bg-success">Correct Ans</span>
+                            <span>${getOptionText(q.correct)}</span>
+                        </div>
+
                         <div class="explanation">
-                            <strong>Explanation:</strong><br>
-                            ${q.solution || "No detailed solution available."}
+                            <strong>Solution:</strong><br>
+                            ${q.solution || "Detailed explanation not available."}
                         </div>
                     </div>`;
             });
@@ -289,6 +292,5 @@
 
     init();
 </script>
-
 </body>
 </html>
