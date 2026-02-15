@@ -3,116 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>CBT-Practice</title>
-<!-- ===== paper add panna 191 ===== -->
-<!-- ===== LATEX SUPPORT ===== -->
+
 <script>
 window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]}};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
-
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#eef2f7;
-user-select:none;
-}
-
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef2f7;user-select:none;}
 svg{max-width:100%;height:auto;}
 
-.header{
-background:#0b3d91;
-color:#fff;
-padding:10px 16px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+.header{background:#0b3d91;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
+.ribbon{background:#fff;padding:8px 14px;border-bottom:2px solid #ddd;display:flex;gap:10px;flex-wrap:wrap;}
 
-/* ===== RIBBON ===== */
-
-.ribbon{
-background:#fff;
-padding:8px 14px;
-border-bottom:2px solid #ddd;
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-}
-
-.block{
-padding:6px 10px;
-border-radius:4px;
-font-size:13px;
-color:#fff;
-}
-
+.block{padding:6px 10px;border-radius:4px;font-size:13px;color:#fff;}
 .bGrey{background:#ccc;color:#000;}
 .bRed{background:#e74c3c;}
 .bGreen{background:#2ecc71;}
 .bOrange{background:#f39c12;}
 .bPurple{background:#8e44ad;}
 
-/* ===== LAYOUT ===== */
-
 .container{display:flex;height:calc(100vh - 110px);}
 .left{width:72%;padding:20px;overflow:auto;}
-.right{
-width:28%;
-background:#fff;
-border-left:2px solid #ddd;
-padding:12px;
-position:sticky;
-top:0;
-height:100vh;
-overflow:auto;
-}
+.right{width:28%;background:#fff;border-left:2px solid #ddd;padding:12px;position:sticky;top:0;height:100vh;overflow:auto;}
 
-.qheader{
-position:sticky;
-top:0;
-background:#eef2f7;
-padding:8px 0;
-font-weight:bold;
-}
+.qheader{position:sticky;top:0;background:#eef2f7;padding:8px 0;font-weight:bold;}
 
-/* ===== OPTIONS ===== */
-
-.option{
-display:block;
-margin:10px 0;
-padding:12px;
-border:1px solid #ccc;
-border-radius:6px;
-background:#fff;
-cursor:pointer;
-transition:0.2s;
-}
-
+.option{display:block;margin:10px 0;padding:12px;border:1px solid #ccc;border-radius:6px;background:#fff;cursor:pointer;}
 .option:hover{background:#eaf1ff;}
 
-.tabs button{
-margin-right:6px;margin-bottom:8px;padding:6px 12px;
-cursor:pointer;border:none;border-radius:4px;background:#ddd;
-}
+.tabs button{margin-right:6px;margin-bottom:8px;padding:6px 12px;cursor:pointer;border:none;border-radius:4px;background:#ddd;}
 .tabActive{background:#0b3d91;color:#fff;}
-
-/* ===== NAV BAR ===== */
 
 .cbtNav{position:relative;width:100%;height:60px;margin-top:20px;}
 .navLeft{position:absolute;left:0;}
 .navCenter{position:absolute;left:50%;transform:translateX(-50%);}
 .navLeft button,.navCenter button{margin-right:10px;padding:6px 12px;}
 
-/* ===== PALETTE ===== */
-
 .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-
-.palette button{
-width:40px;height:40px;border:none;border-radius:4px;
-cursor:pointer;font-weight:bold;transition:0.2s;
-}
+.palette button{width:40px;height:40px;border:none;border-radius:4px;font-weight:bold;cursor:pointer;}
 
 .notVisited{background:#ccc;}
 .notAnswered{background:#e74c3c;color:#fff;}
@@ -121,11 +50,17 @@ cursor:pointer;font-weight:bold;transition:0.2s;
 .reviewAnswered{background:#8e44ad;color:#fff;}
 .current{box-shadow:0 0 0 3px #0b3d91 inset;}
 
-.submitBtn{
-background:#0b3d91;color:#fff;padding:8px 18px;
-border:none;border-radius:4px;cursor:pointer;font-weight:bold;width:100%;margin-top:10px;
-}
+.submitBtn{background:#0b3d91;color:#fff;padding:8px 18px;border:none;border-radius:4px;font-weight:bold;width:100%;margin-top:10px;}
 
+.numInput{width:220px;padding:10px;font-size:16px;border:1px solid #ccc;border-radius:6px;}
+
+.diagram{
+margin-top:12px;
+padding:10px;
+background:#fff;
+border:1px solid #ddd;
+border-radius:6px;
+}
 </style>
 </head>
 
@@ -138,8 +73,7 @@ Paper:
 <select id="paperSelect"></select>
 <button onclick="document.documentElement.requestFullscreen()">Fullscreen</button>
 &nbsp;&nbsp;
-Time Left:
-<b><span id="time">00:00</span></b>
+Time Left: <b><span id="time">00:00</span></b>
 </div>
 </div>
 
@@ -148,45 +82,32 @@ Time Left:
 <div class="container">
 
 <div class="left">
-
 <div class="tabs" id="tabs"></div>
 <div class="qheader" id="qno"></div>
-
 <div id="question"></div>
 <div id="options"></div>
 
 <div class="cbtNav">
-
 <div class="navLeft">
 <button onclick="clearResponse()">Clear Response</button>
 <button onclick="markReviewNext()">Mark for Review & Next</button>
 </div>
-
 <div class="navCenter">
 <button onclick="prevQ()">Previous</button>
 <button onclick="nextQ()">Save & Next</button>
 </div>
-
 </div>
-
 </div>
 
 <div class="right">
-
-<b>Question Palette</b>
-<hr>
-
+<b>Question Palette</b><hr>
 <div id="palette" class="palette"></div>
-
 <button class="submitBtn" onclick="submitExam()">Submit Test</button>
-
 </div>
 
 </div>
 
 <script>
-
-/* ===== PAPER SYSTEM ===== */
 
 const PAPER_LIST=["paper-1.json","AEEE FE-1.json"];
 
@@ -197,19 +118,14 @@ paperSelect.innerHTML=PAPER_LIST.map(p=>
 `<option value="${p}" ${p===selectedPaper?"selected":""}>${p}</option>`
 ).join("");
 
-paperSelect.onchange=()=>{
-location.href="index.html?paper="+paperSelect.value;
-};
+paperSelect.onchange=()=>location.href="index.html?paper="+paperSelect.value;
 
 let examData,sections;
 let currentSection,index=0;
 let sectionIndexMemory={};
-let totalTime=0;
-let timerStarted=false;
+let totalTime=0,timerStarted=false;
 
-fetch(selectedPaper)
-.then(r=>r.json())
-.then(data=>initExam(data));
+fetch(selectedPaper).then(r=>r.json()).then(data=>initExam(data));
 
 function initExam(data){
 
@@ -222,10 +138,7 @@ sections[sec]=sections[sec].map(q=>({...q,answer:null,review:false,visited:false
 });
 
 currentSection=Object.keys(sections)[0];
-
-buildTabs();
-render();
-startTimer();
+buildTabs();render();startTimer();
 }
 
 function buildTabs(){
@@ -248,8 +161,7 @@ function switchSection(sec){
 sectionIndexMemory[currentSection]=index;
 currentSection=sec;
 index=sectionIndexMemory[sec]??0;
-updateActiveTab();
-render();
+updateActiveTab();render();
 }
 
 /* ===== RENDER ===== */
@@ -263,7 +175,19 @@ q.visited=true;
 
 qno.innerText=currentSection+" - Question "+(index+1);
 
-question.innerHTML=q.q;
+/* ===== SVG + LATEX QUESTION RENDER ===== */
+
+let html=q.q||"";
+
+if(q.svg){
+html+=`<div class="diagram">${q.svg}</div>`;
+}
+
+question.innerHTML=html;
+
+/* ===== AUTO DETECT NUMERICAL ===== */
+
+if(q.options){
 
 options.innerHTML=q.options.map((op,i)=>`
 <label class="option">
@@ -273,17 +197,22 @@ onchange="selectOption(${i})">
 ${op}
 </label>`).join("");
 
-updatePalette();
-updateStats();
-buildTabs();
+}else{
 
-/* ===== FIXED LATEX (QUESTION + OPTIONS) ===== */
+options.innerHTML=`
+<input type="number" class="numInput"
+value="${q.answer??''}"
+oninput="setNumerical(this.value)">
+`;
+
+}
+
+updatePalette();updateStats();buildTabs();
 
 MathJax.typesetPromise([
 document.getElementById("question"),
 document.getElementById("options")
 ]);
-
 }
 
 /* ===== ANSWERS ===== */
@@ -291,6 +220,12 @@ document.getElementById("options")
 function selectOption(i){
 sections[currentSection][index].answer=i;
 sections[currentSection][index].review=false;
+updatePalette();updateStats();
+}
+
+function setNumerical(val){
+if(val==="") sections[currentSection][index].answer=null;
+else sections[currentSection][index].answer=parseFloat(val);
 updatePalette();updateStats();
 }
 
@@ -304,10 +239,8 @@ sections[currentSection][index].review=true;
 nextQ();
 }
 
-/* ===== NAVIGATION ===== */
-
-function nextQ(){ if(index<sections[currentSection].length-1){index++;render();}}
-function prevQ(){ if(index>0){index--;render();}}
+function nextQ(){if(index<sections[currentSection].length-1){index++;render();}}
+function prevQ(){if(index>0){index--;render();}}
 function gotoQ(i){index=i;render();}
 
 /* ===== PALETTE ===== */
@@ -361,16 +294,13 @@ time.innerText=String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
 },1000);
 }
 
-/* ===== SUBMIT WARNING ===== */
+/* ===== SUBMIT ===== */
 
 function submitExam(auto=false){
 
 let unanswered=0;
-
 Object.values(sections).forEach(arr=>{
-arr.forEach(q=>{
-if(q.answer===null)unanswered++;
-});
+arr.forEach(q=>{if(q.answer===null)unanswered++;});
 });
 
 if(!auto){
