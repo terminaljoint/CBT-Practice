@@ -3,244 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance Report | TerminalJoint</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+    <title>Final Result | TerminalJoint Assessment</title>
     <style>
         :root {
-            --primary: #337ab7; --success: #28a745; --danger: #dc3545;
-            --warning: #ffc107; --review: #8e44ad; --dark: #2c3e50; --bg: #f4f7f6;
+            --primary: #2c3e50;
+            --success: #27ae60;
+            --danger: #c0392b;
+            --info: #2980b9;
+            --bg: #f4f7f6;
         }
 
-        body { 
-            font-family: 'Segoe UI', system-ui, sans-serif; 
-            margin: 0; background: var(--bg); color: #333; line-height: 1.5;
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 20px;
+            color: #333;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 15px; }
-
-        /* HEADER SECTION */
-        .header-card {
-            background: #fff; padding: 20px; border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 5px solid var(--primary);
+        .result-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .header-info h1 { margin: 0; font-size: 1.5rem; color: var(--dark); }
-        .header-info p { margin: 5px 0 0; color: #666; font-size: 0.9rem; }
 
-        /* SCORE GRID (Responsive) */
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;
+        /* HEADER */
+        .result-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
-        @media (min-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+
+        .result-header h1 { margin: 0; font-size: 24px; text-transform: uppercase; }
+        
+        /* SCORE OVERVIEW */
+        .score-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1px;
+            background: #ddd;
+            border-bottom: 1px solid #ddd;
         }
 
         .stat-card {
-            background: #fff; padding: 15px; border-radius: 10px; text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03); border: 1px solid #eee;
-        }
-        .stat-card span { display: block; font-size: 1.6rem; font-weight: 800; color: var(--primary); }
-        .stat-card label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #777; font-weight: bold; }
-
-        /* MAIN CONTENT LAYOUT */
-        .main-layout { display: flex; flex-direction: column; gap: 20px; }
-        @media (min-width: 992px) {
-            .main-layout { display: grid; grid-template-columns: 350px 1fr; align-items: start; }
+            background: white;
+            padding: 20px;
+            text-align: center;
         }
 
-        /* SIDEBAR / ANALYTICS */
-        .sidebar { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 20px; }
-        .card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .card h3 { margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .stat-card small { color: #666; text-transform: uppercase; font-size: 11px; font-weight: bold; }
+        .stat-card div { font-size: 28px; font-weight: bold; margin-top: 5px; }
+        .text-success { color: var(--success); }
+        .text-danger { color: var(--danger); }
 
-        /* ANSWER KEY ITEMS */
-        .key-container { display: flex; flex-direction: column; gap: 15px; }
-        .section-divider { 
-            background: var(--dark); color: white; padding: 8px 15px; 
-            border-radius: 6px; font-weight: bold; margin-top: 10px;
-        }
-        .q-item { 
-            background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; 
-            padding: 15px; position: relative; overflow: hidden;
-        }
-        .q-item.correct { border-left: 6px solid var(--success); }
-        .q-item.wrong { border-left: 6px solid var(--danger); }
-        .q-item.review { border-left: 6px solid var(--review); }
-        .q-item.skipped { border-left: 6px solid #ccc; }
+        /* SECTIONAL ANALYSIS TABLE */
+        .analysis-box { padding: 30px; }
+        .analysis-box h3 { border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; }
 
-        .status-badge {
-            display: inline-block; padding: 3px 10px; border-radius: 4px; 
-            font-size: 0.7rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase;
-        }
-        .badge-success { background: #e6f4ea; color: var(--success); }
-        .badge-danger { background: #fce8e8; color: var(--danger); }
-        .badge-gray { background: #f1f3f4; color: #666; }
-
-        .q-text { font-weight: 500; margin-bottom: 15px; font-size: 1rem; }
-        .ans-row { 
-            display: grid; grid-template-columns: 1fr; gap: 10px; 
-            margin-top: 10px; font-size: 0.9rem;
-        }
-        @media (min-width: 600px) { .ans-row { grid-template-columns: 1fr 1fr; } }
-
-        .ans-box { padding: 10px; border-radius: 6px; background: #f8f9fa; border: 1px solid #eee; }
-        .ans-box b { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
-
-        .explanation { 
-            margin-top: 12px; padding: 12px; background: #fffdf0; 
-            border-radius: 6px; font-size: 0.85rem; border: 1px dashed #d1d1d1;
-        }
-
-        .no-print { display: block; }
-        @media print { .no-print { display: none; } body { background: #fff; } }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th { background: #f8f9fa; color: #555; font-size: 13px; }
+        th, td { padding: 12px; border: 1px solid #eee; text-align: center; }
         
-        button.print-btn {
-            background: var(--dark); color: white; border: none; padding: 10px 18px;
-            border-radius: 6px; cursor: pointer; font-weight: bold;
+        tr:nth-child(even) { background: #fafafa; }
+
+        /* SECURITY LOG */
+        .violation-warning {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            color: #c53030;
+            display: none;
+        }
+
+        /* ACTIONS */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-print { background: var(--primary); color: white; }
+        .btn-home { background: #e2e8f0; color: #4a5568; }
+
+        @media print {
+            .actions, .btn-home { display: none; }
+            body { background: white; padding: 0; }
+            .result-container { box-shadow: none; border: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header-card">
-        <div class="header-info">
-            <h1 id="paperTitle">Result Analysis</h1>
-            <p id="examMeta">TerminalJoint CBT Performance Report</p>
-        </div>
-        <button class="print-btn no-print" onclick="window.print()">Print PDF</button>
+<div class="result-container">
+    <div class="result-header">
+        <h1>Examination Score Card</h1>
+        <p>TerminalJoint CBT Assessment System | 2026</p>
     </div>
 
-    <div class="stats-grid" id="statsContainer">
-        <div class="stat-card"><span>-</span><label>Score</label></div>
-        <div class="stat-card"><span>-</span><label>Accuracy</label></div>
-        <div class="stat-card"><span>-</span><label>Correct</label></div>
-        <div class="stat-card"><span>-</span><label>Incorrect</label></div>
+    <div class="score-summary">
+        <div class="stat-card">
+            <small>Total Score</small>
+            <div id="totalScore">0</div>
+        </div>
+        <div class="stat-card">
+            <small>Accuracy</small>
+            <div id="accuracy" class="text-success">0%</div>
+        </div>
+        <div class="stat-card">
+            <small>Total Attempted</small>
+            <div id="totalAttempted">0</div>
+        </div>
+        <div class="stat-card">
+            <small>Correct / Wrong</small>
+            <div id="correctWrong" style="font-size: 20px;">0 / 0</div>
+        </div>
     </div>
 
-    <div class="main-layout">
-        <div class="sidebar no-print">
-            <div class="card">
-                <h3>Score Distribution</h3>
-                <canvas id="sectionChart"></canvas>
-            </div>
-            <div class="card" id="securityCard" style="display:none; border-left: 5px solid var(--danger);">
-                <h3 style="color:var(--danger)">Security Alerts</h3>
-                <p id="violationMsg" style="font-size:0.85rem;"></p>
-            </div>
-        </div>
+    <div class="analysis-box">
+        <h3>Sectional Performance</h3>
+        <table id="sectionalTable">
+            <thead>
+                <tr>
+                    <th>Section Name</th>
+                    <th>Total Qs</th>
+                    <th>Attempted</th>
+                    <th>Correct</th>
+                    <th>Incorrect</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="sectionalBody">
+                </tbody>
+        </table>
 
-        <div class="key-container">
-            <div id="keyContent"></div>
+        <div id="violationLog" class="violation-warning">
+            <strong>Security Alert:</strong> <span id="violationCount">0</span> integrity violations were recorded during this session (e.g., exiting fullscreen or tab switching).
         </div>
+    </div>
+
+    <div class="actions">
+        <a href="#" class="btn btn-print" onclick="window.print()">Print Score Card</a>
+        <a href="index.html" class="btn btn-home">Back to Dashboard</a>
     </div>
 </div>
 
 <script>
-    const data = JSON.parse(localStorage.getItem("exam_result"));
-
-    if (!data) {
-        document.body.innerHTML = `<div style="text-align:center; padding:50px;"><h2>No Data Found</h2><a href="index.html">Back to Exam</a></div>`;
-    } else {
-        renderReport();
-    }
-
-    function renderReport() {
-        document.getElementById('paperTitle').innerText = data.metadata.paperName;
-        const sections = data.sections;
-        const marking = data.marking || { correct: 4, wrong: -1 };
-        
-        let totalScore = 0, correct = 0, wrong = 0, skipped = 0, totalQ = 0;
-        const labels = [], scores = [];
-
-        const keyContent = document.getElementById('keyContent');
-
-        Object.keys(sections).forEach(secName => {
-            let secScore = 0;
-            keyContent.innerHTML += `<div class="section-divider">${secName.toUpperCase()}</div>`;
-
-            sections[secName].forEach((q, i) => {
-                totalQ++;
-                let status = 'skipped', scoreChange = 0;
-                
-                if (q.userAnswer !== null) {
-                    const isCorrect = (q.options) 
-                        ? (parseInt(q.userAnswer) === q.correct)
-                        : (Math.abs(parseFloat(q.userAnswer) - parseFloat(q.answer)) < 0.01);
-
-                    if (isCorrect) {
-                        status = 'correct'; scoreChange = marking.correct; correct++;
-                    } else {
-                        status = 'wrong'; scoreChange = q.options ? marking.wrong : 0; wrong++;
-                    }
-                } else {
-                    skipped++;
-                }
-
-                secScore += scoreChange;
-
-                keyContent.innerHTML += `
-                    <div class="q-item ${status}">
-                        <span class="status-badge ${status==='correct'?'badge-success':(status==='wrong'?'badge-danger':'badge-gray')}">
-                            ${status} (${scoreChange > 0 ? '+' : ''}${scoreChange})
-                        </span>
-                        <div class="q-text">${i+1}. ${q.q}</div>
-                        ${q.svg || ''}
-                        <div class="ans-row">
-                            <div class="ans-box"><b>Your Answer</b> ${q.userAnswer !== null ? (q.options ? q.options[q.userAnswer] : q.userAnswer) : 'N/A'}</div>
-                            <div class="ans-box" style="border-color:var(--success)"><b>Correct Key</b> ${q.options ? q.options[q.correct] : q.answer}</div>
-                        </div>
-                        ${q.solution ? `<div class="explanation"><b>Solution:</b><br>${q.solution}</div>` : ''}
-                    </div>
-                `;
-            });
-            totalScore += secScore;
-            labels.push(secName);
-            scores.push(secScore);
-        });
-
-        // Update Stats
-        const accuracy = totalQ > 0 ? Math.round((correct / (correct + wrong)) * 100) || 0 : 0;
-        document.getElementById('statsContainer').innerHTML = `
-            <div class="stat-card"><span>${totalScore}</span><label>Total Score</label></div>
-            <div class="stat-card"><span>${accuracy}%</span><label>Accuracy</label></div>
-            <div class="stat-card" style="border-bottom: 3px solid var(--success)"><span>${correct}</span><label>Correct</label></div>
-            <div class="stat-card" style="border-bottom: 3px solid var(--danger)"><span>${wrong}</span><label>Incorrect</label></div>
-        `;
-
-        // Security
-        if(data.metadata.violations > 0) {
-            document.getElementById('securityCard').style.display = 'block';
-            document.getElementById('violationMsg').innerText = `Proctoring system detected ${data.metadata.violations} tab switches or full-screen exits during the session.`;
+    window.onload = function() {
+        const examResult = JSON.parse(localStorage.getItem("exam_result"));
+        if (!examResult) {
+            alert("No exam data found.");
+            return;
         }
 
-        // Chart
-        new Chart(document.getElementById('sectionChart'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Marks',
-                    data: scores,
-                    backgroundColor: 'rgba(51, 122, 183, 0.7)',
-                    borderRadius: 5
-                }]
-            },
-            options: { responsive: true, plugins: { legend: { display: false } } }
+        const sections = examResult.sections;
+        const violations = examResult.metadata.violations || 0;
+
+        if (violations > 0) {
+            document.getElementById("violationLog").style.display = "block";
+            document.getElementById("violationCount").innerText = violations;
+        }
+
+        let grandTotalScore = 0;
+        let grandTotalCorrect = 0;
+        let grandTotalAttempted = 0;
+        let grandTotalQs = 0;
+
+        const sectionalBody = document.getElementById("sectionalBody");
+        
+        Object.keys(sections).forEach(secName => {
+            const qs = sections[secName];
+            let secCorrect = 0;
+            let secWrong = 0;
+            let secAttempted = 0;
+
+            qs.forEach(q => {
+                if (q.userAnswer !== null && q.userAnswer !== "") {
+                    secAttempted++;
+                    // Basic logic: compare userAnswer index to a 'correct' property in JSON
+                    // If your JSON uses strings or specific values, adjust this check.
+                    if (String(q.userAnswer) === String(q.correct)) {
+                        secCorrect++;
+                    } else {
+                        secWrong++;
+                    }
+                }
+            });
+
+            // Assuming standard marking: +4, -1
+            const secScore = (secCorrect * 4) - (secWrong * 1);
+            
+            grandTotalScore += secScore;
+            grandTotalCorrect += secCorrect;
+            grandTotalAttempted += secAttempted;
+            grandTotalQs += qs.length;
+
+            // Add row to table
+            const row = `<tr>
+                <td style="text-align:left; font-weight:bold;">${secName}</td>
+                <td>${qs.length}</td>
+                <td>${secAttempted}</td>
+                <td class="text-success">${secCorrect}</td>
+                <td class="text-danger">${secWrong}</td>
+                <td><strong>${secScore}</strong></td>
+            </tr>`;
+            sectionalBody.innerHTML += row;
         });
 
-        if (window.MathJax) MathJax.typeset();
-    }
+        // Update Overview
+        document.getElementById("totalScore").innerText = grandTotalScore;
+        document.getElementById("totalAttempted").innerText = `${grandTotalAttempted} / ${grandTotalQs}`;
+        document.getElementById("correctWrong").innerText = `${grandTotalCorrect} / ${grandTotalAttempted - grandTotalCorrect}`;
+        
+        const accuracy = grandTotalAttempted > 0 ? Math.round((grandTotalCorrect / grandTotalAttempted) * 100) : 0;
+        document.getElementById("accuracy").innerText = accuracy + "%";
+        
+        if (accuracy < 40) document.getElementById("accuracy").className = "text-danger";
+    };
 </script>
+
 </body>
 </html>
