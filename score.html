@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CBT-Practice Result</title>
+
+<style>
+body{font-family:Arial;background:#eef2f7;padding:20px;}
+.header{background:#0b3d91;color:#fff;padding:12px;margin-bottom:15px;}
+.card{background:#fff;padding:15px;border-radius:8px;}
+.correct{color:#2ecc71;font-weight:bold;}
+.wrong{color:#e74c3c;font-weight:bold;}
+table{width:100%;border-collapse:collapse;}
+th,td{border:1px solid #ddd;padding:8px;}
+</style>
+</head>
+
+<body>
+
+<div class="header"><h2>CBT-Practice Result</h2></div>
+
+<div class="card">
+
+<div id="summary"></div>
+
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Q.No</th>
+<th>Your</th>
+<th>Correct</th>
+<th>Status</th>
+<th>Solution</th>
+</tr>
+</thead>
+
+<tbody id="table"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let data=JSON.parse(localStorage.getItem("exam_result"));
+
+let score=0,attempted=0,correct=0,wrong=0;
+let M=data.marking;
+let html="";
+
+Object.keys(data.sections).forEach(sec=>{
+
+data.sections[sec].forEach((q,i)=>{
+
+let your="-",status="Not Attempted",cls="";
+
+if(q.answer!==null){
+attempted++;
+your=String.fromCharCode(65+q.answer);
+
+if(q.answer===q.correct){
+score+=M.correct;correct++;status="Correct";cls="correct";
+}else{
+score+=M.wrong;wrong++;status="Wrong";cls="wrong";
+}
+}
+
+html+=`
+<tr>
+<td>${sec}</td>
+<td>${i+1}</td>
+<td>${your}</td>
+<td>${String.fromCharCode(65+q.correct)}</td>
+<td class="${cls}">${status}</td>
+<td>${q.solution}</td>
+</tr>`;
+});
+});
+
+table.innerHTML=html;
+
+summary.innerHTML=
+`<b>Total Score:</b> ${score}<br>
+<b>Attempted:</b> ${attempted}<br>
+<b>Correct:</b> ${correct}<br>
+<b>Wrong:</b> ${wrong}<br>
+<b>Accuracy:</b> ${(correct/attempted*100||0).toFixed(2)}%`;
+
+</script>
+</body>
+</html>
