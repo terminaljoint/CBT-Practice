@@ -7,13 +7,8 @@
 
     <script>
         window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -30,14 +25,12 @@
             user-select: none; overflow: hidden; height: 100vh; display: flex; flex-direction: column;
         }
 
-        /* Security Overlay */
         #proctorBlocker { 
             position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
             color: white; z-index: 9999; display: none; 
             flex-direction: column; align-items: center; justify-content: center; text-align: center;
         }
 
-        /* Start Screen */
         .startScreen { position: fixed; inset: 0; background: #fff; z-index: 1000; overflow-y: auto; display: flex; flex-direction: column; }
         .inst-header { background: var(--primary); color: #fff; padding: 15px 30px; font-size: 1.2em; font-weight: bold; }
         .inst-container { max-width: 1100px; margin: 20px auto; display: grid; grid-template-columns: 1fr 300px; gap: 20px; padding: 0 20px; }
@@ -45,13 +38,11 @@
         .marking-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         .marking-table td, .marking-table th { padding: 10px; border: 1px solid #ccc; text-align: center; }
 
-        /* Exam Interface */
         .header { height: var(--header-h); background: #fff; display: none; justify-content: space-between; align-items: center; padding: 0 20px; border-bottom: 2px solid var(--primary); }
         .timer-box { font-size: 1.3em; font-weight: bold; color: #fff; background: var(--primary); padding: 6px 15px; border-radius: 4px; min-width: 100px; text-align: center; }
         .main-container { display: none; flex: 1; overflow: hidden; }
         .content-area { flex: 1; display: flex; flex-direction: column; background: #fff; border-right: 1px solid #ccc; }
         
-        /* Section Tabs with Live Counts */
         .section-tabs { background: #e5e5e5; display: flex; border-bottom: 1px solid #ccc; overflow-x: auto; }
         .tab-btn { 
             padding: 12px 20px; border: none; cursor: pointer; font-weight: bold; 
@@ -63,13 +54,11 @@
 
         .q-scroll-view { flex: 1; overflow-y: auto; padding: 30px; }
 
-        /* Sidebar & Palette */
         .sidebar { width: var(--sidebar-w); display: flex; flex-direction: column; background: #fff; }
         .palette-container { flex: 1; overflow-y: auto; padding: 15px; background: #f9f9f9; }
         .palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         .palette-grid button { height: 40px; border: 1px solid #ccc; cursor: pointer; font-size: 13px; position: relative; background: #fff; }
         
-        /* JEE Shapes */
         .notAnswered { background: var(--danger) !important; color: #fff; border-radius: 0 0 15px 15px; }
         .answered { background: var(--success) !important; color: #fff; border-radius: 15px 15px 0 0; }
         .review { background: var(--review) !important; color: #fff; border-radius: 50%; }
@@ -82,7 +71,6 @@
         .btn-ready { background: #286090; color: #fff; padding: 15px 40px; opacity: 0.5; cursor: not-allowed; border: none; font-size: 1.1em; }
         .btn-ready.active { opacity: 1; cursor: pointer; }
 
-        /* Summary Modal */
         #summaryModal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; display: none; align-items: center; justify-content: center; }
         .summary-card { background: #fff; width: 650px; padding: 25px; border-radius: 8px; }
     </style>
@@ -101,7 +89,7 @@
     <div class="inst-container">
         <div class="left-col">
             <div class="inst-content" id="dynamicInstructions">
-                <p style="text-align:center; padding-top:40px; color:#666;">Select a paper to view Instructions and Marking Scheme.</p>
+                <p style="text-align:center; padding-top:40px; color:#666;">Select a paper to view Instructions.</p>
             </div>
             <div style="padding:20px; background:#eef2f7; border:1px solid #337ab7; margin-top:15px;">
                 <label><b>Choose Question Paper:</b></label>
@@ -110,7 +98,7 @@
             <div style="padding:20px;">
                 <label style="display:flex; gap:12px; cursor:pointer;">
                     <input type="checkbox" id="declareCheck" onchange="document.getElementById('readyBtn').className = this.checked ? 'btn-ready active' : 'btn-ready'">
-                    <span>I understand that this is a proctored exam. Switching tabs is strictly prohibited.</span>
+                    <span>I understand the proctoring rules and am ready to start.</span>
                 </label>
                 <div style="text-align:center; margin-top:25px;">
                     <button id="readyBtn" class="btn-ready" onclick="startExam()">I AM READY TO BEGIN</button>
@@ -170,6 +158,9 @@
     const PAPER_LIST = ["paper-1.json", "AEEE FE-1.json","JEE FE-1.json"];
     let examData, sections, currentSection, index = 0, totalTime = 0, started = false;
     let violations = 0;
+    
+    // Track last active question for each section
+    let lastIndices = {};
 
     window.onload = () => {
         const ps = document.getElementById("paperSelect");
@@ -188,9 +179,7 @@
                 <table class="marking-table">
                     <tr><th>Duration</th><th>Questions</th><th>Correct</th><th>Incorrect</th></tr>
                     <tr><td>${data.duration} Mins</td><td>${qTotal}</td><td>+${m.correct}</td><td>${m.wrong}</td></tr>
-                </table>
-                <h4 style="margin-top:20px;">Instructions:</h4>
-                <ul><li>Timer shows remaining minutes.</li><li>Full-screen is mandatory.</li><li>Tab switching is a violation.</li></ul>`;
+                </table>`;
         });
     }
 
@@ -201,7 +190,7 @@
     }
 
     document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && started) pauseExam("Full-screen exited!"); });
-    document.addEventListener('visibilitychange', () => { if (document.hidden && started) { violations++; pauseExam(`Tab Switched! (Violation #${violations})`); } });
+    document.addEventListener('visibilitychange', () => { if (document.hidden && started) { violations++; pauseExam(`Violation #${violations}`); } });
 
     function pauseExam(msg) {
         document.getElementById("proctorMsg").innerText = msg;
@@ -214,8 +203,10 @@
         totalTime = (examData.duration || 180) * 60; 
         Object.keys(sections).forEach(sec => {
             sections[sec] = sections[sec].map(q => ({...q, userAnswer: null, review: false, visited: false}));
+            lastIndices[sec] = 0; // Initialize tracking
         });
         currentSection = Object.keys(sections)[0];
+        index = 0;
         document.getElementById("startScreen").style.display = "none";
         document.getElementById("examHeader").style.display = "flex";
         document.getElementById("examMain").style.display = "flex";
@@ -231,12 +222,24 @@
             return `
             <button class="tab-btn ${sec === currentSection ? 'active' : ''}" onclick="switchSection('${sec}')">
                 <span>${sec}</span>
-                <span class="tab-count">Ans: ${answered}/${total}</span>
+                <span class="tab-count">(${answered}/${total})</span>
             </button>`;
         }).join("");
     }
 
-    function switchSection(sec) { currentSection = sec; index = 0; render(); }
+    function switchSection(sec) {
+        // Save current index of the section we are leaving
+        lastIndices[currentSection] = index;
+        
+        // Switch to new section
+        currentSection = sec;
+        
+        // Restore last index of the section we are entering
+        index = lastIndices[sec];
+        
+        buildTabs();
+        render();
+    }
 
     async function render() {
         const q = sections[currentSection][index]; 
@@ -257,7 +260,6 @@
 
         if (window.MathJax) await MathJax.typesetPromise([document.getElementById("questionBox")]);
         updatePalette();
-        buildTabs(); // Refresh live counts on tabs
     }
 
     function setAnswer(val) {
