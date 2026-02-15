@@ -1,2954 +1,1219 @@
 {
-  "metadata": {
-    "total_duration": "150",
-    "marking_scheme_summary": "+3 for correct, -1 for incorrect",
-    "total_questions": 100
-  },
-  "sections": [
-    {
-      "section_name": "Physics",
-      "questions": [
-        {
-          "id": 1,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A car accelerates uniformly from rest to 20 m/s in 5 seconds. What is the distance covered by the car during this time?",
-          "options": [
-            "25 m",
-            "50 m",
-            "75 m",
-            "100 m"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Using the equation v = u + at, we find acceleration a = (20-0)/5 = 4 m/s². Then, using s = ut + (1/2)at², s = 0*5 + (1/2)*4*(5)² = 2*25 = 50 m."
-        },
-        {
-          "id": 2,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A block of mass 5 kg is resting on a horizontal surface. A force of 20 N is applied horizontally. If the coefficient of kinetic friction is 0.2, what is the acceleration of the block? (Take g = 10 m/s²)",
-          "options": [
-            "1 m/s²",
-            "2 m/s²",
-            "3 m/s²",
-            "4 m/s²"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Friction force f_k = μ_k * N = μ_k * mg = 0.2 * 5 kg * 10 m/s² = 10 N. Net force = Applied force - Friction force = 20 N - 10 N = 10 N. Acceleration a = Net force / mass = 10 N / 5 kg = 2 m/s².",
-          "svg_visual": "<svg width=\"200\" height=\"100\"><rect x=\"50\" y=\"50\" width=\"100\" height=\"30\" style=\"fill:lightblue;stroke:black;stroke-width:2\"/><line x1=\"20\" y1=\"65\" x2=\"50\" y2=\"65\" style=\"stroke:red;stroke-width:2;marker-end:url(#arrowhead)\"/><text x=\"25\" y=\"60\" fill=\"red\">20 N</text><text x=\"80\" y=\"70\" fill=\"black\">5 kg</text><defs><marker id=\"arrowhead\" markerWidth=\"10\" markerHeight=\"7\" refX=\"0\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0 0, 10 3.5, 0 7\" fill=\"red\"/></marker></defs></svg>"
-        },
-        {
-          "id": 3,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A 10 kg object is lifted vertically by a constant force of 120 N for a distance of 3 meters. What is the net work done on the object? (Take g = 10 m/s²)",
-          "options": [
-            "60 J",
-            "90 J",
-            "120 J",
-            "360 J"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Work done by applied force = F_applied * d = 120 N * 3 m = 360 J. Work done by gravity = -mgd = -10 kg * 10 m/s² * 3 m = -300 J. Net work done = 360 J - 300 J = 60 J. Alternatively, net force = 120 N - (10 kg * 10 m/s²) = 20 N. Net work done = 20 N * 3 m = 60 J."
-        },
-        {
-          "id": 4,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A sound wave travels at 340 m/s. If its frequency is 200 Hz, what is its wavelength?",
-          "options": [
-            "0.5 m",
-            "1.7 m",
-            "2.5 m",
-            "3.4 m"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Using the wave equation v = fλ, where v is speed, f is frequency, and λ is wavelength. So, λ = v/f = 340 m/s / 200 Hz = 1.7 m."
-        },
-        {
-          "id": 5,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which of the following is an example of a scalar quantity?",
-          "options": [
-            "Velocity",
-            "Acceleration",
-            "Force",
-            "Mass"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Scalar quantities have magnitude only, while vector quantities have both magnitude and direction. Velocity, acceleration, and force are vectors, whereas mass is a scalar."
-        },
-        {
-          "id": 6,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A converging lens has a focal length of 10 cm. An object is placed 15 cm from the lens. What is the image distance?",
-          "options": [
-            "15 cm",
-            "20 cm",
-            "30 cm",
-            "45 cm"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Using the lens formula 1/f = 1/v + 1/u. Given f = 10 cm (converging lens), u = -15 cm (object distance is negative by convention). So, 1/10 = 1/v + 1/(-15) => 1/v = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6. Therefore, v = 6 cm. Wait, 1/v = 1/10 - 1/(-15) = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6.  Oh, 1/v = 1/f - 1/u.  1/v = 1/10 - 1/(-15) = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6. The image distance is 30 cm. (Positive v indicates a real image on the opposite side of the lens)."
-        },
-        {
-          "id": 7,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the phenomenon responsible for the sparkling of diamonds?",
-          "options": [
-            "Refraction",
-            "Reflection",
-            "Total Internal Reflection",
-            "Dispersion"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Diamonds sparkle due to their high refractive index and critical angle, which causes light to undergo multiple total internal reflections before exiting, scattering light in various directions."
-        },
-        {
-          "id": 8,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "If a current of 2 A flows through a resistor of 10 Ω, what is the voltage drop across the resistor?",
-          "options": [
-            "0.2 V",
-            "5 V",
-            "12 V",
-            "20 V"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Using Ohm's Law, V = IR, where V is voltage, I is current, and R is resistance. So, V = 2 A * 10 Ω = 20 V."
-        },
-        {
-          "id": 9,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which principle states that the buoyant force on a submerged object is equal to the weight of the fluid displaced by the object?",
-          "options": [
-            "Newton's First Law",
-            "Pascal's Principle",
-            "Archimedes' Principle",
-            "Bernoulli's Principle"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Archimedes' Principle explains buoyancy, stating that the upward buoyant force exerted on a body immersed in a fluid is equal to the weight of the fluid that the body displaces."
-        },
-        {
-          "id": 10,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Two point charges, +q and -q, are placed at a distance 'r' from each other. What is the magnitude of the electrostatic force between them?",
-          "options": [
-            "kq²/r",
-            "kq²/r²",
-            "k|q|/r",
-            "k|q|/r²"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Coulomb's Law states that the electrostatic force between two point charges is directly proportional to the product of the magnitudes of the charges and inversely proportional to the square of the distance between them. F = k|q1q2|/r² = kq²/r²."
-        },
-        {
-          "id": 11,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What type of mirror is used by dentists to see a magnified image of teeth?",
-          "options": [
-            "Concave mirror",
-            "Convex mirror",
-            "Plane mirror",
-            "Cylindrical mirror"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "A concave mirror produces a magnified, erect, and virtual image when an object is placed between its pole and focal point, making it suitable for dentists."
-        },
-        {
-          "id": 12,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "The half-life of a radioactive isotope is 2 hours. If you start with 100 grams, how much will remain after 6 hours?",
-          "options": [
-            "12.5 g",
-            "25 g",
-            "50 g",
-            "6.25 g"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "After 2 hours (1 half-life), 50 g remains. After 4 hours (2 half-lives), 25 g remains. After 6 hours (3 half-lives), 12.5 g remains. (100 * (1/2)³) = 100 * (1/8) = 12.5 g."
-        },
-        {
-          "id": 13,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which of the following describes the relationship between pressure, volume, and temperature of an ideal gas?",
-          "options": [
-            "Ohm's Law",
-            "Hooke's Law",
-            "Ideal Gas Law",
-            "Stefan-Boltzmann Law"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The Ideal Gas Law (PV=nRT) relates the pressure, volume, temperature, and number of moles of an ideal gas."
-        },
-        {
-          "id": 14,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A pendulum completes 10 oscillations in 20 seconds. What is its frequency?",
-          "options": [
-            "0.5 Hz",
-            "1 Hz",
-            "2 Hz",
-            "200 Hz"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Frequency is the number of oscillations per unit time. So, frequency f = 10 oscillations / 20 seconds = 0.5 Hz."
-        },
-        {
-          "id": 15,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "The phenomenon of electromagnetic induction is used in which of the following devices?",
-          "options": [
-            "LED bulb",
-            "Electric motor",
-            "Electric generator",
-            "Resistor"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "An electric generator works on the principle of electromagnetic induction, where a changing magnetic flux through a coil induces an electromotive force (voltage)."
-        },
-        {
-          "id": 16,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What happens to the kinetic energy of a falling object when air resistance is negligible?",
-          "options": [
-            "It decreases",
-            "It remains constant",
-            "It increases",
-            "It first decreases then increases"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "As an object falls, its speed increases due to gravity. Since kinetic energy is proportional to the square of speed (KE = 1/2 mv²), its kinetic energy increases."
-        },
-        {
-          "id": 17,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "If the wavelength of light is 600 nm, what is its frequency? (Speed of light c = 3 x 10⁸ m/s)",
-          "options": [
-            "5 x 10¹⁴ Hz",
-            "5 x 10¹² Hz",
-            "2 x 10¹⁴ Hz",
-            "1.8 x 10¹⁷ Hz"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Using c = fλ, where c is the speed of light, f is frequency, and λ is wavelength. Convert wavelength to meters: 600 nm = 600 x 10⁻⁹ m = 6 x 10⁻⁷ m. So, f = c/λ = (3 x 10⁸ m/s) / (6 x 10⁻⁷ m) = 0.5 x 10¹⁵ Hz = 5 x 10¹⁴ Hz."
-        },
-        {
-          "id": 18,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which of Newton's laws of motion describes inertia?",
-          "options": [
-            "First Law",
-            "Second Law",
-            "Third Law",
-            "Law of Universal Gravitation"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Newton's First Law of Motion, also known as the Law of Inertia, states that an object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force."
-        },
-        {
-          "id": 19,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "The minimum energy required to eject an electron from the surface of a metal is called the:",
-          "options": [
-            "Binding energy",
-            "Ionization energy",
-            "Work function",
-            "Threshold energy"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The work function (Φ) is the minimum energy (usually measured in electronvolts) needed to remove an electron from the surface of a solid."
-        },
-        {
-          "id": 20,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the unit of electric power?",
-          "options": [
-            "Volt",
-            "Ampere",
-            "Ohm",
-            "Watt"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "The unit of electric power is the Watt (W), defined as one joule per second. Volt is the unit of voltage, Ampere for current, and Ohm for resistance."
-        },
-        {
-          "id": 21,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A mass-spring system oscillates with a period T. If the mass is doubled, what happens to the period? (Assume ideal conditions)",
-          "options": [
-            "It doubles",
-            "It halves",
-            "It increases by √2",
-            "It decreases by √2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The period of a mass-spring system is given by T = 2π√(m/k). If mass 'm' is doubled to '2m', the new period T' = 2π√(2m/k) = √2 * (2π√(m/k)) = √2 * T. So, the period increases by a factor of √2."
-        },
-        {
-          "id": 22,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which type of electromagnetic wave has the longest wavelength?",
-          "options": [
-            "X-rays",
-            "Visible light",
-            "Radio waves",
-            "Microwaves"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "In the electromagnetic spectrum, radio waves have the longest wavelengths and lowest frequencies, while gamma rays have the shortest wavelengths and highest frequencies."
-        },
-        {
-          "id": 23,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the force required to accelerate a 500 kg car at 2 m/s²?",
-          "options": [
-            "250 N",
-            "500 N",
-            "1000 N",
-            "2000 N"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Using Newton's Second Law, F = ma, where F is force, m is mass, and a is acceleration. So, F = 500 kg * 2 m/s² = 1000 N."
-        },
-        {
-          "id": 24,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "According to the Law of Conservation of Energy, energy can be:",
-          "options": [
-            "Created and destroyed",
-            "Transformed but not created or destroyed",
-            "Only created",
-            "Only destroyed"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The Law of Conservation of Energy states that energy cannot be created or destroyed, but it can be transformed from one form to another."
-        },
-        {
-          "id": 25,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the name of the effect where light bends as it passes from one medium to another?",
-          "options": [
-            "Diffraction",
-            "Interference",
-            "Refraction",
-            "Polarization"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Refraction is the bending of light (or other waves) as it passes from one transparent medium into another, due to a change in its speed."
-        }
-      ]
-    },
-    {
-      "section_name": "Chemistry",
-      "questions": [
-        {
-          "id": 26,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "How many grams of CO₂ are produced when 24 g of carbon is completely burned in oxygen? (Atomic mass: C=12, O=16)",
-          "options": [
-            "44 g",
-            "88 g",
-            "22 g",
-            "66 g"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The reaction is C + O₂ → CO₂. Molar mass of C = 12 g/mol, Molar mass of CO₂ = 12 + 2*16 = 44 g/mol. From the balanced equation, 1 mole of C (12 g) produces 1 mole of CO₂ (44 g). So, 24 g of C (2 moles) will produce 2 * 44 g = 88 g of CO₂."
-        },
-        {
-          "id": 27,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is the strongest acid among the hydrohalic acids?",
-          "options": [
-            "HF",
-            "HCl",
-            "HBr",
-            "HI"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Acidity increases down the group for hydrohalic acids because the bond strength decreases with increasing atomic size of the halogen, making it easier to release H⁺ ions. Therefore, HI is the strongest acid among the given options."
-        },
-        {
-          "id": 28,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the pH of a neutral solution at 25°C?",
-          "options": [
-            "0",
-            "7",
-            "14",
-            "Varies with temperature"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "At 25°C, the concentration of H⁺ ions and OH⁻ ions in pure water are both 1 x 10⁻⁷ M, making the pH = -log[H⁺] = -log(1 x 10⁻⁷) = 7, which is neutral."
-        },
-        {
-          "id": 29,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which type of bonding involves the sharing of electrons between atoms?",
-          "options": [
-            "Ionic bonding",
-            "Covalent bonding",
-            "Metallic bonding",
-            "Hydrogen bonding"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Covalent bonding is characterized by the sharing of one or more pairs of electrons between atoms to achieve a stable electron configuration."
-        },
-        {
-          "id": 30,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the oxidation state of sulfur in H₂SO₄?",
-          "options": [
-            "+2",
-            "+4",
-            "+6",
-            "-2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Hydrogen (H) has an oxidation state of +1, and Oxygen (O) has -2. For H₂SO₄: 2*(+1) + S + 4*(-2) = 0 => 2 + S - 8 = 0 => S - 6 = 0 => S = +6."
-        },
-        {
-          "id": 31,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which element is a noble gas?",
-          "options": [
-            "Nitrogen",
-            "Oxygen",
-            "Argon",
-            "Fluorine"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Noble gases are elements in Group 18 of the periodic table, including Helium, Neon, Argon, Krypton, Xenon, and Radon, known for their low reactivity."
-        },
-        {
-          "id": 32,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the general formula for an alkane?",
-          "options": [
-            "CnH2n",
-            "CnH2n-2",
-            "CnH2n+2",
-            "CnHn"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Alkanes are saturated hydrocarbons with only single bonds between carbon atoms. Their general formula is CnH2n+2, where n is the number of carbon atoms."
-        },
-        {
-          "id": 33,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is an example of an endothermic reaction?",
-          "options": [
-            "Combustion of methane",
-            "Neutralization of acid and base",
-            "Melting of ice",
-            "Rusting of iron"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "An endothermic reaction absorbs heat from its surroundings. Melting of ice requires heat energy to break intermolecular bonds, thus it is an endothermic process."
-        },
-        {
-          "id": 34,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the main component of natural gas?",
-          "options": [
-            "Ethane",
-            "Propane",
-            "Butane",
-            "Methane"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Natural gas is primarily composed of methane (CH₄), typically 70-90%, along with smaller amounts of other hydrocarbons and non-hydrocarbon gases."
-        },
-        {
-          "id": 35,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which phenomenon causes the scattering of light by colloidal particles?",
-          "options": [
-            "Brownian motion",
-            "Tyndall effect",
-            "Electrophoresis",
-            "Osmosis"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The Tyndall effect is the scattering of light by particles in a colloid or in a very fine suspension. It is often used to distinguish colloids from true solutions."
-        },
-        {
-          "id": 36,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "According to VSEPR theory, what is the shape of a methane (CH₄) molecule?",
-          "options": [
-            "Linear",
-            "Trigonal planar",
-            "Bent",
-            "Tetrahedral"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Methane has a central carbon atom bonded to four hydrogen atoms, with no lone pairs on the central atom. This results in a tetrahedral electron geometry and molecular geometry."
-        },
-        {
-          "id": 37,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the common name for sodium bicarbonate?",
-          "options": [
-            "Washing soda",
-            "Baking soda",
-            "Caustic soda",
-            "Bleaching powder"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Sodium bicarbonate (NaHCO₃) is commonly known as baking soda. It is used as a leavening agent in baking."
-        },
-        {
-          "id": 38,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of these is a d-block element?",
-          "options": [
-            "Calcium",
-            "Iron",
-            "Sodium",
-            "Chlorine"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "d-block elements are also known as transition metals. Iron (Fe) is located in the d-block of the periodic table, specifically in Group 8, Period 4."
-        },
-        {
-          "id": 39,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the maximum number of electrons that can occupy the third energy level (n=3)?",
-          "options": [
-            "8",
-            "18",
-            "32",
-            "2"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The maximum number of electrons in an energy level 'n' is given by the formula 2n². For n=3, the maximum number of electrons is 2*(3)² = 2*9 = 18."
-        },
-        {
-          "id": 40,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is a strong base?",
-          "options": [
-            "NH₃",
-            "CH₃COOH",
-            "NaOH",
-            "H₂CO₃"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Strong bases fully dissociate in water to produce hydroxide ions (OH⁻). Sodium hydroxide (NaOH) is a classic example of a strong base. NH₃ (ammonia) is a weak base, CH₃COOH (acetic acid) is a weak acid, and H₂CO₃ (carbonic acid) is a weak acid."
-        },
-        {
-          "id": 41,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "The process of converting a liquid into a gas below its boiling point is called:",
-          "options": [
-            "Condensation",
-            "Evaporation",
-            "Sublimation",
-            "Melting"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Evaporation is the process by which atoms or molecules in a liquid state gain sufficient energy to spontaneously transition into the gaseous state below its boiling point."
-        },
-        {
-          "id": 42,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the mass of 0.5 moles of water (H₂O)? (Atomic mass: H=1, O=16)",
-          "options": [
-            "9 g",
-            "18 g",
-            "0.5 g",
-            "1 g"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Molar mass of H₂O = (2*1) + 16 = 18 g/mol. Mass = moles * molar mass = 0.5 mol * 18 g/mol = 9 g."
-        },
-        {
-          "id": 43,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which type of reaction involves the transfer of electrons?",
-          "options": [
-            "Acid-base reaction",
-            "Precipitation reaction",
-            "Redox reaction",
-            "Combustion reaction"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A redox (reduction-oxidation) reaction is a type of chemical reaction that involves a transfer of electrons between two species, leading to changes in their oxidation states."
-        },
-        {
-          "id": 44,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "The phenomenon by which an element can exist in two or more different forms with different physical properties but identical chemical properties is called:",
-          "options": [
-            "Isomerism",
-            "Allotropy",
-            "Isotopy",
-            "Polymerization"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Allotropy is the property of some chemical elements to exist in two or more different forms, in the same physical state, known as allotropes. Examples include carbon (diamond, graphite)."
-        },
-        {
-          "id": 45,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is an example of a homogeneous mixture?",
-          "options": [
-            "Sand and water",
-            "Oil and water",
-            "Saltwater",
-            "Fog"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A homogeneous mixture has a uniform composition and appearance throughout. Saltwater (a solution) is an example, as the salt is completely dissolved and evenly distributed in the water."
-        }
-      ]
-    },
-    {
-      "section_name": "Maths",
-      "questions": [
-        {
-          "id": 46,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If x² - 5x + 6 = 0, what are the values of x?",
-          "options": [
-            "(1, 6)",
-            "(2, 3)",
-            "(-2, -3)",
-            "(0, 5)"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The quadratic equation x² - 5x + 6 = 0 can be factored as (x - 2)(x - 3) = 0. Therefore, the values of x are 2 and 3."
-        },
-        {
-          "id": 47,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "In a right-angled triangle, if the two shorter sides are 3 cm and 4 cm, what is the length of the hypotenuse?",
-          "options": [
-            "5 cm",
-            "6 cm",
-            "7 cm",
-            "8 cm"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Using the Pythagorean theorem, a² + b² = c². So, 3² + 4² = c² => 9 + 16 = c² => 25 = c² => c = 5 cm.",
-          "svg_visual": "<svg width=\"200\" height=\"150\"><polygon points=\"10,140 10,60 70,140\" style=\"fill:none;stroke:black;stroke-width:2\"/><text x=\"5\" y=\"100\" font-size=\"14\">3 cm</text><text x=\"30\" y=\"145\" font-size=\"14\">4 cm</text><text x=\"40\" y=\"90\" font-size=\"14\">?</text><rect x=\"10\" y=\"130\" width=\"10\" height=\"10\" style=\"fill:none;stroke:black;stroke-width:1\"/></svg>"
-        },
-        {
-          "id": 48,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the derivative of f(x) = 3x² + 2x - 1?",
-          "options": [
-            "6x + 2",
-            "3x + 2",
-            "x³ + x² - x",
-            "6x"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "To find the derivative, apply the power rule: d/dx(axⁿ) = naxⁿ⁻¹. So, d/dx(3x²) = 6x, d/dx(2x) = 2, and d/dx(-1) = 0. Thus, the derivative is 6x + 2."
-        },
-        {
-          "id": 49,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Simplify the expression: 2(x + 3) - (x - 1)",
-          "options": [
-            "x + 5",
-            "x + 7",
-            "3x + 5",
-            "x - 7"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Expand the terms: 2x + 6 - x + 1. Combine like terms: (2x - x) + (6 + 1) = x + 7."
-        },
-        {
-          "id": 50,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If a = 3 and b = -2, what is the value of a² - b³?",
-          "options": [
-            "1",
-            "5",
-            "17",
-            "19"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Substitute the values: a² = 3² = 9. b³ = (-2)³ = -8. So, a² - b³ = 9 - (-8) = 9 + 8 = 17."
-        },
-        {
-          "id": 51,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the area of a circle with a radius of 7 cm? (Use π ≈ 22/7)",
-          "options": [
-            "22 cm²",
-            "44 cm²",
-            "154 cm²",
-            "308 cm²"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The area of a circle is given by A = πr². A = (22/7) * (7 cm)² = (22/7) * 49 cm² = 22 * 7 cm² = 154 cm²."
-        },
-        {
-          "id": 52,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Solve for x: 3x + 7 = 19",
-          "options": [
-            "x = 3",
-            "x = 4",
-            "x = 5",
-            "x = 6"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Subtract 7 from both sides: 3x = 19 - 7 => 3x = 12. Divide by 3: x = 12 / 3 => x = 4."
-        },
-        {
-          "id": 53,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the sum of the interior angles of a quadrilateral?",
-          "options": [
-            "90°",
-            "180°",
-            "270°",
-            "360°"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "The sum of the interior angles of a polygon with n sides is given by (n-2) * 180°. For a quadrilateral, n=4, so (4-2) * 180° = 2 * 180° = 360°."
-        },
-        {
-          "id": 54,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Find the value of sin(30°) + cos(60°).",
-          "options": [
-            "0",
-            "0.5",
-            "1",
-            "√3/2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "sin(30°) = 1/2 and cos(60°) = 1/2. So, sin(30°) + cos(60°) = 1/2 + 1/2 = 1."
-        },
-        {
-          "id": 55,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If a set A = {1, 2, 3, 4} and a set B = {3, 4, 5, 6}, what is A ∪ B?",
-          "options": [
-            "{3, 4}",
-            "{1, 2, 5, 6}",
-            "{1, 2, 3, 4, 5, 6}",
-            "{ }"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A ∪ B (union of A and B) includes all elements that are in A, or in B, or in both. So, A ∪ B = {1, 2, 3, 4, 5, 6}."
-        },
-        {
-          "id": 56,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the value of 5! (5 factorial)?",
-          "options": [
-            "10",
-            "25",
-            "120",
-            "600"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "5! = 5 * 4 * 3 * 2 * 1 = 120."
-        },
-        {
-          "id": 57,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "The price of an item was increased by 20% and then decreased by 20%. What is the net percentage change in the price?",
-          "options": [
-            "0% change",
-            "4% increase",
-            "4% decrease",
-            "10% decrease"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Let the original price be P. Increased by 20%: P * 1.20 = 1.2P. Decreased by 20%: 1.2P * 0.80 = 0.96P. The net change is P - 0.96P = 0.04P. So, a 4% decrease."
-        },
-        {
-          "id": 58,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If y = x³, what is dy/dx?",
-          "options": [
-            "x²",
-            "3x²",
-            "3x",
-            "x⁴/4"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Using the power rule for differentiation, d/dx(xⁿ) = nxⁿ⁻¹. So, d/dx(x³) = 3x²."
-        },
-        {
-          "id": 59,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the common difference of the arithmetic progression: 5, 8, 11, 14, ...?",
-          "options": [
-            "2",
-            "3",
-            "4",
-            "5"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The common difference (d) is found by subtracting any term from its succeeding term. d = 8 - 5 = 3; d = 11 - 8 = 3. So, the common difference is 3."
-        },
-        {
-          "id": 60,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the value of log₁₀(1000)?",
-          "options": [
-            "1",
-            "2",
-            "3",
-            "100"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "log₁₀(1000) asks: 10 to what power equals 1000? Since 10³ = 1000, the value is 3."
-        },
-        {
-          "id": 61,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "The coordinates of points A and B are (2, 3) and (5, 7) respectively. What is the distance between A and B?",
-          "options": [
-            "√13",
-            "√20",
-            "5",
-            "√34"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Using the distance formula d = √((x₂-x₁)² + (y₂-y₁)²). d = √((5-2)² + (7-3)²) = √((3)² + (4)²) = √(9 + 16) = √25 = 5."
-        },
-        {
-          "id": 62,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Evaluate the integral ∫(2x + 1) dx.",
-          "options": [
-            "x² + x + C",
-            "2x² + x + C",
-            "x² + C",
-            "2x + C"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Using the power rule for integration, ∫xⁿ dx = xⁿ⁺¹/(n+1) + C. So, ∫2x dx = 2(x²/2) = x², and ∫1 dx = x. Therefore, the integral is x² + x + C."
-        },
-        {
-          "id": 63,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If the radius of a sphere is doubled, what happens to its volume?",
-          "options": [
-            "It doubles",
-            "It quadruples",
-            "It becomes 8 times",
-            "It remains the same"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The volume of a sphere is V = (4/3)πr³. If the radius becomes 2r, the new volume V' = (4/3)π(2r)³ = (4/3)π(8r³) = 8 * (4/3)πr³ = 8V. So, the volume becomes 8 times its original."
-        },
-        {
-          "id": 64,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the probability of rolling an even number on a standard six-sided die?",
-          "options": [
-            "1/6",
-            "1/3",
-            "1/2",
-            "2/3"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A standard six-sided die has faces {1, 2, 3, 4, 5, 6}. The even numbers are {2, 4, 6}. There are 3 even numbers out of 6 total possibilities. So, probability = 3/6 = 1/2."
-        },
-        {
-          "id": 65,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Solve the inequality: 2x - 3 > 7",
-          "options": [
-            "x > 2",
-            "x < 2",
-            "x > 5",
-            "x < 5"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Add 3 to both sides: 2x > 7 + 3 => 2x > 10. Divide by 2: x > 10 / 2 => x > 5."
-        },
-        {
-          "id": 66,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the reciprocal of 0.25?",
-          "options": [
-            "2",
-            "4",
-            "0.5",
-            "1/4"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The reciprocal of a number 'a' is 1/a. 0.25 can be written as 1/4. So, the reciprocal of 1/4 is 1 / (1/4) = 4."
-        },
-        {
-          "id": 67,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If the sum of two numbers is 10 and their difference is 4, what are the numbers?",
-          "options": [
-            "(6, 4)",
-            "(7, 3)",
-            "(8, 2)",
-            "(9, 1)"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Let the numbers be x and y. x + y = 10 and x - y = 4. Adding the two equations: (x + y) + (x - y) = 10 + 4 => 2x = 14 => x = 7. Substitute x=7 into the first equation: 7 + y = 10 => y = 3. So the numbers are (7, 3)."
-        },
-        {
-          "id": 68,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the equation of a line with a slope of 2 and a y-intercept of 3?",
-          "options": [
-            "y = 3x + 2",
-            "y = 2x - 3",
-            "y = 2x + 3",
-            "y = x + 2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The slope-intercept form of a linear equation is y = mx + b, where m is the slope and b is the y-intercept. Given m=2 and b=3, the equation is y = 2x + 3."
-        },
-        {
-          "id": 69,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Convert 75% to a decimal.",
-          "options": [
-            "0.075",
-            "0.75",
-            "7.5",
-            "75.0"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "To convert a percentage to a decimal, divide by 100. So, 75% = 75/100 = 0.75."
-        },
-        {
-          "id": 70,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If 2ˣ = 8, what is the value of x?",
-          "options": [
-            "1",
-            "2",
-            "3",
-            "4"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "We know that 8 can be written as 2³. So, 2ˣ = 2³ implies x = 3."
-        },
-        {
-          "id": 71,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the area of a square with a side length of 6 cm?",
-          "options": [
-            "12 cm²",
-            "24 cm²",
-            "36 cm²",
-            "48 cm²"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The area of a square is given by side². So, Area = 6 cm * 6 cm = 36 cm²."
-        },
-        {
-          "id": 72,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the value of cos(0°)?",
-          "options": [
-            "0",
-            "0.5",
-            "1",
-            "-1"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "On the unit circle, the x-coordinate at an angle of 0° is 1. Since cos(θ) is the x-coordinate, cos(0°) = 1."
-        },
-        {
-          "id": 73,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "How many distinct permutations can be made from the letters of the word 'APPLE'?",
-          "options": [
-            "5",
-            "20",
-            "60",
-            "120"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The word APPLE has 5 letters. The letter 'P' appears twice. The formula for permutations with repetitions is n! / (n₁! * n₂! * ...). So, 5! / 2! = (5*4*3*2*1) / (2*1) = 120 / 2 = 60."
-        },
-        {
-          "id": 74,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the median of the following set of numbers: 5, 2, 9, 3, 7?",
-          "options": [
-            "2",
-            "5",
-            "7",
-            "9"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "First, arrange the numbers in ascending order: 2, 3, 5, 7, 9. The median is the middle value in an ordered set. In this case, it is 5."
-        },
-        {
-          "id": 75,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If f(x) = x² + 1, what is f(3)?",
-          "options": [
-            "4",
-            "7",
-            "10",
-            "13"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Substitute x=3 into the function: f(3) = (3)² + 1 = 9 + 1 = 10."
-        },
-        {
-          "id": 76,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "A rectangle has a length of 8 cm and a width of 5 cm. What is its perimeter?",
-          "options": [
-            "13 cm",
-            "26 cm",
-            "40 cm",
-            "52 cm"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The perimeter of a rectangle is given by P = 2(length + width). P = 2(8 cm + 5 cm) = 2(13 cm) = 26 cm."
-        },
-        {
-          "id": 77,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the prime factorization of 30?",
-          "options": [
-            "2 x 3 x 5",
-            "2 x 15",
-            "3 x 10",
-            "5 x 6"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Prime factorization involves breaking down a number into its prime factors. 30 = 2 * 15 = 2 * 3 * 5. All factors (2, 3, 5) are prime numbers."
-        },
-        {
-          "id": 78,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Find the next term in the arithmetic sequence: 10, 7, 4, 1, ...",
-          "options": [
-            "0",
-            "-1",
-            "-2",
-            "-3"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The common difference is d = 7 - 10 = -3. So, the next term is 1 - 3 = -2."
-        },
-        {
-          "id": 79,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If (x+2)(x-3) = 0, what are the possible values of x?",
-          "options": [
-            "(-2, 3)",
-            "(2, -3)",
-            "(-2, -3)",
-            "(2, 3)"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "For the product of two terms to be zero, at least one of the terms must be zero. So, x+2 = 0 => x = -2, or x-3 = 0 => x = 3. The values are -2 and 3."
-        },
-        {
-          "id": 80,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the range of the function f(x) = x²?",
-          "options": [
-            "All real numbers",
-            "Positive real numbers only",
-            "Non-negative real numbers",
-            "Integers"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Since x² always produces a non-negative result (0 or any positive number), the range of f(x) = x² is all non-negative real numbers [0, ∞)."
-        },
-        {
-          "id": 81,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the result of 1/2 + 1/3?",
-          "options": [
-            "1/5",
-            "2/5",
-            "5/6",
-            "1"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "To add fractions, find a common denominator, which is 6. (1/2)*(3/3) + (1/3)*(2/2) = 3/6 + 2/6 = 5/6."
-        },
-        {
-          "id": 82,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "An angle measures 45°. What is its measure in radians?",
-          "options": [
-            "π/2",
-            "π/3",
-            "π/4",
-            "π/6"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "To convert degrees to radians, multiply by π/180°. So, 45° * (π/180°) = π/4 radians."
-        },
-        {
-          "id": 83,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If a = 5, what is the value of √(a² + 11)?",
-          "options": [
-            "5",
-            "6",
-            "7",
-            "8"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Substitute a=5: √(5² + 11) = √(25 + 11) = √36 = 6."
-        },
-        {
-          "id": 84,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the volume of a cylinder with radius 3 cm and height 10 cm? (Use π ≈ 3.14)",
-          "options": [
-            "94.2 cm³",
-            "188.4 cm³",
-            "282.6 cm³",
-            "314 cm³"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The volume of a cylinder is V = πr²h. V = 3.14 * (3 cm)² * 10 cm = 3.14 * 9 cm² * 10 cm = 3.14 * 90 cm³ = 282.6 cm³."
-        },
-        {
-          "id": 85,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Which of these is a rational number?",
-          "options": [
-            "√2",
-            "π",
-            "0.333...",
-            "e"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A rational number can be expressed as a fraction p/q where p and q are integers and q ≠ 0. 0.333... is equal to 1/3, which is a rational number. √2, π, and e are irrational numbers."
-        }
-      ]
-    },
-    {
-      "section_name": "Aptitude",
-      "questions": [
-        {
-          "id": 86,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "What comes next in the sequence: 2, 4, 8, 16, ?",
-          "options": [
-            "20",
-            "24",
-            "32",
-            "36"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The sequence is a geometric progression where each term is multiplied by 2 to get the next term. So, 16 * 2 = 32."
-        },
-        {
-          "id": 87,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "A can do a piece of work in 10 days and B can do it in 15 days. In how many days can they complete the work together?",
-          "options": [
-            "5 days",
-            "6 days",
-            "8 days",
-            "12 days"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "A's one day work = 1/10. B's one day work = 1/15. Together, their one day work = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6. So, they can complete the work together in 6 days."
-        },
-        {
-          "id": 88,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "If 'CAT' is coded as '3120', how is 'DOG' coded?",
-          "options": [
-            "4157",
-            "4158",
-            "4156",
-            "4147"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The code uses the alphabetical position of each letter (A=1, B=2, C=3...) followed by the position of the letter in the reverse alphabet (Z=1, Y=2...). For CAT: C=3, A=1, T=20. For DOG: D=4, O=15, G=7. So, DOG = 4157. This coding is 'D' (4), 'O' (15), 'G' (7). The option is 4158, let me check the reverse alphabet logic. For CAT: C=3, A=1, T=20. This is just alphabetical position. Let me re-evaluate the provided code. If 'CAT' is '3120', it implies C=3, A=1, T=20. So, for 'DOG': D=4, O=15, G=7. The code would be '4157'. Option 4158 is wrong with this logic. Let's assume there's an error in my interpretation or the question's example. Re-reading: 'CAT' is coded as '3120'. 'DOG' coded as? If it's simply sequential alphabet positions, then D=4, O=15, G=7 -> 4157. This is not an option. Let's assume it's C=3, A=1, T=20. For DOG: D=4, O=15, G=7. There's no other clear pattern like reverse alphabet positions if 3120 is just C, A, T. Let's re-think the '3120'. It could be C=3, A=1, and T is the 20th letter. If this is the case, then DOG is D=4, O=15, G=7. '4157'. This implies a typo in my options. I will correct the option to match 4157. Or, if there is a pattern like adding 1 to each, 4,2,21. Let's stick to the simplest interpretation (alphabetical position). The original question specified 4 options and a correct index. The original example for Aptitude Q1: `2, 4, 8, 16, ?` options `20, 24, 32, 36` correct `32`. This implies direct calculation. Let's assume the question meant a different code or pattern.
-            Let's re-evaluate "CAT" is coded as "3120".
-            C is the 3rd letter. A is the 1st letter. T is the 20th letter.
-            So, it is simply concatenating the position of each letter in the alphabet.
-            For DOG: D is the 4th letter. O is the 15th letter. G is the 7th letter.
-            So, DOG would be coded as 4157.
-
-            I need to ensure the correct_index points to the correct answer for '4157'.
-            Given the options in my draft: ["4157", "4158", "4156", "4147"]
-            `correct_index`: 0 for "4157".
-            This is a better approach than forcing an answer not directly derivable. I'll make sure the option is 4157.
-          ",
-          "options": [
-            "4157",
-            "4158",
-            "4156",
-            "4147"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Each letter is represented by its position in the English alphabet (A=1, B=2, C=3,...). So, C=3, A=1, T=20, giving 'CAT' as '3120'. For 'DOG': D=4, O=15, G=7. Concatenating these gives '4157'."
-        },
-        {
-          "id": 89,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "If 6 men can complete a task in 8 days, how many days will 4 men take to complete the same task?",
-          "options": [
-            "10 days",
-            "12 days",
-            "16 days",
-            "24 days"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "This is an inverse proportion problem. (Men₁ * Days₁) = (Men₂ * Days₂). So, 6 men * 8 days = 4 men * Days₂. 48 = 4 * Days₂. Days₂ = 48 / 4 = 12 days."
-        },
-        {
-          "id": 90,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "Find the missing number: 1, 9, 25, 49, ?, 121",
-          "options": [
-            "64",
-            "81",
-            "100",
-            "110"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The sequence consists of squares of odd numbers: 1²=1, 3²=9, 5²=25, 7²=49. The next odd number is 9, so 9²=81. Wait, 1, 9, 25, 49. The sequence is 1², 3², 5², 7². The next number should be 9². So 81. And then 11². So the missing number is 81.
-            Checking options: ["64", "81", "100", "110"].
-            My calculation gives 81. The correct_index for 81 is 1.
-
-            Let's re-verify the sequence:
-            1 = 1²
-            9 = 3²
-            25 = 5²
-            49 = 7²
-            The next in the sequence of odd numbers (1, 3, 5, 7) is 9.
-            So, 9² = 81.
-            The next is 11, and 11² = 121.
-            So, the missing number is 81.
-            The correct_index for '81' is 1.
-            ",
-          "options": [
-            "64",
-            "81",
-            "100",
-            "110"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The sequence consists of the squares of consecutive odd numbers: 1²=1, 3²=9, 5²=25, 7²=49. The next odd number is 9, so the missing term is 9²=81. The following term is 11²=121, confirming the pattern."
-        },
-        {
-          "id": 91,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "A clock shows 3:00. If the hour hand points East, in what direction will the minute hand point?",
-          "options": [
-            "North",
-            "South",
-            "East",
-            "West"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "At 3:00, the hour hand points directly at 3. If 3 points East, then 12 (where the minute hand points) is 90 degrees counter-clockwise from East. This corresponds to North."
-        },
-        {
-          "id": 92,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "What is 15% of 200?",
-          "options": [
-            "15",
-            "20",
-            "30",
-            "40"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "To find 15% of 200, calculate (15/100) * 200 = 0.15 * 200 = 30."
-        },
-        {
-          "id": 93,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "If all 'P' are 'Q' and all 'Q' are 'R', then which of the following statements is definitely true?",
-          "options": [
-            "All 'R' are 'P'",
-            "All 'P' are 'R'",
-            "Some 'R' are not 'Q'",
-            "No 'Q' are 'P'"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "This is a basic syllogism. If the set of P is entirely contained within Q, and the set of Q is entirely contained within R, then the set of P must also be entirely contained within R. Therefore, 'All P are R' is definitely true."
-        },
-        {
-          "id": 94,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "A man walks 5 km East and then 12 km North. What is his shortest distance from the starting point?",
-          "options": [
-            "7 km",
-            "13 km",
-            "17 km",
-            "√119 km"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "This forms a right-angled triangle where the distances walked are the two perpendicular sides. The shortest distance from the starting point is the hypotenuse. Using the Pythagorean theorem: distance = √(5² + 12²) = √(25 + 144) = √169 = 13 km."
-        },
-        {
-          "id": 95,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "Which number is the odd one out: 12, 18, 25, 30, 36?",
-          "options": [
-            "12",
-            "18",
-            "25",
-            "30"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "All numbers except 25 are multiples of 6 (12=6*2, 18=6*3, 30=6*5, 36=6*6). 25 is a multiple of 5, and also a perfect square (5²)."
-        }
-      ]
-    },
-    {
-      "section_name": "English",
-      "questions": [
-        {
-          "id": 96,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Choose the sentence with the correct subject-verb agreement.",
-          "options": [
-            "The team is debating the issue.",
-            "The team are debating the issue.",
-            "The team debates the issue.",
-            "The team have debating the issue."
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "When referring to a collective noun acting as a single unit, a singular verb is used. 'The team' acts as a single unit debating, hence 'is debating' is correct."
-        },
-        {
-          "id": 97,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Select the antonym of 'Benevolent'.",
-          "options": [
-            "Kind",
-            "Generous",
-            "Malicious",
-            "Compassionate"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "'Benevolent' means well-meaning and kindly. 'Malicious' means characterized by malice; intending or intended to do harm, making it the direct antonym."
-        },
-        {
-          "id": 98,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Fill in the blank: She is ______ honest woman.",
-          "options": [
-            "a",
-            "an",
-            "the",
-            "no article"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The word 'honest' starts with a consonant but has a vowel sound ('o'). Therefore, 'an' is used before 'honest'."
-        },
-        {
-          "id": 99,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Which of the following sentences uses a metaphor?",
-          "options": [
-            "The car was as fast as a cheetah.",
-            "The wind whispered secrets through the trees.",
-            "Her voice was music to his ears.",
-            "He ran like the wind."
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A metaphor directly compares two unlike things without using 'like' or 'as'. 'Her voice was music to his ears' directly equates her voice to music. The other options are similes or personification."
-        },
-        {
-          "id": 100,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Choose the correct spelling:",
-          "options": [
-            "Accommodate",
-            "Acommodate",
-            "Accomodate",
-            "Acommadate"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "The correct spelling is 'Accommodate', with double 'c' and double 'm'."
-        }
-      ]
-    }
-  ]
-}
+"duration": 150,
+"marking": {
+"correct": 3,
+"wrong": -1
+},
+"sections": {
+"Physics": [
 {
-  "metadata": {
-    "total_duration": "150",
-    "marking_scheme_summary": "+3 for correct, -1 for incorrect",
-    "total_questions": 100
-  },
-  "sections": [
-    {
-      "section_name": "Physics",
-      "questions": [
-        {
-          "id": 1,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A car accelerates uniformly from rest to 20 m/s in 5 seconds. What is the distance covered by the car during this time?",
-          "options": [
-            "25 m",
-            "50 m",
-            "75 m",
-            "100 m"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Using the equation v = u + at, we find acceleration a = (20-0)/5 = 4 m/s². Then, using s = ut + (1/2)at², s = 0*5 + (1/2)*4*(5)² = 2*25 = 50 m."
-        },
-        {
-          "id": 2,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A block of mass 5 kg is resting on a horizontal surface. A force of 20 N is applied horizontally. If the coefficient of kinetic friction is 0.2, what is the acceleration of the block? (Take g = 10 m/s²)",
-          "options": [
-            "1 m/s²",
-            "2 m/s²",
-            "3 m/s²",
-            "4 m/s²"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Friction force f_k = μ_k * N = μ_k * mg = 0.2 * 5 kg * 10 m/s² = 10 N. Net force = Applied force - Friction force = 20 N - 10 N = 10 N. Acceleration a = Net force / mass = 10 N / 5 kg = 2 m/s².",
-          "svg_visual": "<svg width=\"200\" height=\"100\"><rect x=\"50\" y=\"50\" width=\"100\" height=\"30\" style=\"fill:lightblue;stroke:black;stroke-width:2\"/><line x1=\"20\" y1=\"65\" x2=\"50\" y2=\"65\" style=\"stroke:red;stroke-width:2;marker-end:url(#arrowhead)\"/><text x=\"25\" y=\"60\" fill=\"red\">20 N</text><text x=\"80\" y=\"70\" fill=\"black\">5 kg</text><defs><marker id=\"arrowhead\" markerWidth=\"10\" markerHeight=\"7\" refX=\"0\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0 0, 10 3.5, 0 7\" fill=\"red\"/></marker></defs></svg>"
-        },
-        {
-          "id": 3,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A 10 kg object is lifted vertically by a constant force of 120 N for a distance of 3 meters. What is the net work done on the object? (Take g = 10 m/s²)",
-          "options": [
-            "60 J",
-            "90 J",
-            "120 J",
-            "360 J"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Work done by applied force = F_applied * d = 120 N * 3 m = 360 J. Work done by gravity = -mgd = -10 kg * 10 m/s² * 3 m = -300 J. Net work done = 360 J - 300 J = 60 J. Alternatively, net force = 120 N - (10 kg * 10 m/s²) = 20 N. Net work done = 20 N * 3 m = 60 J."
-        },
-        {
-          "id": 4,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A sound wave travels at 340 m/s. If its frequency is 200 Hz, what is its wavelength?",
-          "options": [
-            "0.5 m",
-            "1.7 m",
-            "2.5 m",
-            "3.4 m"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Using the wave equation v = fλ, where v is speed, f is frequency, and λ is wavelength. So, λ = v/f = 340 m/s / 200 Hz = 1.7 m."
-        },
-        {
-          "id": 5,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which of the following is an example of a scalar quantity?",
-          "options": [
-            "Velocity",
-            "Acceleration",
-            "Force",
-            "Mass"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Scalar quantities have magnitude only, while vector quantities have both magnitude and direction. Velocity, acceleration, and force are vectors, whereas mass is a scalar."
-        },
-        {
-          "id": 6,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A converging lens has a focal length of 10 cm. An object is placed 15 cm from the lens. What is the image distance?",
-          "options": [
-            "15 cm",
-            "20 cm",
-            "30 cm",
-            "45 cm"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Using the lens formula 1/f = 1/v + 1/u. Given f = 10 cm (converging lens), u = -15 cm (object distance is negative by convention). So, 1/10 = 1/v + 1/(-15) => 1/v = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6. Therefore, v = 6 cm. Wait, 1/v = 1/10 - 1/(-15) = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6.  Oh, 1/v = 1/f - 1/u.  1/v = 1/10 - 1/(-15) = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6. The image distance is 30 cm. (Positive v indicates a real image on the opposite side of the lens)."
-        },
-        {
-          "id": 7,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the phenomenon responsible for the sparkling of diamonds?",
-          "options": [
-            "Refraction",
-            "Reflection",
-            "Total Internal Reflection",
-            "Dispersion"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Diamonds sparkle due to their high refractive index and critical angle, which causes light to undergo multiple total internal reflections before exiting, scattering light in various directions."
-        },
-        {
-          "id": 8,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "If a current of 2 A flows through a resistor of 10 Ω, what is the voltage drop across the resistor?",
-          "options": [
-            "0.2 V",
-            "5 V",
-            "12 V",
-            "20 V"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Using Ohm's Law, V = IR, where V is voltage, I is current, and R is resistance. So, V = 2 A * 10 Ω = 20 V."
-        },
-        {
-          "id": 9,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which principle states that the buoyant force on a submerged object is equal to the weight of the fluid displaced by the object?",
-          "options": [
-            "Newton's First Law",
-            "Pascal's Principle",
-            "Archimedes' Principle",
-            "Bernoulli's Principle"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Archimedes' Principle explains buoyancy, stating that the upward buoyant force exerted on a body immersed in a fluid is equal to the weight of the fluid that the body displaces."
-        },
-        {
-          "id": 10,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Two point charges, +q and -q, are placed at a distance 'r' from each other. What is the magnitude of the electrostatic force between them?",
-          "options": [
-            "kq²/r",
-            "kq²/r²",
-            "k|q|/r",
-            "k|q|/r²"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Coulomb's Law states that the electrostatic force between two point charges is directly proportional to the product of the magnitudes of the charges and inversely proportional to the square of the distance between them. F = k|q1q2|/r² = kq²/r²."
-        },
-        {
-          "id": 11,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What type of mirror is used by dentists to see a magnified image of teeth?",
-          "options": [
-            "Concave mirror",
-            "Convex mirror",
-            "Plane mirror",
-            "Cylindrical mirror"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "A concave mirror produces a magnified, erect, and virtual image when an object is placed between its pole and focal point, making it suitable for dentists."
-        },
-        {
-          "id": 12,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "The half-life of a radioactive isotope is 2 hours. If you start with 100 grams, how much will remain after 6 hours?",
-          "options": [
-            "12.5 g",
-            "25 g",
-            "50 g",
-            "6.25 g"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "After 2 hours (1 half-life), 50 g remains. After 4 hours (2 half-lives), 25 g remains. After 6 hours (3 half-lives), 12.5 g remains. (100 * (1/2)³) = 100 * (1/8) = 12.5 g."
-        },
-        {
-          "id": 13,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which of the following describes the relationship between pressure, volume, and temperature of an ideal gas?",
-          "options": [
-            "Ohm's Law",
-            "Hooke's Law",
-            "Ideal Gas Law",
-            "Stefan-Boltzmann Law"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The Ideal Gas Law (PV=nRT) relates the pressure, volume, temperature, and number of moles of an ideal gas."
-        },
-        {
-          "id": 14,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A pendulum completes 10 oscillations in 20 seconds. What is its frequency?",
-          "options": [
-            "0.5 Hz",
-            "1 Hz",
-            "2 Hz",
-            "200 Hz"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Frequency is the number of oscillations per unit time. So, frequency f = 10 oscillations / 20 seconds = 0.5 Hz."
-        },
-        {
-          "id": 15,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "The phenomenon of electromagnetic induction is used in which of the following devices?",
-          "options": [
-            "LED bulb",
-            "Electric motor",
-            "Electric generator",
-            "Resistor"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "An electric generator works on the principle of electromagnetic induction, where a changing magnetic flux through a coil induces an electromotive force (voltage)."
-        },
-        {
-          "id": 16,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What happens to the kinetic energy of a falling object when air resistance is negligible?",
-          "options": [
-            "It decreases",
-            "It remains constant",
-            "It increases",
-            "It first decreases then increases"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "As an object falls, its speed increases due to gravity. Since kinetic energy is proportional to the square of speed (KE = 1/2 mv²), its kinetic energy increases."
-        },
-        {
-          "id": 17,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "If the wavelength of light is 600 nm, what is its frequency? (Speed of light c = 3 x 10⁸ m/s)",
-          "options": [
-            "5 x 10¹⁴ Hz",
-            "5 x 10¹² Hz",
-            "2 x 10¹⁴ Hz",
-            "1.8 x 10¹⁷ Hz"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Using c = fλ, where c is the speed of light, f is frequency, and λ is wavelength. Convert wavelength to meters: 600 nm = 600 x 10⁻⁹ m = 6 x 10⁻⁷ m. So, f = c/λ = (3 x 10⁸ m/s) / (6 x 10⁻⁷ m) = 0.5 x 10¹⁵ Hz = 5 x 10¹⁴ Hz."
-        },
-        {
-          "id": 18,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which of Newton's laws of motion describes inertia?",
-          "options": [
-            "First Law",
-            "Second Law",
-            "Third Law",
-            "Law of Universal Gravitation"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Newton's First Law of Motion, also known as the Law of Inertia, states that an object at rest stays at rest and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force."
-        },
-        {
-          "id": 19,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "The minimum energy required to eject an electron from the surface of a metal is called the:",
-          "options": [
-            "Binding energy",
-            "Ionization energy",
-            "Work function",
-            "Threshold energy"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The work function (Φ) is the minimum energy (usually measured in electronvolts) needed to remove an electron from the surface of a solid."
-        },
-        {
-          "id": 20,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the unit of electric power?",
-          "options": [
-            "Volt",
-            "Ampere",
-            "Ohm",
-            "Watt"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "The unit of electric power is the Watt (W), defined as one joule per second. Volt is the unit of voltage, Ampere for current, and Ohm for resistance."
-        },
-        {
-          "id": 21,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "A mass-spring system oscillates with a period T. If the mass is doubled, what happens to the period? (Assume ideal conditions)",
-          "options": [
-            "It doubles",
-            "It halves",
-            "It increases by √2",
-            "It decreases by √2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The period of a mass-spring system is given by T = 2π√(m/k). If mass 'm' is doubled to '2m', the new period T' = 2π√(2m/k) = √2 * (2π√(m/k)) = √2 * T. So, the period increases by a factor of √2."
-        },
-        {
-          "id": 22,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "Which type of electromagnetic wave has the longest wavelength?",
-          "options": [
-            "X-rays",
-            "Visible light",
-            "Radio waves",
-            "Microwaves"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "In the electromagnetic spectrum, radio waves have the longest wavelengths and lowest frequencies, while gamma rays have the shortest wavelengths and highest frequencies."
-        },
-        {
-          "id": 23,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the force required to accelerate a 500 kg car at 2 m/s²?",
-          "options": [
-            "250 N",
-            "500 N",
-            "1000 N",
-            "2000 N"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Using Newton's Second Law, F = ma, where F is force, m is mass, and a is acceleration. So, F = 500 kg * 2 m/s² = 1000 N."
-        },
-        {
-          "id": 24,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "According to the Law of Conservation of Energy, energy can be:",
-          "options": [
-            "Created and destroyed",
-            "Transformed but not created or destroyed",
-            "Only created",
-            "Only destroyed"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The Law of Conservation of Energy states that energy cannot be created or destroyed, but it can be transformed from one form to another."
-        },
-        {
-          "id": 25,
-          "type": "MCQ",
-          "subject": "Physics",
-          "question_text": "What is the name of the effect where light bends as it passes from one medium to another?",
-          "options": [
-            "Diffraction",
-            "Interference",
-            "Refraction",
-            "Polarization"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Refraction is the bending of light (or other waves) as it passes from one transparent medium into another, due to a change in its speed."
-        }
-      ]
-    },
-    {
-      "section_name": "Chemistry",
-      "questions": [
-        {
-          "id": 26,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "How many grams of CO₂ are produced when 24 g of carbon is completely burned in oxygen? (Atomic mass: C=12, O=16)",
-          "options": [
-            "44 g",
-            "88 g",
-            "22 g",
-            "66 g"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The reaction is C + O₂ → CO₂. Molar mass of C = 12 g/mol, Molar mass of CO₂ = 12 + 2*16 = 44 g/mol. From the balanced equation, 1 mole of C (12 g) produces 1 mole of CO₂ (44 g). So, 24 g of C (2 moles) will produce 2 * 44 g = 88 g of CO₂."
-        },
-        {
-          "id": 27,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is the strongest acid among the hydrohalic acids?",
-          "options": [
-            "HF",
-            "HCl",
-            "HBr",
-            "HI"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Acidity increases down the group for hydrohalic acids because the bond strength decreases with increasing atomic size of the halogen, making it easier to release H⁺ ions. Therefore, HI is the strongest acid among the given options."
-        },
-        {
-          "id": 28,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the pH of a neutral solution at 25°C?",
-          "options": [
-            "0",
-            "7",
-            "14",
-            "Varies with temperature"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "At 25°C, the concentration of H⁺ ions and OH⁻ ions in pure water are both 1 x 10⁻⁷ M, making the pH = -log[H⁺] = -log(1 x 10⁻⁷) = 7, which is neutral."
-        },
-        {
-          "id": 29,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which type of bonding involves the sharing of electrons between atoms?",
-          "options": [
-            "Ionic bonding",
-            "Covalent bonding",
-            "Metallic bonding",
-            "Hydrogen bonding"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Covalent bonding is characterized by the sharing of one or more pairs of electrons between atoms to achieve a stable electron configuration."
-        },
-        {
-          "id": 30,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the oxidation state of sulfur in H₂SO₄?",
-          "options": [
-            "+2",
-            "+4",
-            "+6",
-            "-2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Hydrogen (H) has an oxidation state of +1, and Oxygen (O) has -2. For H₂SO₄: 2*(+1) + S + 4*(-2) = 0 => 2 + S - 8 = 0 => S - 6 = 0 => S = +6."
-        },
-        {
-          "id": 31,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which element is a noble gas?",
-          "options": [
-            "Nitrogen",
-            "Oxygen",
-            "Argon",
-            "Fluorine"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Noble gases are elements in Group 18 of the periodic table, including Helium, Neon, Argon, Krypton, Xenon, and Radon, known for their low reactivity."
-        },
-        {
-          "id": 32,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the general formula for an alkane?",
-          "options": [
-            "CnH2n",
-            "CnH2n-2",
-            "CnH2n+2",
-            "CnHn"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Alkanes are saturated hydrocarbons with only single bonds between carbon atoms. Their general formula is CnH2n+2, where n is the number of carbon atoms."
-        },
-        {
-          "id": 33,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is an example of an endothermic reaction?",
-          "options": [
-            "Combustion of methane",
-            "Neutralization of acid and base",
-            "Melting of ice",
-            "Rusting of iron"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "An endothermic reaction absorbs heat from its surroundings. Melting of ice requires heat energy to break intermolecular bonds, thus it is an endothermic process."
-        },
-        {
-          "id": 34,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the main component of natural gas?",
-          "options": [
-            "Ethane",
-            "Propane",
-            "Butane",
-            "Methane"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Natural gas is primarily composed of methane (CH₄), typically 70-90%, along with smaller amounts of other hydrocarbons and non-hydrocarbon gases."
-        },
-        {
-          "id": 35,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which phenomenon causes the scattering of light by colloidal particles?",
-          "options": [
-            "Brownian motion",
-            "Tyndall effect",
-            "Electrophoresis",
-            "Osmosis"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The Tyndall effect is the scattering of light by particles in a colloid or in a very fine suspension. It is often used to distinguish colloids from true solutions."
-        },
-        {
-          "id": 36,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "According to VSEPR theory, what is the shape of a methane (CH₄) molecule?",
-          "options": [
-            "Linear",
-            "Trigonal planar",
-            "Bent",
-            "Tetrahedral"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Methane has a central carbon atom bonded to four hydrogen atoms, with no lone pairs on the central atom. This results in a tetrahedral electron geometry and molecular geometry."
-        },
-        {
-          "id": 37,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the common name for sodium bicarbonate?",
-          "options": [
-            "Washing soda",
-            "Baking soda",
-            "Caustic soda",
-            "Bleaching powder"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Sodium bicarbonate (NaHCO₃) is commonly known as baking soda. It is used as a leavening agent in baking."
-        },
-        {
-          "id": 38,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of these is a d-block element?",
-          "options": [
-            "Calcium",
-            "Iron",
-            "Sodium",
-            "Chlorine"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "d-block elements are also known as transition metals. Iron (Fe) is located in the d-block of the periodic table, specifically in Group 8, Period 4."
-        },
-        {
-          "id": 39,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the maximum number of electrons that can occupy the third energy level (n=3)?",
-          "options": [
-            "8",
-            "18",
-            "32",
-            "2"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The maximum number of electrons in an energy level 'n' is given by the formula 2n². For n=3, the maximum number of electrons is 2*(3)² = 2*9 = 18."
-        },
-        {
-          "id": 40,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is a strong base?",
-          "options": [
-            "NH₃",
-            "CH₃COOH",
-            "NaOH",
-            "H₂CO₃"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Strong bases fully dissociate in water to produce hydroxide ions (OH⁻). Sodium hydroxide (NaOH) is a classic example of a strong base. NH₃ (ammonia) is a weak base, CH₃COOH (acetic acid) is a weak acid, and H₂CO₃ (carbonic acid) is a weak acid."
-        },
-        {
-          "id": 41,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "The process of converting a liquid into a gas below its boiling point is called:",
-          "options": [
-            "Condensation",
-            "Evaporation",
-            "Sublimation",
-            "Melting"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Evaporation is the process by which atoms or molecules in a liquid state gain sufficient energy to spontaneously transition into the gaseous state below its boiling point."
-        },
-        {
-          "id": 42,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "What is the mass of 0.5 moles of water (H₂O)? (Atomic mass: H=1, O=16)",
-          "options": [
-            "9 g",
-            "18 g",
-            "0.5 g",
-            "1 g"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Molar mass of H₂O = (2*1) + 16 = 18 g/mol. Mass = moles * molar mass = 0.5 mol * 18 g/mol = 9 g."
-        },
-        {
-          "id": 43,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which type of reaction involves the transfer of electrons?",
-          "options": [
-            "Acid-base reaction",
-            "Precipitation reaction",
-            "Redox reaction",
-            "Combustion reaction"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A redox (reduction-oxidation) reaction is a type of chemical reaction that involves a transfer of electrons between two species, leading to changes in their oxidation states."
-        },
-        {
-          "id": 44,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "The phenomenon by which an element can exist in two or more different forms with different physical properties but identical chemical properties is called:",
-          "options": [
-            "Isomerism",
-            "Allotropy",
-            "Isotopy",
-            "Polymerization"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Allotropy is the property of some chemical elements to exist in two or more different forms, in the same physical state, known as allotropes. Examples include carbon (diamond, graphite)."
-        },
-        {
-          "id": 45,
-          "type": "MCQ",
-          "subject": "Chemistry",
-          "question_text": "Which of the following is an example of a homogeneous mixture?",
-          "options": [
-            "Sand and water",
-            "Oil and water",
-            "Saltwater",
-            "Fog"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A homogeneous mixture has a uniform composition and appearance throughout. Saltwater (a solution) is an example, as the salt is completely dissolved and evenly distributed in the water."
-        }
-      ]
-    },
-    {
-      "section_name": "Maths",
-      "questions": [
-        {
-          "id": 46,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If x² - 5x + 6 = 0, what are the values of x?",
-          "options": [
-            "(1, 6)",
-            "(2, 3)",
-            "(-2, -3)",
-            "(0, 5)"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The quadratic equation x² - 5x + 6 = 0 can be factored as (x - 2)(x - 3) = 0. Therefore, the values of x are 2 and 3."
-        },
-        {
-          "id": 47,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "In a right-angled triangle, if the two shorter sides are 3 cm and 4 cm, what is the length of the hypotenuse?",
-          "options": [
-            "5 cm",
-            "6 cm",
-            "7 cm",
-            "8 cm"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Using the Pythagorean theorem, a² + b² = c². So, 3² + 4² = c² => 9 + 16 = c² => 25 = c² => c = 5 cm.",
-          "svg_visual": "<svg width=\"200\" height=\"150\"><polygon points=\"10,140 10,60 70,140\" style=\"fill:none;stroke:black;stroke-width:2\"/><text x=\"5\" y=\"100\" font-size=\"14\">3 cm</text><text x=\"30\" y=\"145\" font-size=\"14\">4 cm</text><text x=\"40\" y=\"90\" font-size=\"14\">?</text><rect x=\"10\" y=\"130\" width=\"10\" height=\"10\" style=\"fill:none;stroke:black;stroke-width:1\"/></svg>"
-        },
-        {
-          "id": 48,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the derivative of f(x) = 3x² + 2x - 1?",
-          "options": [
-            "6x + 2",
-            "3x + 2",
-            "x³ + x² - x",
-            "6x"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "To find the derivative, apply the power rule: d/dx(axⁿ) = naxⁿ⁻¹. So, d/dx(3x²) = 6x, d/dx(2x) = 2, and d/dx(-1) = 0. Thus, the derivative is 6x + 2."
-        },
-        {
-          "id": 49,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Simplify the expression: 2(x + 3) - (x - 1)",
-          "options": [
-            "x + 5",
-            "x + 7",
-            "3x + 5",
-            "x - 7"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Expand the terms: 2x + 6 - x + 1. Combine like terms: (2x - x) + (6 + 1) = x + 7."
-        },
-        {
-          "id": 50,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If a = 3 and b = -2, what is the value of a² - b³?",
-          "options": [
-            "1",
-            "5",
-            "17",
-            "19"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Substitute the values: a² = 3² = 9. b³ = (-2)³ = -8. So, a² - b³ = 9 - (-8) = 9 + 8 = 17."
-        },
-        {
-          "id": 51,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the area of a circle with a radius of 7 cm? (Use π ≈ 22/7)",
-          "options": [
-            "22 cm²",
-            "44 cm²",
-            "154 cm²",
-            "308 cm²"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The area of a circle is given by A = πr². A = (22/7) * (7 cm)² = (22/7) * 49 cm² = 22 * 7 cm² = 154 cm²."
-        },
-        {
-          "id": 52,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Solve for x: 3x + 7 = 19",
-          "options": [
-            "x = 3",
-            "x = 4",
-            "x = 5",
-            "x = 6"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "Subtract 7 from both sides: 3x = 19 - 7 => 3x = 12. Divide by 3: x = 12 / 3 => x = 4."
-        },
-        {
-          "id": 53,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the sum of the interior angles of a quadrilateral?",
-          "options": [
-            "90°",
-            "180°",
-            "270°",
-            "360°"
-          ],
-          "correct_index": 3,
-          "explanation_or_solution": "The sum of the interior angles of a polygon with n sides is given by (n-2) * 180°. For a quadrilateral, n=4, so (4-2) * 180° = 2 * 180° = 360°."
-        },
-        {
-          "id": 54,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Find the value of sin(30°) + cos(60°).",
-          "options": [
-            "0",
-            "0.5",
-            "1",
-            "√3/2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "sin(30°) = 1/2 and cos(60°) = 1/2. So, sin(30°) + cos(60°) = 1/2 + 1/2 = 1."
-        },
-        {
-          "id": 55,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If a set A = {1, 2, 3, 4} and a set B = {3, 4, 5, 6}, what is A ∪ B?",
-          "options": [
-            "{3, 4}",
-            "{1, 2, 5, 6}",
-            "{1, 2, 3, 4, 5, 6}",
-            "{ }"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A ∪ B (union of A and B) includes all elements that are in A, or in B, or in both. So, A ∪ B = {1, 2, 3, 4, 5, 6}."
-        },
-        {
-          "id": 56,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the value of 5! (5 factorial)?",
-          "options": [
-            "10",
-            "25",
-            "120",
-            "600"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "5! = 5 * 4 * 3 * 2 * 1 = 120."
-        },
-        {
-          "id": 57,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "The price of an item was increased by 20% and then decreased by 20%. What is the net percentage change in the price?",
-          "options": [
-            "0% change",
-            "4% increase",
-            "4% decrease",
-            "10% decrease"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Let the original price be P. Increased by 20%: P * 1.20 = 1.2P. Decreased by 20%: 1.2P * 0.80 = 0.96P. The net change is P - 0.96P = 0.04P. So, a 4% decrease."
-        },
-        {
-          "id": 58,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If y = x³, what is dy/dx?",
-          "options": [
-            "x²",
-            "3x²",
-            "3x",
-            "x⁴/4"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Using the power rule for differentiation, d/dx(xⁿ) = nxⁿ⁻¹. So, d/dx(x³) = 3x²."
-        },
-        {
-          "id": 59,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the common difference of the arithmetic progression: 5, 8, 11, 14, ...?",
-          "options": [
-            "2",
-            "3",
-            "4",
-            "5"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The common difference (d) is found by subtracting any term from its succeeding term. d = 8 - 5 = 3; d = 11 - 8 = 3. So, the common difference is 3."
-        },
-        {
-          "id": 60,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the value of log₁₀(1000)?",
-          "options": [
-            "1",
-            "2",
-            "3",
-            "100"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "log₁₀(1000) asks: 10 to what power equals 1000? Since 10³ = 1000, the value is 3."
-        },
-        {
-          "id": 61,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "The coordinates of points A and B are (2, 3) and (5, 7) respectively. What is the distance between A and B?",
-          "options": [
-            "√13",
-            "√20",
-            "5",
-            "√34"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Using the distance formula d = √((x₂-x₁)² + (y₂-y₁)²). d = √((5-2)² + (7-3)²) = √((3)² + (4)²) = √(9 + 16) = √25 = 5."
-        },
-        {
-          "id": 62,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Evaluate the integral ∫(2x + 1) dx.",
-          "options": [
-            "x² + x + C",
-            "2x² + x + C",
-            "x² + C",
-            "2x + C"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Using the power rule for integration, ∫xⁿ dx = xⁿ⁺¹/(n+1) + C. So, ∫2x dx = 2(x²/2) = x², and ∫1 dx = x. Therefore, the integral is x² + x + C."
-        },
-        {
-          "id": 63,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If the radius of a sphere is doubled, what happens to its volume?",
-          "options": [
-            "It doubles",
-            "It quadruples",
-            "It becomes 8 times",
-            "It remains the same"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The volume of a sphere is V = (4/3)πr³. If the radius becomes 2r, the new volume V' = (4/3)π(2r)³ = (4/3)π(8r³) = 8 * (4/3)πr³ = 8V. So, the volume becomes 8 times its original."
-        },
-        {
-          "id": 64,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the probability of rolling an even number on a standard six-sided die?",
-          "options": [
-            "1/6",
-            "1/3",
-            "1/2",
-            "2/3"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A standard six-sided die has faces {1, 2, 3, 4, 5, 6}. The even numbers are {2, 4, 6}. There are 3 even numbers out of 6 total possibilities. So, probability = 3/6 = 1/2."
-        },
-        {
-          "id": 65,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Solve the inequality: 2x - 3 > 7",
-          "options": [
-            "x > 2",
-            "x < 2",
-            "x > 5",
-            "x < 5"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Add 3 to both sides: 2x > 7 + 3 => 2x > 10. Divide by 2: x > 10 / 2 => x > 5."
-        },
-        {
-          "id": 66,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the reciprocal of 0.25?",
-          "options": [
-            "2",
-            "4",
-            "0.5",
-            "1/4"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The reciprocal of a number 'a' is 1/a. 0.25 can be written as 1/4. So, the reciprocal of 1/4 is 1 / (1/4) = 4."
-        },
-        {
-          "id": 67,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If the sum of two numbers is 10 and their difference is 4, what are the numbers?",
-          "options": [
-            "(6, 4)",
-            "(7, 3)",
-            "(8, 2)",
-            "(9, 1)"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Let the numbers be x and y. x + y = 10 and x - y = 4. Adding the two equations: (x + y) + (x - y) = 10 + 4 => 2x = 14 => x = 7. Substitute x=7 into the first equation: 7 + y = 10 => y = 3. So the numbers are (7, 3)."
-        },
-        {
-          "id": 68,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the equation of a line with a slope of 2 and a y-intercept of 3?",
-          "options": [
-            "y = 3x + 2",
-            "y = 2x - 3",
-            "y = 2x + 3",
-            "y = x + 2"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The slope-intercept form of a linear equation is y = mx + b, where m is the slope and b is the y-intercept. Given m=2 and b=3, the equation is y = 2x + 3."
-        },
-        {
-          "id": 69,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Convert 75% to a decimal.",
-          "options": [
-            "0.075",
-            "0.75",
-            "7.5",
-            "75.0"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "To convert a percentage to a decimal, divide by 100. So, 75% = 75/100 = 0.75."
-        },
-        {
-          "id": 70,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If 2ˣ = 8, what is the value of x?",
-          "options": [
-            "1",
-            "2",
-            "3",
-            "4"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "We know that 8 can be written as 2³. So, 2ˣ = 2³ implies x = 3."
-        },
-        {
-          "id": 71,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the area of a square with a side length of 6 cm?",
-          "options": [
-            "12 cm²",
-            "24 cm²",
-            "36 cm²",
-            "48 cm²"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The area of a square is given by side². So, Area = 6 cm * 6 cm = 36 cm²."
-        },
-        {
-          "id": 72,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the value of cos(0°)?",
-          "options": [
-            "0",
-            "0.5",
-            "1",
-            "-1"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "On the unit circle, the x-coordinate at an angle of 0° is 1. Since cos(θ) is the x-coordinate, cos(0°) = 1."
-        },
-        {
-          "id": 73,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "How many distinct permutations can be made from the letters of the word 'APPLE'?",
-          "options": [
-            "5",
-            "20",
-            "60",
-            "120"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The word APPLE has 5 letters. The letter 'P' appears twice. The formula for permutations with repetitions is n! / (n₁! * n₂! * ...). So, 5! / 2! = (5*4*3*2*1) / (2*1) = 120 / 2 = 60."
-        },
-        {
-          "id": 74,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the median of the following set of numbers: 5, 2, 9, 3, 7?",
-          "options": [
-            "2",
-            "5",
-            "7",
-            "9"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "First, arrange the numbers in ascending order: 2, 3, 5, 7, 9. The median is the middle value in an ordered set. In this case, it is 5."
-        },
-        {
-          "id": 75,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If f(x) = x² + 1, what is f(3)?",
-          "options": [
-            "4",
-            "7",
-            "10",
-            "13"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Substitute x=3 into the function: f(3) = (3)² + 1 = 9 + 1 = 10."
-        },
-        {
-          "id": 76,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "A rectangle has a length of 8 cm and a width of 5 cm. What is its perimeter?",
-          "options": [
-            "13 cm",
-            "26 cm",
-            "40 cm",
-            "52 cm"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The perimeter of a rectangle is given by P = 2(length + width). P = 2(8 cm + 5 cm) = 2(13 cm) = 26 cm."
-        },
-        {
-          "id": 77,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the prime factorization of 30?",
-          "options": [
-            "2 x 3 x 5",
-            "2 x 15",
-            "3 x 10",
-            "5 x 6"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Prime factorization involves breaking down a number into its prime factors. 30 = 2 * 15 = 2 * 3 * 5. All factors (2, 3, 5) are prime numbers."
-        },
-        {
-          "id": 78,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Find the next term in the arithmetic sequence: 10, 7, 4, 1, ...",
-          "options": [
-            "0",
-            "-1",
-            "-2",
-            "-3"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The common difference is d = 7 - 10 = -3. So, the next term is 1 - 3 = -2."
-        },
-        {
-          "id": 79,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If (x+2)(x-3) = 0, what are the possible values of x?",
-          "options": [
-            "(-2, 3)",
-            "(2, -3)",
-            "(-2, -3)",
-            "(2, 3)"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "For the product of two terms to be zero, at least one of the terms must be zero. So, x+2 = 0 => x = -2, or x-3 = 0 => x = 3. The values are -2 and 3."
-        },
-        {
-          "id": 80,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the range of the function f(x) = x²?",
-          "options": [
-            "All real numbers",
-            "Positive real numbers only",
-            "Non-negative real numbers",
-            "Integers"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "Since x² always produces a non-negative result (0 or any positive number), the range of f(x) = x² is all non-negative real numbers [0, ∞)."
-        },
-        {
-          "id": 81,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the result of 1/2 + 1/3?",
-          "options": [
-            "1/5",
-            "2/5",
-            "5/6",
-            "1"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "To add fractions, find a common denominator, which is 6. (1/2)*(3/3) + (1/3)*(2/2) = 3/6 + 2/6 = 5/6."
-        },
-        {
-          "id": 82,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "An angle measures 45°. What is its measure in radians?",
-          "options": [
-            "π/2",
-            "π/3",
-            "π/4",
-            "π/6"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "To convert degrees to radians, multiply by π/180°. So, 45° * (π/180°) = π/4 radians."
-        },
-        {
-          "id": 83,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "If a = 5, what is the value of √(a² + 11)?",
-          "options": [
-            "5",
-            "6",
-            "7",
-            "8"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "Substitute a=5: √(5² + 11) = √(25 + 11) = √36 = 6."
-        },
-        {
-          "id": 84,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "What is the volume of a cylinder with radius 3 cm and height 10 cm? (Use π ≈ 3.14)",
-          "options": [
-            "94.2 cm³",
-            "188.4 cm³",
-            "282.6 cm³",
-            "314 cm³"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The volume of a cylinder is V = πr²h. V = 3.14 * (3 cm)² * 10 cm = 3.14 * 9 cm² * 10 cm = 3.14 * 90 cm³ = 282.6 cm³."
-        },
-        {
-          "id": 85,
-          "type": "MCQ",
-          "subject": "Maths",
-          "question_text": "Which of these is a rational number?",
-          "options": [
-            "√2",
-            "π",
-            "0.333...",
-            "e"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A rational number can be expressed as a fraction p/q where p and q are integers and q ≠ 0. 0.333... is equal to 1/3, which is a rational number. √2, π, and e are irrational numbers."
-        }
-      ]
-    },
-    {
-      "section_name": "Aptitude",
-      "questions": [
-        {
-          "id": 86,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "What comes next in the sequence: 2, 4, 8, 16, ?",
-          "options": [
-            "20",
-            "24",
-            "32",
-            "36"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The sequence is a geometric progression where each term is multiplied by 2 to get the next term. So, 16 * 2 = 32."
-        },
-        {
-          "id": 87,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "A can do a piece of work in 10 days and B can do it in 15 days. In how many days can they complete the work together?",
-          "options": [
-            "5 days",
-            "6 days",
-            "8 days",
-            "12 days"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "A's one day work = 1/10. B's one day work = 1/15. Together, their one day work = 1/10 + 1/15 = (3+2)/30 = 5/30 = 1/6. So, they can complete the work together in 6 days."
-        },
-        {
-          "id": 88,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "If 'CAT' is coded as '3120', how is 'DOG' coded?",
-          "options": [
-            "4157",
-            "4158",
-            "4156",
-            "4147"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The code uses the alphabetical position of each letter (A=1, B=2, C=3...) followed by the position of the letter in the reverse alphabet (Z=1, Y=2...). For CAT: C=3, A=1, T=20. For DOG: D=4, O=15, G=7. So, DOG = 4157. This coding is 'D' (4), 'O' (15), 'G' (7). The option is 4158, let me check the reverse alphabet logic. For CAT: C=3, A=1, T=20. This is just alphabetical position. Let me re-evaluate the provided code. If 'CAT' is '3120', it implies C=3, A=1, T=20. So, for 'DOG': D=4, O=15, G=7. The code would be '4157'. Option 4158 is wrong with this logic. Let's assume there's an error in my interpretation or the question's example. Re-reading: 'CAT' is coded as '3120'. 'DOG' coded as? If it's simply sequential alphabet positions, then D=4, O=15, G=7 -> 4157. This is not an option. Let's assume it's C=3, A=1, T=20. For DOG: D=4, O=15, G=7. There's no other clear pattern like reverse alphabet positions if 3120 is just C, A, T. Let's re-think the '3120'. It could be C=3, A=1, and T is the 20th letter. If this is the case, then DOG is D=4, O=15, G=7. '4157'. This implies a typo in my options. I will correct the option to match 4157. Or, if there is a pattern like adding 1 to each, 4,2,21. Let's stick to the simplest interpretation (alphabetical position). The original question specified 4 options and a correct index. The original example for Aptitude Q1: `2, 4, 8, 16, ?` options `20, 24, 32, 36` correct `32`. This implies direct calculation. Let's assume the question meant a different code or pattern.
-            Let's re-evaluate "CAT" is coded as "3120".
-            C is the 3rd letter. A is the 1st letter. T is the 20th letter.
-            So, it is simply concatenating the position of each letter in the alphabet.
-            For DOG: D is the 4th letter. O is the 15th letter. G is the 7th letter.
-            So, DOG would be coded as 4157.
-
-            I need to ensure the correct_index points to the correct answer for '4157'.
-            Given the options in my draft: ["4157", "4158", "4156", "4147"]
-            `correct_index`: 0 for "4157".
-            This is a better approach than forcing an answer not directly derivable. I'll make sure the option is 4157.
-          ",
-          "options": [
-            "4157",
-            "4158",
-            "4156",
-            "4147"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "Each letter is represented by its position in the English alphabet (A=1, B=2, C=3,...). So, C=3, A=1, T=20, giving 'CAT' as '3120'. For 'DOG': D=4, O=15, G=7. Concatenating these gives '4157'."
-        },
-        {
-          "id": 89,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "If 6 men can complete a task in 8 days, how many days will 4 men take to complete the same task?",
-          "options": [
-            "10 days",
-            "12 days",
-            "16 days",
-            "24 days"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "This is an inverse proportion problem. (Men₁ * Days₁) = (Men₂ * Days₂). So, 6 men * 8 days = 4 men * Days₂. 48 = 4 * Days₂. Days₂ = 48 / 4 = 12 days."
-        },
-        {
-          "id": 90,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "Find the missing number: 1, 9, 25, 49, ?, 121",
-          "options": [
-            "64",
-            "81",
-            "100",
-            "110"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "The sequence consists of squares of odd numbers: 1²=1, 3²=9, 5²=25, 7²=49. The next odd number is 9, so 9²=81. Wait, 1, 9, 25, 49. The sequence is 1², 3², 5², 7². The next number should be 9². So 81. And then 11². So the missing number is 81.
-            Checking options: ["64", "81", "100", "110"].
-            My calculation gives 81. The correct_index for 81 is 1.
-
-            Let's re-verify the sequence:
-            1 = 1²
-            9 = 3²
-            25 = 5²
-            49 = 7²
-            The next in the sequence of odd numbers (1, 3, 5, 7) is 9.
-            So, 9² = 81.
-            The next is 11, and 11² = 121.
-            So, the missing number is 81.
-            The correct_index for '81' is 1.
-            ",
-          "options": [
-            "64",
-            "81",
-            "100",
-            "110"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The sequence consists of the squares of consecutive odd numbers: 1²=1, 3²=9, 5²=25, 7²=49. The next odd number is 9, so the missing term is 9²=81. The following term is 11²=121, confirming the pattern."
-        },
-        {
-          "id": 91,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "A clock shows 3:00. If the hour hand points East, in what direction will the minute hand point?",
-          "options": [
-            "North",
-            "South",
-            "East",
-            "West"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "At 3:00, the hour hand points directly at 3. If 3 points East, then 12 (where the minute hand points) is 90 degrees counter-clockwise from East. This corresponds to North."
-        },
-        {
-          "id": 92,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "What is 15% of 200?",
-          "options": [
-            "15",
-            "20",
-            "30",
-            "40"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "To find 15% of 200, calculate (15/100) * 200 = 0.15 * 200 = 30."
-        },
-        {
-          "id": 93,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "If all 'P' are 'Q' and all 'Q' are 'R', then which of the following statements is definitely true?",
-          "options": [
-            "All 'R' are 'P'",
-            "All 'P' are 'R'",
-            "Some 'R' are not 'Q'",
-            "No 'Q' are 'P'"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "This is a basic syllogism. If the set of P is entirely contained within Q, and the set of Q is entirely contained within R, then the set of P must also be entirely contained within R. Therefore, 'All P are R' is definitely true."
-        },
-        {
-          "id": 94,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "A man walks 5 km East and then 12 km North. What is his shortest distance from the starting point?",
-          "options": [
-            "7 km",
-            "13 km",
-            "17 km",
-            "√119 km"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "This forms a right-angled triangle where the distances walked are the two perpendicular sides. The shortest distance from the starting point is the hypotenuse. Using the Pythagorean theorem: distance = √(5² + 12²) = √(25 + 144) = √169 = 13 km."
-        },
-        {
-          "id": 95,
-          "type": "MCQ",
-          "subject": "Aptitude",
-          "question_text": "Which number is the odd one out: 12, 18, 25, 30, 36?",
-          "options": [
-            "12",
-            "18",
-            "25",
-            "30"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "All numbers except 25 are multiples of 6 (12=6*2, 18=6*3, 30=6*5, 36=6*6). 25 is a multiple of 5, and also a perfect square (5²)."
-        }
-      ]
-    },
-    {
-      "section_name": "English",
-      "questions": [
-        {
-          "id": 96,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Choose the sentence with the correct subject-verb agreement.",
-          "options": [
-            "The team is debating the issue.",
-            "The team are debating the issue.",
-            "The team debates the issue.",
-            "The team have debating the issue."
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "When referring to a collective noun acting as a single unit, a singular verb is used. 'The team' acts as a single unit debating, hence 'is debating' is correct."
-        },
-        {
-          "id": 97,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Select the antonym of 'Benevolent'.",
-          "options": [
-            "Kind",
-            "Generous",
-            "Malicious",
-            "Compassionate"
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "'Benevolent' means well-meaning and kindly. 'Malicious' means characterized by malice; intending or intended to do harm, making it the direct antonym."
-        },
-        {
-          "id": 98,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Fill in the blank: She is ______ honest woman.",
-          "options": [
-            "a",
-            "an",
-            "the",
-            "no article"
-          ],
-          "correct_index": 1,
-          "explanation_or_solution": "The word 'honest' starts with a consonant but has a vowel sound ('o'). Therefore, 'an' is used before 'honest'."
-        },
-        {
-          "id": 99,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Which of the following sentences uses a metaphor?",
-          "options": [
-            "The car was as fast as a cheetah.",
-            "The wind whispered secrets through the trees.",
-            "Her voice was music to his ears.",
-            "He ran like the wind."
-          ],
-          "correct_index": 2,
-          "explanation_or_solution": "A metaphor directly compares two unlike things without using 'like' or 'as'. 'Her voice was music to his ears' directly equates her voice to music. The other options are similes or personification."
-        },
-        {
-          "id": 100,
-          "type": "MCQ",
-          "subject": "English",
-          "question_text": "Choose the correct spelling:",
-          "options": [
-            "Accommodate",
-            "Acommodate",
-            "Accomodate",
-            "Acommadate"
-          ],
-          "correct_index": 0,
-          "explanation_or_solution": "The correct spelling is 'Accommodate', with double 'c' and double 'm'."
-        }
-      ]
-    }
-  ]
+"q": "A projectile is launched vertically upwards with an initial velocity of 30 m/s. Neglecting air resistance and taking g = 10 m/s², what is the maximum height it reaches?",
+"svg": "",
+"options": [
+"30 m",
+"45 m",
+"60 m",
+"90 m"
+],
+"correct": 1,
+"solution": "At maximum height, the final velocity (v) is 0 m/s. Initial velocity (u) = 30 m/s, acceleration (a) = -g = -10 m/s². Using the kinematic equation v² = u² + 2as: 0² = (30)² + 2(-10)s. 0 = 900 - 20s. 20s = 900. s = 45 m. Thus, the maximum height reached is 45 m."
+},
+{
+"q": "A force of 10 N acts on a body of mass 2 kg. What is the acceleration produced?",
+"svg": "",
+"options": [
+"2 m/s²",
+"5 m/s²",
+"10 m/s²",
+"20 m/s²"
+],
+"correct": 1,
+"solution": "According to Newton's second law, F = ma. Given F = 10 N and m = 2 kg. So, 10 = 2 * a. Therefore, a = 10/2 = 5 m/s²."
+},
+{
+"q": "How much work is done when a 10 kg mass is lifted vertically by 5 meters? (g=10 m/s²)",
+"svg": "",
+"options": [
+"50 J",
+"100 J",
+"250 J",
+"500 J"
+],
+"correct": 3,
+"solution": "Work = F * d = mgh = 10 * 10 * 5 = 500 J."
+},
+{
+"q": "If the distance between two masses is doubled, how does the gravitational force between them change?",
+"svg": "",
+"options": [
+"Halves",
+"Doubles",
+"Quartered",
+"Quadrupled"
+],
+"correct": 2,
+"solution": "F ∝ 1/r². If r becomes 2r, F becomes 1/(2r)² = 1/(4r²), so it's quartered."
+},
+{
+"q": "Which principle explains why a ship floats?",
+"svg": "",
+"options": [
+"Pascal's Principle",
+"Archimedes' Principle",
+"Bernoulli's Principle",
+"Torricelli's Law"
+],
+"correct": 1,
+"solution": "Archimedes' Principle states that the buoyant force on a submerged object is equal to the weight of the fluid displaced by the object."
+},
+{
+"q": "What is the SI unit of heat?",
+"svg": "",
+"options": [
+"Calorie",
+"Joule",
+"Watt",
+"Celsius"
+],
+"correct": 1,
+"solution": "The SI unit of heat is the Joule (J)."
+},
+{
+"q": "Which defect of vision is corrected by using a concave lens?",
+"svg": "",
+"options": [
+"Hypermetropia",
+"Myopia",
+"Presbyopia",
+"Astigmatism"
+],
+"correct": 1,
+"solution": "Myopia (nearsightedness) is corrected using a concave lens to diverge light rays before they reach the eye."
+},
+{
+"q": "What is the resistance of a conductor if a current of 2 A flows through it when a potential difference of 10 V is applied across its ends?",
+"svg": "",
+"options": [
+"0.2 Ω",
+"5 Ω",
+"10 Ω",
+"20 Ω"
+],
+"correct": 1,
+"solution": "Using Ohm's Law, V=IR. So R=V/I = 10V/2A = 5 Ω."
+},
+{
+"q": "Which of the following materials is diamagnetic?",
+"svg": "",
+"options": [
+"Iron",
+"Nickel",
+"Copper",
+"Cobalt"
+],
+"correct": 2,
+"solution": "Copper is a diamagnetic material. Diamagnetic materials are repelled by magnetic fields."
+},
+{
+"q": "What is the energy of a photon with a frequency of 5 x 10¹⁴ Hz? (h = 6.63 x 10⁻³⁴ J·s)",
+"svg": "",
+"options": [
+"3.315 x 10⁻¹⁹ J",
+"3.315 x 10⁻²⁰ J",
+"1.326 x 10⁻¹⁸ J",
+"1.326 x 10⁻¹⁹ J"
+],
+"correct": 0,
+"solution": "E = hf = (6.63 x 10⁻³⁴ J·s) * (5 x 10¹⁴ Hz) = 33.15 x 10⁻²⁰ J = 3.315 x 10⁻¹⁹ J."
+},
+{
+"q": "The speed of sound in air at 0°C is approximately:",
+"svg": "",
+"options": [
+"331 m/s",
+"343 m/s",
+"1500 m/s",
+"5100 m/s"
+],
+"correct": 0,
+"solution": "The speed of sound in air at 0°C is approximately 331 m/s."
+},
+{
+"q": "For a simple pendulum, doubling the length will change the period by a factor of:",
+"svg": "",
+"options": [
+"√2",
+"2",
+"1/√2",
+"1/2"
+],
+"correct": 0,
+"solution": "The period of a simple pendulum T = 2π√(L/g). If L becomes 2L, T' = 2π√(2L/g) = √2 * T."
+},
+{
+"q": "Coulomb's law describes the force between which type of objects?",
+"svg": "",
+"options": [
+"Magnets",
+"Current-carrying wires",
+"Charged particles",
+"Neutral atoms"
+],
+"correct": 2,
+"solution": "Coulomb's law describes the electrostatic force between two charged particles."
+},
+{
+"q": "What is the equivalent resistance of two 10 Ω resistors connected in parallel?",
+"svg": "",
+"options": [
+"2.5 Ω",
+"5 Ω",
+"10 Ω",
+"20 Ω"
+],
+"correct": 1,
+"solution": "For parallel resistors, 1/R_eq = 1/R1 + 1/R2. 1/R_eq = 1/10 + 1/10 = 2/10 = 1/5. So R_eq = 5 Ω."
+},
+{
+"q": "In an AC circuit, the power factor is given by:",
+"svg": "",
+"options": [
+"R/Z",
+"Z/R",
+"X_L/R",
+"X_C/R"
+],
+"correct": 0,
+"solution": "The power factor in an AC circuit is cos φ = R/Z, where R is resistance and Z is impedance."
+},
+{
+"q": "Which of the following has the longest wavelength?",
+"svg": "",
+"options": [
+"X-rays",
+"Ultraviolet light",
+"Microwaves",
+"Infrared light"
+],
+"correct": 2,
+"solution": "Among the given options, microwaves have the longest wavelength in the electromagnetic spectrum."
+},
+{
+"q": "The focal length of a plane mirror is:",
+"svg": "",
+"options": [
+"Zero",
+"Infinity",
+"Positive",
+"Negative"
+],
+"correct": 1,
+"solution": "A plane mirror forms virtual images as if they are infinitely far behind the mirror, hence its focal length is infinity."
+},
+{
+"q": "Which phenomenon proves the transverse nature of light?",
+"svg": "",
+"options": [
+"Reflection",
+"Refraction",
+"Interference",
+"Polarization"
+],
+"correct": 3,
+"solution": "Polarization is the phenomenon that demonstrates the transverse nature of light waves."
+},
+{
+"q": "The photoelectric effect demonstrates the _______ nature of light.",
+"svg": "",
+"options": [
+"Wave",
+"Particle",
+"Both wave and particle",
+"Neither wave nor particle"
+],
+"correct": 1,
+"solution": "The photoelectric effect provides evidence for the particle nature of light (photons)."
+},
+{
+"q": "The atomic number of an element is determined by the number of:",
+"svg": "",
+"options": [
+"Neutrons",
+"Protons",
+"Electrons",
+"Nucleons"
+],
+"correct": 1,
+"solution": "The atomic number (Z) is equal to the number of protons in the nucleus of an atom."
+},
+{
+"q": "Which of the following is an N-type semiconductor impurity?",
+"svg": "",
+"options": [
+"Boron",
+"Gallium",
+"Phosphorus",
+"Indium"
+],
+"correct": 2,
+"solution": "Phosphorus is a pentavalent impurity, which when added to a pure semiconductor like silicon, creates an N-type semiconductor."
+},
+{
+"q": "What is the primary function of a transducer in a communication system?",
+"svg": "",
+"options": [
+"To amplify signals",
+"To convert energy from one form to another",
+"To filter noise",
+"To modulate carrier waves"
+],
+"correct": 1,
+"solution": "A transducer converts one form of energy into another, for example, sound into electrical signals or vice versa."
+},
+{
+"q": "Which of the following is not a fundamental unit in the SI system?",
+"svg": "",
+"options": [
+"Kilogram",
+"Ampere",
+"Mole",
+"Newton"
+],
+"correct": 3,
+"solution": "Newton is a derived unit (kg·m/s²), while kilogram, ampere, and mole are fundamental units."
+},
+{
+"q": "The moment of inertia of a rigid body depends on:",
+"svg": "",
+"options": [
+"Its angular velocity",
+"Its angular acceleration",
+"Its mass distribution about the axis of rotation",
+"The applied torque"
+],
+"correct": 2,
+"solution": "The moment of inertia depends on the mass of the body and how it is distributed with respect to the axis of rotation."
+},
+{
+"q": "Which property of a fluid refers to its resistance to flow?",
+"svg": "",
+"options": [
+"Density",
+"Pressure",
+"Viscosity",
+"Surface Tension"
+],
+"correct": 2,
+"solution": "Viscosity is a measure of a fluid's resistance to flow."
+}
+],
+"Chemistry": [
+{
+"q": "Which of the following particles is responsible for the chemical properties of an atom?",
+"svg": "",
+"options": [
+"Proton",
+"Neutron",
+"Electron",
+"Photon"
+],
+"correct": 2,
+"solution": "The number of electrons in the outermost shell determines an atom's chemical properties as they are involved in bonding."
+},
+{
+"q": "Which type of bond involves the complete transfer of electrons between atoms?",
+"svg": "",
+"options": [
+"Covalent bond",
+"Ionic bond",
+"Metallic bond",
+"Hydrogen bond"
+],
+"correct": 1,
+"solution": "Ionic bonds are formed by the electrostatic attraction between oppositely charged ions resulting from the complete transfer of one or more electrons from one atom to another."
+},
+{
+"q": "How many moles are present in 49 g of H₂SO₄? (Atomic weights: H=1, S=32, O=16)",
+"svg": "",
+"options": [
+"0.25 mol",
+"0.5 mol",
+"1 mol",
+"2 mol"
+],
+"correct": 1,
+"solution": "Molar mass of H₂SO₄ = 2(1) + 32 + 4(16) = 2 + 32 + 64 = 98 g/mol. Moles = Mass / Molar mass = 49 g / 98 g/mol = 0.5 mol."
+},
+{
+"q": "What happens to the rate of a reaction if the temperature is increased?",
+"svg": "",
+"options": [
+"Decreases",
+"Increases",
+"Remains constant",
+"First decreases, then increases"
+],
+"correct": 1,
+"solution": "Increasing temperature increases the kinetic energy of molecules, leading to more frequent and energetic collisions, thus increasing the reaction rate."
+},
+{
+"q": "According to Le Chatelier's principle, if pressure is increased on a system at equilibrium involving gases, the equilibrium will shift:",
+"svg": "",
+"options": [
+"To the side with more moles of gas",
+"To the side with fewer moles of gas",
+"No change",
+"Towards reactants only"
+],
+"correct": 1,
+"solution": "Increasing pressure favors the side of the reaction with fewer moles of gas to reduce the pressure."
+},
+{
+"q": "Which of the following is a strong acid?",
+"svg": "",
+"options": [
+"CH₃COOH",
+"H₂CO₃",
+"HCl",
+"H₃PO₄"
+],
+"correct": 2,
+"solution": "Hydrochloric acid (HCl) is a strong acid, meaning it completely dissociates in water. The others are weak acids."
+},
+{
+"q": "In the reaction 2Na + Cl₂ → 2NaCl, which element is oxidized?",
+"svg": "",
+"options": [
+"Na",
+"Cl",
+"Both Na and Cl",
+"Neither Na nor Cl"
+],
+"correct": 0,
+"solution": "Sodium (Na) goes from an oxidation state of 0 to +1, meaning it loses electrons and is oxidized."
+},
+{
+"q": "What is the general formula for alkanes?",
+"svg": "",
+"options": [
+"CnH₂n",
+"CnH₂n-2",
+"CnH₂n+2",
+"CnH₂nO"
+],
+"correct": 2,
+"solution": "Alkanes are saturated hydrocarbons with the general formula CnH₂n+2."
+},
+{
+"q": "Which functional group defines an alcohol?",
+"svg": "",
+"options": [
+"-COOH",
+"-CHO",
+"-OH",
+"-O-"
+],
+"correct": 2,
+"solution": "The hydroxyl group (-OH) is characteristic of alcohols."
+},
+{
+"q": "What is the molarity of a solution prepared by dissolving 2 moles of NaCl in 500 mL of water?",
+"svg": "",
+"options": [
+"1 M",
+"2 M",
+"4 M",
+"0.5 M"
+],
+"correct": 2,
+"solution": "Molarity = Moles of solute / Volume of solution in Liters. Molarity = 2 moles / 0.5 L = 4 M."
+},
+{
+"q": "In an electrolytic cell, oxidation occurs at the:",
+"svg": "",
+"options": [
+"Cathode",
+"Anode",
+"Salt bridge",
+"Electrolyte"
+],
+"correct": 1,
+"solution": "In both galvanic and electrolytic cells, oxidation occurs at the anode."
+},
+{
+"q": "Which gas is primarily responsible for the greenhouse effect?",
+"svg": "",
+"options": [
+"Oxygen",
+"Nitrogen",
+"Carbon Dioxide",
+"Hydrogen"
+],
+"correct": 2,
+"solution": "Carbon dioxide (CO₂) is the primary greenhouse gas that traps heat in the Earth's atmosphere."
+},
+{
+"q": "Elements in the same group of the periodic table have similar:",
+"svg": "",
+"options": [
+"Atomic mass",
+"Number of electron shells",
+"Chemical properties",
+"Physical state"
+],
+"correct": 2,
+"solution": "Elements in the same group have the same number of valence electrons, leading to similar chemical properties."
+},
+{
+"q": "Which state of matter has a definite volume but no definite shape?",
+"svg": "",
+"options": [
+"Solid",
+"Liquid",
+"Gas",
+"Plasma"
+],
+"correct": 1,
+"solution": "Liquids have a definite volume but take the shape of their container, hence no definite shape."
+},
+{
+"q": "A reaction that absorbs heat from its surroundings is called an:",
+"svg": "",
+"options": [
+"Exothermic reaction",
+"Endothermic reaction",
+"Isothermal reaction",
+"Adiabatic reaction"
+],
+"correct": 1,
+"solution": "Endothermic reactions absorb heat from the surroundings, causing the temperature of the surroundings to decrease."
+},
+{
+"q": "Which of the following is a natural polymer?",
+"svg": "",
+"options": [
+"Polyethylene",
+"Nylon",
+"Starch",
+"PVC"
+],
+"correct": 2,
+"solution": "Starch is a natural polymer, while polyethylene, nylon, and PVC are synthetic polymers."
+},
+{
+"q": "Which biomolecule is primarily responsible for storing genetic information?",
+"svg": "",
+"options": [
+"Proteins",
+"Lipids",
+"Carbohydrates",
+"Nucleic Acids"
+],
+"correct": 3,
+"solution": "Nucleic acids, specifically DNA and RNA, are responsible for storing and transmitting genetic information."
+},
+{
+"q": "What is the chemical name for laughing gas?",
+"svg": "",
+"options": [
+"Nitric Oxide",
+"Nitrous Oxide",
+"Nitrogen Dioxide",
+"Dinitrogen Pentoxide"
+],
+"correct": 1,
+"solution": "Laughing gas is commonly known as Nitrous Oxide (N₂O)."
+},
+{
+"q": "Which reagent is used to test for the presence of sulfate ions (SO₄²⁻)?",
+"svg": "",
+"options": [
+"AgNO₃",
+"BaCl₂",
+"NaOH",
+"HCl"
+],
+"correct": 1,
+"solution": "Barium chloride (BaCl₂) solution is used to test for sulfate ions, forming a white precipitate of BaSO₄."
+},
+{
+"q": "The pH of a neutral solution at 25°C is:",
+"svg": "",
+"options": [
+"0",
+"7",
+"14",
+"Between 0 and 7"
+],
+"correct": 1,
+"solution": "A neutral solution has a pH of 7 at 25°C."
+}
+],
+"Maths": [
+{
+"q": "If 2x + 5 = 11, what is the value of x?",
+"svg": "",
+"options": [
+"2",
+"3",
+"6",
+"8"
+],
+"correct": 1,
+"solution": "2x = 11 - 5 => 2x = 6 => x = 3."
+},
+{
+"q": "Which of the following represents the inequality x > 4?",
+"svg": "",
+"options": [
+"x ≥ 4",
+"x < 4",
+"4 > x",
+"4 < x"
+],
+"correct": 3,
+"solution": "The inequality x > 4 means 'x is greater than 4', which is equivalent to '4 is less than x', or 4 < x."
+},
+{
+"q": "If a right-angled triangle has legs of length 3 cm and 4 cm, what is the length of its hypotenuse?",
+"svg": "",
+"options": [
+"5 cm",
+"6 cm",
+"7 cm",
+"8 cm"
+],
+"correct": 0,
+"solution": "Using the Pythagorean theorem, a² + b² = c². 3² + 4² = c² => 9 + 16 = c² => 25 = c² => c = 5 cm."
+},
+{
+"q": "What is the area of a circle with a radius of 7 cm? (Use π = 22/7)",
+"svg": "",
+"options": [
+"44 cm²",
+"154 cm²",
+"308 cm²",
+"616 cm²"
+],
+"correct": 1,
+"solution": "Area = πr² = (22/7) * 7² = (22/7) * 49 = 22 * 7 = 154 cm²."
+},
+{
+"q": "If sin θ = 3/5 and θ is acute, what is the value of cos θ?",
+"svg": "",
+"options": [
+"3/4",
+"4/5",
+"5/3",
+"4/3"
+],
+"correct": 1,
+"solution": "Using the identity sin²θ + cos²θ = 1. (3/5)² + cos²θ = 1 => 9/25 + cos²θ = 1 => cos²θ = 1 - 9/25 = 16/25. So cos θ = √(16/25) = 4/5."
+},
+{
+"q": "What is the derivative of f(x) = x³ + 2x² - 5x + 1 with respect to x?",
+"svg": "",
+"options": [
+"3x² + 4x - 5",
+"x² + 4x - 5",
+"3x³ + 4x² - 5x",
+"3x² + 2x - 5"
+],
+"correct": 0,
+"solution": "Using the power rule, d/dx(xⁿ) = nxⁿ⁻¹. d/dx(x³) = 3x², d/dx(2x²) = 4x, d/dx(-5x) = -5, d/dx(1) = 0. So, f'(x) = 3x² + 4x - 5."
+},
+{
+"q": "What is the indefinite integral of ∫(2x + 3) dx?",
+"svg": "",
+"options": [
+"x² + 3x + C",
+"2x² + 3x + C",
+"x² + C",
+"2 + C"
+],
+"correct": 0,
+"solution": "∫(2x + 3) dx = ∫2x dx + ∫3 dx = 2(x²/2) + 3x + C = x² + 3x + C."
+},
+{
+"q": "What is the probability of rolling an even number on a standard six-sided die?",
+"svg": "",
+"options": [
+"1/6",
+"1/3",
+"1/2",
+"2/3"
+],
+"correct": 2,
+"solution": "The even numbers on a die are 2, 4, 6 (3 outcomes). Total outcomes are 6. Probability = 3/6 = 1/2."
+},
+{
+"q": "Find the mean of the numbers: 2, 4, 6, 8, 10.",
+"svg": "",
+"options": [
+"5",
+"6",
+"7",
+"8"
+],
+"correct": 1,
+"solution": "Mean = Sum of numbers / Count of numbers = (2+4+6+8+10)/5 = 30/5 = 6."
+},
+{
+"q": "What is the value of log₂(8)?",
+"svg": "",
+"options": [
+"2",
+"3",
+"4",
+"8"
+],
+"correct": 1,
+"solution": "log₂(8) means 'to what power must 2 be raised to get 8?'. Since 2³ = 8, log₂(8) = 3."
+},
+{
+"q": "If A = [[1, 2], [3, 4]], what is the determinant of A?",
+"svg": "",
+"options": [
+"-2",
+"0",
+"1",
+"2"
+],
+"correct": 0,
+"solution": "For a 2x2 matrix [[a, b], [c, d]], the determinant is ad - bc. So, (1*4) - (2*3) = 4 - 6 = -2."
+},
+{
+"q": "What is the imaginary part of the complex number 3 + 4i?",
+"svg": "",
+"options": [
+"3",
+"4",
+"i",
+"4i"
+],
+"correct": 1,
+"solution": "In a complex number a + bi, 'a' is the real part and 'b' is the imaginary part. Here, the imaginary part is 4."
+},
+{
+"q": "What is the 5th term of an arithmetic progression with first term 2 and common difference 3?",
+"svg": "",
+"options": [
+"11",
+"14",
+"17",
+"20"
+],
+"correct": 1,
+"solution": "The nth term of an AP is a + (n-1)d. For the 5th term: 2 + (5-1)3 = 2 + 4*3 = 2 + 12 = 14."
+},
+{
+"q": "How many different ways can the letters of the word 'CAT' be arranged?",
+"svg": "",
+"options": [
+"3",
+"6",
+"9",
+"12"
+],
+"correct": 1,
+"solution": "The number of ways to arrange n distinct objects is n!. For 'CAT', there are 3 letters, so 3! = 3 * 2 * 1 = 6 ways."
+},
+{
+"q": "If f(x) = x² + 1, what is f(3)?",
+"svg": "",
+"options": [
+"7",
+"9",
+"10",
+"11"
+],
+"correct": 2,
+"solution": "Substitute x=3 into the function: f(3) = 3² + 1 = 9 + 1 = 10."
+},
+{
+"q": "What is the distance between the points (1, 2) and (4, 6)?",
+"svg": "",
+"options": [
+"3",
+"4",
+"5",
+"6"
+],
+"correct": 2,
+"solution": "Using the distance formula √((x₂-x₁)² + (y₂-y₁)²): √((4-1)² + (6-2)²) = √(3² + 4²) = √(9 + 16) = √25 = 5."
+},
+{
+"q": "What is the slope of the line passing through points (2, 3) and (5, 9)?",
+"svg": "",
+"options": [
+"1",
+"2",
+"3",
+"6"
+],
+"correct": 1,
+"solution": "Slope (m) = (y₂-y₁)/(x₂-x₁) = (9-3)/(5-2) = 6/3 = 2."
+},
+{
+"q": "If A = {1, 2, 3} and B = {3, 4, 5}, what is A ∪ B (A union B)?",
+"svg": "",
+"options": [
+"{3}",
+"{1, 2, 4, 5}",
+"{1, 2, 3, 4, 5}",
+"{1, 2, 3}"
+],
+"correct": 2,
+"solution": "The union of two sets contains all unique elements from both sets. So A ∪ B = {1, 2, 3, 4, 5}."
+},
+{
+"q": "What is the next number in the sequence: 1, 4, 9, 16, __?",
+"svg": "",
+"options": [
+"20",
+"25",
+"30",
+"36"
+],
+"correct": 1,
+"solution": "The sequence consists of perfect squares: 1²=1, 2²=4, 3²=9, 4²=16. The next term is 5²=25."
+},
+{
+"q": "Simplify: (x²)³",
+"svg": "",
+"options": [
+"x⁵",
+"x⁶",
+"x⁹",
+"x¹"
+],
+"correct": 1,
+"solution": "Using the rule of exponents (aᵐ)ⁿ = aᵐⁿ, (x²)³ = x^(2*3) = x⁶."
+},
+{
+"q": "What are the roots of the equation x² - 5x + 6 = 0?",
+"svg": "",
+"options": [
+"(1, 6)",
+"(2, 3)",
+"(-1, -6)",
+"(-2, -3)"
+],
+"correct": 1,
+"solution": "Factorizing the quadratic equation: (x-2)(x-3) = 0. So, x=2 or x=3."
+},
+{
+"q": "If A:B = 2:3 and B:C = 4:5, find A:C.",
+"svg": "",
+"options": [
+"2:5",
+"8:15",
+"6:8",
+"4:15"
+],
+"correct": 1,
+"solution": "A/B = 2/3, B/C = 4/5. Multiply (A/B) * (B/C) = (2/3) * (4/5) => A/C = 8/15. So A:C = 8:15."
+},
+{
+"q": "What is 20% of 250?",
+"svg": "",
+"options": [
+"25",
+"50",
+"75",
+"100"
+],
+"correct": 1,
+"solution": "20% of 250 = (20/100) * 250 = 0.20 * 250 = 50."
+},
+{
+"q": "What is the volume of a cube with side length 5 cm?",
+"svg": "",
+"options": [
+"25 cm³",
+"50 cm³",
+"100 cm³",
+"125 cm³"
+],
+"correct": 3,
+"solution": "Volume of a cube = side³ = 5³ = 5 * 5 * 5 = 125 cm³."
+},
+{
+"q": "Calculate the simple interest on $1000 at 5% per annum for 2 years.",
+"svg": "",
+"options": [
+"$50",
+"$100",
+"$150",
+"$200"
+],
+"correct": 1,
+"solution": "Simple Interest = (Principal * Rate * Time) / 100 = (1000 * 5 * 2) / 100 = 10000 / 100 = $100."
+},
+{
+"q": "Solve for y: 3y - 7 = 8",
+"svg": "",
+"options": [
+"3",
+"5",
+"6",
+"15"
+],
+"correct": 1,
+"solution": "3y = 8 + 7 => 3y = 15 => y = 15/3 = 5."
+},
+{
+"q": "How many sides does a hexagon have?",
+"svg": "",
+"options": [
+"4",
+"5",
+"6",
+"7"
+],
+"correct": 2,
+"solution": "A hexagon is a polygon with six sides."
+},
+{
+"q": "A train travels 240 km in 4 hours. What is its average speed?",
+"svg": "",
+"options": [
+"40 km/h",
+"50 km/h",
+"60 km/h",
+"70 km/h"
+],
+"correct": 2,
+"solution": "Speed = Distance / Time = 240 km / 4 hours = 60 km/h."
+},
+{
+"q": "What is the cube root of 64?",
+"svg": "",
+"options": [
+"2",
+"4",
+"8",
+"16"
+],
+"correct": 1,
+"solution": "The cube root of 64 is 4, because 4 * 4 * 4 = 64."
+},
+{
+"q": "Expand (a + b)².",
+"svg": "",
+"options": [
+"a² + b²",
+"a² + ab + b²",
+"a² + 2ab + b²",
+"a² - 2ab + b²"
+],
+"correct": 2,
+"solution": "The identity is (a + b)² = a² + 2ab + b²."
+},
+{
+"q": "What is the mode of the data set: 1, 2, 2, 3, 3, 3, 4?",
+"svg": "",
+"options": [
+"1",
+"2",
+"3",
+"4"
+],
+"correct": 2,
+"solution": "The mode is the number that appears most frequently in a data set. Here, 3 appears three times."
+},
+{
+"q": "Which of the following is a prime number?",
+"svg": "",
+"options": [
+"9",
+"15",
+"21",
+"23"
+],
+"correct": 3,
+"solution": "A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. 23 is a prime number."
+},
+{
+"q": "Calculate: 0.25 + 0.75 - 0.50",
+"svg": "",
+"options": [
+"0.25",
+"0.50",
+"1.00",
+"1.25"
+],
+"correct": 1,
+"solution": "0.25 + 0.75 = 1.00. Then 1.00 - 0.50 = 0.50."
+},
+{
+"q": "How many centimeters are in 3 meters?",
+"svg": "",
+"options": [
+"30 cm",
+"300 cm",
+"3000 cm",
+"0.03 cm"
+],
+"correct": 1,
+"solution": "There are 100 centimeters in 1 meter, so 3 meters * 100 cm/meter = 300 cm."
+},
+{
+"q": "What is the value of 2⁵?",
+"svg": "",
+"options": [
+"10",
+"16",
+"32",
+"64"
+],
+"correct": 2,
+"solution": "2⁵ = 2 * 2 * 2 * 2 * 2 = 32."
+},
+{
+"q": "Find the median of the data set: 10, 5, 8, 12, 6.",
+"svg": "",
+"options": [
+"5",
+"8",
+"10",
+"12"
+],
+"correct": 1,
+"solution": "First, arrange the numbers in ascending order: 5, 6, 8, 10, 12. The middle number is the median, which is 8."
+},
+{
+"q": "A rectangle has a length of 8 cm and a width of 5 cm. What is its area?",
+"svg": "",
+"options": [
+"13 cm²",
+"26 cm²",
+"40 cm²",
+"80 cm²"
+],
+"correct": 2,
+"solution": "Area of a rectangle = length × width = 8 cm × 5 cm = 40 cm²."
+},
+{
+"q": "Simplify √72.",
+"svg": "",
+"options": [
+"6√2",
+"2√6",
+"3√8",
+"√72"
+],
+"correct": 0,
+"solution": "√72 = √(36 * 2) = √36 * √2 = 6√2."
+},
+{
+"q": "A cylinder has a radius of 3 cm and a height of 7 cm. What is its volume? (Use π = 22/7)",
+"svg": "",
+"options": [
+"198 cm³",
+"132 cm³",
+"63 cm³",
+"44 cm³"
+],
+"correct": 0,
+"solution": "Volume of cylinder = πr²h = (22/7) * 3² * 7 = (22/7) * 9 * 7 = 22 * 9 = 198 cm³."
+},
+{
+"q": "If an item's price increases from $50 to $60, what is the percentage increase?",
+"svg": "",
+"options": [
+"10%",
+"15%",
+"20%",
+"25%"
+],
+"correct": 2,
+"solution": "Percentage increase = ((New Price - Old Price) / Old Price) * 100 = ((60 - 50) / 50) * 100 = (10 / 50) * 100 = 0.20 * 100 = 20%."
+}
+],
+"Aptitude": [
+{
+"q": "Choose the word that is most nearly opposite in meaning to 'ANCIENT'.",
+"svg": "",
+"options": [
+"Old",
+"Modern",
+"Historic",
+"Antique"
+],
+"correct": 1,
+"solution": "'Ancient' means belonging to the very distant past. 'Modern' means relating to the present or recent times, making it the opposite."
+},
+{
+"q": "What comes next in the sequence: 2, 5, 10, 17, __?",
+"svg": "",
+"options": [
+"24",
+"26",
+"28",
+"30"
+],
+"correct": 1,
+"solution": "The pattern is n² + 1: 1²+1=2, 2²+1=5, 3²+1=10, 4²+1=17. So, the next term is 5²+1 = 25+1 = 26."
+},
+{
+"q": "SQUARE : CUBE :: CIRCLE : ?",
+"svg": "",
+"options": [
+"Sphere",
+"Cylinder",
+"Cone",
+"Ellipse"
+],
+"correct": 0,
+"solution": "A cube is the 3D equivalent of a square. Similarly, a sphere is the 3D equivalent of a circle."
+},
+{
+"q": "Pointing to a man in a photograph, a woman said, 'His brother's father is the only son of my grandfather.' How is the woman related to the man?",
+"svg": "",
+"options": [
+"Sister",
+"Mother",
+"Daughter",
+"Aunt"
+],
+"correct": 0,
+"solution": "The man's brother's father is the man's father. 'The only son of my grandfather' refers to her father. So, the man's father is the woman's father. This means the man and woman are siblings. Thus, the woman is the man's sister."
+},
+{
+"q": "If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?",
+"svg": "",
+"options": [
+"1 minute",
+"5 minutes",
+"10 minutes",
+"100 minutes"
+],
+"correct": 1,
+"solution": "If 5 machines make 5 widgets in 5 minutes, it implies that one machine makes one widget in 5 minutes. Therefore, 100 machines making 100 widgets would still take 5 minutes, as each machine is working independently on one widget."
+},
+{
+"q": "If 'ZOO' is coded as 'YNN', how is 'GAME' coded?",
+"svg": "",
+"options": [
+"FZLD",
+"FZMD",
+"HBNF",
+"HALD"
+],
+"correct": 0,
+"solution": "The pattern is that each letter is shifted backward by one position in the alphabet. Z->Y, O->N, O->N. Applying this to GAME: G->F, A->Z, M->L, E->D. So, GAME is coded as FZLD."
+},
+{
+"q": "A man walks 10 meters East, then turns right and walks 5 meters. Then he turns right and walks 10 meters. In which direction is he from the starting point?",
+"svg": "",
+"options": [
+"North",
+"South",
+"East",
+"West"
+],
+"correct": 1,
+"solution": "He walks 10m E. Turns right (South) and walks 5m. Turns right again (West) and walks 10m. He is now 5 meters South of his starting point. So, he is in the South direction."
+},
+{
+"q": "Five friends A, B, C, D, E are sitting in a row. C is to the immediate right of B and to the immediate left of D. A is to the immediate left of E. Who is sitting in the middle?",
+"svg": "",
+"options": [
+"A",
+"B",
+"C",
+"D"
+],
+"correct": 2,
+"solution": "From 'C is to the immediate right of B and to the immediate left of D', we get the arrangement B C D. From 'A is to the immediate left of E', we get A E. Combining these, considering the row has 5 friends, we get A E B C D. The middle person is C."
+},
+{
+"q": "A can do a piece of work in 10 days, and B can do the same work in 15 days. How many days will they take to complete the work if they work together?",
+"svg": "",
+"options": [
+"5 days",
+"6 days",
+"8 days",
+"12 days"
+],
+"correct": 1,
+"solution": "A's 1-day work = 1/10. B's 1-day work = 1/15. Together, their 1-day work = 1/10 + 1/15 = 3/30 + 2/30 = 5/30 = 1/6. So they will take 6 days to complete the work together."
+},
+{
+"q": "At what time between 4 and 5 o'clock will the hands of a clock be at right angles?",
+"svg": "",
+"options": [
+"4:05.45",
+"4:05.50",
+"4:05.55",
+"4:06"
+],
+"correct": 0,
+"solution": "At 4 o'clock, the minute hand is at 12 and the hour hand is at 4. The angle between them is 4 * 30° = 120°. For right angle, hands should be 90° apart. Let the time be 4:M minutes. Angle of hour hand from 12 = 30H + M/2 = 30*4 + M/2 = 120 + M/2. Angle of minute hand from 12 = 6M. Case 1: Minute hand is 90° behind hour hand. (120 + M/2) - 6M = 90. 120 - 90 = 6M - M/2. 30 = 11M/2. M = 60/11 = 5.45 minutes. So 4:05.45 approx. The given option 4:05.45 is the closest."
+}
+],
+"English": [
+{
+"q": "Neither of the two candidates _______ suitable.",
+"svg": "",
+"options": [
+"is",
+"are",
+"were",
+"have been"
+],
+"correct": 0,
+"solution": "When 'neither' is used as the subject, it always takes a singular verb. So, 'is' is the correct choice."
+},
+{
+"q": "Choose the word that is most similar in meaning to 'ELUCIDATE'.",
+"svg": "",
+"options": [
+"Confuse",
+"Clarify",
+"Obscure",
+"Complicate"
+],
+"correct": 1,
+"solution": "'Elucidate' means to make something clear; explain. 'Clarify' has the most similar meaning."
+},
+{
+"q": "Read the sentence: 'Despite the incessant rain, the marathon runners continued their race without faltering.' What can be inferred about the runners?",
+"svg": "",
+"options": [
+"They were likely to win.",
+"They were well-prepared and determined.",
+"They regretted participating in the race.",
+"They were forced to continue."
+],
+"correct": 1,
+"solution": "The phrase 'without faltering' despite 'incessant rain' implies strong determination and preparation from the runners."
+},
+{
+"q": "She was so _______ by the news that she could barely speak.",
+"svg": "",
+"options": [
+"delighted",
+"shocked",
+"amused",
+"calm"
+],
+"correct": 1,
+"solution": "The phrase 'could barely speak' suggests a strong negative emotional response. 'Shocked' fits this context best."
+},
+{
+"q": "What does the idiom 'to bite the bullet' mean?",
+"svg": "",
+"options": [
+"To chew on metal",
+"To endure a difficult situation with courage",
+"To fire a gun",
+"To face a minor inconvenience"
+],
+"correct": 1,
+"solution": "'To bite the bullet' means to face a difficult or unpleasant situation with fortitude and endure it, especially by accepting a hard choice."
+}
+]
+}
 }
