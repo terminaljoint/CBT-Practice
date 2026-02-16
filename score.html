@@ -21,9 +21,9 @@
         body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; margin: 0; padding: 10px; color: #1e293b; }
         .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); overflow: hidden; }
         .header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; }
-        .header h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em; }
-        .paper-meta { display: flex; justify-content: center; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
-        .meta-pill { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 12px; border: 1px solid rgba(255,255,255,0.2); }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em; text-transform: capitalize; }
+        .paper-meta { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .meta-pill { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 11px; border: 1px solid rgba(255,255,255,0.2); font-weight: 500; }
         .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-bottom: 1px solid var(--border); }
         .stat-item { padding: 25px 10px; text-align: center; border-right: 1px solid var(--border); }
         .stat-item:last-child { border-right: none; }
@@ -34,16 +34,16 @@
         th { background: #f1f5f9; padding: 12px 15px; text-align: left; font-size: 13px; color: #475569; }
         td { padding: 15px; border-top: 1px solid var(--border); font-size: 14px; }
         .sol-card { border: 1px solid var(--border); border-left: 5px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
-        .svg-container { margin: 15px 0; background: #fff; padding: 10px; }
+        .svg-container { margin: 15px 0; background: #fff; display: block; }
         .svg-container svg { max-width: 100%; height: auto; display: block; }
         .badge-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-        .badge { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .bg-correct { background: #dcfce7; color: #166534; }
         .bg-wrong { background: #fee2e2; color: #991b1b; }
         .bg-skip { background: #f1f5f9; color: #475569; }
-        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; font-size: 14px; border: 1px solid var(--border); line-height: 1.6; }
+        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13.5px; border: 1px solid var(--border); line-height: 1.6; color: #334155; }
         .actions { padding: 20px 30px; background: #f8fafc; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid var(--border); }
-        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; text-decoration: none; }
+        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
         .btn-blue { background: var(--accent); color: white; }
         .btn-outline { background: white; border: 1px solid var(--border); color: #475569; }
         @media (max-width: 800px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } .stat-item:nth-child(3) { border-right: none; } }
@@ -54,16 +54,16 @@
 
 <div class="container">
     <div class="header">
-        <h1 id="dispPaperName">Result Analysis</h1>
+        <h1 id="dispPaperName">Loading Result...</h1>
         <div class="paper-meta">
-            <span class="meta-pill" id="dispMarking">Marking: Fetching...</span>
-            <span class="meta-pill" id="dispDuration">Duration: -- mins</span>
+            <span class="meta-pill" id="dispMarking">Marking: --</span>
+            <span class="meta-pill" id="dispDuration">Duration: --</span>
         </div>
     </div>
 
     <div class="stats-grid">
         <div class="stat-item"><span class="stat-label">Total Questions</span><div class="stat-value" id="resTotalQ">0</div></div>
-        <div class="stat-item"><span class="stat-label">Total Score</span><div class="stat-value" id="resScore">0</div></div>
+        <div class="stat-item"><span class="stat-label">Score</span><div class="stat-value" id="resScore">0</div></div>
         <div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="resAcc">0%</div></div>
         <div class="stat-item"><span class="stat-label">Correct</span><div class="stat-value" id="resCorr" style="color:var(--success)">0</div></div>
         <div class="stat-item"><span class="stat-label">Wrong</span><div class="stat-value" id="resWrong" style="color:var(--danger)">0</div></div>
@@ -85,9 +85,9 @@
     </div>
 
     <div class="actions">
-        <button class="btn btn-outline" onclick="toggleReview()">Review Answer Key</button>
-        <button class="btn btn-outline" onclick="window.print()">Print Report</button>
-        <a href="index.html" class="btn btn-blue">Exit</a>
+        <button class="btn btn-outline" onclick="toggleReview()">Review Solutions</button>
+        <button class="btn btn-outline" onclick="window.print()">Print</button>
+        <a href="index.html" class="btn btn-blue">New Test</a>
     </div>
 </div>
 
@@ -97,19 +97,20 @@
         if (!raw) return;
         const data = JSON.parse(raw);
 
-        // --- ENHANCED PAPER NAME DETECTION ---
-        // 1. Check if name is in root (data.paperName)
-        // 2. Check if name is in metadata (data.metadata.paperName)
-        // 3. Fallback to duration-based name or generic
-        const foundPaperName = data.paperName || data.metadata?.paperName || "Assessment Result";
-        document.getElementById("dispPaperName").innerText = foundPaperName;
+        // --- 1. PAPER NAME DETECTION ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const nameFromUrl = urlParams.get('name');
+        
+        // Priority: URL Param > JSON paperName > JSON metadata name > Default
+        const finalName = nameFromUrl || data.paperName || data.metadata?.paperName || "Examination Result";
+        document.getElementById("dispPaperName").innerText = finalName.replace(/_/g, ' ');
 
-        // --- Marking & Duration ---
+        // --- 2. MARKING & DURATION ---
         const marking = data.marking || data.metadata?.marking || { correct: 10, wrong: -3.3 };
         const pos = parseFloat(marking.correct);
         const neg = parseFloat(marking.wrong);
         document.getElementById("dispMarking").innerText = `Correct: +${pos} | Wrong: ${neg}`;
-        document.getElementById("dispDuration").innerText = `Duration: ${data.duration || '--'} mins`;
+        document.getElementById("dispDuration").innerText = `Time: ${data.duration || '--'} mins`;
 
         let gScore = 0, gCorr = 0, gWrong = 0, gAtt = 0, totalQ = 0;
         const tbody = document.getElementById("resTableBody");
