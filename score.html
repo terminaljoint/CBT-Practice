@@ -1,187 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result Transcript</title>
-    
-    <script>
-        window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-            svg: { fontCache: 'global' }
-        };
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Result Transcript</title>
 
-    <style>
-        :root { --primary: #0f172a; --accent: #2563eb; --success: #16a34a; --danger: #dc2626; --border: #e2e8f0; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; margin: 0; padding: 10px; color: #1e293b; }
-        .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); overflow: hidden; }
-        .header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; }
-        .header h1 { margin: 0; font-size: 28px; font-weight: 800; text-transform: capitalize; }
-        .paper-meta { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
-        .meta-pill { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 11px; border: 1px solid rgba(255,255,255,0.2); }
-        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-bottom: 1px solid var(--border); }
-        .stat-item { padding: 25px 10px; text-align: center; border-right: 1px solid var(--border); }
-        .stat-item:last-child { border-right: none; }
-        .stat-label { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
-        .stat-value { font-size: 24px; font-weight: 800; margin-top: 4px; color: #0f172a; }
-        .content { padding: 30px; }
-        table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); }
-        th { background: #f1f5f9; padding: 12px; text-align: left; font-size: 13px; }
-        td { padding: 15px; border-top: 1px solid var(--border); font-size: 14px; }
-        .sol-card { border: 1px solid var(--border); border-left: 5px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
-        .svg-container { margin: 15px 0; background: #fff; display: block; }
-        .svg-container svg { max-width: 100%; height: auto; display: block; }
-        .badge-row { display: flex; gap: 8px; margin-bottom: 12px; }
-        .badge { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .bg-correct { background: #dcfce7; color: #166534; }
-        .bg-wrong { background: #fee2e2; color: #991b1b; }
-        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13.5px; border: 1px solid var(--border); }
-        .actions { padding: 20px 30px; background: #f8fafc; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid var(--border); }
-        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 14px; text-decoration: none; }
-        .btn-blue { background: var(--accent); color: white; }
-    </style>
+<script>
+window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+<style>
+:root { --primary:#0f172a; --accent:#2563eb; --success:#16a34a; --danger:#dc2626; --border:#e2e8f0; }
+body { font-family:'Inter',system-ui,sans-serif;background:#f8fafc;margin:0;padding:10px;color:#1e293b; }
+.container { max-width:1000px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 10px 15px rgba(0,0,0,0.1);overflow:hidden; }
+.header { background:var(--primary);color:white;padding:40px 20px;text-align:center; }
+.header h1 { margin:0;font-size:28px;font-weight:800;text-transform:capitalize; }
+.paper-meta { display:flex;justify-content:center;gap:10px;margin-top:15px; }
+.meta-pill { background:rgba(255,255,255,0.1);padding:5px 12px;border-radius:20px;font-size:11px;border:1px solid rgba(255,255,255,0.2); }
+.stats-grid { display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-bottom:1px solid var(--border); }
+.stat-item { padding:25px 10px;text-align:center;border-right:1px solid var(--border); }
+.stat-item:last-child { border-right:none; }
+.stat-label { font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase; }
+.stat-value { font-size:24px;font-weight:800;margin-top:4px;color:#0f172a; }
+.content { padding:30px; }
+table { width:100%;border-collapse:collapse;border:1px solid var(--border); }
+th { background:#f1f5f9;padding:12px;text-align:left;font-size:13px; }
+td { padding:15px;border-top:1px solid var(--border);font-size:14px; }
+.sol-card { border:1px solid var(--border);border-left:5px solid #cbd5e1;padding:20px;margin-bottom:20px;border-radius:8px; }
+.svg-container { margin:15px 0;background:#fff;display:block; }
+.svg-container svg { max-width:100%;height:auto;display:block; }
+.badge-row { display:flex;gap:8px;margin-bottom:12px; }
+.badge { padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;text-transform:uppercase; }
+.bg-correct { background:#dcfce7;color:#166534; }
+.bg-wrong { background:#fee2e2;color:#991b1b; }
+.explanation { background:#f8fafc;padding:15px;border-radius:6px;font-size:13.5px;border:1px solid var(--border); }
+.actions { padding:20px 30px;background:#f8fafc;display:flex;gap:10px;justify-content:flex-end;border-top:1px solid var(--border); }
+.btn { padding:10px 20px;border-radius:6px;border:none;font-weight:600;cursor:pointer;font-size:14px;text-decoration:none; }
+.btn-blue { background:var(--accent);color:white; }
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1 id="dispPaperName">Test Results</h1>
-        <div class="paper-meta">
-            <span class="meta-pill" id="dispMarking">Marking: --</span>
-            <span class="meta-pill" id="dispDuration">Duration: --</span>
-        </div>
-    </div>
+<div class="header">
+<h1 id="dispPaperName">Test Results</h1>
+<div class="paper-meta">
+<span class="meta-pill" id="dispMarking">Marking: --</span>
+<span class="meta-pill" id="dispDuration">Duration: --</span>
+</div>
+</div>
 
-    <div class="stats-grid">
-        <div class="stat-item"><span class="stat-label">Total Qs</span><div class="stat-value" id="resTotalQ">0</div></div>
-        <div class="stat-item"><span class="stat-label">Net Score</span><div class="stat-value" id="resScore">0</div></div>
-        <div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="resAcc">0%</div></div>
-        <div class="stat-item"><span class="stat-label">Correct</span><div class="stat-value" id="resCorr" style="color:var(--success)">0</div></div>
-        <div class="stat-item"><span class="stat-label">Wrong</span><div class="stat-value" id="resWrong" style="color:var(--danger)">0</div></div>
-    </div>
+<div class="stats-grid">
+<div class="stat-item"><span class="stat-label">Total Qs</span><div class="stat-value" id="resTotalQ">0</div></div>
+<div class="stat-item"><span class="stat-label">Net Score</span><div class="stat-value" id="resScore">0</div></div>
+<div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="resAcc">0%</div></div>
+<div class="stat-item"><span class="stat-label">Correct</span><div class="stat-value" id="resCorr" style="color:var(--success)">0</div></div>
+<div class="stat-item"><span class="stat-label">Wrong</span><div class="stat-value" id="resWrong" style="color:var(--danger)">0</div></div>
+</div>
 
-    <div class="content">
-        <div style="overflow-x:auto">
-            <table>
-                <thead>
-                    <tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Score</th></tr>
-                </thead>
-                <tbody id="resTableBody"></tbody>
-            </table>
-        </div>
-        <div id="reviewBox" style="display:none; margin-top:40px;">
-            <h3>Review Solutions</h3>
-            <div id="solList"></div>
-        </div>
-    </div>
+<div class="content">
+<div style="overflow-x:auto">
+<table>
+<thead>
+<tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Score</th></tr>
+</thead>
+<tbody id="resTableBody"></tbody>
+</table>
+</div>
 
-    <div class="actions">
-        <button class="btn" style="background:white; border:1px solid #ddd" onclick="toggleReview()">Review Answer Key</button>
-        <a href="index.html" class="btn btn-blue">Try Another Test</a>
-    </div>
+<div id="reviewBox" style="display:none;margin-top:40px;">
+<h3>Review Solutions</h3>
+<div id="solList"></div>
+</div>
+</div>
+
+<div class="actions">
+<button class="btn" style="background:white;border:1px solid #ddd" onclick="toggleReview()">Review Answer Key</button>
+<a href="index.html" class="btn btn-blue">Try Another Test</a>
+</div>
 </div>
 
 <script>
-    function init() {
-        const raw = localStorage.getItem("exam_result");
-        if (!raw) return;
-        const data = JSON.parse(raw);
 
-        // --- THE FILE NAME FETCHING LOGIC ---
-        // 1. Try to get it from a specific property 'filename'
-        // 2. Try to get it from the URL (score.html?file=physics_test.json)
-        // 3. Try to get it from the localStorage key if index.html saved it there
-        const urlParams = new URLSearchParams(window.location.search);
-        let fileName = urlParams.get('file') || data.paperName || data.filename || "";
+function init(){
 
-        // If it's a path like "data/physics_test.json", clean it to "Physics Test"
-        if (fileName) {
-            fileName = fileName.split('/').pop().replace('.json', '').replace(/_/g, ' ').replace(/-/g, ' ');
-        } else {
-            fileName = "Assessment Report";
-        }
-        
-        document.getElementById("dispPaperName").innerText = fileName;
+const raw = localStorage.getItem("exam_result");
+if(!raw) return;
 
-        // --- MARKING & STATS ---
-        const marking = data.marking || { correct: 10, wrong: -3.3 };
-        const pos = parseFloat(marking.correct);
-        const neg = parseFloat(marking.wrong);
-        document.getElementById("dispMarking").innerText = `Correct: +${pos} | Wrong: ${neg}`;
-        document.getElementById("dispDuration").innerText = `Time: ${data.duration || '--'} mins`;
+const data = JSON.parse(raw);
 
-        let gScore = 0, gCorr = 0, gWrong = 0, gAtt = 0, totalQ = 0;
-        const tbody = document.getElementById("resTableBody");
-        const sections = data.sections || {};
+/* ===== FETCH META DIRECTLY FROM JSON ===== */
 
-        Object.keys(sections).forEach(sec => {
-            let sC = 0, sW = 0, sA = 0;
-            const qs = sections[sec];
-            totalQ += qs.length;
+const paperName = data.paperName || data.name || "Assessment Report";
+document.getElementById("dispPaperName").innerText = paperName;
 
-            qs.forEach(q => {
-                if (q.userAnswer !== null && q.userAnswer !== undefined && q.userAnswer !== "") {
-                    sA++;
-                    if (String(q.userAnswer) === String(q.correct)) sC++;
-                    else sW++;
-                }
-            });
+const marking = data.marking ?? {correct:0,wrong:0};
+const pos = parseFloat(marking.correct);
+const neg = parseFloat(marking.wrong);
 
-            const sScore = (sC * pos) + (sW * neg);
-            gScore += sScore; gCorr += sC; gWrong += sW; gAtt += sA;
+document.getElementById("dispMarking").innerText =
+`Correct: +${pos} | Wrong: ${neg}`;
 
-            tbody.innerHTML += `<tr>
-                <td><strong>${sec}</strong></td>
-                <td>${sA} / ${qs.length}</td>
-                <td>${sC}</td>
-                <td>${sW}</td>
-                <td><strong>${sScore.toFixed(2)}</strong></td>
-            </tr>`;
-        });
+document.getElementById("dispDuration").innerText =
+`Time: ${data.duration || '--'} mins`;
 
-        document.getElementById("resTotalQ").innerText = totalQ;
-        document.getElementById("resScore").innerText = gScore.toFixed(2);
-        document.getElementById("resCorr").innerText = gCorr;
-        document.getElementById("resWrong").innerText = gWrong;
-        document.getElementById("resAcc").innerText = gAtt > 0 ? Math.round((gCorr/gAtt)*100) + "%" : "0%";
-    }
+/* ===== CALCULATE STATS ===== */
 
-    function toggleReview() {
-        const box = document.getElementById("reviewBox");
-        box.style.display = box.style.display === "none" ? "block" : "none";
-        if (box.style.display === "block") renderSolutions();
-    }
+let gScore=0,gCorr=0,gWrong=0,gAtt=0,totalQ=0;
+const tbody=document.getElementById("resTableBody");
+const sections=data.sections||{};
 
-    function renderSolutions() {
-        const data = JSON.parse(localStorage.getItem("exam_result"));
-        const list = document.getElementById("solList");
-        list.innerHTML = "";
+Object.keys(sections).forEach(sec=>{
 
-        Object.keys(data.sections).forEach(sec => {
-            list.innerHTML += `<h4 style="color:var(--accent); margin-top:30px;">${sec}</h4>`;
-            data.sections[sec].forEach((q, i) => {
-                const isRight = q.userAnswer !== null && String(q.userAnswer) === String(q.correct);
-                const fmt = (v) => (v === null || v === "" || v === undefined) ? "Skipped" : (q.options ? q.options[v] : v);
-                const svgTag = q.svg ? `<div class="svg-container">${q.svg}</div>` : "";
+let sC=0,sW=0,sA=0;
+const qs=sections[sec];
+totalQ+=qs.length;
 
-                list.innerHTML += `
-                    <div class="sol-card" style="border-left-color: ${isRight ? 'var(--success)' : '#cbd5e1'}">
-                        <div style="font-weight:600;">Q${i+1}. ${q.q}</div>
-                        ${svgTag}
-                        <div class="badge-row">
-                            <span class="badge ${isRight ? 'bg-correct' : 'bg-wrong'}">Yours: ${fmt(q.userAnswer)}</span>
-                            <span class="badge bg-correct">Correct: ${fmt(q.correct)}</span>
-                        </div>
-                        <div class="explanation"><strong>Solution:</strong><br>${q.solution || "No explanation."}</div>
-                    </div>`;
-            });
-        });
-        if (window.MathJax) MathJax.typesetPromise();
-    }
+qs.forEach(q=>{
+if(q.userAnswer!==null && q.userAnswer!==undefined && q.userAnswer!==""){
+sA++;
+if(String(q.userAnswer)===String(q.correct)) sC++;
+else sW++;
+}
+});
 
-    window.onload = init;
+const sScore=(sC*pos)+(sW*neg);
+
+gScore+=sScore;
+gCorr+=sC;
+gWrong+=sW;
+gAtt+=sA;
+
+tbody.innerHTML+=`
+<tr>
+<td><strong>${sec}</strong></td>
+<td>${sA} / ${qs.length}</td>
+<td>${sC}</td>
+<td>${sW}</td>
+<td><strong>${sScore.toFixed(2)}</strong></td>
+</tr>`;
+});
+
+document.getElementById("resTotalQ").innerText=totalQ;
+document.getElementById("resScore").innerText=gScore.toFixed(2);
+document.getElementById("resCorr").innerText=gCorr;
+document.getElementById("resWrong").innerText=gWrong;
+document.getElementById("resAcc").innerText=
+gAtt>0?Math.round((gCorr/gAtt)*100)+"%":"0%";
+}
+
+/* ===== REVIEW PANEL ===== */
+
+function toggleReview(){
+const box=document.getElementById("reviewBox");
+box.style.display=box.style.display==="none"?"block":"none";
+if(box.style.display==="block") renderSolutions();
+}
+
+function renderSolutions(){
+
+const data=JSON.parse(localStorage.getItem("exam_result"));
+const list=document.getElementById("solList");
+list.innerHTML="";
+
+Object.keys(data.sections).forEach(sec=>{
+
+list.innerHTML+=`<h4 style="color:var(--accent);margin-top:30px;">${sec}</h4>`;
+
+data.sections[sec].forEach((q,i)=>{
+
+const isRight=q.userAnswer!==null && String(q.userAnswer)===String(q.correct);
+const fmt=(v)=> (v===null||v===""||v===undefined)?"Skipped":(q.options?q.options[v]:v);
+const svgTag=q.svg?`<div class="svg-container">${q.svg}</div>`:"";
+
+list.innerHTML+=`
+<div class="sol-card" style="border-left-color:${isRight?'var(--success)':'#cbd5e1'}">
+<div style="font-weight:600;">Q${i+1}. ${q.q}</div>
+${svgTag}
+<div class="badge-row">
+<span class="badge ${isRight?'bg-correct':'bg-wrong'}">Yours: ${fmt(q.userAnswer)}</span>
+<span class="badge bg-correct">Correct: ${fmt(q.correct)}</span>
+</div>
+<div class="explanation"><strong>Solution:</strong><br>${q.solution||"No explanation."}</div>
+</div>`;
+});
+});
+
+if(window.MathJax) MathJax.typesetPromise();
+}
+
+window.onload=init;
 </script>
 </body>
 </html>
