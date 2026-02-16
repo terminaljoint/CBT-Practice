@@ -347,6 +347,8 @@
     }
 
     function confirmSubmit() {
+        localStorage.setItem("lastPaper",
+   document.getElementById("paperSelect").value);
         localStorage.setItem("exam_result", JSON.stringify({ metadata: { violations }, sections }));
         location.href = "score.html";
     }
