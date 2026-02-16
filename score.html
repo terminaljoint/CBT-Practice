@@ -4,54 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Result | Official Transcript</title>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+
     <style>
-        :root { --primary: #2563eb; --success: #16a34a; --danger: #dc2626; --bg: #f8fafc; }
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); margin: 0; padding: 10px; color: #1e293b; }
-        .container { max-width: 900px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); overflow: hidden; }
-        .header { background: #1e293b; color: white; padding: 40px 20px; text-align: center; }
-        .header h1 { margin: 0; font-size: 24px; letter-spacing: -0.025em; }
-        .marking-pill { display: inline-block; background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 20px; font-size: 13px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.2); }
+        :root { --primary: #1e293b; --success: #16a34a; --danger: #dc2626; --bg: #f1f5f9; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #334155; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
+        .header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; }
+        .marking-pill { display: inline-block; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; font-size: 13px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.2); }
         
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-bottom: 1px solid #e2e8f0; }
         .stat-item { padding: 25px 10px; text-align: center; border-right: 1px solid #e2e8f0; }
         .stat-item:last-child { border-right: none; }
-        .stat-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; }
         .stat-value { font-size: 28px; font-weight: 800; margin-top: 4px; color: #0f172a; }
 
         .content { padding: 30px; }
-        .table-container { overflow-x: auto; border-radius: 8px; border: 1px solid #e2e8f0; }
-        table { width: 100%; border-collapse: collapse; background: white; }
-        th { background: #f1f5f9; padding: 12px 15px; text-align: left; font-size: 13px; font-weight: 600; color: #475569; }
+        .table-container { overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8fafc; padding: 12px; text-align: left; font-size: 13px; color: #475569; }
         td { padding: 15px; border-top: 1px solid #e2e8f0; font-size: 14px; }
         
-        .sol-card { border: 1px solid #e2e8f0; border-left: 4px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 8px; background: white; }
-        .sol-q { font-weight: 600; font-size: 15px; margin-bottom: 12px; color: #1e293b; display: block; }
-        .badge-box { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+        /* SVG & LaTeX Card Styling */
+        .sol-card { border: 1px solid #e2e8f0; border-left: 5px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .svg-container { margin: 15px 0; display: block; max-width: 100%; }
+        .svg-container svg { height: auto; max-width: 100%; }
+        
+        .badge-box { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
         .badge { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
-        .badge-user { background: #fee2e2; color: #991b1b; }
         .badge-correct { background: #dcfce7; color: #166534; }
-        .badge-skipped { background: #f1f5f9; color: #475569; }
-        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13.5px; border: 1px solid #e2e8f0; line-height: 1.6; }
+        .badge-wrong { background: #fee2e2; color: #991b1b; }
+        
+        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 14px; line-height: 1.6; }
 
         .actions { padding: 20px 30px; background: #f8fafc; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid #e2e8f0; }
-        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; text-decoration: none; }
-        .btn-primary { background: var(--primary); color: white; }
+        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; text-decoration: none; }
+        .btn-primary { background: #2563eb; color: white; }
         .btn-outline { background: white; border: 1px solid #e2e8f0; color: #475569; }
-
-        @media (max-width: 640px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .stat-item { border-bottom: 1px solid #e2e8f0; }
-            .actions { flex-direction: column; }
-            .btn { text-align: center; }
-        }
+        
+        @media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .actions { flex-direction: column; } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1 id="paperNameDisplay">Result Analysis</h1>
+        <h1 id="paperName">Result Analysis</h1>
         <div id="markingSchemePill" class="marking-pill">Loading Marking...</div>
     </div>
 
@@ -63,32 +71,25 @@
     </div>
 
     <div class="content">
-        <h3 style="margin-top:0">Section-wise Performance</h3>
         <div class="table-container">
             <table>
                 <thead>
-                    <tr>
-                        <th>Section</th>
-                        <th>Attempted</th>
-                        <th>Correct</th>
-                        <th>Incorrect</th>
-                        <th>Score</th>
-                    </tr>
+                    <tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Incorrect</th><th>Score</th></tr>
                 </thead>
                 <tbody id="statsTableBody"></tbody>
             </table>
         </div>
 
         <div id="reviewContainer" style="display:none; margin-top:40px;">
-            <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Review & Solutions</h3>
+            <h3 style="border-bottom: 2px solid #eee; padding-bottom: 10px;">Review Answers</h3>
             <div id="solutionList"></div>
         </div>
     </div>
 
     <div class="actions">
         <button class="btn btn-outline" onclick="toggleReview()">Review Answer Key</button>
-        <button class="btn btn-outline" onclick="window.print()">Print Result</button>
-        <a href="index.html" class="btn btn-primary">Try Another Test</a>
+        <button class="btn btn-outline" onclick="window.print()">Print</button>
+        <a href="index.html" class="btn btn-primary">Exit</a>
     </div>
 </div>
 
@@ -98,18 +99,16 @@
         if (!raw) return;
         const data = JSON.parse(raw);
 
-        // --- DYNAMIC DATA DETECTION ---
-        // We look for 'marking' in the root or within metadata
-        const markingObj = data.marking || data.metadata?.marking || { correct: 10, wrong: -3.3 };
-        const sections = data.sections || {};
-        
-        const pos = parseFloat(markingObj.correct);
-        const neg = parseFloat(markingObj.wrong);
+        // Fetch marking from your JSON structure
+        const marking = data.marking || { correct: 10, wrong: -3.3 };
+        const pos = parseFloat(marking.correct);
+        const neg = parseFloat(marking.wrong);
 
-        document.getElementById("markingSchemePill").innerText = `Correct: +${pos} | Incorrect: ${neg}`;
+        document.getElementById("markingSchemePill").innerText = `Rule: Correct (+${pos}) | Wrong (${neg})`;
         
         let gScore = 0, gCorrect = 0, gWrong = 0, gAttempt = 0;
         const tbody = document.getElementById("statsTableBody");
+        const sections = data.sections || {};
 
         Object.keys(sections).forEach(secName => {
             let sC = 0, sW = 0, sA = 0;
@@ -124,20 +123,22 @@
             const sScore = (sC * pos) + (sW * neg);
             gScore += sScore; gCorrect += sC; gWrong += sW; gAttempt += sA;
 
-            tbody.innerHTML += `
-                <tr>
-                    <td><strong>${secName}</strong></td>
-                    <td>${sA}</td>
-                    <td style="color:var(--success); font-weight:600">${sC}</td>
-                    <td style="color:var(--danger)">${sW}</td>
-                    <td><strong>${sScore.toFixed(2)}</strong></td>
-                </tr>`;
+            tbody.innerHTML += `<tr>
+                <td><strong>${secName}</strong></td>
+                <td>${sA}</td>
+                <td style="color:var(--success); font-weight:600">${sC}</td>
+                <td style="color:var(--danger)">${sW}</td>
+                <td><strong>${sScore.toFixed(2)}</strong></td>
+            </tr>`;
         });
 
         document.getElementById("totalScore").innerText = gScore.toFixed(2);
         document.getElementById("totalCorrect").innerText = gCorrect;
         document.getElementById("totalWrong").innerText = gWrong;
         document.getElementById("accuracy").innerText = gAttempt > 0 ? Math.round((gCorrect/gAttempt)*100) + "%" : "0%";
+        
+        // Initial LaTeX render for header/table
+        if (window.MathJax) MathJax.typeset();
     }
 
     function toggleReview() {
@@ -152,33 +153,40 @@
         list.innerHTML = "";
 
         Object.keys(data.sections).forEach(sec => {
-            list.innerHTML += `<h4 style="color:var(--primary); margin: 30px 0 15px;">Section: ${sec}</h4>`;
+            list.innerHTML += `<h4 style="color:#2563eb; margin: 30px 0 10px;">${sec}</h4>`;
             data.sections[sec].forEach((q, i) => {
                 const isRight = q.userAnswer !== null && String(q.userAnswer) === String(q.correct);
                 const isSkip = q.userAnswer === null || q.userAnswer === "" || q.userAnswer === undefined;
                 
                 const getVal = (v) => {
-                    if (v === null || v === "" || v === undefined) return "Not Answered";
+                    if (v === null || v === "" || v === undefined) return "Not Attempted";
                     return q.options ? `(${String.fromCharCode(65+parseInt(v))}) ${q.options[v]}` : v;
                 };
 
+                // Check for SVG
+                const svgHtml = q.svg ? `<div class="svg-container">${q.svg}</div>` : "";
+
                 list.innerHTML += `
-                    <div class="sol-card" style="border-left-color: ${isRight ? 'var(--success)' : (isSkip ? '#cbd5e1' : 'var(--danger)')}">
-                        <span class="sol-q">Q${i+1}. ${q.q}</span>
+                    <div class="sol-card" style="border-left-color: ${isRight ? 'var(--success)' : (isSkip ? '#94a3b8' : 'var(--danger)')}">
+                        <div style="font-weight:600; font-size:15px;">Q${i+1}. ${q.q}</div>
+                        ${svgHtml}
                         <div class="badge-box">
-                            <span class="badge ${isRight ? 'badge-correct' : (isSkip ? 'badge-skipped' : 'badge-user')}">
+                            <span class="badge ${isRight ? 'badge-correct' : (isSkip ? '' : 'badge-wrong')}" style="${isSkip ? 'background:#f1f5f9; color:#64748b' : ''}">
                                 Your Answer: ${getVal(q.userAnswer)}
                             </span>
-                            ${!isRight ? `<span class="badge badge-correct">Correct: ${getVal(q.correct)}</span>` : ''}
+                            <span class="badge badge-correct">Correct: ${getVal(q.correct)}</span>
                         </div>
                         <div class="explanation">
-                            <strong>Detailed Solution:</strong><br>
-                            ${q.solution || "No explanation provided."}
+                            <strong>Solution:</strong><br>${q.solution || "No explanation."}
                         </div>
                     </div>`;
             });
         });
-        if (window.MathJax) MathJax.typesetPromise();
+        
+        // Crucial: Re-run MathJax after adding dynamic HTML
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
     }
 
     window.onload = init;
