@@ -1,0 +1,226 @@
+{
+  "duration": 45,
+  "marking": {"correct": 10, "wrong": -3.3},
+  "sections": {
+    "Maths": [
+      {
+        "q": "If $f(x)=x^3-3x^2+2$, find the number of local extrema.",
+        "svg": "",
+        "options": ["2", "1", "3", "0"],
+        "correct": 0,
+        "solution": "f'(x)=3x^2-6x=3x(x-2). Critical points: x=0,2. f''(x)=6x-6. f''(0)=-6<0 (max), f''(2)=6>0 (min). Hence 2 extrema."
+      },
+      {
+        "q": "The distance between parallel lines $3x-4y+5=0$ and $3x-4y-7=0$ is",
+        "svg": "",
+        "options": ["12/5", "5/12", "2", "4"],
+        "correct": 0,
+        "solution": "Distance=|c1-c2|/√(a^2+b^2)=|5-(-7)|/5=12/5."
+      },
+      {
+        "q": "If $\\int_0^1 (3x^2+2x)dx=$",
+        "svg": "",
+        "options": ["2", "3", "1", "4"],
+        "correct": 0,
+        "solution": "∫(3x^2+2x)dx=x^3+x^2. Evaluate 0→1 gives 1+1=2."
+      },
+      {
+        "q": "The value of $\\lim_{x\\to0}\\frac{\\sin3x}{x}$ is",
+        "svg": "",
+        "options": ["3", "1", "0", "∞"],
+        "correct": 0,
+        "solution": "Use lim sin(ax)/x=a. Hence 3."
+      },
+      {
+        "q": "If $A=\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}$, then det(A)=",
+        "svg": "",
+        "options": ["-2", "2", "10", "5"],
+        "correct": 0,
+        "solution": "det=1·4−2·3=4−6=−2."
+      },
+      {
+        "q": "Equation of circle with center (2,−1) and radius 3 is",
+        "svg": "",
+        "options": ["(x-2)^2+(y+1)^2=9", "(x+2)^2+(y-1)^2=9", "(x-2)^2+(y-1)^2=9", "(x+2)^2+(y+1)^2=9"],
+        "correct": 0,
+        "solution": "Standard form (x−h)^2+(y−k)^2=r^2."
+      },
+      {
+        "q": "If vectors $\\vec a=(1,2,2)$ and $\\vec b=(2,1,2)$, then $\\vec a\\cdot\\vec b=$",
+        "svg": "",
+        "options": ["8", "6", "4", "2"],
+        "correct": 0,
+        "solution": "Dot=1·2+2·1+2·2=2+2+4=8."
+      },
+      {
+        "q": "Number of permutations of word 'LEVEL' is",
+        "svg": "",
+        "options": ["30", "60", "120", "24"],
+        "correct": 0,
+        "solution": "5!/ (2!2!)=120/4=30."
+      },
+      {
+        "q": "If $P(A)=0.6$, $P(B)=0.5$, $P(A∩B)=0.3$, find $P(A∪B)$.",
+        "svg": "",
+        "options": ["0.8", "0.9", "1.1", "0.3"],
+        "correct": 0,
+        "solution": "P(A∪B)=P(A)+P(B)-P(A∩B)=0.6+0.5-0.3=0.8."
+      },
+      {
+        "q": "Slope of line perpendicular to $2x+3y=5$ is",
+        "svg": "",
+        "options": ["3/2", "-3/2", "2/3", "-2/3"],
+        "correct": 0,
+        "solution": "Slope=-2/3. Perpendicular slope=3/2."
+      },
+      {
+        "q": "If $\\sum_{r=1}^n r=55$, find n.",
+        "svg": "",
+        "options": ["10", "11", "9", "8"],
+        "correct": 0,
+        "solution": "n(n+1)/2=55 → n=10."
+      },
+      {
+        "q": "The equation $x^2-5x+6=0$ has roots",
+        "svg": "",
+        "options": ["2,3", "−2,−3", "1,6", "−1,−6"],
+        "correct": 0,
+        "solution": "Factor: (x−2)(x−3)=0."
+      }
+    ],
+    "Physics": [
+      {
+        "q": "A body falls freely from rest for 2 s. Distance fallen (g=10 m/s^2) is",
+        "svg": "",
+        "options": ["20 m", "10 m", "40 m", "5 m"],
+        "correct": 0,
+        "solution": "s=½gt^2=½·10·4=20 m."
+      },
+      {
+        "q": "Work done by force 5 N over displacement 3 m at 0° is",
+        "svg": "",
+        "options": ["15 J", "8 J", "5 J", "3 J"],
+        "correct": 0,
+        "solution": "W=F s cosθ=5·3·1=15 J."
+      },
+      {
+        "q": "Current through 10Ω resistor with 20V applied is",
+        "svg": "",
+        "options": ["2 A", "0.5 A", "10 A", "200 A"],
+        "correct": 0,
+        "solution": "I=V/R=20/10=2A."
+      },
+      {
+        "q": "Energy of photon of frequency ν is",
+        "svg": "",
+        "options": ["hν", "h/ν", "ν/h", "hν^2"],
+        "correct": 0,
+        "solution": "E=hν."
+      },
+      {
+        "q": "Unit of magnetic flux is",
+        "svg": "",
+        "options": ["Weber", "Tesla", "Henry", "Volt"],
+        "correct": 0,
+        "solution": "SI unit of flux=Weber."
+      },
+      {
+        "q": "For SHM, maximum acceleration is",
+        "svg": "",
+        "options": ["ω^2A", "ωA", "A/ω", "ω/A"],
+        "correct": 0,
+        "solution": "a_max=ω^2A."
+      },
+      {
+        "q": "Escape velocity from earth surface is proportional to",
+        "svg": "",
+        "options": ["√R", "R", "1/R", "R^2"],
+        "correct": 0,
+        "solution": "v_e=√(2gR) ∝ √R."
+      }
+    ],
+    "Chemistry": [
+      {
+        "q": "Molar mass of H2SO4 is",
+        "svg": "",
+        "options": ["98 g/mol", "96 g/mol", "100 g/mol", "18 g/mol"],
+        "correct": 0,
+        "solution": "2+32+64=98."
+      },
+      {
+        "q": "Hybridization of carbon in CH4 is",
+        "svg": "",
+        "options": ["sp3", "sp2", "sp", "dsp2"],
+        "correct": 0,
+        "solution": "4 sigma bonds → sp3."
+      },
+      {
+        "q": "Oxidation number of Mn in KMnO4 is",
+        "svg": "",
+        "options": ["+7", "+5", "+2", "+4"],
+        "correct": 0,
+        "solution": "K=+1, O=−8 total → Mn=+7."
+      },
+      {
+        "q": "Rate law for first order reaction is",
+        "svg": "",
+        "options": ["k[A]", "k[A]^2", "k", "k[A][B]"],
+        "correct": 0,
+        "solution": "First order: rate=k[A]."
+      },
+      {
+        "q": "Coordination number of central atom in [Co(NH3)6]3+ is",
+        "svg": "",
+        "options": ["6", "3", "4", "2"],
+        "correct": 0,
+        "solution": "Six ligands attached."
+      },
+      {
+        "q": "Functional group in alcohol is",
+        "svg": "",
+        "options": ["−OH", "−COOH", "−CHO", "−NH2"],
+        "correct": 0,
+        "solution": "Alcohol contains hydroxyl group."
+      }
+    ],
+    "Aptitude": [
+      {
+        "q": "If 5 machines make 5 items in 5 min, 100 machines make 100 items in",
+        "svg": "",
+        "options": ["5 min", "100 min", "1 min", "20 min"],
+        "correct": 0,
+        "solution": "Rate proportional. 1 machine→1 item in 5 min."
+      },
+      {
+        "q": "Next number: 2, 6, 12, 20, ?",
+        "svg": "",
+        "options": ["30", "28", "26", "32"],
+        "correct": 0,
+        "solution": "Pattern n(n+1): 1·2,2·3,... next 5·6=30."
+      },
+      {
+        "q": "If A:B=2:3 and B:C=4:5, then A:C=",
+        "svg": "",
+        "options": ["8:15", "2:5", "3:5", "4:15"],
+        "correct": 0,
+        "solution": "A:B=2:3=8:12, B:C=4:5=12:15 → A:C=8:15."
+      }
+    ],
+    "English": [
+      {
+        "q": "Choose correct synonym of 'Abundant'",
+        "svg": "",
+        "options": ["Plentiful", "Scarce", "Rare", "Little"],
+        "correct": 0,
+        "solution": "Abundant means plentiful."
+      },
+      {
+        "q": "Choose correct sentence.",
+        "svg": "",
+        "options": ["She has finished her work.", "She have finished her work.", "She had finish her work.", "She finishing her work."],
+        "correct": 0,
+        "solution": "Correct present perfect form."
+      }
+    ]
+  }
+}
