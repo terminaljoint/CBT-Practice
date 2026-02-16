@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Result | Official Transcript</title>
+    <title>Exam Transcript | TerminalJoint</title>
     
     <script>
         window.MathJax = {
@@ -17,79 +17,91 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
 
     <style>
-        :root { --primary: #1e293b; --success: #16a34a; --danger: #dc2626; --bg: #f1f5f9; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #334155; }
-        .container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
-        .header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; }
-        .marking-pill { display: inline-block; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; font-size: 13px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.2); }
+        :root { --primary: #0f172a; --accent: #2563eb; --success: #16a34a; --danger: #dc2626; --border: #e2e8f0; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; margin: 0; padding: 10px; color: #1e293b; }
+        .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); overflow: hidden; }
         
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-bottom: 1px solid #e2e8f0; }
-        .stat-item { padding: 25px 10px; text-align: center; border-right: 1px solid #e2e8f0; }
+        .header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em; }
+        .paper-meta { display: flex; justify-content: center; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
+        .meta-pill { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 12px; border: 1px solid rgba(255,255,255,0.2); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-bottom: 1px solid var(--border); }
+        .stat-item { padding: 25px 10px; text-align: center; border-right: 1px solid var(--border); }
         .stat-item:last-child { border-right: none; }
-        .stat-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; }
-        .stat-value { font-size: 28px; font-weight: 800; margin-top: 4px; color: #0f172a; }
+        .stat-label { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { font-size: 24px; font-weight: 800; margin-top: 4px; color: #0f172a; }
 
         .content { padding: 30px; }
-        .table-container { overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #f8fafc; padding: 12px; text-align: left; font-size: 13px; color: #475569; }
-        td { padding: 15px; border-top: 1px solid #e2e8f0; font-size: 14px; }
-        
-        /* SVG & LaTeX Card Styling */
-        .sol-card { border: 1px solid #e2e8f0; border-left: 5px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
-        .svg-container { margin: 15px 0; display: block; max-width: 100%; }
-        .svg-container svg { height: auto; max-width: 100%; }
-        
-        .badge-box { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-        .badge { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
-        .badge-correct { background: #dcfce7; color: #166534; }
-        .badge-wrong { background: #fee2e2; color: #991b1b; }
-        
-        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 14px; line-height: 1.6; }
+        table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        th { background: #f1f5f9; padding: 12px 15px; text-align: left; font-size: 13px; color: #475569; }
+        td { padding: 15px; border-top: 1px solid var(--border); font-size: 14px; }
 
-        .actions { padding: 20px 30px; background: #f8fafc; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid #e2e8f0; }
-        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; text-decoration: none; }
-        .btn-primary { background: #2563eb; color: white; }
-        .btn-outline { background: white; border: 1px solid #e2e8f0; color: #475569; }
+        .sol-card { border: 1px solid var(--border); border-left: 5px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .svg-container { margin: 15px 0; background: #fff; padding: 10px; border-radius: 4px; }
+        .svg-container svg { max-width: 100%; height: auto; }
         
-        @media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .actions { flex-direction: column; } }
+        .badge-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .bg-correct { background: #dcfce7; color: #166534; }
+        .bg-wrong { background: #fee2e2; color: #991b1b; }
+        .bg-skip { background: #f1f5f9; color: #475569; }
+
+        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; font-size: 14px; border: 1px solid var(--border); line-height: 1.6; }
+        .actions { padding: 20px 30px; background: #f8fafc; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid var(--border); }
+        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; text-decoration: none; }
+        .btn-blue { background: var(--accent); color: white; }
+        .btn-outline { background: white; border: 1px solid var(--border); color: #475569; }
+
+        @media (max-width: 800px) {
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+            .stat-item:nth-child(3) { border-right: none; }
+        }
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1 id="paperName">Result Analysis</h1>
-        <div id="markingSchemePill" class="marking-pill">Loading Marking...</div>
+        <h1 id="dispPaperName">Examination Result</h1>
+        <div class="paper-meta">
+            <span class="meta-pill" id="dispMarking">Marking: Fetching...</span>
+            <span class="meta-pill" id="dispDuration">Duration: -- mins</span>
+        </div>
     </div>
 
     <div class="stats-grid">
-        <div class="stat-item"><span class="stat-label">Total Score</span><div class="stat-value" id="totalScore">0</div></div>
-        <div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="accuracy">0%</div></div>
-        <div class="stat-item"><span class="stat-label">Correct</span><div class="stat-value" id="totalCorrect" style="color:var(--success)">0</div></div>
-        <div class="stat-item"><span class="stat-label">Wrong</span><div class="stat-value" id="totalWrong" style="color:var(--danger)">0</div></div>
+        <div class="stat-item"><span class="stat-label">Questions</span><div class="stat-value" id="resTotalQ">0</div></div>
+        <div class="stat-item"><span class="stat-label">Score</span><div class="stat-value" id="resScore">0</div></div>
+        <div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="resAcc">0%</div></div>
+        <div class="stat-item"><span class="stat-label">Correct</span><div class="stat-value" id="resCorr" style="color:var(--success)">0</div></div>
+        <div class="stat-item"><span class="stat-label">Wrong</span><div class="stat-value" id="resWrong" style="color:var(--danger)">0</div></div>
     </div>
 
     <div class="content">
-        <div class="table-container">
+        <h3 style="margin-top:0">Section-wise Breakdown</h3>
+        <div style="overflow-x:auto">
             <table>
                 <thead>
-                    <tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Incorrect</th><th>Score</th></tr>
+                    <tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Net Score</th></tr>
                 </thead>
-                <tbody id="statsTableBody"></tbody>
+                <tbody id="resTableBody"></tbody>
             </table>
         </div>
 
-        <div id="reviewContainer" style="display:none; margin-top:40px;">
-            <h3 style="border-bottom: 2px solid #eee; padding-bottom: 10px;">Review Answers</h3>
-            <div id="solutionList"></div>
+        <div id="reviewBox" style="display:none; margin-top:40px;">
+            <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom:10px;">Review Answers</h3>
+            <div id="solList"></div>
         </div>
     </div>
 
     <div class="actions">
         <button class="btn btn-outline" onclick="toggleReview()">Review Answer Key</button>
-        <button class="btn btn-outline" onclick="window.print()">Print</button>
-        <a href="index.html" class="btn btn-primary">Exit</a>
+        <button class="btn btn-outline" onclick="window.print()">Print Report</button>
+        <a href="index.html" class="btn btn-blue">Exit</a>
     </div>
 </div>
 
@@ -99,20 +111,26 @@
         if (!raw) return;
         const data = JSON.parse(raw);
 
-        // Fetch marking from your JSON structure
-        const marking = data.marking || { correct: 10, wrong: -3.3 };
+        // --- Fetch Metadata ---
+        const marking = data.marking || data.metadata?.marking || { correct: 10, wrong: -3.3 };
+        const sections = data.sections || {};
         const pos = parseFloat(marking.correct);
         const neg = parseFloat(marking.wrong);
 
-        document.getElementById("markingSchemePill").innerText = `Rule: Correct (+${pos}) | Wrong (${neg})`;
-        
-        let gScore = 0, gCorrect = 0, gWrong = 0, gAttempt = 0;
-        const tbody = document.getElementById("statsTableBody");
-        const sections = data.sections || {};
+        // Display Paper Details
+        document.getElementById("dispPaperName").innerText = data.metadata?.paperName || "Assessment Result";
+        document.getElementById("dispMarking").innerText = `Correct: +${pos} | Wrong: ${neg}`;
+        document.getElementById("dispDuration").innerText = `Duration: ${data.duration || '--'} mins`;
 
-        Object.keys(sections).forEach(secName => {
+        let gScore = 0, gCorr = 0, gWrong = 0, gAtt = 0, totalQ = 0;
+        const tbody = document.getElementById("resTableBody");
+
+        Object.keys(sections).forEach(sec => {
             let sC = 0, sW = 0, sA = 0;
-            sections[secName].forEach(q => {
+            const qs = sections[sec];
+            totalQ += qs.length; // Count total questions
+
+            qs.forEach(q => {
                 if (q.userAnswer !== null && q.userAnswer !== undefined && q.userAnswer !== "") {
                     sA++;
                     if (String(q.userAnswer) === String(q.correct)) sC++;
@@ -121,72 +139,63 @@
             });
 
             const sScore = (sC * pos) + (sW * neg);
-            gScore += sScore; gCorrect += sC; gWrong += sW; gAttempt += sA;
+            gScore += sScore; gCorr += sC; gWrong += sW; gAtt += sA;
 
             tbody.innerHTML += `<tr>
-                <td><strong>${secName}</strong></td>
-                <td>${sA}</td>
-                <td style="color:var(--success); font-weight:600">${sC}</td>
+                <td><strong>${sec}</strong></td>
+                <td>${sA} / ${qs.length}</td>
+                <td style="color:var(--success)">${sC}</td>
                 <td style="color:var(--danger)">${sW}</td>
                 <td><strong>${sScore.toFixed(2)}</strong></td>
             </tr>`;
         });
 
-        document.getElementById("totalScore").innerText = gScore.toFixed(2);
-        document.getElementById("totalCorrect").innerText = gCorrect;
-        document.getElementById("totalWrong").innerText = gWrong;
-        document.getElementById("accuracy").innerText = gAttempt > 0 ? Math.round((gCorrect/gAttempt)*100) + "%" : "0%";
+        document.getElementById("resTotalQ").innerText = totalQ;
+        document.getElementById("resScore").innerText = gScore.toFixed(2);
+        document.getElementById("resCorr").innerText = gCorr;
+        document.getElementById("resWrong").innerText = gWrong;
+        document.getElementById("resAcc").innerText = gAtt > 0 ? Math.round((gCorr/gAtt)*100) + "%" : "0%";
         
-        // Initial LaTeX render for header/table
         if (window.MathJax) MathJax.typeset();
     }
 
     function toggleReview() {
-        const box = document.getElementById("reviewContainer");
+        const box = document.getElementById("reviewBox");
         box.style.display = box.style.display === "none" ? "block" : "none";
         if (box.style.display === "block") renderSolutions();
     }
 
     function renderSolutions() {
         const data = JSON.parse(localStorage.getItem("exam_result"));
-        const list = document.getElementById("solutionList");
+        const list = document.getElementById("solList");
         list.innerHTML = "";
 
         Object.keys(data.sections).forEach(sec => {
-            list.innerHTML += `<h4 style="color:#2563eb; margin: 30px 0 10px;">${sec}</h4>`;
+            list.innerHTML += `<h4 style="color:var(--accent); margin: 30px 0 10px;">${sec}</h4>`;
             data.sections[sec].forEach((q, i) => {
                 const isRight = q.userAnswer !== null && String(q.userAnswer) === String(q.correct);
                 const isSkip = q.userAnswer === null || q.userAnswer === "" || q.userAnswer === undefined;
                 
-                const getVal = (v) => {
+                const fmt = (v) => {
                     if (v === null || v === "" || v === undefined) return "Not Attempted";
                     return q.options ? `(${String.fromCharCode(65+parseInt(v))}) ${q.options[v]}` : v;
                 };
 
-                // Check for SVG
-                const svgHtml = q.svg ? `<div class="svg-container">${q.svg}</div>` : "";
+                const svgTag = q.svg ? `<div class="svg-container">${q.svg}</div>` : "";
 
                 list.innerHTML += `
-                    <div class="sol-card" style="border-left-color: ${isRight ? 'var(--success)' : (isSkip ? '#94a3b8' : 'var(--danger)')}">
-                        <div style="font-weight:600; font-size:15px;">Q${i+1}. ${q.q}</div>
-                        ${svgHtml}
-                        <div class="badge-box">
-                            <span class="badge ${isRight ? 'badge-correct' : (isSkip ? '' : 'badge-wrong')}" style="${isSkip ? 'background:#f1f5f9; color:#64748b' : ''}">
-                                Your Answer: ${getVal(q.userAnswer)}
-                            </span>
-                            <span class="badge badge-correct">Correct: ${getVal(q.correct)}</span>
+                    <div class="sol-card" style="border-left-color: ${isRight ? 'var(--success)' : (isSkip ? '#cbd5e1' : 'var(--danger)')}">
+                        <div style="font-weight:600;">Q${i+1}. ${q.q}</div>
+                        ${svgTag}
+                        <div class="badge-row">
+                            <span class="badge ${isRight ? 'bg-correct' : (isSkip ? 'bg-skip' : 'bg-wrong')}">Yours: ${fmt(q.userAnswer)}</span>
+                            <span class="badge bg-correct">Correct: ${fmt(q.correct)}</span>
                         </div>
-                        <div class="explanation">
-                            <strong>Solution:</strong><br>${q.solution || "No explanation."}
-                        </div>
+                        <div class="explanation"><strong>Solution:</strong><br>${q.solution || "No explanation."}</div>
                     </div>`;
             });
         });
-        
-        // Crucial: Re-run MathJax after adding dynamic HTML
-        if (window.MathJax) {
-            MathJax.typesetPromise();
-        }
+        if (window.MathJax) MathJax.typesetPromise();
     }
 
     window.onload = init;
