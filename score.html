@@ -6,31 +6,25 @@
     <title>Exam Transcript | Result</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <style>
-        :root {
-            --primary: #2c3e50; --success: #27ae60; --danger: #c0392b; --bg: #f4f7f6;
-        }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #333; }
+        :root { --primary: #2c3e50; --success: #27ae60; --danger: #c0392b; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); margin: 0; padding: 15px; }
         .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
         .header { background: var(--primary); color: white; padding: 25px; text-align: center; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: #eee; }
         .stat-item { background: white; padding: 20px; text-align: center; }
-        .stat-label { font-size: 11px; font-weight: bold; color: #7f8c8d; text-transform: uppercase; display: block; }
+        .stat-label { font-size: 11px; font-weight: bold; color: #7f8c8d; text-transform: uppercase; }
         .stat-value { font-size: 26px; font-weight: bold; margin-top: 5px; }
         .content { padding: 25px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 12px; border: 1px solid #eee; text-align: center; }
-        th { background: #f8f9fa; font-size: 13px; }
-        .sol-card { border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 20px; border-radius: 8px; border-left: 6px solid #ccc; background: #fff; }
-        .ans-row { margin: 12px 0; font-size: 14px; display: flex; align-items: flex-start; gap: 15px; }
-        .badge { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; min-width: 90px; text-align: center; }
+        th { background: #f8f9fa; }
+        .sol-card { border: 1px solid #e2e8f0; padding: 20px; margin-bottom: 15px; border-radius: 8px; border-left: 6px solid #ccc; }
+        .badge { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
         .bg-success { background: #dcfce7; color: #166534; }
         .bg-danger { background: #fee2e2; color: #991b1b; }
-        .explanation { background: #f9fafb; padding: 15px; border-radius: 5px; margin-top: 15px; font-size: 13.5px; border: 1px dashed #cbd5e1; }
         .actions { padding: 20px; display: flex; gap: 10px; justify-content: center; background: #f8f9fa; }
-        .btn { padding: 12px 25px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold; text-decoration: none; font-size: 14px; }
+        .btn { padding: 12px 25px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold; text-decoration: none; }
         .btn-purple { background: #8e44ad; color: white; }
-        .btn-outline { border: 1px solid #ccc; background: white; color: #333; }
-        @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .actions { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -38,62 +32,69 @@
 <div class="container">
     <div class="header">
         <h1 id="paperTitle">Test Result</h1>
-        <p id="markingSchemeInfo">Loading marking details...</p>
+        <p id="markingSchemeInfo">Calculating...</p>
     </div>
 
     <div class="stats-grid">
-        <div class="stat-item"><span class="stat-label">Grand Total</span><div class="stat-value" id="totalScore">0</div></div>
-        <div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="accuracy" style="color:var(--success)">0%</div></div>
+        <div class="stat-item"><span class="stat-label">Total Score</span><div class="stat-value" id="totalScore">0</div></div>
+        <div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="accuracy">0%</div></div>
         <div class="stat-item"><span class="stat-label">Correct</span><div class="stat-value" id="totalCorrect">0</div></div>
         <div class="stat-item"><span class="stat-label">Incorrect</span><div class="stat-value" id="totalWrong" style="color:var(--danger)">0</div></div>
     </div>
 
     <div class="content">
-        <h3>Sectional Performance</h3>
-        <div style="overflow-x: auto;">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="text-align:left">Section Name</th>
-                        <th>Attempted</th>
-                        <th>Correct</th>
-                        <th>Incorrect</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:left">Section Name</th>
+                    <th>Attempted</th>
+                    <th>Correct</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
 
         <div id="reviewSection" style="display:none; margin-top:40px;">
-            <h3>Answer Key & Explanations</h3>
+            <h3>Review Answer Key</h3>
             <div id="solutionsList"></div>
         </div>
     </div>
 
     <div class="actions">
-        <button class="btn btn-purple" onclick="toggleReview()">Review Answer Key</button>
-        <button class="btn btn-outline" onclick="window.print()">Download PDF</button>
-        <a href="index.html" class="btn btn-outline">Exit</a>
+        <button class="btn btn-purple" onclick="toggleReview()">Review Solutions</button>
+        <button class="btn" style="background:#ddd" onclick="window.print()">Print</button>
     </div>
 </div>
 
 <script>
-    const examData = JSON.parse(localStorage.getItem("exam_result"));
+    // --- CONFIGURATION ---
+    // If your JSON doesn't define it, what should the default be?
+    const DEFAULT_CORRECT = 4;
+    const DEFAULT_WRONG = -1;
 
     function renderResult() {
-        if (!examData) {
-            document.body.innerHTML = "<div style='text-align:center; padding:50px;'><h1>No Result Data Found</h1><a href='index.html'>Go Back</a></div>";
-            return;
+        const rawData = localStorage.getItem("exam_result");
+        if (!rawData) return;
+        const examData = JSON.parse(rawData);
+
+        // 1. IMPROVED MARKING SCHEME DETECTION
+        // It looks in metadata, then in the root of the data, then uses defaults.
+        let correctBonus = DEFAULT_CORRECT;
+        let wrongPenalty = DEFAULT_WRONG;
+
+        if (examData.metadata && examData.metadata.markingScheme) {
+            correctBonus = parseFloat(examData.metadata.markingScheme.correct);
+            wrongPenalty = parseFloat(examData.metadata.markingScheme.incorrect);
+        } else if (examData.markingScheme) {
+            correctBonus = parseFloat(examData.markingScheme.correct);
+            wrongPenalty = parseFloat(examData.markingScheme.incorrect);
         }
 
-        // 1. Fetch Marking Scheme from JSON or use Standard Default
-        const scheme = examData.metadata?.markingScheme || { correct: 4, incorrect: -1 };
-        const sections = examData.sections || {};
-        
-        document.getElementById("paperTitle").innerText = examData.metadata?.paperName || "Examination Result";
-        document.getElementById("markingSchemeInfo").innerText = `Correct: +${scheme.correct} | Incorrect: ${scheme.incorrect}`;
+        document.getElementById("markingSchemeInfo").innerText = 
+            `Marking Scheme Used: Correct (+${correctBonus}) | Wrong (${wrongPenalty})`;
 
+        const sections = examData.sections || {};
         let gScore = 0, gCorrect = 0, gWrong = 0, gAttempt = 0;
         const tbody = document.getElementById("tableBody");
 
@@ -102,10 +103,9 @@
             let sCorrect = 0, sWrong = 0, sAttempt = 0;
 
             questions.forEach(q => {
-                // Check if user actually picked an option (handles null, undefined, and empty string)
+                // Ensure we handle skipped questions (null/undefined)
                 if (q.userAnswer !== null && q.userAnswer !== undefined && q.userAnswer !== "") {
                     sAttempt++;
-                    // Forced string comparison to avoid type errors
                     if (String(q.userAnswer) === String(q.correct)) {
                         sCorrect++;
                     } else {
@@ -114,14 +114,17 @@
                 }
             });
 
-            const sScore = (sCorrect * scheme.correct) + (sWrong * scheme.incorrect);
+            // THE MATH FIX: Total Score = (Correct * Bonus) + (Wrong * Penalty)
+            // Note: Penalty is usually a negative number in JSON (e.g. -1). 
+            // If your JSON says "1" for wrong, change '+' to '-' below.
+            const sScore = (sCorrect * correctBonus) + (sWrong * wrongPenalty);
+            
             gScore += sScore; gCorrect += sCorrect; gWrong += sWrong; gAttempt += sAttempt;
 
             tbody.innerHTML += `<tr>
                 <td style="text-align:left"><strong>${secName}</strong></td>
                 <td>${sAttempt}</td>
                 <td style="color:var(--success)">${sCorrect}</td>
-                <td style="color:var(--danger)">${sWrong}</td>
                 <td><strong>${sScore}</strong></td>
             </tr>`;
         });
@@ -134,52 +137,36 @@
 
     function toggleReview() {
         const div = document.getElementById("reviewSection");
-        if(div.style.display === "block") {
-            div.style.display = "none";
-        } else {
-            div.style.display = "block";
-            renderSolutions();
-        }
+        div.style.display = div.style.display === "block" ? "none" : "block";
+        if(div.style.display === "block") renderSolutions();
     }
 
     function renderSolutions() {
+        const examData = JSON.parse(localStorage.getItem("exam_result"));
         const list = document.getElementById("solutionsList");
         list.innerHTML = "";
         
         Object.keys(examData.sections).forEach(sec => {
-            list.innerHTML += `<h4 style="color:var(--primary); border-bottom:1px solid #eee; padding-bottom:10px; margin-top:30px;">Section: ${sec}</h4>`;
-            
             examData.sections[sec].forEach((q, i) => {
                 const isCorrect = q.userAnswer !== null && String(q.userAnswer) === String(q.correct);
-                const isSkipped = q.userAnswer === null || q.userAnswer === undefined || q.userAnswer === "";
-
-                const getFullText = (idx) => {
-                    if (idx === null || idx === "" || idx === undefined) return "Not Answered";
-                    if (!q.options) return idx; // For numerical entry
-                    const letter = String.fromCharCode(65 + parseInt(idx));
-                    return `(${letter}) ${q.options[idx]}`;
+                const isSkipped = q.userAnswer === null || q.userAnswer === "";
+                
+                const getTxt = (val) => {
+                    if (val === null || val === "") return "N/A";
+                    return q.options ? `(${String.fromCharCode(65 + parseInt(val))}) ${q.options[val]}` : val;
                 };
 
                 list.innerHTML += `
                     <div class="sol-card" style="border-left-color: ${isCorrect ? 'var(--success)' : (isSkipped ? '#ccc' : 'var(--danger)')}">
-                        <div style="font-weight:bold; margin-bottom:10px;">Q${i+1}. ${q.q}</div>
-                        <div class="ans-row">
-                            <span class="badge ${isCorrect ? 'bg-success' : (isSkipped ? 'bg-outline' : 'bg-danger')}">Your Choice</span>
-                            <span>${getFullText(q.userAnswer)}</span>
-                        </div>
-                        <div class="ans-row">
-                            <span class="badge bg-success">Correct Answer</span>
-                            <span>${getFullText(q.correct)}</span>
-                        </div>
-                        <div class="explanation">
-                            <strong>Solution:</strong><br>
-                            ${q.solution || "No detailed explanation available for this question."}
+                        <div style="font-weight:bold;">Q${i+1}. ${q.q}</div>
+                        <div style="margin-top:10px; font-size:14px;">
+                            <span class="badge ${isCorrect ? 'bg-success' : 'bg-danger'}">Yours: ${getTxt(q.userAnswer)}</span>
+                            <span class="badge bg-success" style="margin-left:10px;">Correct: ${getTxt(q.correct)}</span>
                         </div>
                     </div>`;
             });
         });
-        
-        if (window.MathJax) MathJax.typesetPromise();
+        if(window.MathJax) MathJax.typesetPromise();
     }
 
     window.onload = renderResult;
