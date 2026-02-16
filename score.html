@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Transcript | TerminalJoint</title>
+    <title>Result Transcript</title>
     
     <script>
         window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
             svg: { fontCache: 'global' }
         };
     </script>
@@ -19,42 +16,38 @@
     <style>
         :root { --primary: #0f172a; --accent: #2563eb; --success: #16a34a; --danger: #dc2626; --border: #e2e8f0; }
         body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; margin: 0; padding: 10px; color: #1e293b; }
-        .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); overflow: hidden; }
+        .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); overflow: hidden; }
         .header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; }
-        .header h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em; text-transform: capitalize; }
-        .paper-meta { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .meta-pill { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 11px; border: 1px solid rgba(255,255,255,0.2); font-weight: 500; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 800; text-transform: capitalize; }
+        .paper-meta { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .meta-pill { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 11px; border: 1px solid rgba(255,255,255,0.2); }
         .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-bottom: 1px solid var(--border); }
         .stat-item { padding: 25px 10px; text-align: center; border-right: 1px solid var(--border); }
         .stat-item:last-child { border-right: none; }
         .stat-label { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
         .stat-value { font-size: 24px; font-weight: 800; margin-top: 4px; color: #0f172a; }
         .content { padding: 30px; }
-        table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-        th { background: #f1f5f9; padding: 12px 15px; text-align: left; font-size: 13px; color: #475569; }
+        table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); }
+        th { background: #f1f5f9; padding: 12px; text-align: left; font-size: 13px; }
         td { padding: 15px; border-top: 1px solid var(--border); font-size: 14px; }
         .sol-card { border: 1px solid var(--border); border-left: 5px solid #cbd5e1; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
         .svg-container { margin: 15px 0; background: #fff; display: block; }
         .svg-container svg { max-width: 100%; height: auto; display: block; }
-        .badge-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .badge-row { display: flex; gap: 8px; margin-bottom: 12px; }
         .badge { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .bg-correct { background: #dcfce7; color: #166534; }
         .bg-wrong { background: #fee2e2; color: #991b1b; }
-        .bg-skip { background: #f1f5f9; color: #475569; }
-        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13.5px; border: 1px solid var(--border); line-height: 1.6; color: #334155; }
+        .explanation { background: #f8fafc; padding: 15px; border-radius: 6px; font-size: 13.5px; border: 1px solid var(--border); }
         .actions { padding: 20px 30px; background: #f8fafc; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid var(--border); }
-        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
+        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; font-size: 14px; text-decoration: none; }
         .btn-blue { background: var(--accent); color: white; }
-        .btn-outline { background: white; border: 1px solid var(--border); color: #475569; }
-        @media (max-width: 800px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } .stat-item:nth-child(3) { border-right: none; } }
-        @media (max-width: 500px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1 id="dispPaperName">Loading Result...</h1>
+        <h1 id="dispPaperName">Test Results</h1>
         <div class="paper-meta">
             <span class="meta-pill" id="dispMarking">Marking: --</span>
             <span class="meta-pill" id="dispDuration">Duration: --</span>
@@ -62,8 +55,8 @@
     </div>
 
     <div class="stats-grid">
-        <div class="stat-item"><span class="stat-label">Total Questions</span><div class="stat-value" id="resTotalQ">0</div></div>
-        <div class="stat-item"><span class="stat-label">Score</span><div class="stat-value" id="resScore">0</div></div>
+        <div class="stat-item"><span class="stat-label">Total Qs</span><div class="stat-value" id="resTotalQ">0</div></div>
+        <div class="stat-item"><span class="stat-label">Net Score</span><div class="stat-value" id="resScore">0</div></div>
         <div class="stat-item"><span class="stat-label">Accuracy</span><div class="stat-value" id="resAcc">0%</div></div>
         <div class="stat-item"><span class="stat-label">Correct</span><div class="stat-value" id="resCorr" style="color:var(--success)">0</div></div>
         <div class="stat-item"><span class="stat-label">Wrong</span><div class="stat-value" id="resWrong" style="color:var(--danger)">0</div></div>
@@ -73,21 +66,20 @@
         <div style="overflow-x:auto">
             <table>
                 <thead>
-                    <tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Net Score</th></tr>
+                    <tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Score</th></tr>
                 </thead>
                 <tbody id="resTableBody"></tbody>
             </table>
         </div>
         <div id="reviewBox" style="display:none; margin-top:40px;">
-            <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom:10px;">Review Answers</h3>
+            <h3>Review Solutions</h3>
             <div id="solList"></div>
         </div>
     </div>
 
     <div class="actions">
-        <button class="btn btn-outline" onclick="toggleReview()">Review Solutions</button>
-        <button class="btn btn-outline" onclick="window.print()">Print</button>
-        <a href="index.html" class="btn btn-blue">New Test</a>
+        <button class="btn" style="background:white; border:1px solid #ddd" onclick="toggleReview()">Review Answer Key</button>
+        <a href="index.html" class="btn btn-blue">Try Another Test</a>
     </div>
 </div>
 
@@ -97,16 +89,24 @@
         if (!raw) return;
         const data = JSON.parse(raw);
 
-        // --- 1. PAPER NAME DETECTION ---
+        // --- THE FILE NAME FETCHING LOGIC ---
+        // 1. Try to get it from a specific property 'filename'
+        // 2. Try to get it from the URL (score.html?file=physics_test.json)
+        // 3. Try to get it from the localStorage key if index.html saved it there
         const urlParams = new URLSearchParams(window.location.search);
-        const nameFromUrl = urlParams.get('name');
-        
-        // Priority: URL Param > JSON paperName > JSON metadata name > Default
-        const finalName = nameFromUrl || data.paperName || data.metadata?.paperName || "Examination Result";
-        document.getElementById("dispPaperName").innerText = finalName.replace(/_/g, ' ');
+        let fileName = urlParams.get('file') || data.paperName || data.filename || "";
 
-        // --- 2. MARKING & DURATION ---
-        const marking = data.marking || data.metadata?.marking || { correct: 10, wrong: -3.3 };
+        // If it's a path like "data/physics_test.json", clean it to "Physics Test"
+        if (fileName) {
+            fileName = fileName.split('/').pop().replace('.json', '').replace(/_/g, ' ').replace(/-/g, ' ');
+        } else {
+            fileName = "Assessment Report";
+        }
+        
+        document.getElementById("dispPaperName").innerText = fileName;
+
+        // --- MARKING & STATS ---
+        const marking = data.marking || { correct: 10, wrong: -3.3 };
         const pos = parseFloat(marking.correct);
         const neg = parseFloat(marking.wrong);
         document.getElementById("dispMarking").innerText = `Correct: +${pos} | Wrong: ${neg}`;
@@ -135,8 +135,8 @@
             tbody.innerHTML += `<tr>
                 <td><strong>${sec}</strong></td>
                 <td>${sA} / ${qs.length}</td>
-                <td style="color:var(--success)">${sC}</td>
-                <td style="color:var(--danger)">${sW}</td>
+                <td>${sC}</td>
+                <td>${sW}</td>
                 <td><strong>${sScore.toFixed(2)}</strong></td>
             </tr>`;
         });
@@ -146,8 +146,6 @@
         document.getElementById("resCorr").innerText = gCorr;
         document.getElementById("resWrong").innerText = gWrong;
         document.getElementById("resAcc").innerText = gAtt > 0 ? Math.round((gCorr/gAtt)*100) + "%" : "0%";
-        
-        if (window.MathJax) MathJax.typeset();
     }
 
     function toggleReview() {
@@ -162,27 +160,21 @@
         list.innerHTML = "";
 
         Object.keys(data.sections).forEach(sec => {
-            list.innerHTML += `<h4 style="color:var(--accent); margin: 30px 0 10px; border-left: 3px solid var(--accent); padding-left: 10px;">${sec}</h4>`;
+            list.innerHTML += `<h4 style="color:var(--accent); margin-top:30px;">${sec}</h4>`;
             data.sections[sec].forEach((q, i) => {
                 const isRight = q.userAnswer !== null && String(q.userAnswer) === String(q.correct);
-                const isSkip = q.userAnswer === null || q.userAnswer === "" || q.userAnswer === undefined;
-                
-                const fmt = (v) => {
-                    if (v === null || v === "" || v === undefined) return "Not Answered";
-                    return q.options ? `(${String.fromCharCode(65+parseInt(v))}) ${q.options[v]}` : v;
-                };
-
+                const fmt = (v) => (v === null || v === "" || v === undefined) ? "Skipped" : (q.options ? q.options[v] : v);
                 const svgTag = q.svg ? `<div class="svg-container">${q.svg}</div>` : "";
 
                 list.innerHTML += `
-                    <div class="sol-card" style="border-left-color: ${isRight ? 'var(--success)' : (isSkip ? '#cbd5e1' : 'var(--danger)')}">
-                        <div style="font-weight:600; margin-bottom: 8px;">Q${i+1}. ${q.q}</div>
+                    <div class="sol-card" style="border-left-color: ${isRight ? 'var(--success)' : '#cbd5e1'}">
+                        <div style="font-weight:600;">Q${i+1}. ${q.q}</div>
                         ${svgTag}
                         <div class="badge-row">
-                            <span class="badge ${isRight ? 'bg-correct' : (isSkip ? 'bg-skip' : 'bg-wrong')}">Yours: ${fmt(q.userAnswer)}</span>
+                            <span class="badge ${isRight ? 'bg-correct' : 'bg-wrong'}">Yours: ${fmt(q.userAnswer)}</span>
                             <span class="badge bg-correct">Correct: ${fmt(q.correct)}</span>
                         </div>
-                        <div class="explanation"><strong>Solution:</strong><br>${q.solution || "No explanation provided."}</div>
+                        <div class="explanation"><strong>Solution:</strong><br>${q.solution || "No explanation."}</div>
                     </div>`;
             });
         });
