@@ -12,56 +12,129 @@ tex:{inlineMath:[['$','$'],['\\(','\\)']]}
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 
 <style>
-body{font-family:Segoe UI,Arial;background:#f5f5f5;margin:0;padding:20px;}
-.container{max-width:1000px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;}
-.header{background:#337ab7;color:#fff;padding:25px;text-align:center;}
-.meta{margin-top:10px;font-size:13px;}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid #ddd;}
-.stat{padding:20px;text-align:center;border-right:1px solid #ddd;}
+
+body{
+margin:0;
+font-family:Segoe UI,Arial;
+background:#f5f5f5;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+background:#fff;
+}
+
+/* ===== COMPACT HEADER ===== */
+
+.header{
+background:#337ab7;
+color:#fff;
+padding:15px 20px;
+font-size:14px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+/* ===== STATS BAR ===== */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+font-size:13px;
+border-bottom:1px solid #ddd;
+}
+
+.stat{
+padding:10px;
+text-align:center;
+border-right:1px solid #eee;
+}
+
 .stat:last-child{border-right:none;}
-.sectionTitle{margin-top:25px;font-weight:bold;color:#337ab7;}
-.sol-card{border:1px solid #ddd;margin-top:15px;padding:15px;border-radius:6px;}
-.svg-container svg{max-width:100%;}
+.stat b{display:block;font-size:18px;}
+
+/* ===== QUESTION LIST ===== */
+
+.sectionTitle{
+padding:10px 15px;
+background:#eef2f7;
+font-weight:bold;
+color:#337ab7;
+font-size:13px;
+border-top:1px solid #ddd;
+}
+
+.qrow{
+padding:10px 15px;
+border-bottom:1px solid #eee;
+font-size:13px;
+line-height:1.4;
+}
+
+.options div{
+margin:2px 0;
+}
+
 .correct{color:#16a34a;font-weight:bold;}
 .wrong{color:#dc2626;font-weight:bold;}
+
+.badge{
+display:inline-block;
+padding:2px 6px;
+font-size:10px;
+border-radius:3px;
+margin-left:8px;
+background:#eee;
+}
+
+.svg-container svg{
+max-width:100%;
+height:auto;
+margin:6px 0;
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
+
 <div class="header">
-<h2 id="paperName">Result</h2>
-<div class="meta" id="paperMeta">Loading...</div>
+<div>
+<b id="paperName">Result</b><br>
+<span id="paperMeta"></span>
+</div>
+<div>
+Violations: <b id="viol">0</b>
+</div>
 </div>
 
 <div class="stats">
-<div class="stat"><b>Total</b><div id="tq">0</div></div>
-<div class="stat"><b>Score</b><div id="ts">0</div></div>
-<div class="stat"><b>Accuracy</b><div id="ta">0%</div></div>
-<div class="stat"><b>Correct</b><div id="tc">0</div></div>
-<div class="stat"><b>Wrong</b><div id="tw">0</div></div>
+<div class="stat">Total<b id="tq">0</b></div>
+<div class="stat">Attempted<b id="ta2">0</b></div>
+<div class="stat">Correct<b id="tc">0</b></div>
+<div class="stat">Wrong<b id="tw">0</b></div>
+<div class="stat">Accuracy<b id="ta">0%</b></div>
+<div class="stat">Score<b id="ts">0</b></div>
 </div>
 
-<div style="padding:25px;">
 <div id="review"></div>
-</div>
 
 </div>
 
 <script>
 
-/* ================= LOAD RESULT ================= */
+/* ================= LOAD SAVED RESULT ================= */
 
 const saved = JSON.parse(localStorage.getItem("exam_result"));
-if(!saved){
-document.body.innerHTML="No result found";
-}
+if(!saved){document.body.innerHTML="No result";}
 
-/* ===== VERY IMPORTANT =====
-Your CBT engine does NOT save paper name.
-So we fetch it from previous page selection.
-*/
+document.getElementById("viol").innerText =
+saved.metadata?.violations || 0;
+
 const paperFile = localStorage.getItem("lastPaper") || "paper-1.json";
 
 /* ================= FETCH PAPER JSON ================= */
@@ -72,81 +145,84 @@ document.getElementById("paperName").innerText =
 paper.paperName || paperFile.replace(".json","");
 
 const marking = paper.marking || {correct:4,wrong:-1};
+
 document.getElementById("paperMeta").innerText =
-`Duration: ${paper.duration} mins | +${marking.correct} / ${marking.wrong}`;
+`Duration ${paper.duration}m | +${marking.correct} / ${marking.wrong}`;
 
-let total=0, correct=0, wrong=0, attempted=0;
-let reviewHTML="";
+/* ===== SCORE CALC ===== */
 
-/* ================= MERGE QUESTIONS + USER ANSWERS ================= */
+let total=0,correct=0,wrong=0,attempted=0;
+let html="";
 
 Object.keys(paper.sections).forEach(sec=>{
 
-reviewHTML+=`<div class="sectionTitle">${sec}</div>`;
+html+=`<div class="sectionTitle">${sec}</div>`;
 
 paper.sections[sec].forEach((q,i)=>{
 
-const userQ = saved.sections[sec][i];
-const userAns = userQ.userAnswer;
+const userQ=saved.sections[sec][i];
+const userAns=userQ.userAnswer;
 
 total++;
 
-let status="Not Attempted";
+let status="";
 
 if(userAns!==null && userAns!==""){
 attempted++;
-
 if(String(userAns)===String(q.correct)){
 correct++;
-status="Correct";
+status=`<span class="badge correct">Correct</span>`;
 }else{
 wrong++;
-status="Wrong";
+status=`<span class="badge wrong">Wrong</span>`;
 }
 }
 
-/* ===== OPTIONS ===== */
+/* OPTIONS */
 
 let opts="";
 if(q.options){
 q.options.forEach((op,idx)=>{
 let cls="";
 if(idx===q.correct) cls="correct";
-if(String(userAns)===String(idx) && idx!==q.correct) cls="wrong";
+if(String(userAns)===String(idx)&&idx!==q.correct) cls="wrong";
 opts+=`<div class="${cls}">${String.fromCharCode(65+idx)}. ${op}</div>`;
 });
 }
 
-reviewHTML+=`
-<div class="sol-card">
-<b>Q${i+1}. ${q.q}</b>
+html+=`
+<div class="qrow">
+<b>Q${i+1}.</b> ${q.q} ${status}
 ${q.svg?`<div class="svg-container">${q.svg}</div>`:""}
-${opts}
-<div>Status: ${status}</div>
-<div><b>Solution:</b> ${q.solution||"No explanation."}</div>
+<div class="options">${opts}</div>
+<div style="font-size:12px;color:#555;">
+<b>Solution:</b> ${q.solution||"—"}
+</div>
 </div>`;
 
 });
 
 });
 
-/* ================= SCORE ================= */
+/* ===== FINAL SCORE ===== */
 
 const score=(correct*marking.correct)+(wrong*marking.wrong);
 
 document.getElementById("tq").innerText=total;
-document.getElementById("ts").innerText=score.toFixed(2);
 document.getElementById("tc").innerText=correct;
 document.getElementById("tw").innerText=wrong;
+document.getElementById("ta2").innerText=attempted;
+document.getElementById("ts").innerText=score.toFixed(2);
 document.getElementById("ta").innerText=
 attempted?Math.round((correct/attempted)*100)+"%":"0%";
 
-document.getElementById("review").innerHTML=reviewHTML;
+document.getElementById("review").innerHTML=html;
 
 if(window.MathJax) MathJax.typesetPromise();
 
 });
+
 </script>
 
 </body>
-</html>
+  </html>
