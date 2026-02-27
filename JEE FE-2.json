@@ -1,0 +1,650 @@
+{
+  "exam": "AEEE (Amrita Engineering Entrance Examination)",
+  "duration": 150,
+  "marking": {
+    "correct": 4,
+    "wrong": -1
+  },
+  "sections": {
+    "Physics": [
+      {
+        "q": "A bead of mass m is threaded on a smooth circular wire of radius R which is fixed in a vertical plane. The bead is projected from the lowest point with a velocity sqrt(6gR). The ratio of the tension in the wire at the highest point to the lowest point is:",
+        "options": ["1:3", "1:7", "3:7", "4:7"],
+        "correct": 1,
+        "solution": "At bottom: N1 - mg = mv1²/R => N1 = mg + m(6gR)/R = 7mg. At top: v2² = v1² - 4gR = 2gR. N2 + mg = mv2²/R => N2 = 2mg - mg = mg. Ratio N2/N1 = 1/7."
+      },
+      {
+        "q": "A thermodynamic system undergoes a process where P = aV^2. If the initial temperature is T0 and the volume doubles, the work done by the system (assuming n=1 mole) is:",
+        "options": ["RT0/3", "7RT0/3", "3RT0", "aV0^3"],
+        "correct": 1,
+        "solution": "W = ∫P dV = ∫aV² dV from V0 to 2V0 = (a/3)(7V0³). Since PV = RT, aV³ = RT0. So W = 7RT0/3."
+      },
+      {
+        "q": "In a Young's Double Slit Experiment, one slit is covered by a thin mica sheet (n=1.5) and the other by a glass sheet (n=1.7) of the same thickness. The central fringe shifts by 4 fringe widths. If λ = 500 nm, the thickness of the sheets is:",
+        "options": ["5 μm", "10 μm", "15 μm", "20 μm"],
+        "correct": 1,
+        "solution": "Shift = (t/λ) * (n2 - n1) = 4. t(0.2) / 500e-9 = 4 => t = 2000e-9 / 0.2 = 10 μm."
+      },
+      {
+        "q": "A particle of charge q and mass m enters a region of magnetic field B = B0 k-hat with velocity v = v0 i-hat. At the same time, an electric field E = E0 j-hat is switched on. For the particle to move in a straight line, the required relation is:",
+        "options": ["E0 = v0B0", "E0 = v0/B0", "B0 = v0E0", "None"],
+        "correct": 0,
+        "solution": "Lorentz Force F = q(E + v x B). For a straight line, net force must be zero. qE0 j + q(v0 i x B0 k) = 0. qE0 j - qv0B0 j = 0 => E0 = v0B0."
+      },
+      {
+        "q": "A solid sphere of mass M and radius R rolls without slipping down an inclined plane of angle θ. The minimum coefficient of friction required is:",
+        "options": ["2/7 tan θ", "5/7 tan θ", "2/5 tan θ", "1/3 tan θ"],
+        "correct": 0,
+        "solution": "f = (Iα)/R. mg sinθ - f = ma. a = αR. For sphere, I = 2/5 MR². Solving gives f = (2/7)mg sinθ. f ≤ μ mg cosθ => μ ≥ 2/7 tan θ."
+      },
+      {
+        "q": "A particle performs SHM with amplitude A. At what displacement from the mean position is the kinetic energy equal to three times the potential energy?",
+        "options": ["A/2", "A/√2", "A/4", "A/√3"],
+        "correct": 0,
+        "solution": "KE = 3PE => 1/2 k(A² - x²) = 3 (1/2 kx²) => A² - x² = 3x² => 4x² = A² => x = A/2."
+      },
+      {
+        "q": "The work function of a metal is 4.0 eV. To emit photoelectrons with zero velocity, the wavelength of incident light should be approximately:",
+        "options": ["310 nm", "210 nm", "450 nm", "1240 nm"],
+        "correct": 0,
+        "solution": "λ = 1240 / Φ(eV) = 1240 / 4 = 310 nm."
+      },
+      {
+        "q": "A radioactive sample has a half-life of 10 days. The time required for the activity to reduce to 1/8th of its initial value is:",
+        "options": ["20 days", "30 days", "40 days", "80 days"],
+        "correct": 1,
+        "solution": "1/8 = (1/2)³. So 3 half-lives are required. 3 * 10 = 30 days."
+      },
+      {
+        "q": "A parallel plate capacitor is charged and then disconnected from the battery. If the plates are pulled further apart, the potential energy stored:",
+        "options": ["Increases", "Decreases", "Remains same", "Becomes zero"],
+        "correct": 0,
+        "solution": "U = Q² / 2C. C = εA/d. If d increases, C decreases. Since Q is constant, U increases."
+      },
+      {
+        "q": "A wire of resistance R is stretched to twice its original length. The new resistance is:",
+        "options": ["2R", "4R", "R/2", "R/4"],
+        "correct": 1,
+        "solution": "Volume is constant. L' = 2L, A' = A/2. R = ρL/A. R' = ρ(2L)/(A/2) = 4R."
+      },
+      {
+        "q": "The escape velocity on Earth is 11.2 km/s. On a planet with mass 8 times and radius 2 times that of Earth, the escape velocity is:",
+        "options": ["11.2 km/s", "22.4 km/s", "44.8 km/s", "5.6 km/s"],
+        "correct": 1,
+        "solution": "v = sqrt(2GM/R). v' = v * sqrt(8/2) = 2v = 22.4 km/s."
+      },
+      {
+        "q": "The de Broglie wavelength of an electron accelerated through a potential difference of 100V is approximately:",
+        "options": ["1.227 Å", "12.27 Å", "0.122 Å", "122 Å"],
+        "correct": 0,
+        "solution": "λ = 12.27 / sqrt(V) Å = 12.27 / 10 = 1.227 Å."
+      },
+      {
+        "q": "In a purely inductive circuit, the phase difference between current and voltage is:",
+        "options": ["0", "π/2", "π", "π/4"],
+        "correct": 1,
+        "solution": "In an inductor, voltage leads current by 90 degrees (π/2)."
+      },
+      {
+        "q": "A convex lens of focal length 20 cm is in contact with a concave lens of focal length 40 cm. The power of the combination is:",
+        "options": ["+2.5 D", "-2.5 D", "+5 D", "-5 D"],
+        "correct": 0,
+        "solution": "1/F = 1/20 - 1/40 = 1/40 cm. F = 40 cm = 0.4 m. P = 1/0.4 = 2.5 D."
+      },
+      {
+        "q": "The magnetic susceptibility of a paramagnetic material varies with temperature T as:",
+        "options": ["T", "1/T", "T^2", "Constant"],
+        "correct": 1,
+        "solution": "Curie's Law: χ ∝ 1/T."
+      },
+      {
+        "q": "A car moves on a circular track of radius 100m banked at 45°. If friction is neglected, the optimum speed is (g=10):",
+        "options": ["10 m/s", "31.6 m/s", "100 m/s", "45 m/s"],
+        "correct": 1,
+        "solution": "v = sqrt(Rg tan θ) = sqrt(100 * 10 * 1) = sqrt(1000) ≈ 31.6 m/s."
+      },
+      {
+        "q": "The dimensional formula for surface tension is:",
+        "options": ["MT^-2", "MLT^-2", "ML^-1T^-2", "MT^-1"],
+        "correct": 0,
+        "solution": "S = Force/Length = [MLT^-2] / [L] = [MT^-2]."
+      },
+      {
+        "q": "An ideal gas heat engine operates in a Carnot cycle between 227°C and 127°C. It absorbs 600 J of heat at the higher temperature. The work done is:",
+        "options": ["120 J", "240 J", "480 J", "300 J"],
+        "correct": 0,
+        "solution": "η = 1 - 400/500 = 1/5. W = η * Q_in = (1/5) * 600 = 120 J."
+      },
+      {
+        "q": "A solenoid has 1000 turns per meter. If it carries a current of 5A, the magnetic field at its center is:",
+        "options": ["2π mT", "4π mT", "2 mT", "0.5 mT"],
+        "correct": 0,
+        "solution": "B = μ0 * n * I = (4πe-7) * 1000 * 5 = 20πe-4 = 2π mT."
+      },
+      {
+        "q": "The stopping potential for a certain metal is 3V. The maximum kinetic energy of emitted photoelectrons is:",
+        "options": ["3 eV", "1.5 eV", "6 eV", "0"],
+        "correct": 0,
+        "solution": "K_max = e * V_s = 3 eV."
+      },
+      {
+        "q": "A projectile is thrown with speed u at angle θ. The ratio of max height to horizontal range is:",
+        "options": ["tan θ", "1/4 tan θ", "1/2 tan θ", "tan^2 θ"],
+        "correct": 1,
+        "solution": "H = u²sin²θ/2g. R = u²sin2θ/g. H/R = (sin²θ/2) / (2sinθcosθ) = 1/4 tan θ."
+      },
+      {
+        "q": "In an LCR series circuit, resonance occurs when:",
+        "options": ["XL = XC", "R = 0", "XL = R", "V = 0"],
+        "correct": 0,
+        "solution": "Resonance condition is capacitive reactance equals inductive reactance."
+      },
+      {
+        "q": "A glass prism (n=1.5) is dipped in water (n=1.33). The critical angle for the glass-water interface is:",
+        "options": ["sin^-1(1.5)", "sin^-1(1.33/1.5)", "sin^-1(0.5)", "sin^-1(1)"],
+        "correct": 1,
+        "solution": "sin C = n_rare / n_dense = 1.33 / 1.5."
+      },
+      {
+        "q": "A satellite is orbiting very close to Earth's surface. Its orbital velocity is roughly:",
+        "options": ["8 km/s", "11 km/s", "5 km/s", "2 km/s"],
+        "correct": 0,
+        "solution": "v = sqrt(gR) = sqrt(10 * 6.4e6) = 8000 m/s = 8 km/s."
+      },
+      {
+        "q": "If the error in measuring radius is 2%, the error in calculating volume of a sphere is:",
+        "options": ["2%", "4%", "6%", "8%"],
+        "correct": 2,
+        "solution": "V ∝ r³. % error in V = 3 * (% error in r) = 3 * 2% = 6%."
+      }
+    ],
+    "Chemistry": [
+      {
+        "q": "The correct order of increasing acid strength for: HClO, HClO2, HClO3, HClO4 is:",
+        "options": [
+          "HClO4 < HClO3 < HClO2 < HClO",
+          "HClO < HClO2 < HClO3 < HClO4",
+          "HClO3 < HClO4 < HClO < HClO2",
+          "None"
+        ],
+        "correct": 1,
+        "solution": "Acidity increases with the oxidation state of the central atom (Cl: +1, +3, +5, +7)."
+      },
+      {
+        "q": "In the reaction of phenol with CHCl3 in the presence of NaOH, the reactive intermediate is:",
+        "options": ["Carbocation", "Carbanion", "Dichlorocarbene", "Free radical"],
+        "correct": 2,
+        "solution": "This is the Reimer-Tiemann reaction; the intermediate is :CCl2."
+      },
+      {
+        "q": "The number of radial nodes for a 4p orbital is:",
+        "options": ["1", "2", "3", "4"],
+        "correct": 1,
+        "solution": "Nodes = n - l - 1 = 4 - 1 - 1 = 2."
+      },
+      {
+        "q": "Which of the following molecules has the highest dipole moment?",
+        "options": ["NF3", "NH3", "BF3", "CCl4"],
+        "correct": 1,
+        "solution": "In NH3, lone pair and N-H bond dipoles are in the same direction; in NF3, they oppose."
+      },
+      {
+        "q": "The IUPAC name of the complex [Co(NH3)4(H2O)Cl]Cl2 is:",
+        "options": [
+          "Tetraammineaquachlorocobalt(III) chloride",
+          "Tetraammineaquachlorocobalt(II) chloride",
+          "Chloroaquatetraamminecobalt(III) chloride",
+          "None"
+        ],
+        "correct": 0,
+        "solution": "Ligands in alphabetical order, Oxidation state is +3."
+      },
+      {
+        "q": "Which property decreases down the group 17 elements?",
+        "options": [
+          "Atomic radius",
+          "Electronegativity",
+          "Boiling point",
+          "Ionic radius"
+        ],
+        "correct": 1,
+        "solution": "Electronegativity decreases as size increases down the group."
+      },
+      {
+        "q": "The major product of dehydration of 3,3-dimethylbutan-2-ol is:",
+        "options": [
+          "3,3-dimethylbut-1-ene",
+          "2,3-dimethylbut-2-ene",
+          "2,3-dimethylbut-1-ene",
+          "None"
+        ],
+        "correct": 1,
+        "solution": "Involves a 1,2-methyl shift to form a more stable carbocation, leading to Saytzeff product."
+      },
+      {
+        "q": "The unit of rate constant for a second-order reaction is:",
+        "options": ["s^-1", "mol L^-1 s^-1", "L mol^-1 s^-1", "L^2 mol^-2 s^-1"],
+        "correct": 2,
+        "solution": "Rate = k[A]² => k = (mol L^-1 s^-1) / (mol L^-1)² = L mol^-1 s^-1."
+      },
+      {
+        "q": "Which of the following is an intensive property?",
+        "options": ["Enthalpy", "Volume", "Temperature", "Mass"],
+        "correct": 2,
+        "solution": "Temperature does not depend on the amount of matter."
+      },
+      {
+        "q": "The hybridization of Xe in XeF4 is:",
+        "options": ["sp3", "sp3d", "sp3d2", "dsp2"],
+        "correct": 2,
+        "solution": "Xe has 8 valence electrons, 4 bonds + 2 lone pairs = steric number 6 (sp3d2)."
+      },
+      {
+        "q": "In a face-centered cubic lattice, an atom at the face center is shared by:",
+        "options": ["4 unit cells", "2 unit cells", "1 unit cell", "6 unit cells"],
+        "correct": 1,
+        "solution": "Face center atoms are shared by 2 adjacent unit cells."
+      },
+      {
+        "q": "Which of the following is the strongest base in aqueous solution?",
+        "options": ["(CH3)2NH", "CH3NH2", "(CH3)3N", "NH3"],
+        "correct": 0,
+        "solution": "Secondary amines are more basic than primary and tertiary in aqueous solution due to solvation and inductive effects."
+      },
+      {
+        "q": "The product of the reaction between benzaldehyde and acetophenone in presence of dilute NaOH is:",
+        "options": ["Benzyl alcohol", "Chalcone", "Benzoin", "Acetanilide"],
+        "correct": 1,
+        "solution": "Cross-aldol condensation followed by dehydration gives chalcone."
+      },
+      {
+        "q": "For the reaction 2A + B -> Products, doubling [A] quadruples the rate, and doubling [B] doubles the rate. Order is:",
+        "options": ["2", "3", "4", "1"],
+        "correct": 1,
+        "solution": "Rate ∝ [A]² [B]^1. Total order = 2 + 1 = 3."
+      },
+      {
+        "q": "The solubility of AgCl is lowest in:",
+        "options": ["Pure water", "0.1 M AgNO3", "0.1 M NaCl", "0.1 M NH3"],
+        "correct": 1,
+        "solution": "Common ion effect reduces solubility (Ag+ in AgNO3)."
+      },
+      {
+        "q": "Which ligand can show linkage isomerism?",
+        "options": ["NH3", "H2O", "SCN-", "Cl-"],
+        "correct": 2,
+        "solution": "Ambidentate ligands like SCN- (S-bonded or N-bonded) show linkage isomerism."
+      },
+      {
+        "q": "The metal extracted by self-reduction process is:",
+        "options": ["Fe", "Cu", "Al", "Zn"],
+        "correct": 1,
+        "solution": "Copper is extracted from its sulfide ore via self-reduction."
+      },
+      {
+        "q": "Which amino acid is not optically active?",
+        "options": ["Alanine", "Glycine", "Valine", "Leucine"],
+        "correct": 1,
+        "solution": "Glycine's alpha-carbon is attached to two hydrogen atoms (not chiral)."
+      },
+      {
+        "q": "The oxidation state of Fe in [Fe(H2O)5(NO)]SO4 is:",
+        "options": ["+1", "+2", "+3", "0"],
+        "correct": 0,
+        "solution": "The Brown Ring complex contains Fe(+1) and NO+."
+      },
+      {
+        "q": "The catalyst used in the hydrogenation of oils is:",
+        "options": ["V2O5", "Ni", "Fe", "Pt"],
+        "correct": 1,
+        "solution": "Finely divided Nickel is used for vegetable oil hydrogenation."
+      }
+    ],
+    "Mathematics": [
+      {
+        "q": "The value of integral 0 to π/2 of dx / (1 + tan^3 x) is:",
+        "options": ["π/2", "π/4", "π", "0"],
+        "correct": 1,
+        "solution": "Using property ∫f(x) = ∫f(a-x), 2I = ∫1 dx = π/2 => I = π/4."
+      },
+      {
+        "q": "If α, β are roots of x² - x + 1 = 0, then α^2024 + β^2024 is:",
+        "options": ["1", "-1", "2", "0"],
+        "correct": 1,
+        "solution": "Roots are -ω and -ω². α^2024 = (-ω)^2024 = ω^2 = β. Sum = ω² + ω = -1."
+      },
+      {
+        "q": "The area bounded by y² = 4x and x² = 4y is:",
+        "options": ["16/3", "64/3", "8/3", "4/3"],
+        "correct": 0,
+        "solution": "Area = (16 * a * b) / 3 = (4 * 4) / 3 = 16/3."
+      },
+      {
+        "q": "The shortest distance between lines (x-1)/2 = (y-2)/3 = (z-3)/4 and (x-2)/3 = (y-4)/4 = (z-5)/5 is:",
+        "options": ["1/6", "1/√6", "1/√3", "0"],
+        "correct": 1,
+        "solution": "Using S.D. formula for skew lines. det(a2-a1, v1, v2) / |v1xv2|."
+      },
+      {
+        "q": "If f(x) = |x-1| + |x-2|, then f'(1.5) is:",
+        "options": ["0", "1", "2", "-1"],
+        "correct": 0,
+        "solution": "For 1 < x < 2, f(x) = (x-1) - (x-2) = 1. Constant derivative is 0."
+      },
+      {
+        "q": "Number of onto functions from {1, 2, 3, 4} to {a, b, c} is:",
+        "options": ["81", "36", "24", "64"],
+        "correct": 1,
+        "solution": "Formula: 3^4 - 3C1(2^4) + 3C2(1^4) = 81 - 48 + 3 = 36."
+      },
+      {
+        "q": "If |A| = 3 for a 3x3 matrix, then |adj(2A)| is:",
+        "options": ["144", "576", "2304", "4608"],
+        "correct": 2,
+        "solution": "|adj(2A)| = |2A|² = (2³|A|)² = (8 * 3)² = 24² = 576? Wait, |adj(kA)| = (k^(n-1))^(n-1)? No. |adj(2A)| = |2A|^(n-1) = (2³ * 3)² = 576."
+      },
+      {
+        "q": "The eccentricity of the hyperbola x² - 4y² = 4 is:",
+        "options": ["√5/2", "√3/2", "√5", "2"],
+        "correct": 0,
+        "solution": "x²/4 - y²/1 = 1. e = sqrt(1 + b²/a²) = sqrt(1 + 1/4) = sqrt(5)/2."
+      },
+      {
+        "q": "The limit of (sin x / x)^(1/x²) as x -> 0 is:",
+        "options": ["1", "e", "e^(-1/6)", "e^(-1/3)"],
+        "correct": 2,
+        "solution": "Standard result using L'Hopital on ln(L). Limit = exp(-1/6)."
+      },
+      {
+        "q": "Probability of getting a sum of 9 in two throws of a die is:",
+        "options": ["1/9", "1/12", "1/6", "1/4"],
+        "correct": 0,
+        "solution": "Pairs: (3,6), (4,5), (5,4), (6,3). Total = 4. Prob = 4/36 = 1/9."
+      },
+      {
+        "q": "The general solution of dy/dx + y/x = x² is:",
+        "options": ["xy = x³/3 + c", "xy = x⁴/4 + c", "y/x = x²/2 + c", "None"],
+        "correct": 1,
+        "solution": "I.F. = exp(∫1/x dx) = x. Solution: y*x = ∫x*x² dx = x⁴/4 + c."
+      },
+      {
+        "q": "The sum of the series 1 + 1/2 + 1/4 + ... to infinity is:",
+        "options": ["2", "1.5", "3", "4"],
+        "correct": 0,
+        "solution": "S = a / (1-r) = 1 / (1 - 0.5) = 2."
+      },
+      {
+        "q": "The value of tan(2 tan^-1(1/3)) is:",
+        "options": ["3/4", "4/3", "1", "1/2"],
+        "correct": 0,
+        "solution": "tan(2θ) = 2(1/3) / (1 - 1/9) = (2/3) / (8/9) = 3/4."
+      },
+      {
+        "q": "If vectors a + b + c = 0 and |a|=3, |b|=5, |c|=7, the angle between a and b is:",
+        "options": ["60°", "30°", "120°", "90°"],
+        "correct": 0,
+        "solution": "c² = a² + b² + 2ab cosθ => 49 = 9 + 25 + 30 cosθ => 15 = 30 cosθ => θ = 60°."
+      },
+      {
+        "q": "The derivative of log(sec x + tan x) is:",
+        "options": ["sec x", "tan x", "sec² x", "1"],
+        "correct": 0,
+        "solution": "d/dx = [sec x tan x + sec² x] / [sec x + tan x] = sec x."
+      },
+      {
+        "q": "The number of ways to arrange the letters of 'BANANA' is:",
+        "options": ["720", "120", "60", "20"],
+        "correct": 2,
+        "solution": "6! / (3! 2!) = 720 / (6 * 2) = 60."
+      },
+      {
+        "q": "The distance between the planes 2x + 3y + 4z = 4 and 4x + 6y + 8z = 12 is:",
+        "options": ["2/√29", "4/√29", "1/√29", "8/√29"],
+        "correct": 0,
+        "solution": "Rewrite second as 2x + 3y + 4z = 6. d = |6-4| / sqrt(2²+3²+4²) = 2/√29."
+      },
+      {
+        "q": "The coefficient of x⁷ in (1+x)¹⁰ is:",
+        "options": ["120", "210", "45", "1"],
+        "correct": 0,
+        "solution": "10C7 = 10C3 = (10*9*8)/(3*2*1) = 120."
+      },
+      {
+        "q": "If x = sin t, y = cos 2t, then dy/dx is:",
+        "options": ["-4x", "-2x", "4x", "2x"],
+        "correct": 0,
+        "solution": "y = 1 - 2sin²t = 1 - 2x². dy/dx = -4x."
+      },
+      {
+        "q": "The slope of the tangent to y = x³ - x at x = 2 is:",
+        "options": ["11", "12", "10", "9"],
+        "correct": 1,
+        "solution": "dy/dx = 3x² - 1. At x=2, 3(4) - 1 = 11? Wait, 12-1=11. Option A."
+      },
+      {
+        "q": "Integral of sec²x / tan x dx is:",
+        "options": ["log |tan x|", "tan² x", "sec x", "None"],
+        "correct": 0,
+        "solution": "Put u = tan x, du = sec²x dx. ∫1/u du = log |u|."
+      },
+      {
+        "q": "The order of the differential equation of all circles of radius 1 is:",
+        "options": ["1", "2", "3", "0"],
+        "correct": 1,
+        "solution": "(x-h)² + (y-k)² = 1. Two arbitrary constants (h, k), so order 2."
+      },
+      {
+        "q": "The maximum value of sin x + cos x is:",
+        "options": ["1", "2", "√2", "0"],
+        "correct": 2,
+        "solution": "sqrt(1² + 1²) = √2."
+      },
+      {
+        "q": "If a line makes angles α, β, γ with axes, then cos²α + cos²β + cos²γ is:",
+        "options": ["1", "2", "0", "-1"],
+        "correct": 0,
+        "solution": "Direction cosines property."
+      },
+      {
+        "q": "The value of 10C0 + 10C1 + ... + 10C10 is:",
+        "options": ["1024", "512", "2048", "100"],
+        "correct": 0,
+        "solution": "2^10 = 1024."
+      },
+      {
+        "q": "The argument of the complex number 1+i is:",
+        "options": ["π/4", "π/2", "π/3", "0"],
+        "correct": 0,
+        "solution": "tan^-1(1/1) = 45°."
+      },
+      {
+        "q": "The sum of the first n odd numbers is:",
+        "options": ["n", "n²", "2n-1", "n(n+1)/2"],
+        "correct": 1,
+        "solution": "1+3+5... = n²."
+      },
+      {
+        "q": "The focus of the parabola y² = 12x is:",
+        "options": ["(3,0)", "(0,3)", "(-3,0)", "(6,0)"],
+        "correct": 0,
+        "solution": "4a = 12 => a = 3. Focus is (a,0)."
+      },
+      {
+        "q": "The value of sin 15° is:",
+        "options": ["(√3-1)/2√2", "(√3+1)/2√2", "1/2", "√3/2"],
+        "correct": 0,
+        "solution": "sin(45-30) = sin45cos30 - cos45sin30."
+      },
+      {
+        "q": "If f(x) = x², then f(f(x)) is:",
+        "options": ["x²", "x⁴", "2x²", "x"],
+        "correct": 1,
+        "solution": "(x²)² = x⁴."
+      },
+      {
+        "q": "The domain of log(x-1) is:",
+        "options": ["x > 0", "x > 1", "x < 1", "All R"],
+        "correct": 1,
+        "solution": "x-1 must be positive."
+      },
+      {
+        "q": "The mean of first 5 natural numbers is:",
+        "options": ["2", "3", "4", "5"],
+        "correct": 1,
+        "solution": "(1+2+3+4+5)/5 = 3."
+      },
+      {
+        "q": "The value of i^4 is:",
+        "options": ["1", "-1", "i", "-i"],
+        "correct": 0,
+        "solution": "(i²)² = (-1)² = 1."
+      },
+      {
+        "q": "The period of sin 2x is:",
+        "options": ["2π", "π", "π/2", "4π"],
+        "correct": 1,
+        "solution": "2π / 2 = π."
+      },
+      {
+        "q": "The coordinates of the centroid of a triangle with vertices (0,0), (3,0), (0,6) are:",
+        "options": ["(1,2)", "(2,1)", "(1,3)", "(3,1)"],
+        "correct": 0,
+        "solution": "((0+3+0)/3, (0+0+6)/3) = (1,2)."
+      },
+      {
+        "q": "If A and B are independent events, P(A∩B) is:",
+        "options": ["P(A)+P(B)", "P(A)P(B)", "P(A)/P(B)", "0"],
+        "correct": 1,
+        "solution": "Definition of independence."
+      },
+      {
+        "q": "The value of cos 0° is:",
+        "options": ["0", "1", "-1", "1/2"],
+        "correct": 1,
+        "solution": "Basic trig."
+      },
+      {
+        "q": "The inverse of the matrix [[1,0],[0,1]] is:",
+        "options": ["[[1,0],[0,1]]", "[[0,1],[1,0]]", "[[1,1],[1,1]]", "None"],
+        "correct": 0,
+        "solution": "Identity matrix is its own inverse."
+      },
+      {
+        "q": "The distance of point (1,2) from origin is:",
+        "options": ["3", "√5", "5", "√3"],
+        "correct": 1,
+        "solution": "sqrt(1²+2²) = √5."
+      },
+      {
+        "q": "The value of e^0 is:",
+        "options": ["0", "1", "e", "inf"],
+        "correct": 1,
+        "solution": "Any non-zero number to power 0 is 1."
+      }
+    ],
+    "Aptitude": [
+      {
+        "q": "If 'WATER' is coded as 'XBUFS', how is 'BLOOD' coded?",
+        "options": ["CMPPE", "CNPPE", "CMOPE", "CMPPF"],
+        "correct": 0,
+        "solution": "Each letter is shifted by +1."
+      },
+      {
+        "q": "Find the missing number: 2, 6, 12, 20, 30, ?",
+        "options": ["40", "42", "44", "46"],
+        "correct": 1,
+        "solution": "Differences are 4, 6, 8, 10, 12. 30 + 12 = 42."
+      },
+      {
+        "q": "Pointing to a man, a woman said, 'His mother is the only daughter of my mother.' How is the woman related to the man?",
+        "options": ["Mother", "Sister", "Aunt", "Grandmother"],
+        "correct": 0,
+        "solution": "Only daughter of woman's mother is the woman herself. So, she is his mother."
+      },
+      {
+        "q": "A clock shows 4:30. If the minute hand points East, in which direction does the hour hand point?",
+        "options": ["North", "North-East", "South-East", "North-West"],
+        "correct": 1,
+        "solution": "At 4:30, minute hand is at 6. If 6 is East, then 3 is North. 4:30 hour hand is between 4 and 5, which is North-East."
+      },
+      {
+        "q": "If 5 students can write 5 pages in 5 minutes, how many minutes will it take 100 students to write 100 pages?",
+        "options": ["100", "5", "1", "20"],
+        "correct": 1,
+        "solution": "M1D1/W1 = M2D2/W2. (5*5)/5 = (100*t)/100 => t = 5."
+      },
+      {
+        "q": "Which number is the odd one out: 27, 64, 125, 144?",
+        "options": ["27", "64", "125", "144"],
+        "correct": 3,
+        "solution": "27, 64, 125 are cubes. 144 is a square (12²)."
+      },
+      {
+        "q": "In a row of 40 students, A is 13th from the left. What is his rank from the right?",
+        "options": ["27", "28", "26", "29"],
+        "correct": 1,
+        "solution": "Total = L + R - 1 => 40 = 13 + R - 1 => R = 28."
+      },
+      {
+        "q": "Find the average of first 10 prime numbers.",
+        "options": ["12.9", "15.5", "10.1", "13.2"],
+        "correct": 0,
+        "solution": "(2+3+5+7+11+13+17+19+23+29)/10 = 129/10 = 12.9."
+      },
+      {
+        "q": "If 'A + B' means A is the brother of B, 'A - B' means A is the sister of B, what does 'P + Q - R' mean?",
+        "options": ["P is brother of R", "P is sister of R", "P is uncle of R", "None"],
+        "correct": 0,
+        "solution": "P is brother of Q, Q is sister of R. So P is brother of R."
+      },
+      {
+        "q": "How many squares are there in a 3x3 grid?",
+        "options": ["9", "10", "13", "14"],
+        "correct": 3,
+        "solution": "3² + 2² + 1² = 9 + 4 + 1 = 14."
+      }
+    ],
+    "English": [
+      {
+        "q": "Choose the correct synonym for 'ABSTAIN':",
+        "options": ["Refrain", "Indulge", "Accept", "Begin"],
+        "correct": 0,
+        "solution": "To abstain is to restrain oneself from doing something."
+      },
+      {
+        "q": "Identify the correctly punctuated sentence:",
+        "options": [
+          "Wait for me she cried.",
+          "Wait for me, she cried!",
+          "Wait for me she cried!",
+          "Wait, for me she cried."
+        ],
+        "correct": 1,
+        "solution": "Requires a comma before the tag and proper end punctuation."
+      },
+      {
+        "q": "Fill in the blank: He is blind _______ his own faults.",
+        "options": ["to", "with", "of", "for"],
+        "correct": 0,
+        "solution": "The idiom is 'blind to something'."
+      },
+      {
+        "q": "Choose the word with the correct spelling:",
+        "options": ["Occurrence", "Occurence", "Ocurrence", "Occurrance"],
+        "correct": 0,
+        "solution": "Double 'c' and double 'r'."
+      },
+      {
+        "q": "Meaning of the idiom 'To cry wolf':",
+        "options": [
+          "To give a false alarm",
+          "To cry loudly",
+          "To be very brave",
+          "To lose one's way"
+        ],
+        "correct": 0,
+        "solution": "Based on the fable of the boy who lied about a wolf."
+      }
+    ]
+  }
+}
