@@ -2,7 +2,7 @@
   "exam": "AEEE (Amrita Engineering Entrance Examination)",
   "duration": 150,
   "marking": {
-    "correct": 4,
+    "correct": 3,
     "wrong": -1
   },
   "sections": {
