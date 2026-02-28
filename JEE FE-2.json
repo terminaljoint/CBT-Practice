@@ -1,0 +1,174 @@
+{
+  "exam": "JEE Mains Full Syllabus Practice Set",
+  "duration": 180,
+  "marking": {
+    "correct": 4,
+    "wrong": -1
+  },
+  "sections": {
+    "Physics": [
+      {
+        "q": "A small block of mass $m$ is released from rest at the top of a frictionless semi-circular track of radius $R$. What is the normal force exerted by the track on the block when it reaches the bottom-most point? <br> <svg width='200' height='120' viewBox='0 0 200 120' xmlns='http://www.w3.org/2000/svg'><path d='M 20 20 A 80 80 0 0 0 180 20' stroke='black' fill='none' stroke-width='2'/><line x1='20' y1='20' x2='180' y2='20' stroke='black' stroke-dasharray='5,5'/><circle cx='25' cy='15' r='5' fill='blue'/><text x='15' y='10' font-size='12'>m</text><text x='100' y='15' font-size='12'>R</text></svg>",
+        "options": [
+          "mg",
+          "2mg",
+          "3mg",
+          "5mg"
+        ],
+        "correct": 2,
+        "solution": "By conservation of energy: $mgR = \\frac{1}{2}mv^2 \\Rightarrow v^2 = 2gR$. At the bottom, $N - mg = \\frac{mv^2}{R}$. Substituting $v^2$: $N = mg + \\frac{m(2gR)}{R} = 3mg$."
+      },
+      {
+        "q": "In the circuit shown below, the reading of the ideal ammeter is: <br> <svg width='200' height='150' viewBox='0 0 200 150' xmlns='http://www.w3.org/2000/svg'><rect x='40' y='20' width='120' height='80' fill='none' stroke='black' stroke-width='2'/><line x1='100' y1='20' x2='100' y2='100' stroke='black' stroke-width='2'/><circle cx='100' cy='60' r='12' fill='white' stroke='black'/><text x='95' y='65' font-size='12'>A</text><rect x='60' y='15' width='20' height='10' fill='gray'/><rect x='120' y='15' width='20' height='10' fill='gray'/><text x='60' y='12' font-size='10'>2Ω</text><text x='120' y='12' font-size='10'>2Ω</text><line x1='100' y1='100' x2='100' y2='130' stroke='black'/><line x1='80' y1='130' x2='120' y2='130' stroke='black' stroke-width='3'/><line x1='90' y1='135' x2='110' y2='135' stroke='black'/><text x='130' y='130' font-size='10'>10V</text></svg>",
+        "options": [
+          "2.5 A",
+          "5 A",
+          "0 A",
+          "10 A"
+        ],
+        "correct": 1,
+        "solution": "The circuit consists of two $2\\Omega$ resistors in parallel connected to a $10V$ source. Total resistance $R_{eq} = 1\\Omega$ (since ammeter is ideal, its resistance is 0). Total current $I = V/R = 10/1 = 10A$. However, if the ammeter is in a specific branch, we calculate accordingly. Assuming ammeter is in the main line: 10A. If the diagram implies a balanced bridge, the answer might change."
+      },
+      {
+        "q": "The work function of a metal surface is $2.4 \\text{ eV}$. If light of wavelength $3000 \\text{ \\AA}$ falls on it, the maximum kinetic energy of the ejected photoelectrons is closest to: ($hc = 12400 \\text{ eV \\AA}$)",
+        "options": [
+          "1.73 eV",
+          "2.12 eV",
+          "4.13 eV",
+          "1.20 eV"
+        ],
+        "correct": 0,
+        "solution": "$E = \\frac{12400}{3000} = 4.133 \\text{ eV}$. $K_{max} = E - \\phi = 4.133 - 2.4 = 1.733 \\text{ eV}$."
+      },
+      {
+        "q": "A car moves along a straight line with speed $v_1$ for half the time and with speed $v_2$ for the remaining half time. The average speed of the car is:",
+        "options": [
+          "$\\frac{v_1 + v_2}{2}$",
+          "$\\frac{2v_1v_2}{v_1 + v_2}$",
+          "$\\sqrt{v_1v_2}$",
+          "$\\frac{v_1v_2}{v_1 + v_2}$"
+        ],
+        "correct": 0,
+        "solution": "$v_{avg} = \\frac{\\text{Total Distance}}{\\text{Total Time}} = \\frac{v_1(T/2) + v_2(T/2)}{T} = \\frac{v_1 + v_2}{2}$."
+      },
+      {
+        "q": "Two long parallel wires carry currents $I$ and $2I$ in the same direction. The magnetic field at the midpoint between them is $B$. If the current $2I$ is switched off, the magnetic field at the midpoint becomes:",
+        "options": [
+          "B",
+          "2B",
+          "B/2",
+          "3B"
+        ],
+        "correct": 0,
+        "solution": "Initial $B_{net} = \\frac{\\mu_0 (2I)}{2\\pi r} - \\frac{\\mu_0 I}{2\\pi r} = \\frac{\\mu_0 I}{2\\pi r}$. If $2I$ wire is off, $B_{new} = \\frac{\\mu_0 I}{2\\pi r}$. Thus $B_{new} = B$."
+      },
+      {
+        "q": "A simple pendulum has a time period $T_1$ on the surface of earth and $T_2$ when taken to a height $R$ (radius of earth) above the surface. The ratio $T_2/T_1$ is:",
+        "answer": 2,
+        "solution": "$g' = g \\frac{R^2}{(R+R)^2} = g/4$. $T = 2\\pi\\sqrt{l/g}$, so $T \\propto 1/\\sqrt{g}$. $T_2/T_1 = \\sqrt{g/g'} = \\sqrt{4} = 2$."
+      }
+    ],
+    "Chemistry": [
+      {
+        "q": "Which of the following molecules has the highest dipole moment?",
+        "options": [
+          "$NF_3$",
+          "$NH_3$",
+          "$BF_3$",
+          "$CCl_4$"
+        ],
+        "correct": 1,
+        "solution": "In $NH_3$, the lone pair and $N-H$ bond moments are in the same direction, whereas in $NF_3$, they are in opposite directions. $BF_3$ and $CCl_4$ are symmetrical ($\mu=0$)."
+      },
+      {
+        "q": "The major product of the following reaction is: <br> $\\text{Propyne} \\xrightarrow{\\text{HgSO}_4, \\text{H}_2\\text{SO}_4} \\text{?}$",
+        "options": [
+          "Propan-1-ol",
+          "Propan-2-ol",
+          "Propanone",
+          "Propanal"
+        ],
+        "correct": 2,
+        "solution": "Hydration of propyne via Kucherov reaction follows Markovnikov addition to form an enol, which tautomerizes to Acetone (Propanone)."
+      },
+      {
+        "q": "Which of the following aqueous solutions will have the highest boiling point?",
+        "options": [
+          "0.1 M $KNO_3$",
+          "0.1 M $Na_3PO_4$",
+          "0.1 M $BaCl_2$",
+          "0.1 M $Glucose$"
+        ],
+        "correct": 1,
+        "solution": "Boiling point elevation $\\Delta T_b = i K_b m$. $i$ for $Na_3PO_4$ is 4, which is the highest among the options."
+      },
+      {
+        "q": "The order of stability of the following carbocations is: <br> (I) $CH_3CH_2^+$ (II) $(CH_3)_2CH^+$ (III) $(CH_3)_3C^+$ (IV) $C_6H_5CH_2^+$",
+        "options": [
+          "III > IV > II > I",
+          "IV > III > II > I",
+          "III > II > IV > I",
+          "I > II > III > IV"
+        ],
+        "correct": 0,
+        "solution": "Tertiary butyl (III) is generally more stable than benzyl (IV) due to 9 alpha-hydrogens (hyperconjugation) vs resonance, though they are close. In standard JEE contexts, $3^\\circ > \\text{Benzyl} > 2^\\circ > 1^\\circ$."
+      },
+      {
+        "q": "The spin-only magnetic moment of $[Fe(H_2O)_6]^{2+}$ is (in BM):",
+        "answer": 4.9,
+        "solution": "$Fe^{2+}$ is $d^6$. $H_2O$ is a weak field ligand, so $t_{2g}^4 e_g^2$. Number of unpaired electrons ($n$) = 4. $\\mu = \\sqrt{4(4+2)} = \\sqrt{24} \\approx 4.9 \\text{ BM}$."
+      }
+    ],
+    "Mathematics": [
+      {
+        "q": "The value of $\\lim_{x \\to 0} \\frac{1 - \\cos(2x)}{x^2}$ is:",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "1/2"
+        ],
+        "correct": 1,
+        "solution": "Using $1 - \\cos(2x) = 2\\sin^2x$, the limit becomes $\\lim_{x \\to 0} \\frac{2\\sin^2x}{x^2} = 2(1)^2 = 2$."
+      },
+      {
+        "q": "The area bounded by the curve $y^2 = 4x$ and the line $y = 2x$ is: <br> <svg width='150' height='150' viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'><path d='M 10 75 Q 75 10 140 75' stroke='blue' fill='none'/><line x1='10' y1='75' x2='140' y2='75' stroke='black'/><line x1='10' y1='140' x2='140' y2='10' stroke='red'/></svg>",
+        "options": [
+          "1/3",
+          "2/3",
+          "1/6",
+          "1/2"
+        ],
+        "correct": 0,
+        "solution": "Intersection: $(2x)^2 = 4x \\Rightarrow 4x^2 = 4x \\Rightarrow x=0, 1$. Area = $\\int_0^1 (2\\sqrt{x} - 2x) dx = [\\frac{4}{3}x^{3/2} - x^2]_0^1 = 4/3 - 1 = 1/3$."
+      },
+      {
+        "q": "If $\\vec{a}$ and $\\vec{b}$ are unit vectors such that $|\\vec{a} + \\vec{b}| = \\sqrt{3}$, then the angle between $\\vec{a}$ and $\\vec{b}$ is:",
+        "options": [
+          "$\pi/6$",
+          "$\pi/3$",
+          "$\pi/2$",
+          "$2\pi/3$"
+        ],
+        "correct": 1,
+        "solution": "$|a+b|^2 = |a|^2 + |b|^2 + 2|a||b|\\cos\\theta \\Rightarrow 3 = 1 + 1 + 2\\cos\\theta \\Rightarrow 2\\cos\\theta = 1 \\Rightarrow \\theta = 60^\\circ$ or $\\pi/3$."
+      },
+      {
+        "q": "The number of real roots of the equation $e^x + x - 2 = 0$ is:",
+        "options": [
+          "0",
+          "1",
+          "2",
+          "Infinite"
+        ],
+        "correct": 1,
+        "solution": "Let $f(x) = e^x + x - 2$. $f'(x) = e^x + 1 > 0$ for all $x$. Since the function is strictly increasing, it can have at most one root. $f(0) = -1$ and $f(1) = e-1 > 0$, so exactly one root exists."
+      },
+      {
+        "q": "If the sum of the first $n$ terms of an AP is $3n^2 + n$, then its $10^{th}$ term is:",
+        "answer": 58,
+        "solution": "$S_n = 3n^2 + n$. $T_{10} = S_{10} - S_9 = [3(100) + 10] - [3(81) + 9] = 310 - 252 = 58$."
+      }
+    ]
+  }
+}
